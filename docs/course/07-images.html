@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lab 07 — Process an image · RV Lab</title>
+<style>
+:root{color-scheme:light;--ink:#203046;--muted:#59687a;--line:#dbe3eb;--blue:#17659a;--paper:#fff;--background:#f5f7fa;--accent:#e8f2fa;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--background);color:var(--ink);line-height:1.7}a{color:var(--blue);text-underline-offset:.18em}a:hover{color:#0b466f}a:focus-visible,button:focus-visible{outline:3px solid #d78917;outline-offset:3px}button{font:inherit}.skip{position:absolute;left:1rem;top:-5rem}.skip:focus{top:.5rem;background:white;padding:.5rem;z-index:3}.topbar{padding:1rem clamp(1rem,4vw,3rem);background:#17354b;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}.brand{color:white;text-decoration:none;font-size:1.1rem;font-weight:750;letter-spacing:.03em}.brand:hover{color:#d9eefc}.tagline{color:#cadce8;font-size:.88rem}.tools{display:flex;gap:1.2rem;flex-wrap:wrap}.tools a{color:#dfedf7;font-size:.9rem}.layout{max-width:1500px;margin:auto;display:grid;grid-template-columns:275px minmax(0,1fr);gap:2.3rem;padding:2rem}.sidebar{align-self:start;position:sticky;top:1.3rem;max-height:calc(100vh - 2.6rem);overflow:auto}.sidebar h2{font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 .6rem .65rem}.lesson-nav{display:grid;gap:.3rem}.lesson-nav a{padding:.6rem .7rem;border-radius:.45rem;color:#40536b;font-size:.9rem;text-decoration:none;line-height:1.45}.lesson-nav a:hover{background:#e8edf3}.lesson-nav a[aria-current=page]{background:var(--accent);color:#105783;box-shadow:inset 3px 0 #2382ba;font-weight:650}.section-nav{display:grid;gap:.25rem;margin-top:1.8rem;border-top:1px solid var(--line);padding-top:1rem}.section-nav:empty{display:none}.section-nav a{font-size:.81rem;text-decoration:none;color:var(--muted);line-height:1.5;padding:.2rem .65rem}.section-nav a.level-3{padding-left:1.4rem}.content{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:.8rem;padding:clamp(1.2rem,3.5vw,3.4rem);box-shadow:0 4px 15px #17354b04}article{max-width:940px;margin:auto}h1,h2,h3,h4{line-height:1.25;scroll-margin-top:1.2rem}h1{font-size:clamp(1.7rem,3.3vw,2.65rem);letter-spacing:-.035em;margin:.1rem 0 1.25rem}h2{font-size:1.45rem;margin:2.5rem 0 .9rem;padding-top:.3rem}h3{font-size:1.12rem;margin:1.65rem 0 .65rem}p{margin:.8rem 0 1rem}ul,ol{padding-left:1.5rem}li{padding-left:.15rem;margin:.35rem 0}li p{margin:.3rem 0}li>.code-block{margin:.9rem 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;font-size:.87em;background:#eff3f7;border-radius:.25rem;padding:.13rem .3rem;overflow-wrap:anywhere}pre{margin:0;overflow-x:auto;padding:1rem 1.15rem;font-size:.88rem;line-height:1.6;tab-size:4;max-width:100%}pre code{background:transparent;padding:0;color:#e6eff7;font-size:inherit;overflow-wrap:normal}.code-block{margin:1.1rem 0 1.4rem;border-radius:.55rem;overflow:hidden;background:#142c40;max-width:100%}.code-toolbar{display:flex;justify-content:space-between;align-items:center;padding:.35rem .7rem .35rem 1rem;background:#203c52;color:#c9dce9;font-size:.75rem;min-height:2rem}.copy-code{border:1px solid #607a8e;border-radius:.25rem;background:none;color:#e6eff7;padding:.06rem .55rem;cursor:pointer;font-size:.73rem}.copy-code:hover{background:#31536d}article>pre{background:#142c40;color:#e6eff7;border-radius:.55rem}.table-scroll{overflow-x:auto;margin:1.2rem 0;max-width:100%;border:1px solid var(--line);border-radius:.45rem}table{border-collapse:collapse;min-width:100%;font-size:.9rem}th{text-align:left;background:#edf3f8;font-weight:650}th,td{padding:.65rem .8rem;vertical-align:top;border-bottom:1px solid var(--line);min-width:110px}tr:last-child td{border-bottom:0}blockquote{margin:1.25rem 0;padding:.5rem 1.2rem;border-left:4px solid #73a6c6;background:#f0f6fa;color:#36536b}blockquote p{margin:.5rem 0}img{max-width:100%;height:auto}hr{margin:2rem 0;border:0;border-top:1px solid var(--line)}.unavailable{color:var(--muted)}.unavailable small{font-size:.75em}.pager{display:flex;justify-content:space-between;gap:1rem;border-top:1px solid var(--line);margin-top:3rem;padding-top:1.5rem}.pager a{flex:1;border:1px solid var(--line);border-radius:.45rem;padding:.8rem 1rem;text-decoration:none;font-size:.9rem}.pager a:hover{background:var(--accent)}.pager small{display:block;color:var(--muted);font-size:.75rem}.source-note{margin-top:2rem;font-size:.72rem;color:var(--muted);overflow-wrap:anywhere}.source-note code{font-size:1em}
+@media(max-width:850px){.layout{grid-template-columns:1fr;padding:1rem;gap:1rem}.sidebar{position:static;max-height:none}.lesson-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem}.section-nav{display:none}.sidebar h2{margin-top:.3rem}.content{padding:1.25rem}.tagline{display:none}.pager{flex-wrap:wrap}.pager a{flex-basis:200px}}
+@media(max-width:440px){.layout{padding:.65rem}.lesson-nav a{font-size:.78rem;padding:.45rem .55rem}.content{padding:1rem}.topbar{padding:.85rem 1rem}.tools{gap:.9rem}.tools a{font-size:.8rem}h1{font-size:1.7rem}th,td{padding:.55rem}pre{font-size:.76rem}.table-scroll{font-size:.8rem}}
+@media print{body{background:white}.topbar,.sidebar,.pager,.copy-code{display:none}.layout{display:block;padding:0}.content{border:0;box-shadow:none;padding:0}pre,pre code{white-space:pre-wrap;color:#172e43}.code-block,.code-toolbar{background:#edf2f5;color:#172e43}a{color:inherit}h2,h3{break-after:avoid}.code-block,table{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to lesson</a>
+<header class="topbar"><a class="brand" href="index.html">RV LAB <span class="tagline">/ C → instructions → RTL</span></a><nav class="tools" aria-label="Experiment results"><a href="https://github.com/soc-arch/rv-lab">GitHub</a></nav></header>
+<div class="layout">
+<aside class="sidebar"><h2>Course guide</h2><nav class="lesson-nav" aria-label="Course lessons"><a href="index.html">RV Lab practical exercises</a>
+<a href="01-setup.html">Lab 01 — Setup and baseline</a>
+<a href="02-first-main.html">Lab 02 — Your first main</a>
+<a href="03-debugging.html">Lab 03 — Find a wrong result</a>
+<a href="04-cycle-viewer.html">Lab 04 — Register and inspect your application</a>
+<a href="05-performance.html">Lab 05 — Measure an improvement</a>
+<a href="06-memory.html">Lab 06 — Change memory timing</a>
+<a href="07-images.html" aria-current="page">Lab 07 — Process an image</a>
+<a href="08-project.html">Lab 08 — A reproducible project</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#1-start-with-a-small-generated-frame">1. Start with a small generated frame</a><a class="level-2" href="#2-check-one-grayscale-pixel-by-hand">2. Check one grayscale pixel by hand</a><a class="level-2" href="#3-connect-a-mode-to-its-trace">3. Connect a mode to its trace</a><a class="level-2" href="#4-increase-the-workload-deliberately">4. Increase the workload deliberately</a><a class="level-2" href="#5-optional-visual-applications">5. Optional visual applications</a><a class="level-2" href="#checkpoint">Checkpoint</a></nav></aside>
+<main class="content" id="main"><article><h1 id="lab-07-process-an-image">Lab 07 — Process an image</h1>
+<p><strong>Goal:</strong> Connect visible output pixels to a correct, measured RTL computation. <strong>Prerequisite:</strong> Labs 04–06. <strong>Keep:</strong> Input/output images, one pixel calculation, and a kernel measurement.</p>
+<h2 id="1-start-with-a-small-generated-frame">1. Start with a small generated frame</h2>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>cd ~/rv-lab
+export LAB_BUILD_DIR=&quot;$PWD/build/course&quot;
+make camera WIDTH=7 HEIGHT=5</code></pre></div>
+<p>This runs copy, grayscale, Sobel, and the combined pipeline with the same input. The image is intentionally small enough to make cycle inspection practical. Expect all four modes to pass Spike/RTL result comparison and the independent host pixel reference checks.</p>
+<p>Open <span class="unavailable" title="Run the corresponding experiment to generate this result in the selected build directory">the camera report <small>(not in this portable copy)</small></span>. Select each mode, inspect the visible output, and click a pixel to read its input/output values. The displayed PNGs come from the target&#x27;s dumped output, not from the reference image used for verification.</p>
+<h2 id="2-check-one-grayscale-pixel-by-hand">2. Check one grayscale pixel by hand</h2>
+<p>Choose an input pixel and write down R, G, and B. Calculate:</p>
+<div class="code-block"><div class="code-toolbar"><span>text</span><button type="button" class="copy-code">Copy</button></div><pre><code>gray = (77 * R + 150 * G + 29 * B + 128) &gt;&gt; 8</code></pre></div>
+<p>Compare your result with the grayscale output. Then inspect an interior Sobel pixel and a border pixel. The Sobel output border is black; the interior clamps <code>abs(Gx) + abs(Gy)</code> to 255. The <a href="references/examples/camera/README.html">camera guide</a> gives the kernel and memory layout.</p>
+<h2 id="3-connect-a-mode-to-its-trace">3. Connect a mode to its trace</h2>
+<p>Use that mode&#x27;s cycle-explorer link in the camera report. Each mode has its own actual RTL trace. Locate loads from the input or grayscale array and stores to the output array. Check the report&#x27;s capture-limit notice before treating the visible trace as the complete computation.</p>
+<p>The measured work differs by mode. Sobel prepares grayscale outside its ROI; the combined pipeline measures grayscale and Sobel together. Compare the stated ROI descriptions, not only the titles. Preparation and full-run totals are recorded separately.</p>
+<h2 id="4-increase-the-workload-deliberately">4. Increase the workload deliberately</h2>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make camera WIDTH=16 HEIGHT=12</code></pre></div>
+<p>Record each mode&#x27;s ROI cycles and calculate cycles per output-frame pixel using the stated denominator. Keep the 7×5 and 16×12 values in your notebook before rerunning. The fixed setup and boundary cost can affect small-frame comparisons. The detailed trace can truncate while the whole image still completes and is verified.</p>
+<p>For a P6 PPM image of your own:</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make camera INPUT=/absolute/path/to/your-frame.ppm</code></pre></div>
+<p>Replace that path with a real file. P6 PPM needs only Python&#x27;s standard library; PNG/JPEG input or resizing needs Pillow. Preserve the image/input hash with your results. Accepted dimensions run from 3×3 to 320×240 in this 1 MiB platform.</p>
+<h2 id="5-optional-visual-applications">5. Optional visual applications</h2>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make visual WIDTH=64 HEIGHT=48 FRAME=24</code></pre></div>
+<p>Explore median denoise, cartoon, and the integer ball renderer in <strong>Image processing</strong> in the gallery. The ball example needs at least 64×48. <code>FRAME=24</code> selects a scene state for a single render; it is not CPU cycle 24 or a live video stream. Read the <a href="references/examples/visual_suite/README.html">visual guide</a> before comparing their different workloads.</p>
+<h2 id="checkpoint">Checkpoint</h2>
+<p>Submit one verified image pair, your grayscale calculation, ROI cycles and cycles per pixel, and the trace window you inspected. Explain why kernel cycles alone do not establish real-camera frames per second: capture, DMA, display, off-chip memory, and a validated physical clock are outside this experiment.</p>
+<p>Next: <a href="08-project.html">Lab 08 — A reproducible project</a>.</p><nav class="pager" aria-label="Lesson sequence"><a href="06-memory.html"><small>Previous</small>Lab 06 — Change memory timing</a><a href="08-project.html"><small>Next</small>Lab 08 — A reproducible project</a></nav><p class="source-note">Source: <code>docs/course/07-images.md</code>. This manual also works offline. Measurements appear only after you run the experiments.</p></article></main>
+</div>
+<script>
+document.querySelectorAll('.copy-code').forEach(button=>button.addEventListener('click',async()=>{
+  const code=button.closest('.code-block').querySelector('code');
+  let copied=false;
+  if(navigator.clipboard&&window.isSecureContext){
+    try{await navigator.clipboard.writeText(code.textContent);copied=true;}catch(_){}
+  }
+  if(!copied){
+    const selection=window.getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);
+    try{copied=document.execCommand('copy');}catch(_){}
+    if(copied)selection.removeAllRanges();
+  }
+  button.textContent=copied?'Copied':'Press Ctrl+C';
+  setTimeout(()=>button.textContent='Copy',1800);
+}));
+</script>
+</body>
+</html>

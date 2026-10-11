@@ -1,0 +1,18 @@
+name: Course checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check portable course tools
+        run: |
+          python3 -m unittest discover -s tests -p test_course.py -v
+          python3 -m unittest discover -s tests -p test_environment.py -v
+          python3 -m unittest discover -s tests -p test_verify.py -v
+      - name: Check committed HTML and navigation
+        run: |
+          python3 tools/build_site.py --check
+          python3 tools/check_site.py

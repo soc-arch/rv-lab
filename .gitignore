@@ -1,0 +1,14 @@
+/build/
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+node_modules
+*.fst
+*.vcd
+*.elf
+*.o
+.env
+.DS_Store
+/student/*
+!/student/README.md

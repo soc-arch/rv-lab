@@ -1,0 +1,30 @@
+{
+  "source": "sw/camera_demo/main.c",
+  "source_sha256": "ba63d7bc48da3c4d115a05483fc0e2259e6de03ba4d99bca1bda786f3ecd1e95",
+  "arithmetic_preserved": [
+    "RGB888 byte copy",
+    "(77*R+150*G+29*B+128)>>8 grayscale",
+    "Sobel gradient signs and coefficients",
+    "L1 gradient magnitude, saturation at255",
+    "one-pixel black boundary"
+  ],
+  "adapter_changes": [
+    "linker-allocated 1MiB-lab buffers instead of fixed4MiB addresses",
+    "extern noinline functions for disassembly and trace targeting",
+    "one compile-time-selected operation and oneROI pair perrun",
+    "adjacent byte canaries and host-visible output signature extension",
+    "checksums and runtime checks outside ROI"
+  ],
+  "original_demo_modified": false,
+  "host_helpers": {
+    "source": "sw/camera_demo/run_demo.py",
+    "source_sha256": "c72b64547f2c623f5d05d803f83dd511ae7709952e595cb642e1089e15b4db6b",
+    "snapshot_functions": [
+      "png_bytes",
+      "sample_image",
+      "read_ppm",
+      "reference_images"
+    ],
+    "adaptation": "Local camera_support.py snapshot; no parent-project import required."
+  }
+}

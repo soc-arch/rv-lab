@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Instruction to hardware · CPU lab</title>
+<style>
+:root{color-scheme:light;--ink:#193448;--muted:#617387;--line:#dce5ed;--blue:#397cca;--green:#168a76;--purple:#8163b6;--gold:#b27912;--paper:#fff;--bg:#f3f6f9}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button,select,input[type=text]{border:1px solid #b6c6d4;border-radius:7px;background:white;color:var(--ink);padding:8px 11px}button{cursor:pointer;font-weight:600;white-space:nowrap}button:hover{background:#edf4fa}button:disabled{opacity:.45;cursor:default}button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #63a9ea;outline-offset:3px}button.primary{background:var(--ink);color:white;border-color:var(--ink)}a{color:#245b91}h1,h2,h3,p{margin:0}h1{font-size:30px;letter-spacing:-.7px;line-height:1.2}h2{font-size:18px;letter-spacing:-.15px}h3{font-size:14px}code,.mono{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}small,.muted{color:var(--muted)}.shell{max-width:1460px;margin:auto;padding:30px 32px 50px}.eyebrow{font-size:11px;font-weight:750;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}.header{display:flex;gap:20px;justify-content:space-between;align-items:flex-start}.header p{margin-top:10px;max-width:850px;color:var(--muted)}.badge{display:inline-block;white-space:nowrap;border:1px solid #b4d7cc;background:#ebf7f2;border-radius:20px;padding:6px 11px;font-size:12px;font-weight:650}.meta{margin-top:14px;display:flex;gap:9px;flex-wrap:wrap;color:var(--muted);font-size:12px}.meta span{padding:4px 9px;border-radius:5px;background:#e8eef3}.notice{border-left:3px solid var(--gold);background:#fff8e8;padding:10px 14px;margin-top:16px;font-size:13px}.notice[hidden]{display:none}.toolbar{position:sticky;top:0;z-index:4;background:rgba(243,246,249,.97);backdrop-filter:blur(8px);padding:16px 0 12px}.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.controls .spacer{flex:1}.controls label{font-size:12px;color:var(--muted)}.controls input[type=text]{width:112px;font-family:ui-monospace,monospace}.scrubber{display:flex;align-items:center;gap:14px;margin-top:10px}.scrubber input{flex:1;accent-color:var(--green);min-width:50px}.scrubber output{min-width:145px;font-size:12px;text-align:right}.summary{display:grid;grid-template-columns:170px 1.5fr 1fr 1fr;gap:12px;margin:4px 0 16px}.tile,.panel{background:var(--paper);border:1px solid var(--line);border-radius:12px}.tile{padding:13px 15px;min-width:0}.tile .label{font-size:10px;text-transform:uppercase;letter-spacing:1.3px;color:var(--muted);font-weight:700}.tile .value{font-size:16px;font-weight:650;margin-top:5px;overflow-wrap:anywhere}.tile .value.large{font-size:27px;line-height:1.2}.tile .sub{font-size:12px;color:var(--muted);margin-top:3px}.panel{padding:18px 20px;margin-top:16px;min-width:0}.panel-head{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:10px}.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;color:var(--muted)}.legend span{display:flex;align-items:center;gap:5px}.dot{width:8px;height:8px;border-radius:50%;display:inline-block}.diagram-scroll{overflow:auto}.diagram-scroll svg{display:block;width:100%;min-width:1120px}.explanation{background:#f2f7fa;border-radius:8px;padding:11px 14px;font-size:14px;margin-top:8px}.detail-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}.detail-grid section{border-top:2px solid var(--line);padding-top:10px;min-width:0}.detail-grid h3{margin-bottom:5px}.detail-grid p{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.detail-grid .mono{color:var(--ink);font-size:12px}.timeline-wrap{overflow:auto}.timeline{border-collapse:separate;border-spacing:3px;width:100%;min-width:980px;table-layout:fixed;font-size:10px}.timeline th:first-child{width:230px;text-align:left}.timeline th{font-weight:600;color:var(--muted);height:26px}.timeline tbody th{font-weight:400;color:var(--ink);padding-right:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.timeline td{height:27px;padding:0;text-align:center;border-radius:4px;background:#f4f7fa}.timeline button{display:block;width:100%;height:27px;font-size:10px;padding:0;border:0;border-radius:4px;background:transparent;color:inherit}.timeline td.f{background:#e6f0fe;color:#2164ad}.timeline td.e{background:#e2f2ed;color:#176c5d}.timeline td.m{background:#eee8fa;color:#72509f}.timeline td.w{background:#fff1d7;color:#956712}.timeline td.r{box-shadow:inset 0 -3px #25905c}.timeline .selected{outline:2px solid var(--ink);outline-offset:-1px}.hint{font-size:12px;color:var(--muted);margin-top:8px}.lower-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}.lower-grid .panel{min-width:0}.source{height:390px;overflow:auto;background:#f6f8fa;border-radius:8px;padding:8px 0;tab-size:4;font:12px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}.source .line{white-space:pre;padding:1px 12px;min-height:21px;min-width:max-content;display:block}.source .line.current{background:#dff1e9;border-left:3px solid var(--green);padding-left:9px;font-weight:650}.source .line.prefetch{background:#e5effe;border-left:3px solid var(--blue);padding-left:9px}.source .line.label{color:#245b91;font-weight:600}.source .line.source-code{color:#6f548d}.source .line-no{display:inline-block;width:38px;color:#91a0af;font-weight:400}.data-table{width:100%;border-collapse:collapse;font-size:12px}.data-table th{text-align:left;font-weight:500;color:var(--muted);padding:8px 0}.data-table td{text-align:right;padding:8px 0;font-family:ui-monospace,monospace}.data-table tr+tr{border-top:1px solid #edf1f5}.register-values{color:var(--ink)}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.footer{margin-top:22px;font-size:12px;color:var(--muted);display:flex;gap:18px;justify-content:space-between;flex-wrap:wrap}details{margin-top:12px;font-size:12px;color:var(--muted)}summary{cursor:pointer;color:var(--ink);font-weight:600}details p{margin-top:8px;max-width:950px}#jump-status{font-size:12px;color:#956712;min-height:17px;margin-top:4px}#error{padding:22px;background:#fff1e8;border:1px solid #e7bca4;border-radius:10px;white-space:pre-wrap}
+@media(max-width:950px){.shell{padding:20px 15px}.header{display:block}.header .badge{margin-top:14px}.summary{grid-template-columns:1fr 1fr}.detail-grid{grid-template-columns:1fr 1fr}.lower-grid{grid-template-columns:1fr}.panel{padding:15px}.controls .spacer{display:none}.panel-head{align-items:flex-start;flex-direction:column}.toolbar{position:relative}.diagram-scroll svg{min-width:1120px}h1{font-size:25px}}
+@media(max-width:480px){.summary{grid-template-columns:1fr 1fr;gap:8px}.tile{padding:10px}.tile .value{font-size:13px}.detail-grid{grid-template-columns:1fr}.controls{gap:6px}button,select{font-size:12px;padding:8px}.scrubber output{min-width:125px}.panel{padding:12px}.legend{gap:8px}}
+@media print{.toolbar,.controls,.footer,#jump-status{display:none}.shell{padding:0}.panel,.tile{break-inside:avoid}.diagram-scroll svg{min-width:0}.lower-grid{display:block}.source{height:auto;max-height:400px}.timeline{min-width:0;font-size:8px}.timeline th:first-child{width:160px}.timeline-wrap{overflow:visible}.header .badge{font-size:10px}}
+.ports-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.port{border:1px solid var(--line);border-radius:9px;padding:12px;min-width:0}.port h3{margin-bottom:8px}.bus-lane{border-top:1px solid #edf1f5;padding:8px 0 0;margin-top:8px;font-size:12px}.bus-lane strong{display:block;font-size:12px}.bus-lane p{color:var(--muted);overflow-wrap:anywhere}.bus-lane.accepted strong{color:#168a76}.bus-lane.waiting strong{color:#956712}.bus-lane.failed strong{color:#bd4d45}.port .mono{font-size:11px}.ports-grid[hidden]{display:none}.bus-row th{font-weight:650!important}.timeline td.q{background:#e6f0fe;color:#2164ad}.timeline td.a{background:#e2f2ed;color:#176c5d}.timeline td.err{background:#ffede9;color:#ad413a}.bus-legend{padding-top:8px}@media(max-width:700px){.ports-grid{grid-template-columns:1fr}}
+.hierarchy-grid{display:grid;grid-template-columns:minmax(260px,.75fr) minmax(0,1.7fr);gap:16px;margin-top:14px}.hierarchy-tree{margin:0;padding:12px;background:#f6f8fa;border-radius:7px;font:11px/1.8 ui-monospace,monospace;overflow:auto}.mapping-scroll{overflow:auto}.mapping-table{width:100%;border-collapse:collapse;font-size:11px;text-align:left}.mapping-table th,.mapping-table td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}.mapping-table th{font-weight:650;color:var(--ink)}.mapping-table td{color:var(--muted)}.mapping-table code{font-size:10px;overflow-wrap:anywhere}@media(max-width:900px){.hierarchy-grid{grid-template-columns:1fr}}
+.example-navigation{display:grid;grid-template-columns:minmax(150px,1fr) minmax(200px,1.6fr) auto;gap:12px;align-items:end;padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:white;margin:18px 0 12px}.example-navigation.has-home{grid-template-columns:auto minmax(150px,1fr) minmax(200px,1.6fr) auto}.example-navigation[hidden]{display:none}.example-navigation label{display:block;font-size:11px;font-weight:650;color:var(--muted);min-width:0}.example-navigation select{display:block;width:100%;min-width:0;max-width:100%;margin-top:5px;border:1px solid #b6c6d4;border-radius:6px;background:white;color:var(--ink);padding:8px;font:13px system-ui,sans-serif}.example-navigation a{font-size:13px;font-weight:650;text-decoration:none;padding:8px 11px;border:1px solid #b6c6d4;border-radius:6px;white-space:nowrap;color:var(--ink)}.example-navigation a.primary{background:#193448;border-color:#193448;color:#fff}.example-navigation a:not([href]){opacity:.45;pointer-events:none}.example-navigation a[hidden]{display:none}.example-navigation .navigation-description{grid-column:1/-1;min-height:17px;font-size:12px;color:var(--muted);margin:0}.example-navigation select:focus-visible,.example-navigation a:focus-visible{outline:3px solid #63a9ea;outline-offset:3px}@media(max-width:700px){.example-navigation,.example-navigation.has-home{grid-template-columns:1fr 1fr;padding:12px}.example-navigation label{grid-column:1/-1}.example-navigation .navigation-home{grid-column:1/-1;justify-self:start}.example-navigation .navigation-open{justify-self:start}}
+.timeline-key{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0 16px}.timeline-key>div{padding:10px 12px;border-radius:8px;background:#edf4f9;font-size:12px}.timeline-key b{display:block;color:var(--ink);margin-bottom:5px}.timeline-key span{color:var(--muted)}.image-result[hidden]{display:none}.image-result-strip{display:flex;gap:18px;flex-wrap:wrap}.image-result-strip figure{margin:0;max-width:280px;min-width:0}.image-result-strip img{display:block;max-width:100%;width:auto;height:145px;object-fit:contain;image-rendering:pixelated;background:#eaf0f3;border:1px solid var(--line);border-radius:6px}.image-result-strip figcaption{font-size:12px;font-weight:600;margin-top:5px}.image-result .panel-head{margin-bottom:12px}@media(max-width:700px){.timeline-key{grid-template-columns:1fr}.image-result-strip img{height:110px}}
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="header">
+    <div><div class="eyebrow">CPU lab · cycle explorer</div><h1 id="report-title">Instruction to hardware</h1><p>Follow a real RTL run from the fetched instruction to its architectural result. Fetch overlaps one serialized execution slot.</p><div class="meta" id="metadata"></div></div>
+    <span class="badge" id="run-status">Recorded RTL activity</span>
+  </header>
+  <nav class="example-navigation" id="example-navigation" aria-label="Choose an example" hidden>
+    <a class="navigation-home" id="navigation-home" target="_top" hidden>← Example gallery</a>
+    <label for="navigation-group">1 · Group<select id="navigation-group"></select></label>
+    <label for="navigation-example">2 · Example<select id="navigation-example"></select></label>
+    <a class="navigation-open primary" id="navigation-open" target="_top" aria-disabled="true">Open example →</a>
+    <p class="navigation-description" id="navigation-description" aria-live="polite"></p>
+  </nav>
+  <section class="panel image-result" id="image-result" aria-labelledby="image-result-title" hidden><div class="panel-head"><div><h2 id="image-result-title">Application inputs and results</h2><p class="hint" id="image-result-description"></p></div><span class="hint" id="image-result-size"></span></div><div class="image-result-strip" id="image-result-strip"></div><p class="hint" id="image-result-verification"></p></section>
+  <div class="notice" id="truncation" hidden></div>
+  <div class="notice" id="legacy-trace" hidden></div>
+  <div id="error" hidden></div>
+  <nav class="toolbar" aria-label="Cycle navigation">
+    <div class="controls">
+      <button id="previous" aria-label="Previous cycle">← Previous</button><button id="play" class="primary" aria-label="Play cycles">▶ Play</button><button id="next" aria-label="Next cycle">Next →</button>
+      <label for="speed">Speed</label><select id="speed" aria-label="Playback speed"><option value="1">1 cycle/s</option><option value="4" selected>4 cycles/s</option><option value="12">12 cycles/s</option><option value="30">30 cycles/s</option></select>
+      <button id="retire">Next retirement</button><button id="main">Jump to main</button>
+      <span class="spacer"></span><label for="address">Find PC</label><input id="address" type="text" placeholder="0x80000000" spellcheck="false" aria-label="Instruction PC in hexadecimal"><button id="find">Find next</button>
+    </div>
+    <div class="scrubber"><label class="sr-only" for="cycle-slider">Selected cycle</label><input id="cycle-slider" type="range" min="0" max="0" value="0" step="1"><output id="cycle-output" for="cycle-slider">Cycle 0</output></div><div id="jump-status" role="status" aria-live="polite"></div>
+  </nav>
+  <section class="summary" aria-label="Selected cycle summary">
+    <div class="tile"><div class="label">Cycle</div><div class="value large" id="cycle-number">—</div><div class="sub" id="edge-label">Before the rising edge</div></div>
+    <div class="tile"><div class="label">Executing instruction</div><div class="value mono" id="instruction-name">—</div><div class="sub mono" id="instruction-pc">—</div></div>
+    <div class="tile"><div class="label">Execution state</div><div class="value" id="state-name">—</div><div class="sub" id="state-description">—</div></div>
+    <div class="tile"><div class="label">Retirement at this edge</div><div class="value" id="retirement-name">—</div><div class="sub mono" id="retirement-data">—</div></div>
+  </section>
+  <section class="panel" aria-labelledby="diagram-heading">
+    <div class="panel-head"><h2 id="diagram-heading">A word becomes an instruction, then a result</h2><div class="legend"><span><i class="dot" style="background:var(--blue)"></i>fetch</span><span><i class="dot" style="background:var(--green)"></i>execution</span><span><i class="dot" style="background:var(--purple)"></i>memory</span><span><i class="dot" style="background:var(--gold)"></i>multi-cycle wait</span><span><i class="dot" style="background:#20864a"></i>register write</span><span><svg width="15" height="15" viewBox="0 0 15 15" aria-hidden="true"><path d="M7 15 V8 M1 8 L7 1 L13 8" fill="none" stroke="#465e72" stroke-width="1.5"/></svg>positive-edge state</span></div></div>
+    <p class="hint" id="functional-view-note">Functional view, not RTL module hierarchy. The frontend delivery box already contains a one-entry response buffer plus a combinational fresh-response bypass. Only the buffer has a clock marker.</p>
+    <div class="diagram-scroll"><!-- MICROARCHITECTURE --></div>
+    <div class="explanation" id="explanation" aria-live="polite"></div>
+    <div class="ports-grid" id="ports" hidden><section class="port"><h3>Instruction memory · I port</h3><div class="bus-lane" id="i-request"></div><div class="bus-lane" id="i-response"></div></section><section class="port"><h3>Data memory · D port</h3><div class="bus-lane" id="d-request"></div><div class="bus-lane" id="d-response"></div></section></div>
+    <p class="hint" id="handshake-note">Memory-port responses and frontend instruction admission are separate events.</p>
+    <div class="detail-grid"><section><h3>Fetch</h3><p class="mono" id="fetch-value"></p><p id="fetch-detail"></p></section><section><h3>Decode &amp; operands</h3><p class="mono" id="operand-value"></p><p id="operand-detail"></p></section><section><h3>Memory access</h3><p class="mono" id="memory-value"></p><p id="memory-detail"></p></section><section><h3>Writeback</h3><p class="mono" id="writeback-value"></p><p id="writeback-detail"></p></section></div>
+    <details id="pc-explanation"><summary>PC state, request address, and instruction owner</summary>
+      <p><strong>The RTL variable <code>next_pc</code> is registered Q state.</strong> Its name does not make it a combinational D/next-state signal. The request address is a separate combinational selection: <code>req_addr = held ? held_pc : next_pc</code>. A stalled offered request keeps its address stable.</p>
+      <div class="mapping-scroll"><table class="mapping-table"><thead><tr><th>Role</th><th>Meaning</th><th>Selected sample</th></tr></thead><tbody id="pc-values"></tbody></table></div>
+      <p>On a request-accept edge, <code>pending_pc &larr; req_addr</code> records ownership and the sequential cursor normally advances to <code>req_addr + 4</code>. A redirect has final priority for the cursor and writes the target instead. Otherwise the cursor holds. An already offered or accepted old-path request is still completed and its obsolete response discarded.</p>
+      <p>The response owner identifies the returned instruction. The frontend selects the buffered word or a fresh accepted response; the backend slot captures that delivered PC only on admission. These addresses need not be equal. Each displayed value is the pre-edge observation; hidden internal registers are not reconstructed from address wires.</p>
+    </details>
+    <details><summary>How to read this diagram</summary><p>Each record samples signals immediately before a rising clock edge. A retirement, accepted memory transfer, or enabled register write takes effect at that edge. Valid alone is an offered transfer; valid AND ready is acceptance. Decoder and register reads are combinational; their activity markers identify logical use, not transistor switching. The offered memory request, accepted response owner, and frontend word may have different PCs. I-memory response acceptance and frontend admission are separate events.</p><p>The labeled functions are not a five-stage pipeline. One instruction occupies the backend slot until it finishes. Another instruction can be held by the frontend while that slot waits. A redirect discards the sequential fetch word. Stores and branches can retire without a register write; a destination of x0 never changes the register file.</p></details>
+    <details id="rtl-hierarchy"><summary>RTL hierarchy and diagram mapping</summary>
+      <p><code>teaching_</code> is the course-local, editable RTL module namespace. It does not select a special hardware teaching mode.</p>
+      <p>The shaded layout groups related functions; it is not an RTL module boundary. Hover or keyboard-focus a diagram block for its implementation mapping. Clock wedges indicate positive-edge storage or enabled writes; they do not mean the block updates on every edge. Combinational functions have no wedge.</p>
+      <div class="hierarchy-grid"><pre class="hierarchy-tree" tabindex="0" aria-label="Actual module instance hierarchy">tb_cpu_lab
+├── u_cpu : teaching_cpu
+│   ├── u_fetch : teaching_fetch
+│   └── u_backend : teaching_backend
+│       ├── u_decoder : rv32_decoder
+│       ├── u_rf : rv32_rf
+│       ├── u_alu_op : rv32_alu_op_decode
+│       ├── u_alu : fu_alu
+│       ├── u_br : fu_br
+│       ├── u_mul : fu_mul
+│       ├── u_div : fu_div
+│       ├── u_ls_split : rv32_ls_split
+│       ├── u_ls_align2 : rv32_ls_align2
+│       └── u_csr : rv32_csr
+│           └── u_pmu : rv32_pmu
+└── u_mem : teaching_sram</pre>
+      <div class="mapping-scroll"><table class="mapping-table"><thead><tr><th>Diagram function</th><th>Actual implementation</th><th>Clocked part</th></tr></thead><tbody>
+        <tr><td>Fetch control + frontend delivery</td><td><code>u_fetch</code>; buffer and bypass are internal logic</td><td>PC/request state and one response buffer. The delivery mux is combinational.</td></tr>
+        <tr><td>Instruction slot</td><td>Inline registers in <code>u_backend</code></td><td><code>pc_pipe_r</code>, <code>insn_pipe_r</code>, valid/fault state</td></tr>
+        <tr><td>RF read + RF write</td><td>Two views of the same <code>u_rf</code></td><td>Write port only; two reads are asynchronous</td></tr>
+        <tr><td>ALU + branch + writeback mux</td><td><code>u_alu</code>/<code>u_alu_op</code>, <code>u_br</code>, and inline result selection</td><td>None in these combinational functions</td></tr>
+        <tr><td>Multiply + divide</td><td><code>u_mul</code> and <code>u_div</code></td><td>Multiplier result state; divider iteration state</td></tr>
+        <tr><td>Load-store unit</td><td>Shared <code>u_alu</code> supplies the address; backend FSM + <code>u_ls_split</code>/<code>u_ls_align2</code> supply the remaining LSU functions</td><td>Response register and control state; byte-lane logic is combinational</td></tr>
+        <tr><td>SRAM I/D ports</td><td>Two logical ports of the same external <code>u_mem</code></td><td>Clocked interface/model, including enabled data writes; no all-flop array claim</td></tr>
+      </tbody></table></div></div>
+      <p><strong>Fresh response:</strong> if the execution slot is ready, a fresh, non-stale memory response can enter it at the same rising edge without first occupying the response buffer. <strong>Backend busy:</strong> the response is captured into the existing one-entry buffer and held until admitted. It is not a future queue placeholder. The current trace exposes the delivered word, not a separate buffer-occupancy signal.</p>
+      <p>CSR and performance-monitor state exist in the implementation but are omitted from this RV32IM datapath view. The interfaces and trace wiring also exist; a module tree is not a schematic of every signal.</p>
+    </details>
+  </section>
+  <section class="panel" aria-labelledby="timeline-heading">
+    <div class="panel-head"><h2 id="timeline-heading">Dynamic instruction timeline</h2><span class="hint">Click any cycle · current column outlined</span></div>
+    <div class="timeline-key" aria-label="Frontend and memory events"><div><b>F · available, not admitted</b><span>A valid frontend word waits. This can be a fresh response about to be buffered, not only a word already stored.</span></div><div><b>A · admitted at this edge</b><span>Frontend valid AND ready transfers the word into the backend slot. Its execution appears in the next pre-edge sample.</span></div><div><b>Q / R · memory transfers</b><span>Accepted memory request / response. A fresh bypass can produce R + A together with no preceding F cell.</span></div></div>
+    <div class="timeline-wrap"><table class="timeline" id="timeline" aria-label="Recorded dynamic instruction timeline"></table></div>
+    <p class="hint">F = frontend word available but not admitted; A = frontend valid AND ready, admitted into the execution slot at this edge; D/X = decode / execute; Mq / Mr = backend memory request / response FSM phases, not bus transfers; W = multi-cycle wait. +R in an instruction row marks retirement; plain R in a bus row is a memory response. Rows are dynamic occurrences, so loop iterations remain distinct. Bus rows: Q/R = accepted request/response; q/r = offered but not accepted; ERR = accepted error response; · = no transfer.</p>
+    <p class="hint">F/A are availability/admission events, not two extra pipeline stages. Their cells are associated with the next matching execution-slot occurrence. A fetched word discarded by a redirect is shown in the fetch details, not as a retired instruction.</p>
+  </section>
+  <div class="lower-grid">
+    <section class="panel" aria-labelledby="listing-heading"><div class="panel-head"><h2 id="listing-heading">Source &amp; disassembly</h2><span class="hint">Green: execution · blue: prefetched word</span></div><div class="source" id="source" tabindex="0" aria-label="Source and disassembly around the selected instruction"></div><p class="hint" id="source-note">Source lines appear when the ELF contains matching debug information.</p></section>
+    <section class="panel" aria-labelledby="signals-heading"><div class="panel-head"><h2 id="signals-heading">Signals at the selected edge</h2></div><table class="data-table"><tbody id="signals"></tbody></table><p class="hint">Operands are shown only when the instruction uses that source register. These are datapath taps, not a complete architectural register dump.</p></section>
+  </div>
+  <footer class="footer"><span>Offline report · no uploads or external assets · <a href="microarchitecture.svg" download>Download the architecture diagram</a></span><span>Keyboard: ← / → step · Space play/pause · R next retirement · M main</span></footer>
+</main>
+<script id="trace-data" type="application/json"><!-- TRACE_DATA --></script>
+<script>
+"use strict";
+(() => {
+try {
+ const data=JSON.parse(document.getElementById('trace-data').textContent), trace=data.trace, meta=data.metadata, assembly=data.assembly;
+ const $=id=>document.getElementById(id), put=(id,value)=>{ $(id).textContent=value; };
+ const number=value=>typeof value==='string'?(value.startsWith('0x')?parseInt(value,16):(/^[0-9]+$/.test(value)?Number(value):parseInt(value,16))):Number(value||0);
+ const hex=value=>'0x'+(number(value)>>>0).toString(16).padStart(8,'0');
+ const on=value=>value===true||value===1||value==='1';
+ const asm=pc=>assembly.instructions[String(number(pc))]?.text || '(instruction not in disassembly)';
+ const short=pc=>asm(pc).replace(/\s+#.*$/,'');
+ const bool=(obj,key)=>on(obj?.[key]);
+ function setupExampleNavigation(catalog,onGroup){
+   const nav=document.getElementById('example-navigation');
+   if(!catalog?.groups?.length)return;
+   const groupSelect=document.getElementById('navigation-group'),exampleSelect=document.getElementById('navigation-example'),open=document.getElementById('navigation-open'),home=document.getElementById('navigation-home'),description=document.getElementById('navigation-description');
+   const groups=catalog.groups,lastSelection=new Map();
+   const safeHref=value=>{try{const url=new URL(value,document.baseURI);return ['http:','https:','file:'].includes(url.protocol)?String(value):null;}catch{return null;}};
+   nav.hidden=false;
+   if(catalog.home_href&&safeHref(catalog.home_href)){home.href=catalog.home_href;home.hidden=false;nav.classList.add('has-home');}
+   for(const group of groups){const option=document.createElement('option');option.value=group.id;option.textContent=group.title;groupSelect.append(option);}
+   const currentGroup=groups.find(g=>g.examples.some(e=>e.id===catalog.current_id));
+   groupSelect.value=(currentGroup||groups.find(g=>g.examples.length)||groups[0]).id;
+   function selectedExample(){return groups.find(g=>g.id===groupSelect.value)?.examples.find(e=>e.id===exampleSelect.value);}
+   function selectExample(){const example=selectedExample();if(example)lastSelection.set(groupSelect.value,example.id);const href=example&&safeHref(example.href);open.setAttribute('aria-disabled',String(!href));
+     if(href){open.href=href;open.ariaLabel='Open '+example.title;description.textContent=(example.id===catalog.current_id?'Current report: ':'Selected: ')+example.title+(example.description?' — '+example.description:'');}
+     else{open.removeAttribute('href');description.textContent='No recorded example is available in this group yet.';}
+   }
+   function selectGroup(){const group=groups.find(g=>g.id===groupSelect.value);exampleSelect.replaceChildren();for(const example of group.examples){const option=document.createElement('option');option.value=example.id;option.textContent=example.title;exampleSelect.append(option);}
+     exampleSelect.disabled=!group.examples.length;const preferred=lastSelection.get(group.id)||catalog.current_id;if(group.examples.some(e=>e.id===preferred))exampleSelect.value=preferred;selectExample();if(onGroup)onGroup(group.id);
+   }
+   groupSelect.addEventListener('change',selectGroup);exampleSelect.addEventListener('change',selectExample);selectGroup();
+ }
+ setupExampleNavigation(meta.navigation);
+ function setupImageResult(result){
+   if(!result?.images?.length)return;
+   const panel=$('image-result'),strip=$('image-result-strip');panel.hidden=false;
+   put('image-result-title',result.title||'Application inputs and results');put('image-result-description',result.description||'These buffers were produced by the same recorded application run shown below.');
+   put('image-result-size',result.width&&result.height?result.width+' × '+result.height+' pixels':'');
+   for(const supplied of result.images){if(!String(supplied.data_url).startsWith('data:image/png;base64,'))throw Error('Application images must be embedded PNG buffers.');const figure=document.createElement('figure'),image=document.createElement('img'),caption=document.createElement('figcaption');image.src=supplied.data_url;image.alt=supplied.title||'Application image';caption.textContent=supplied.title||'Image';figure.append(image,caption);strip.append(figure);}
+   const verification=[];if(result.verified_bytes!==undefined)verification.push(number(result.verified_bytes).toLocaleString()+' output bytes verified');if(result.oracle)verification.push('Reference: '+result.oracle);put('image-result-verification',verification.join(' · '));
+ }
+ setupImageResult(meta.image_result);
+ const op=sample=>number(sample.execute.insn)&127;
+ const port=(s,name)=>s.ports?.[name];
+ const hasPorts=trace.some(s=>port(s,'instruction')&&port(s,'data'));
+ const take=(p,kind)=>p && on(p[kind+'_accepted']);
+ const waiting=(p,kind)=>p && on(p[kind+'_valid'])&&!on(p[kind+'_ready']);
+ const uses=(sample,n)=>{
+   const key='rs'+n+'_used';
+   if(key in sample.regs)return bool(sample.regs,key);
+   if(!bool(sample.execute,'valid'))return false;
+   return n===1?[0x03,0x13,0x23,0x33,0x63,0x67].includes(op(sample)):[0x23,0x33,0x63].includes(op(sample));
+ };
+ const stateDescription={IDLE:'Decode / dispatch / single-cycle execution',MEM_REQ:'First memory request',MEM_RESP:'First memory response',MEM_WB:'Finish the load or store',MUL_WAIT:'Wait for the multiplication result',DIV_WAIT:'Wait for division or remainder',MEM_REQ2:'Second request for a spanning access',MEM_RESP2:'Second response for a spanning access'};
+ let index=0, timer=null, playState=false;
+ const spans=[], spanAt=Array(trace.length).fill(-1), flow=Array.from({length:trace.length},()=>({e:-1,f:-1}));
+ let active=-1;
+ for(let i=0;i<trace.length;i++){
+   const s=trace[i], p=trace[i-1];
+   if(!bool(s.execute,'valid')){active=-1;continue;}
+   const restart=active<0||!p||bool(p.commit,'valid')||bool(p.trap,'valid')||number(p.execute.pc)!==number(s.execute.pc)||number(p.execute.insn)!==number(s.execute.insn);
+   if(restart){active=spans.length;spans.push({id:active,pc:number(s.execute.pc),insn:number(s.execute.insn),first:i,last:i,retire:-1,fetchFirst:i,fetchLast:-1});}
+   const span=spans[active];span.last=i;if(bool(s.commit,'valid'))span.retire=i;
+   spanAt[i]=active;flow[i].e=active;
+ }
+ // Associate a word held by the frontend with its next actual slot entry.
+ // A redirect explicitly blocks acceptance of the discarded sequential word.
+ for(const span of spans){
+   const admission=span.first-1;
+   if(admission<0)continue;
+   const a=trace[admission];
+   if(!bool(a.fetch,'accepted')||bool(a.redirect,'valid')||number(a.fetch.pc)!==span.pc||number(a.fetch.insn)!==span.insn)continue;
+   let start=admission;
+   while(start>0){const p=trace[start-1];if(!bool(p.fetch,'valid')||bool(p.fetch,'accepted')||bool(p.redirect,'valid')||number(p.fetch.pc)!==span.pc||number(p.fetch.insn)!==span.insn)break;start--;}
+   span.fetchFirst=start;span.fetchLast=admission;
+   for(let c=start;c<=admission;c++)flow[c].f=span.id;
+ }
+ const retired=trace.map((s,i)=>bool(s.commit,'valid')?i:-1).filter(i=>i>=0);
+ const mainPC=meta.start_pc!==undefined?number(meta.start_pc):assembly.symbols[meta.start_symbol||'main'];
+ const mainIndex=mainPC===undefined?-1:trace.findIndex(s=>bool(s.execute,'valid')&&number(s.execute.pc)===mainPC);
+ const isTruncated=meta.truncated===true || meta.trace_truncated===true;
+ const catalogExample=meta.navigation?.groups?.flatMap(g=>g.examples).find(e=>e.id===meta.navigation.current_id);
+ const reportTitle=meta.display_title||catalogExample?.title||meta.title||'Instruction to hardware';
+ put('report-title',reportTitle);document.title=reportTitle+' · CPU lab';
+ const info=[meta.application||'Application',meta.profile||'RV32IM',trace.length.toLocaleString()+' recorded cycles',retired.length.toLocaleString()+' retirements in trace'];
+ if(meta.cycles!==undefined)info.push(number(meta.cycles).toLocaleString()+' cycles in full run');
+ if(meta.status){put('run-status','RTL run: '+String(meta.status).toUpperCase());if(meta.status!=='pass'){$('run-status').style.background='#fff1e8';$('run-status').style.borderColor='#dcb59e';}}
+ for(const item of info){const span=document.createElement('span');span.textContent=String(item);$('metadata').append(span);}
+ if(!hasPorts){$('legacy-trace').hidden=false;put('legacy-trace','Legacy fixed-latency trace: request-ready, response-ready, acceptance, and error signals were not recorded. Valid signals below are shown as observations, not as proof of a memory handshake.');}
+ $('ports').hidden=!hasPorts;
+ if(isTruncated){$('truncation').hidden=false;put('truncation','This report contains only the first '+trace.length.toLocaleString()+' recorded cycles. The simulation may continue beyond this window; the last visible instruction can be incomplete.');}
+ $('cycle-slider').max=trace.length-1;
+ if(meta.start_symbol&&meta.start_symbol!=='main'){put('main','Jump to entry');$('main').ariaLabel='Jump to '+meta.start_symbol;}
+ $('main').disabled=mainIndex<0;
+ $('main').title=mainIndex<0?'The requested symbol is absent or outside the recorded window':'Jump to the first execution of '+(meta.start_symbol||'main');
+
+ function setNode(name,mode){const node=$('node-'+name);if(node)node.setAttribute('class','node'+(mode?' '+mode:''));}
+ function wire(name,enabled,offered=false,error=false){const node=$('wire-'+name);if(node){node.classList.toggle('strong',!!enabled);node.classList.toggle('offered',!!offered);node.classList.toggle('error',!!error);}}
+ function busSummary(p){if(!p)return 'not recorded';if(take(p,'resp'))return on(p.resp_error)?'ERROR accepted':'response accepted';if(waiting(p,'resp'))return 'response held';if(take(p,'req'))return 'request accepted';if(waiting(p,'req'))return 'request waiting';return 'no transfer';}
+ function busMode(p,activity){if(!p)return activity?'memory-active':'';if(on(p.resp_valid)&&on(p.resp_error))return 'error-active';if(waiting(p,'req')||waiting(p,'resp'))return 'wait-active';return take(p,'req')||take(p,'resp')?'memory-active':'';}
+ function renderDiagram(s){
+   const f=bool(s.fetch,'valid'),e=bool(s.execute,'valid'),wb=bool(s.regs,'wb_enable');
+   const ip=port(s,'instruction'),dp=port(s,'data'),wait=e&&(/_WAIT$/.test(s.execute.state)||(dp&&(/^MEM_REQ/.test(s.execute.state)?!take(dp,'req'):/^MEM_RESP/.test(s.execute.state)?!take(dp,'resp'):false))),rfRead=bool(s.stages,'decode')&&(uses(s,1)||uses(s,2));
+   setNode('pc',bool(s.redirect,'valid')?'active':ip?(waiting(ip,'req')?'wait-active':take(ip,'req')?'fetch-active':''):f?'fetch-active':'');
+   setNode('imem',ip?busMode(ip,false):f?'fetch-active':'');setNode('front',f?(bool(s.fetch,'accepted')?'fetch-active':'wait-active'):'');setNode('slot',e?(wait?'wait-active':'active'):'');
+   setNode('decoder',bool(s.stages,'decode')?'active':'');setNode('rf-read',rfRead?'active':'');setNode('rf-write',wb?'retire-active':'');
+   for(const u of ['alu','branch','mul','div'])setNode(u,bool(s.units,u)?(wait&&(u==='mul'||u==='div')?'wait-active':'active'):'');
+   setNode('lsu',bool(s.units,'lsu')?busMode(dp,true)||'memory-active':'');setNode('dmem',busMode(dp,bool(s.memory,'valid')||bool(s.memory,'response_valid')));setNode('wb',wb?'retire-active':'');
+   for(const u of ['alu','branch','mul','div','lsu']){wire(u,bool(s.units,u)&&bool(s.stages,'decode'));wire('result-'+u,wb&&bool(s.units,u));}
+   wire('fetch',bool(s.fetch,'accepted'));wire('decode',bool(s.stages,'decode'));wire('rf-read',rfRead);wire('wb',wb);wire('redirect',bool(s.redirect,'valid'));
+   wire('pc',take(ip,'req'),waiting(ip,'req'));wire('fetch-response',take(ip,'resp'),waiting(ip,'resp'),ip&&on(ip.resp_valid)&&on(ip.resp_error));
+   wire('memory-request',take(dp,'req'),waiting(dp,'req'));wire('memory-response',take(dp,'resp'),waiting(dp,'resp'),dp&&on(dp.resp_valid)&&on(dp.resp_error));
+   put('value-pc',hex(ip?ip.req_addr:s.fetch.request_pc));put('value-fetch-pc',f?hex(s.fetch.pc):'no valid word');put('value-fetch',f?hex(s.fetch.insn):'—');
+   put('value-imem',ip?busSummary(ip):'legacy valid signal');put('value-imem-data',ip&&on(ip.resp_valid)?(on(ip.resp_error)?'error; ignore data':hex(ip.resp_rdata)):'shared RAM');
+   put('value-slot-pc',e?hex(s.execute.pc):'slot empty');put('value-slot-state',e?s.execute.state:'invalid');
+   for(const n of [1,2])put('value-rf-rs'+n,uses(s,n)?'x'+number(s.regs['rs'+n])+' '+hex(s.regs['rs'+n+'_value']):'rs'+n+' not used');
+   put('value-rf-write',wb?'x'+number(s.regs.rd)+' ← '+hex(s.regs.wb_value):'write disabled');
+   put('value-dmem',dp?(on(dp.req_valid)?hex(dp.req_addr):on(dp.resp_valid)?hex(dp.owner_addr):'no offered transfer'):(bool(s.memory,'valid')?hex(s.memory.addr):'no request valid'));
+   put('value-dmem-event',dp?busSummary(dp):'legacy valid signal');put('value-lsu',dp?busSummary(dp):bool(s.memory,'valid')?'request valid':bool(s.memory,'response_valid')?'response valid':'no transfer');
+   put('value-wb-rd',wb?'rd = x'+number(s.regs.rd):'write disabled');put('value-wb-data',wb?hex(s.regs.wb_value):'—');put('value-branch',bool(s.units,'branch')&&bool(s.redirect,'valid')?hex(s.redirect.pc):'redirect control');
+ }
+ function portExplanation(p,name){
+   if(!p)return '';
+   const parts=[];
+   if(on(p.req_valid))parts.push(name+' '+(on(p.req_write)?'store':'read')+' request '+(take(p,'req')?'is accepted':'is offered but waits for ready')+' at '+hex(p.req_addr)+'.');
+   if(on(p.resp_valid))parts.push(name+' response '+(take(p,'resp')?'is accepted':'is valid but held until response-ready')+(on(p.resp_error)?' with an error indication':'')+' (owner '+hex(p.owner_pc)+').');
+   return parts.join(' ');
+ }
+ function explanation(s){
+   const e=bool(s.execute,'valid'),st=s.execute.state,parts=[],ip=port(s,'instruction'),dp=port(s,'data');
+   if(!e)parts.push('The execution slot is empty.');
+   else if(st==='MEM_REQ'||st==='MEM_REQ2')parts.push('The load-store unit is in its '+(st==='MEM_REQ2'?'second ':'')+'request phase. '+(dp?(take(dp,'req')?'The memory accepts this request at the rising edge.':on(dp.req_valid)?'The offered request remains stable while ready is low.':'No request is offered in this sample.'):'The legacy trace does not record request acceptance.'));
+   else if(st==='MEM_RESP'||st==='MEM_RESP2')parts.push('The load-store unit is in its response phase. '+(dp?(take(dp,'resp')?(on(dp.resp_error)?'An error response is accepted at this edge.':'A response is accepted at this edge.'):on(dp.resp_valid)?'The response is valid but has not been accepted.':'It is waiting for a valid response.'):'Response-valid is '+(bool(s.memory,'response_valid')?'asserted':'not asserted')+'; response-ready was not recorded.'));
+   else if(st==='MEM_WB')parts.push('The memory instruction finishes. A load can write its assembled and extended result; a store retires without writing a register.');
+   else if(st==='MUL_WAIT'||st==='DIV_WAIT')parts.push('The '+(st==='MUL_WAIT'?'multiplier':'divider')+(bool(s.commit,'valid')?' completes; the instruction can retire at this edge.':' is still working. The same instruction remains in the execution slot.'));
+   else if(bool(s.units,'mul')||bool(s.units,'div'))parts.push('Decode dispatches the instruction to the '+(bool(s.units,'mul')?'multiplier':'divider')+'. The slot remains occupied until the result is ready.');
+   else if(bool(s.units,'branch'))parts.push('The branch/jump unit evaluates the target'+(bool(s.redirect,'valid')?' and redirects instruction fetch.':' without redirecting fetch in this cycle.'));
+   else parts.push('Decode and asynchronous register reads select operands for the operation.');
+   if(bool(s.trap,'valid'))parts.push('A trap is reported (cause '+number(s.trap.cause)+'); this is not a normal retirement.');
+   if(bool(s.regs,'wb_enable'))parts.push('The one physical register file writes x'+number(s.regs.rd)+' = '+hex(s.regs.wb_value)+' at the rising edge.');
+   else if(bool(s.commit,'valid'))parts.push('The instruction retires with the register-file write disabled.');
+   const iText=portExplanation(ip,'Instruction-memory');if(iText)parts.push(iText);
+   if(bool(s.redirect,'valid'))parts.push('Fetch redirects to '+hex(s.redirect.pc)+'. An already offered or accepted memory request must still complete; an obsolete response is discarded.');
+   else if(bool(s.fetch,'accepted'))parts.push('Separately, the frontend admits its valid instruction into the execution slot at this edge.');
+   else if(bool(s.fetch,'valid'))parts.push('A valid frontend word is available but is not admitted at this edge. A fresh response is buffered if it cannot be admitted.');
+   return parts.join(' ');
+ }
+ function renderPort(id,p){
+   for(const kind of ['req','resp']){
+     const node=$(id+'-'+(kind==='req'?'request':'response'));node.replaceChildren();node.className='bus-lane';
+     const heading=document.createElement('strong'),signals=document.createElement('p'),values=document.createElement('p');signals.className='mono';values.className='mono';
+     if(!p){heading.textContent='Signals not recorded';node.append(heading);continue;}
+     const valid=on(p[kind+'_valid']),ready=on(p[kind+'_ready']),accepted=take(p,kind);
+     heading.textContent=(kind==='req'?'Request':'Response')+' · '+(accepted?'ACCEPTED':valid?'OFFERED — WAITING':'not valid');
+     node.classList.toggle('accepted',!!accepted);node.classList.toggle('waiting',valid&&!ready);node.classList.toggle('failed',kind==='resp'&&valid&&on(p.resp_error));
+     signals.textContent='valid '+Number(valid)+' · ready '+Number(ready)+' · accepted '+Number(!!accepted)+(valid?' · ID '+number(p[kind+'_id']):'');
+     if(kind==='req')values.textContent=valid?(on(p.req_write)?'STORE ':'READ ')+hex(p.req_addr)+' · '+(2**number(p.req_size))+' B'+(on(p.req_write)?' · data '+hex(p.req_wdata)+' · lanes 0b'+number(p.req_wstrb).toString(2).padStart(4,'0'):''):'No request payload is active.';
+     else values.textContent=valid?(on(p.resp_error)?'ERROR (data not usable)':'data '+hex(p.resp_rdata))+' · owner PC '+hex(p.owner_pc)+' · address '+hex(p.owner_addr):'No response payload is active.';
+     node.append(heading,signals,values);
+   }
+ }
+ function renderPCs(s){
+   const ip=port(s,'instruction'),recorded=(obj,key)=>obj&&Object.prototype.hasOwnProperty.call(obj,key)?hex(obj[key]):'Not separately recorded';
+   const rows=[
+     ['Fetch cursor Q','Registered RTL next_pc; holds or updates at an edge',recorded(s.fetch,'next_pc_q')],
+     ['Held request Q','held_pc preserves an offered request during backpressure',recorded(s.fetch,'held_pc_q')],
+     ['Request address','Combinational held ? held_pc : next_pc',ip?(on(ip.req_valid)?hex(ip.req_addr)+(take(ip,'req')?' · accepted':' · offered, waiting'):'No valid request'):hex(s.fetch.request_pc)+' · legacy address tap'],
+     ['Response owner PC','Request PC captured into pending_pc on acceptance',ip&&on(ip.resp_valid)?hex(ip.owner_pc):'No valid response; internal pending_pc not exposed'],
+     ['Delivered frontend PC','Buffered word or fresh-response bypass',bool(s.fetch,'valid')?hex(s.fetch.pc)+(bool(s.fetch,'accepted')?' · admitted (A)':' · available (F)'):'No valid delivered word'],
+     ['Executing slot PC','Registered pc_pipe_r; held while the instruction runs',bool(s.execute,'valid')?hex(s.execute.pc):'Execution slot empty'],
+     ['Redirect target','New cursor value selected on a redirect edge',bool(s.redirect,'valid')?hex(s.redirect.pc):'No redirect']
+   ];
+   const body=$('pc-values');body.replaceChildren();for(const values of rows){const tr=document.createElement('tr');values.forEach((value,i)=>{const cell=document.createElement(i===0?'th':'td');if(i===0)cell.scope='row';if(i===2)cell.className='mono';cell.textContent=value;tr.append(cell);});body.append(tr);}
+ }
+ function renderDetails(s){
+   const e=bool(s.execute,'valid'),f=bool(s.fetch,'valid'),c=bool(s.commit,'valid'),wb=bool(s.regs,'wb_enable'),m=bool(s.memory,'valid'),resp=bool(s.memory,'response_valid'),ip=port(s,'instruction'),dp=port(s,'data');
+   put('cycle-number',s.cycle.toLocaleString());put('cycle-output','Cycle '+s.cycle+' · '+(index+1)+' / '+trace.length);put('instruction-name',e?short(s.execute.pc):'Empty slot');
+   put('instruction-pc',e?hex(s.execute.pc)+' · '+hex(s.execute.insn):'No valid executing instruction');put('state-name',e?s.execute.state.replaceAll('_',' '):'EMPTY');put('state-description',e?(stateDescription[s.execute.state]||'Recorded execution state'):'Fetch may still be active');
+   put('retirement-name',c?'Instruction retires':'No retirement');put('retirement-data',c?(bool(s.commit,'rd_we')?'x'+number(s.commit.rd)+' ← '+hex(s.commit.rd_data):'No architectural register write'):'Slot '+(e?'remains occupied':'is empty'));
+   put('explanation',explanation(s));put('fetch-value',f?hex(s.fetch.pc)+' · '+short(s.fetch.pc):'No valid frontend word');
+   put('fetch-detail',bool(s.redirect,'valid')?'Redirect to '+hex(s.redirect.pc)+'; stale responses are drained and discarded.':bool(s.fetch,'accepted')?'Frontend → execution-slot admission at this edge.':f?'Valid frontend word, not admitted at this edge.':'The frontend has no instruction to admit.');
+   const operands=[];for(const n of [1,2])if(uses(s,n))operands.push('x'+number(s.regs['rs'+n])+' = '+hex(s.regs['rs'+n+'_value']));put('operand-value',operands.join(' · ')||(e?'No integer source register is used':'No valid instruction'));
+   put('operand-detail',bool(s.stages,'decode')?'Register read is asynchronous. The two read ports and the rightmost write port belong to the same physical RF.':'Decoded fields can stay stable during waits; read-port highlights indicate logical operand use at entry.');
+   put('memory-value',dp?busSummary(dp):m?(bool(s.memory,'write')?'STORE valid ':'LOAD valid ')+hex(s.memory.addr):resp?'Response valid '+hex(s.memory.read_data):'No memory request valid');
+   put('memory-detail',dp?(portExplanation(dp,'Data-memory')||'No request or response is valid. A pending access may still be waiting internally.'):'Legacy trace: valid signals alone do not establish an accepted transfer.');
+   put('writeback-value',wb?'x'+number(s.regs.rd)+' ← '+hex(s.regs.wb_value):'Register write disabled');
+   const destinationInstruction=[0x03,0x13,0x17,0x33,0x37,0x67,0x6f].includes(op(s));
+   put('writeback-detail',wb?'The single write port updates the physical register file at the rising edge.':c?(destinationInstruction&&number(s.regs.rd)===0?'The destination is x0: the result is discarded and x0 remains zero.':'This instruction retires without an integer register write.'):'No register write occurs at this edge.');
+   renderPort('i',ip);renderPort('d',dp);renderPCs(s);
+   put('handshake-note',hasPorts?'Memory: accepted = valid AND ready at the rising edge. I-port response acceptance is separate from frontend → slot admission. Store requests are not side effects until accepted.':'Legacy report: memory-ready and acceptance were not recorded. No memory-handshake arrows are inferred.');
+   const rows=[['Frontend word PC',f?hex(s.fetch.pc):'invalid'],['Offered I request address',ip?(on(ip.req_valid)?hex(ip.req_addr):'no request'):hex(s.fetch.request_pc)],['Frontend → slot admitted',bool(s.fetch,'accepted')?'yes':'no'],['Instruction valid',e?'yes':'no'],['rs1',uses(s,1)?'x'+number(s.regs.rs1)+' · '+hex(s.regs.rs1_value):'not used'],['rs2',uses(s,2)?'x'+number(s.regs.rs2)+' · '+hex(s.regs.rs2_value):'not used'],['D request / response accepted',dp?Number(!!take(dp,'req'))+' / '+Number(!!take(dp,'resp')):'not recorded'],['Memory byte enables',m?'0b'+number(s.memory.wstrb).toString(2).padStart(4,'0'):'—'],['Retirement / RF write',(c?'1':'0')+' / '+(wb?'1':'0')],['Redirect',bool(s.redirect,'valid')?hex(s.redirect.pc):'none']];
+   if(s.drain)rows.push(['Drain requested / done',Number(on(s.drain.requested))+' / '+Number(on(s.drain.done))]);
+   const tbody=$('signals');tbody.replaceChildren();for(const [label,value] of rows){const tr=document.createElement('tr'),th=document.createElement('th'),td=document.createElement('td');th.scope='row';th.textContent=label;td.textContent=value;tr.append(th,td);tbody.append(tr);}
+ }
+ function renderTimeline(){
+   const table=$('timeline'),width=17,from=Math.max(0,Math.min(index-8,trace.length-width)),to=Math.min(trace.length,from+width),visible=spans.filter(s=>s.fetchFirst<to&&s.last>=from);
+   const center=visible.findIndex(s=>s.id===spanAt[index]);const start=Math.max(0,Math.min(center-3,visible.length-8));const rows=visible.slice(start,start+8);
+   table.replaceChildren();const head=document.createElement('thead'),hr=document.createElement('tr'),name=document.createElement('th');name.textContent='Dynamic instruction';name.scope='col';hr.append(name);
+   for(let i=from;i<to;i++){const th=document.createElement('th');th.scope='col';th.textContent=trace[i].cycle;if(i===index)th.className='selected';hr.append(th);}head.append(hr);table.append(head);
+   const body=document.createElement('tbody');
+   if(hasPorts)for(const [name,label] of [['instruction','I memory'],['data','D memory']])for(const [kind,kindLabel] of [['req','request'],['resp','response']]){
+     const tr=document.createElement('tr');tr.className='bus-row';const th=document.createElement('th');th.scope='row';th.textContent=label+' · '+kindLabel;tr.append(th);
+     for(let i=from;i<to;i++){const p=port(trace[i],name),valid=p&&on(p[kind+'_valid']),accepted=take(p,kind),error=kind==='resp'&&p&&on(p.resp_error)&&valid;const td=document.createElement('td'),button=document.createElement('button');
+       button.textContent=valid?(error&&accepted?'ERR':kind==='req'?(accepted?'Q':'q'):(accepted?'R':'r')):'·';td.className=(error?'err':accepted?'a':valid?'w':'')+(i===index?' selected':'');button.title=label+' '+kindLabel+': '+(accepted?'accepted':valid?'offered, waiting':'not valid')+' at cycle '+trace[i].cycle;button.ariaLabel=button.title;button.addEventListener('click',()=>seek(i));td.append(button);tr.append(td);
+     }body.append(tr);
+   }
+   for(const span of rows){const tr=document.createElement('tr'),th=document.createElement('th');th.scope='row';th.title='Dynamic occurrence '+(span.id+1)+' · '+hex(span.pc)+' · '+short(span.pc);th.textContent='#'+(span.id+1)+' '+hex(span.pc)+' '+short(span.pc);tr.append(th);
+     for(let i=from;i<to;i++){
+       const td=document.createElement('td'),s=trace[i];let text='',kind='';
+       if(flow[i].f===span.id){text=bool(s.fetch,'accepted')?'A':'F';kind='f';}
+       if(flow[i].e===span.id){const st=s.execute.state;if(st==='MEM_REQ'||st==='MEM_REQ2'){text='Mq';kind='m';}else if(st==='MEM_RESP'||st==='MEM_RESP2'){text='Mr';kind='m';}else if(/_WAIT$/.test(st)){text='W';kind='w';}else if(st==='MEM_WB'){text='WB';kind='e';}else{text=bool(s.stages,'decode')?'D/X':'X';kind='e';}}
+       if(span.retire===i){text+='+R';kind+=' r';}td.className=kind+(i===index?' selected':'');
+       const button=document.createElement('button');button.textContent=text||'·';button.ariaLabel='Cycle '+s.cycle+', instruction '+(span.id+1)+': '+(text||'not active');button.addEventListener('click',()=>seek(i));td.append(button);tr.append(td);
+     }body.append(tr);
+   }
+   if(!rows.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=to-from+1;td.textContent='No valid execution-slot occurrence in this window.';tr.append(td);body.append(tr);}table.append(body);
+ }
+ function renderSource(s){
+   const entry=assembly.instructions[String(number(bool(s.execute,'valid')?s.execute.pc:s.fetch.pc))];const fetchEntry=bool(s.fetch,'valid')?assembly.instructions[String(number(s.fetch.pc))]:undefined;
+   const center=entry?.line??0,from=Math.max(0,center-14),to=Math.min(assembly.lines.length,center+26),node=$('source');node.replaceChildren();
+   for(let i=from;i<to;i++){const line=document.createElement('span');line.className='line';if(bool(s.execute,'valid')&&i===entry?.line)line.classList.add('current');else if(i===fetchEntry?.line)line.classList.add('prefetch');else if(/^\s*[0-9a-fA-F]+\s+<.*>:\s*$/.test(assembly.lines[i]))line.classList.add('label');else if(!/^\s*[0-9a-fA-F]+:/.test(assembly.lines[i]))line.classList.add('source-code');const n=document.createElement('span');n.className='line-no';n.textContent=i+1;line.append(n,document.createTextNode(assembly.lines[i]));node.append(line);}
+   node.scrollTop=Math.max(0,(center-from-6)*22);put('source-note',meta.disassembly_filename+' · Listing follows the executing PC. Source lines require debug information in the ELF.');
+ }
+ function stop(){if(timer!==null)clearTimeout(timer);timer=null;playState=false;put('play','▶ Play');$('play').ariaLabel='Play cycles';}
+ function tick(){if(!playState)return;if(index>=trace.length-1){stop();return;}index++;render();if(index>=trace.length-1){stop();return;}timer=setTimeout(tick,1000/number($('speed').value));}
+ function play(){if(playState){stop();return;}if(index>=trace.length-1){put('jump-status','End of the recorded trace. Choose an earlier cycle to replay.');return;}playState=true;put('play','Ⅱ Pause');$('play').ariaLabel='Pause cycles';timer=setTimeout(tick,1000/number($('speed').value));}
+ function render(){const s=trace[index];$('cycle-slider').value=index;$('previous').disabled=index===0;$('next').disabled=index===trace.length-1;$('retire').disabled=!retired.some(i=>i>index);renderDetails(s);renderDiagram(s);renderTimeline();renderSource(s);}
+ function seek(i){stop();index=Math.max(0,Math.min(trace.length-1,i));put('jump-status','');render();}
+ function nextRetire(){const found=retired.find(i=>i>index);if(found!==undefined)seek(found);else put('jump-status','No later retirement in the recorded window.');}
+ function findPC(){const value=$('address').value.trim();if(!/^(0x)?[0-9a-fA-F]{1,8}$/.test(value)){put('jump-status','Enter an instruction address in hexadecimal, for example 0x80000000.');return;}const pc=parseInt(value.replace(/^0x/,''),16);let found=trace.findIndex((s,i)=>i>index&&bool(s.execute,'valid')&&number(s.execute.pc)===pc&&(i===0||spanAt[i]!==spanAt[i-1]));if(found<0)found=trace.findIndex(s=>bool(s.execute,'valid')&&number(s.execute.pc)===pc);if(found<0){put('jump-status','That PC does not execute in the recorded window.');return;}seek(found);}
+ $('previous').addEventListener('click',()=>seek(index-1));$('next').addEventListener('click',()=>seek(index+1));$('play').addEventListener('click',play);$('retire').addEventListener('click',nextRetire);$('main').addEventListener('click',()=>{if(mainIndex>=0)seek(mainIndex);});$('cycle-slider').addEventListener('input',e=>seek(Number(e.target.value)));$('find').addEventListener('click',findPC);$('address').addEventListener('keydown',e=>{if(e.key==='Enter')findPC();});
+ document.addEventListener('keydown',e=>{if(/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key==='ArrowLeft'){e.preventDefault();seek(index-1);}else if(e.key==='ArrowRight'){e.preventDefault();seek(index+1);}else if(e.key===' '){e.preventDefault();play();}else if(e.key.toLowerCase()==='r'){e.preventDefault();nextRetire();}else if(e.key.toLowerCase()==='m'&&mainIndex>=0){e.preventDefault();seek(mainIndex);}});
+ index=mainIndex>=0?mainIndex:0;render();
+ // A compact read-only hook for browser smoke tests and teaching notebooks.
+ window.cpuLabViewer=Object.freeze({getState:()=>({index,cycle:trace[index].cycle,playing:playState,cycles:trace.length,instructions:spans.length,mainIndex}),seek,nextRetire});
+}catch(error){const panel=document.getElementById('error');panel.hidden=false;panel.textContent='The trace report could not be opened: '+error.message;console.error(error);}
+})();
+</script>
+</body>
+</html>

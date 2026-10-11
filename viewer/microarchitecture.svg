@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1570 1245" role="img" aria-labelledby="micro-title micro-desc">
+  <title id="micro-title">CPU datapath: instruction fetch, asynchronous register read, execution, and synchronous register write</title>
+  <desc id="micro-desc">Read left to right. Instruction memory supplies the frontend and one execution slot. Decode selects two asynchronous register-file read ports. ALU, branch, multiply, divide, and load-store units feed the writeback mux, then the synchronous register-file write port. The register read and write boxes are two views of one physical 32-register file, not separate banks. Data memory sits below the load-store unit with vertical request and response arrows. Instruction and data memory boxes are the two logical ports of one physical RAM. The frontend includes one existing clocked response buffer and a combinational bypass for a fresh response. Border clock wedges mark positive-edge state or enabled writes; pure combinational blocks have no wedge. RAM wedges refer to their clocked port model. The layout groups functions, not RTL modules. Fetch overlaps one serialized backend, not five independently occupied pipeline stages.</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="context-stroke"/></marker></defs>
+  <style>
+    .clock-pin{fill:none;stroke:#465e72;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:miter}.clock-label{font:10px ui-monospace,monospace;fill:#536d82}.small-name{font:600 11px system-ui,sans-serif;fill:#21394c}.small-detail{font:10px ui-monospace,monospace;fill:#617387}.local-wire{fill:none;stroke:#8197ab;stroke-width:1.3;marker-end:url(#arrow)}.mux-shape{fill:#fff;stroke:#91a5b7;stroke-width:1.2}.node rect.subblock{fill:#fff;stroke:#8097aa;stroke-width:1.2;rx:3}.node:focus{outline:none}.node:focus>rect:first-of-type{stroke:#2d6ec2;stroke-width:3;stroke-dasharray:4 2}.arch-bg{fill:#fff}.arch-title{font:650 18px system-ui,sans-serif;fill:#21394c}.arch-label{font:500 13px system-ui,sans-serif;fill:#5b6d7d}.node rect{fill:#f7f9fb;stroke:#a9b6c2;stroke-width:1.4;rx:10}.node .name{font:650 15px system-ui,sans-serif;fill:#21394c}.node .detail{font:12px ui-monospace,monospace;fill:#617387}.wire{fill:none;stroke:#a7b4c1;stroke-width:1.6;marker-end:url(#arrow)}.wire.strong{stroke:#138674;stroke-width:3}.wire.offered{stroke:#c58a1b;stroke-width:2.5;stroke-dasharray:5 4}.wire.error{stroke:#bd4d45;stroke-width:3}.resource-link{fill:none;stroke:#a4b1be;stroke-width:1.4;stroke-dasharray:5 5}.active rect{fill:#e5f4f0;stroke:#168a76;stroke-width:2.5}.fetch-active rect{fill:#eaf2fd;stroke:#397cca;stroke-width:2.5}.wait-active rect{fill:#fff5df;stroke:#c58a1b;stroke-width:2.5}.memory-active rect{fill:#f0ebfc;stroke:#8163b6;stroke-width:2.5}.retire-active rect{fill:#dcf5e5;stroke:#20864a;stroke-width:2.8}.error-active rect{fill:#fff0ed;stroke:#bd4d45;stroke-width:2.5}.scope{fill:#f8fafc;stroke:#dce5ed;stroke-width:1;rx:14}.identity-label{fill:#fff;stroke:#dce5ed;stroke-width:1;rx:6}
+  </style>
+  <rect class="arch-bg" width="1570" height="1245" rx="16"/>
+  <rect class="scope" x="239" y="84" width="1307" height="513"/>
+  <text class="arch-title" x="30" y="32">Instruction supply</text>
+  <text class="arch-title" x="259" y="32">Functional datapath · one serialized backend slot</text>
+  <text class="arch-label" x="259" y="55">The frontend belongs to teaching_fetch; execution functions belong to teaching_backend. The shaded area is not a module boundary.</text>
+
+  <path class="resource-link" id="identity-rf" d="M775 263 V97 H1442 V263"/>
+  <rect class="identity-label" x="903" y="81" width="414" height="31"/>
+  <text class="arch-label" x="921" y="102">One physical register file · 32 × 32 bits · 2R1W</text>
+  <path class="resource-link" id="identity-ram" d="M118 361 V678 H915"/>
+  <rect class="identity-label" x="310" y="648" width="497" height="60"/>
+  <text class="arch-label" x="328" y="673">One physical RAM · two logical I / D ports</text>
+  <text class="arch-label" x="328" y="694">Dashed links identify a shared resource; they are not data paths.</text>
+
+  <path class="wire" id="wire-pc" d="M118 201 V263"/>
+  <text class="arch-label" x="130" y="235">req_addr</text>
+  <path class="wire" id="wire-fetch-response" d="M210 309 H231 V178 H255"/>
+  <path class="wire" id="wire-fetch" d="M343 235 V263"/>
+  <text class="arch-label" x="359" y="254">admit</text>
+  <path class="wire" id="wire-decode" d="M430 309 H475"/>
+  <path class="wire" id="wire-rf-read" d="M645 309 H685"/>
+  <path class="wire" id="wire-alu" d="M865 296 H889 V153 H915"/>
+  <path class="wire" id="wire-branch" d="M865 296 H889 V241 H915"/>
+  <path class="wire" id="wire-mul" d="M865 309 H889 V329 H915"/>
+  <path class="wire" id="wire-div" d="M865 324 H889 V417 H915"/>
+  <path class="wire" id="wire-lsu" d="M865 337 H889 V514 H915"/>
+  <path class="wire" id="wire-result-alu" d="M1095 153 H1120 V258 H1150"/>
+  <path class="wire" id="wire-result-branch" d="M1095 241 H1120 V278 H1150"/>
+  <path class="wire" id="wire-result-mul" d="M1095 329 H1150"/>
+  <path class="wire" id="wire-result-div" d="M1095 417 H1120 V354 H1150"/>
+  <path class="wire" id="wire-result-lsu" d="M1095 514 H1136 V375 H1150"/>
+  <path class="wire" id="wire-wb" d="M1310 309 H1350"/>
+  <path class="wire" id="wire-memory-request" data-direction="vertical" d="M965 556 V635"/>
+  <path class="wire" id="wire-memory-response" data-direction="vertical" d="M1045 635 V556"/>
+  <text class="arch-label" x="946" y="617" text-anchor="end">address / store data ↓</text>
+  <text class="arch-label" x="1064" y="617">↑ load data / completion</text>
+  <path class="wire" id="wire-redirect" d="M430 290 H450 V70 H118 V123"/>
+  <text class="arch-label" x="38" y="102">redirect: branch / trap</text>
+
+  <g class="node" id="node-pc" tabindex="0" role="img" aria-label="teaching_cpu.u_fetch : teaching_fetch. next_pc is a positive-edge register output Q, not a combinational next-state wire. The request-address mux selects held_pc when held, otherwise next_pc. The displayed value is req_addr, not an observation of next_pc. See the PC-path inset below."><title>teaching_cpu.u_fetch : teaching_fetch. next_pc is a positive-edge register output Q, not a combinational next-state wire. The request-address mux selects held_pc when held, otherwise next_pc. The displayed value is req_addr, not an observation of next_pc. See the PC-path inset below.</title><rect x="30" y="123" width="180" height="78"/><text class="name" x="45" y="149">Fetch PC / request</text><text class="detail" x="45" y="170">request mux output:</text><text class="detail" id="value-pc" x="45" y="191">req_addr</text><path class="clock-pin" data-clock="positive-edge" d="M186 211 V201 M180 201 L186 193 L192 201"/></g><text class="clock-label" x="196" y="214">clk</text>
+  <g class="node" id="node-imem" tabindex="0" role="img" aria-label="tb_cpu_lab.u_mem : teaching_sram, instruction port. One external shared RAM model. Request tracking and response outputs update on the positive edge. The marker describes the clocked port model; it does not claim the RAM array is made from flip-flops."><title>tb_cpu_lab.u_mem : teaching_sram, instruction port. One external shared RAM model. Request tracking and response outputs update on the positive edge. The marker describes the clocked port model; it does not claim the RAM array is made from flip-flops.</title><rect x="30" y="263" width="180" height="98"/><text class="name" x="45" y="289">SRAM · I port</text><text class="detail" x="45" y="310">clocked read model</text><text class="detail" id="value-imem" x="45" y="331">request / response</text><text class="detail" id="value-imem-data" x="45" y="351">shared RAM</text><path class="clock-pin" data-clock="positive-edge" d="M186 371 V361 M180 361 L186 353 L192 361"/></g><text class="clock-label" x="196" y="374">clk</text>
+  <g class="node" id="node-front" tabindex="0" role="img" aria-label="teaching_cpu.u_fetch : teaching_fetch. Functional view of the existing one-entry buffer and combinational fresh-response bypass. The complete delivery box is not a register or an unimplemented queue; only the buffer subblock carries a clock marker."><title>teaching_cpu.u_fetch : teaching_fetch. Functional view of the existing one-entry buffer and combinational fresh-response bypass. The complete delivery box is not a register or an unimplemented queue; only the buffer subblock carries a clock marker.</title>
+    <rect x="255" y="119" width="390" height="116"/>
+    <text class="name" x="269" y="143">Frontend delivery</text>
+    <text class="detail" x="535" y="145">teaching_fetch</text>
+    <path class="local-wire" d="M255 178 H274"/>
+    <path class="local-wire" d="M265 178 V223 H456 V195 H474"/>
+    <text class="small-detail" x="278" y="218">fresh-response bypass</text>
+    <g id="front-buffer" data-clocked="positive-edge">
+      <title>Existing one-entry response buffer in teaching_fetch: buf_pc, buf_insn, buf_valid, buf_fault, and buf_misaligned. It captures an unconsumed fresh response at the rising edge.</title>
+      <rect class="subblock" x="274" y="157" width="165" height="42"/>
+      <text class="small-name" x="285" y="174">1-entry response buffer</text>
+      <text class="small-detail" x="285" y="191">PC / insn / flags</text>
+      <path class="clock-pin" d="M413 211 V199 M407 199 L413 191 L419 199"/>
+      <text class="clock-label" x="422" y="212">clk</text>
+    </g>
+    <path class="local-wire" d="M439 178 H474"/>
+    <g id="front-bypass-mux" data-clocked="none">
+      <title>Combinational output selection: use the valid buffered word, otherwise the fresh accepted response. A fresh response can enter the instruction slot at this same edge without first occupying the response buffer.</title>
+      <path class="mux-shape" d="M474 159 L514 169 V204 L474 214 Z"/>
+      <text class="small-detail" x="482" y="190">mux</text>
+    </g>
+    <path class="local-wire" d="M514 187 H524 V229 H343 V235"/>
+    <text class="detail" id="value-fetch-pc" x="535" y="176">PC / instruction</text>
+    <text class="detail" id="value-fetch" x="535" y="198">buffered or fresh</text>
+    <text class="small-detail" x="535" y="220">delivered word</text>
+  </g>
+  <g class="node" id="node-slot" tabindex="0" role="img" aria-label="teaching_cpu.u_backend : teaching_backend. Inline positive-edge registers pc_pipe_r, insn_pipe_r, valid_pipe_r, and fetch-fault metadata. This is not a separate instantiated module."><title>teaching_cpu.u_backend : teaching_backend. Inline positive-edge registers pc_pipe_r, insn_pipe_r, valid_pipe_r, and fetch-fault metadata. This is not a separate instantiated module.</title><rect x="255" y="263" width="175" height="113"/><text class="name" x="270" y="290">Instruction slot</text><text class="detail" x="270" y="311">PC / insn / valid</text><text class="detail" id="value-slot-pc" x="270" y="334">holds during waits</text><text class="detail" id="value-slot-state" x="270" y="358">one instruction</text><path class="clock-pin" data-clock="positive-edge" d="M406 386 V376 M400 376 L406 368 L412 376"/></g><text class="clock-label" x="416" y="389">clk</text>
+  <g class="node" id="node-decoder" tabindex="0" role="img" aria-label="teaching_cpu.u_backend.u_decoder : rv32_decoder. Combinational decode, with additional encoding_legal filtering in teaching_backend. No clocked decode stage."><title>teaching_cpu.u_backend.u_decoder : rv32_decoder. Combinational decode, with additional encoding_legal filtering in teaching_backend. No clocked decode stage.</title><rect x="475" y="263" width="170" height="98"/><text class="name" x="490" y="289">Decode</text><text class="detail" x="490" y="310">regs / immediate</text><text class="detail" x="490" y="331">operation / control</text><text class="detail" x="490" y="351">combinational</text></g>
+  <g class="node" id="node-rf-read" tabindex="0" role="img" aria-label="teaching_cpu.u_backend.u_rf : rv32_rf, SYNC_READ=0, WB_FORWARD=0. Two asynchronous read ports of the same register file shown at the right. No read register."><title>teaching_cpu.u_backend.u_rf : rv32_rf, SYNC_READ=0, WB_FORWARD=0. Two asynchronous read ports of the same register file shown at the right. No read register.</title><rect x="685" y="263" width="180" height="113"/><text class="name" x="700" y="289">RF · read ports</text><text class="detail" x="700" y="310">2 asynchronous reads</text><text class="detail" id="value-rf-rs1" x="700" y="331">rs1 / value</text><text class="detail" id="value-rf-rs2" x="700" y="352">rs2 / value</text><text class="detail" x="700" y="369">x0 reads as zero</text></g>
+  <g class="node" id="node-alu" tabindex="0" role="img" aria-label="teaching_cpu.u_backend.u_alu : fu_alu, plus combinational operand selection and u_alu_op : rv32_alu_op_decode. The ALU has protocol clock pins but no edge-triggered datapath state in this configuration."><title>teaching_cpu.u_backend.u_alu : fu_alu, plus combinational operand selection and u_alu_op : rv32_alu_op_decode. The ALU has protocol clock pins but no edge-triggered datapath state in this configuration.</title><rect x="915" y="120" width="180" height="66"/><text class="name" x="930" y="145">ALU</text><text class="detail" x="930" y="166">integer / address</text><text class="detail" x="930" y="180">operand input muxes</text></g>
+  <g class="node" id="node-branch" tabindex="0" role="img" aria-label="teaching_cpu.u_backend.u_br : fu_br. Combinational comparison, branch target, and jump-link result. Redirect and trap priority are selected in teaching_backend."><title>teaching_cpu.u_backend.u_br : fu_br. Combinational comparison, branch target, and jump-link result. Redirect and trap priority are selected in teaching_backend.</title><rect x="915" y="208" width="180" height="66"/><text class="name" x="930" y="233">Branch / jump</text><text class="detail" x="930" y="252">compare/target/link</text><text class="detail" id="value-branch" x="930" y="268">redirect control</text></g>
+  <g class="node" id="node-mul" tabindex="0" role="img" aria-label="teaching_cpu.u_backend.u_mul : fu_mul, MUL_L=1. Combinational multiplication followed by positive-edge product, operation, valid, and tag state."><title>teaching_cpu.u_backend.u_mul : fu_mul, MUL_L=1. Combinational multiplication followed by positive-edge product, operation, valid, and tag state.</title><rect x="915" y="296" width="180" height="66"/><text class="name" x="930" y="321">Multiply unit</text><text class="detail" x="930" y="342">registered result</text><text class="detail" x="930" y="356">result to writeback</text><path class="clock-pin" data-clock="positive-edge" d="M1071 372 V362 M1065 362 L1071 354 L1077 362"/></g><text class="clock-label" x="1081" y="375">clk</text>
+  <g class="node" id="node-div" tabindex="0" role="img" aria-label="teaching_cpu.u_backend.u_div : fu_div. Positive-edge iterative state, accumulator, divisor, sign, operation, and counter registers. The backend also holds its instruction and wait counter."><title>teaching_cpu.u_backend.u_div : fu_div. Positive-edge iterative state, accumulator, divisor, sign, operation, and counter registers. The backend also holds its instruction and wait counter.</title><rect x="915" y="384" width="180" height="66"/><text class="name" x="930" y="409">Divide / remainder</text><text class="detail" x="930" y="430">multi-cycle</text><text class="detail" x="930" y="444">hold until complete</text><path class="clock-pin" data-clock="positive-edge" d="M1071 460 V450 M1065 450 L1071 442 L1077 450"/></g><text class="clock-label" x="1081" y="463">clk</text>
+  <g class="node" id="node-lsu" tabindex="0" role="img" aria-label="Functional group in teaching_backend, not a standalone LSU module: address from the shared u_alu; clocked execution substate and load_data_r plus combinational u_ls_split : rv32_ls_split and u_ls_align2 : rv32_ls_align2. The clock marker applies to response/control state, not to the byte-lane logic."><title>Functional group in teaching_backend, not a standalone LSU module: address from the shared u_alu; clocked execution substate and load_data_r plus combinational u_ls_split : rv32_ls_split and u_ls_align2 : rv32_ls_align2. The clock marker applies to response/control state, not to the byte-lane logic.</title><rect x="915" y="472" width="180" height="84"/><text class="name" x="930" y="498">Load-store unit</text><text class="detail" x="930" y="519">ALU addr + lanes</text><text class="detail" id="value-lsu" x="930" y="541">request + response</text><path class="clock-pin" data-clock="positive-edge" d="M1071 566 V556 M1065 556 L1071 548 L1077 556"/></g><text class="clock-label" x="1081" y="569">clk</text>
+  <g class="node" id="node-dmem" tabindex="0" role="img" aria-label="tb_cpu_lab.u_mem : teaching_sram, data port of the same RAM as the I port. Request tracking, responses, and enabled memory writes are positive-edge operations. This is not a second RAM instance or an all-flop SRAM claim."><title>tb_cpu_lab.u_mem : teaching_sram, data port of the same RAM as the I port. Request tracking, responses, and enabled memory writes are positive-edge operations. This is not a second RAM instance or an all-flop SRAM claim.</title><rect x="915" y="635" width="180" height="88"/><text class="name" x="930" y="661">SRAM · D port</text><text class="detail" x="930" y="682">clocked port model</text><text class="detail" id="value-dmem" x="930" y="703">shared RAM</text><text class="detail" id="value-dmem-event" x="930" y="717">request / response</text><path class="clock-pin" data-clock="positive-edge" d="M1071 733 V723 M1065 723 L1071 715 L1077 723"/></g><text class="clock-label" x="1081" y="736">clk</text>
+  <g class="node" id="node-wb" tabindex="0" role="img" aria-label="Inline always_comb result mux in teaching_backend. Selects the final result for the RF write port. No independent register, no extra pipeline stage, and no clock marker."><title>Inline always_comb result mux in teaching_backend. Selects the final result for the RF write port. No independent register, no extra pipeline stage, and no clock marker.</title><rect x="1150" y="233" width="160" height="148"/><text class="name" x="1165" y="259">Writeback mux</text><text class="detail" x="1165" y="282">select final result</text><text class="detail" id="value-wb-rd" x="1165" y="309">rd / write enable</text><text class="detail" id="value-wb-data" x="1165" y="333">result data</text><text class="detail" x="1165" y="358">no extra stage</text></g>
+  <g class="node" id="node-rf-write" tabindex="0" role="img" aria-label="teaching_cpu.u_backend.u_rf : rv32_rf. One positive-edge write port, enabled only by wb_en and a nonzero destination. This is the same physical RF as the left read view."><title>teaching_cpu.u_backend.u_rf : rv32_rf. One positive-edge write port, enabled only by wb_en and a nonzero destination. This is the same physical RF as the left read view.</title><rect x="1350" y="263" width="180" height="113"/><text class="name" x="1365" y="289">RF · write port</text><text class="detail" x="1365" y="310">1 synchronous write</text><text class="detail" x="1365" y="331">rising edge only</text><text class="detail" id="value-rf-write" x="1365" y="352">write disabled</text><text class="detail" x="1365" y="369">x0 never changes</text><path class="clock-pin" data-clock="positive-edge" d="M1506 386 V376 M1500 376 L1506 368 L1512 376"/></g><text class="clock-label" x="1516" y="389">clk</text>
+  <text class="arch-label" x="475" y="402">Register operands, immediates and PC feed the selected unit.</text>
+  <path class="clock-pin" d="M43 782 V771 M37 771 L43 763 L49 771"/>
+  <text class="arch-label" x="60" y="775">Clock wedge = positive-edge stored state or enabled write. RAM wedges mark the clocked interface/model, not an all-flop array.</text>
+  <text class="arch-label" x="30" y="803">Memory transfers occur on valid AND ready. Solid highlighted arrows mark accepted transfers; dashed amber arrows mark offered transfers waiting.</text>
+  <text class="arch-label" x="30" y="826">Highlights show logical activity in the selected trace sample, not physical switching. A register write occurs only when its recorded write enable is asserted.</text>
+
+  <g id="pc-path-inset" role="img" aria-labelledby="pc-path-title pc-path-desc">
+    <title id="pc-path-title">Actual fetch PC registers and request-address selection</title>
+    <desc id="pc-path-desc">This static expansion explains the fetch-control box above; it does not depict additional module instances or sampled internal register values. next_pc is a clocked register Q. The combinational request mux selects held_pc or next_pc and drives instruction-memory req_addr. On request acceptance, pending_pc captures that same address. The next_pc register instead takes redirect_pc with priority, or req_addr plus four for an accepted non-obsolete request, or holds its previous value. held_pc captures an offered request when ready is low. pending_pc follows the response into the existing buffer or fresh bypass and finally the backend PC register on admission.</desc>
+    <rect class="scope" x="30" y="850" width="1510" height="375"/>
+    <text class="arch-title" x="50" y="880">Inside fetch control: the PC register is before the request-address mux</text>
+    <text class="arch-label" x="50" y="902">Static RTL expansion · these labels identify signals and registers, not additional live values or separate pipeline stages.</text>
+
+    <path class="local-wire" d="M272 979 H320"/>
+    <text class="small-detail" x="298" y="969">D</text>
+    <g id="pc-next-state" data-clocked="none">
+      <rect class="identity-label" x="50" y="943" width="222" height="99"/>
+      <text class="small-name" x="65" y="963">Next-state selection</text>
+      <text class="small-detail" x="65" y="985">1. redirect → redirect_pc</text>
+      <text class="small-detail" x="65" y="1004">2. live accept → req_addr + 4</text>
+      <text class="small-detail" x="65" y="1023">3. otherwise → hold next_pc</text>
+    </g>
+    <g id="pc-next-register" data-clocked="positive-edge">
+      <rect class="identity-label" x="320" y="949" width="175" height="67"/>
+      <text class="small-name" style="font-size:15px" x="338" y="975">next_pc</text>
+      <text class="small-detail" x="338" y="995">PC register · Q</text>
+      <path class="clock-pin" d="M473 1029 V1016 M467 1016 L473 1008 L479 1016"/>
+      <text class="clock-label" x="481" y="1032">clk</text>
+    </g>
+    <path class="local-wire" d="M495 979 H595"/>
+    <text class="small-detail" x="508" y="968">Q: held = 0</text>
+    <g id="pc-request-mux" data-clocked="none">
+      <path class="mux-shape" d="M595 956 L655 971 V1033 L595 1048 Z"/>
+      <text class="small-name" x="604" y="1000">held ?</text>
+      <text class="small-detail" x="597" y="1065">address mux</text>
+    </g>
+    <path class="local-wire" d="M655 1002 H745"/>
+    <text class="small-detail" x="664" y="990">req_addr</text>
+    <g id="pc-imem-contract">
+      <rect class="identity-label" x="745" y="970" width="180" height="67"/>
+      <text class="small-name" x="761" y="992">I-memory request port</text>
+      <text class="small-detail" x="761" y="1012">accept = valid &amp; ready</text>
+      <text class="small-detail" x="761" y="1027">same port shown above</text>
+    </g>
+
+    <path class="local-wire" d="M705 1002 V926 H159 V943"/>
+    <text class="small-detail" x="324" y="919">req_addr + 4, enabled only by a live request acceptance</text>
+    <g id="pc-held-register" data-clocked="positive-edge">
+      <rect class="identity-label" x="345" y="1080" width="175" height="58"/>
+      <text class="small-name" x="361" y="1101">held_pc · Q</text>
+      <text class="small-detail" x="361" y="1120">capture when first stalled</text>
+      <path class="clock-pin" d="M496 1150 V1138 M490 1138 L496 1130 L502 1138"/>
+      <text class="clock-label" x="505" y="1153">clk</text>
+    </g>
+    <path class="local-wire" d="M520 1109 H557 V1024 H595"/>
+    <text class="small-detail" x="562" y="1096">held = 1</text>
+    <path class="local-wire" d="M705 1002 V1161 H431 V1138"/>
+
+    <path class="local-wire" d="M705 1002 V1106 H745"/>
+    <g id="pc-pending-register" data-clocked="positive-edge">
+      <rect class="identity-label" x="745" y="1074" width="180" height="64"/>
+      <text class="small-name" x="761" y="1097">pending_pc · Q</text>
+      <text class="small-detail" x="761" y="1116">D = req_addr on accept</text>
+      <text class="small-detail" x="761" y="1130">PC of the owned response</text>
+      <path class="clock-pin" d="M901 1150 V1138 M895 1138 L901 1130 L907 1138"/>
+      <text class="clock-label" x="910" y="1153">clk</text>
+    </g>
+    <path class="local-wire" d="M925 1106 H985"/>
+    <g id="pc-delivery-contract">
+      <rect class="identity-label" x="985" y="1074" width="531" height="64"/>
+      <text class="small-name" x="1003" y="1097">Existing delivery path: buffered buf_pc or fresh pending_pc</text>
+      <text class="small-detail" x="1003" y="1117">insn_if.pc → pc_pipe_r at frontend-to-backend admission</text>
+      <text class="small-detail" x="1003" y="1131">Response PC and instruction bits stay associated through waits and redirects.</text>
+    </g>
+    <text class="arch-label" x="985" y="968">Reset initializes next_pc to RESET_PC.</text>
+    <text class="arch-label" x="985" y="991">Redirect has priority over sequential +4.</text>
+    <text class="arch-label" x="985" y="1014">An obsolete held request still completes;</text>
+    <text class="arch-label" x="985" y="1037">it does not advance the redirected PC.</text>
+    <text class="arch-label" x="50" y="1189">SRAM receives req_addr. pending_pc captures that address; next_pc instead receives the selected next-state value.</text>
+    <text class="arch-label" x="50" y="1211">Despite its name, next_pc is registered Q. There is no separate signal named pc_nxt in this RTL; the selection above is implicit in always_ff.</text>
+  </g>
+</svg>

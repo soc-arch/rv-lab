@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "repository_revision": "be0aa02e258ef092b20cb92052ae18db5f9a60a2",
+  "note": "Exact local HY-RV portable-kernel snapshots. SHA256 identifies the actual source, including any uncommitted edits. Original runtimes, CSR timing, host protocols, FP kernels and physical memory map are not imported.",
+  "files": [
+    {
+      "origin": "sw/visual_suite/image_kernels.c",
+      "snapshot": "image_kernels.c",
+      "sha256": "b9bfdf8d891dfe489a0cbf02cebb654e3c6e3b2be602e08d4db6b02b3970dd8a",
+      "modified": false
+    },
+    {
+      "origin": "sw/visual_suite/image_kernels.h",
+      "snapshot": "image_kernels.h",
+      "sha256": "6c59072b9d9542a736da4bf3068ee636ea39513a2fcd8627ea30ae210913ce70",
+      "modified": false
+    },
+    {
+      "origin": "sw/bouncing_ball/render.c",
+      "snapshot": "render.c",
+      "sha256": "310d87d6daf613a04597fb820138a184ebdd4fb9590c5181ceb8080f595b18dd",
+      "modified": false
+    },
+    {
+      "origin": "sw/bouncing_ball/render.h",
+      "snapshot": "render.h",
+      "sha256": "de5e15811fca2e3ae2a5b694b03e46011c8c4cf88c749be32cb91a10a5eea158",
+      "modified": false
+    }
+  ]
+}

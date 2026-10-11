@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Register your program in the cycle viewer · RV Lab</title>
+<style>
+:root{color-scheme:light;--ink:#203046;--muted:#59687a;--line:#dbe3eb;--blue:#17659a;--paper:#fff;--background:#f5f7fa;--accent:#e8f2fa;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--background);color:var(--ink);line-height:1.7}a{color:var(--blue);text-underline-offset:.18em}a:hover{color:#0b466f}a:focus-visible,button:focus-visible{outline:3px solid #d78917;outline-offset:3px}button{font:inherit}.skip{position:absolute;left:1rem;top:-5rem}.skip:focus{top:.5rem;background:white;padding:.5rem;z-index:3}.topbar{padding:1rem clamp(1rem,4vw,3rem);background:#17354b;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}.brand{color:white;text-decoration:none;font-size:1.1rem;font-weight:750;letter-spacing:.03em}.brand:hover{color:#d9eefc}.tagline{color:#cadce8;font-size:.88rem}.tools{display:flex;gap:1.2rem;flex-wrap:wrap}.tools a{color:#dfedf7;font-size:.9rem}.layout{max-width:1500px;margin:auto;display:grid;grid-template-columns:275px minmax(0,1fr);gap:2.3rem;padding:2rem}.sidebar{align-self:start;position:sticky;top:1.3rem;max-height:calc(100vh - 2.6rem);overflow:auto}.sidebar h2{font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 .6rem .65rem}.lesson-nav{display:grid;gap:.3rem}.lesson-nav a{padding:.6rem .7rem;border-radius:.45rem;color:#40536b;font-size:.9rem;text-decoration:none;line-height:1.45}.lesson-nav a:hover{background:#e8edf3}.lesson-nav a[aria-current=page]{background:var(--accent);color:#105783;box-shadow:inset 3px 0 #2382ba;font-weight:650}.section-nav{display:grid;gap:.25rem;margin-top:1.8rem;border-top:1px solid var(--line);padding-top:1rem}.section-nav:empty{display:none}.section-nav a{font-size:.81rem;text-decoration:none;color:var(--muted);line-height:1.5;padding:.2rem .65rem}.section-nav a.level-3{padding-left:1.4rem}.content{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:.8rem;padding:clamp(1.2rem,3.5vw,3.4rem);box-shadow:0 4px 15px #17354b04}article{max-width:940px;margin:auto}h1,h2,h3,h4{line-height:1.25;scroll-margin-top:1.2rem}h1{font-size:clamp(1.7rem,3.3vw,2.65rem);letter-spacing:-.035em;margin:.1rem 0 1.25rem}h2{font-size:1.45rem;margin:2.5rem 0 .9rem;padding-top:.3rem}h3{font-size:1.12rem;margin:1.65rem 0 .65rem}p{margin:.8rem 0 1rem}ul,ol{padding-left:1.5rem}li{padding-left:.15rem;margin:.35rem 0}li p{margin:.3rem 0}li>.code-block{margin:.9rem 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;font-size:.87em;background:#eff3f7;border-radius:.25rem;padding:.13rem .3rem;overflow-wrap:anywhere}pre{margin:0;overflow-x:auto;padding:1rem 1.15rem;font-size:.88rem;line-height:1.6;tab-size:4;max-width:100%}pre code{background:transparent;padding:0;color:#e6eff7;font-size:inherit;overflow-wrap:normal}.code-block{margin:1.1rem 0 1.4rem;border-radius:.55rem;overflow:hidden;background:#142c40;max-width:100%}.code-toolbar{display:flex;justify-content:space-between;align-items:center;padding:.35rem .7rem .35rem 1rem;background:#203c52;color:#c9dce9;font-size:.75rem;min-height:2rem}.copy-code{border:1px solid #607a8e;border-radius:.25rem;background:none;color:#e6eff7;padding:.06rem .55rem;cursor:pointer;font-size:.73rem}.copy-code:hover{background:#31536d}article>pre{background:#142c40;color:#e6eff7;border-radius:.55rem}.table-scroll{overflow-x:auto;margin:1.2rem 0;max-width:100%;border:1px solid var(--line);border-radius:.45rem}table{border-collapse:collapse;min-width:100%;font-size:.9rem}th{text-align:left;background:#edf3f8;font-weight:650}th,td{padding:.65rem .8rem;vertical-align:top;border-bottom:1px solid var(--line);min-width:110px}tr:last-child td{border-bottom:0}blockquote{margin:1.25rem 0;padding:.5rem 1.2rem;border-left:4px solid #73a6c6;background:#f0f6fa;color:#36536b}blockquote p{margin:.5rem 0}img{max-width:100%;height:auto}hr{margin:2rem 0;border:0;border-top:1px solid var(--line)}.unavailable{color:var(--muted)}.unavailable small{font-size:.75em}.pager{display:flex;justify-content:space-between;gap:1rem;border-top:1px solid var(--line);margin-top:3rem;padding-top:1.5rem}.pager a{flex:1;border:1px solid var(--line);border-radius:.45rem;padding:.8rem 1rem;text-decoration:none;font-size:.9rem}.pager a:hover{background:var(--accent)}.pager small{display:block;color:var(--muted);font-size:.75rem}.source-note{margin-top:2rem;font-size:.72rem;color:var(--muted);overflow-wrap:anywhere}.source-note code{font-size:1em}
+@media(max-width:850px){.layout{grid-template-columns:1fr;padding:1rem;gap:1rem}.sidebar{position:static;max-height:none}.lesson-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem}.section-nav{display:none}.sidebar h2{margin-top:.3rem}.content{padding:1.25rem}.tagline{display:none}.pager{flex-wrap:wrap}.pager a{flex-basis:200px}}
+@media(max-width:440px){.layout{padding:.65rem}.lesson-nav a{font-size:.78rem;padding:.45rem .55rem}.content{padding:1rem}.topbar{padding:.85rem 1rem}.tools{gap:.9rem}.tools a{font-size:.8rem}h1{font-size:1.7rem}th,td{padding:.55rem}pre{font-size:.76rem}.table-scroll{font-size:.8rem}}
+@media print{body{background:white}.topbar,.sidebar,.pager,.copy-code{display:none}.layout{display:block;padding:0}.content{border:0;box-shadow:none;padding:0}pre,pre code{white-space:pre-wrap;color:#172e43}.code-block,.code-toolbar{background:#edf2f5;color:#172e43}a{color:inherit}h2,h3{break-after:avoid}.code-block,table{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to lesson</a>
+<header class="topbar"><a class="brand" href="../../index.html">RV LAB <span class="tagline">/ C → instructions → RTL</span></a><nav class="tools" aria-label="Experiment results"><a href="https://github.com/soc-arch/rv-lab">GitHub</a></nav></header>
+<div class="layout">
+<aside class="sidebar"><h2>Course guide</h2><nav class="lesson-nav" aria-label="Course lessons"><a href="../../index.html">RV Lab practical exercises</a>
+<a href="../../01-setup.html">Lab 01 — Setup and baseline</a>
+<a href="../../02-first-main.html">Lab 02 — Your first main</a>
+<a href="../../03-debugging.html">Lab 03 — Find a wrong result</a>
+<a href="../../04-cycle-viewer.html">Lab 04 — Register and inspect your application</a>
+<a href="../../05-performance.html">Lab 05 — Measure an improvement</a>
+<a href="../../06-memory.html">Lab 06 — Change memory timing</a>
+<a href="../../07-images.html">Lab 07 — Process an image</a>
+<a href="../../08-project.html">Lab 08 — A reproducible project</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#register-a-successful-execution">Register a successful execution</a><a class="level-2" href="#follow-the-computation">Follow the computation</a><a class="level-2" href="#control-the-capture-and-compare-variants">Control the capture and compare variants</a><a class="level-2" href="#understand-names-revisions-and-evidence">Understand names, revisions, and evidence</a><a class="level-2" href="#share-a-report">Share a report</a></nav></aside>
+<main class="content" id="main"><article><h1 id="register-your-program-in-the-cycle-viewer">Register your program in the cycle viewer</h1>
+<p>Run these commands from the lab directory. You need the tools listed by <code>make doctor</code> and an application with <code>main()</code>. Start with <a href="../../02-first-main.html">Lab 02</a> or <a href="student-workflow.html">the application quick reference</a>.</p>
+<h2 id="register-a-successful-execution">Register a successful execution</h2>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make register SOURCE=my_main.c NAME=my-sum TITLE=&quot;My sum&quot;
+make serve</code></pre></div>
+<p>Open <code>http://127.0.0.1:8770/</code>, select <strong>My applications</strong>, and open <strong>My sum</strong>. The console prints the actual generated folder and HTML paths. If you set <code>LAB_BUILD_DIR</code>, use that same setting for both commands. Refresh an already-open browser tab after a run; the viewer is a saved report, not a live simulator.</p>
+<p>The register command performs these steps:</p>
+<ol><li><p>Build one ELF using the supplied C/assembly files and the lab runtime.</p></li><li><p>Execute that ELF on Spike and RTL, require successful checks and matching complete functional signatures.</p></li><li><p>Save a real RTL cycle trace and full retirement log, with source/disassembly.</p></li><li><p>Write output, performance, and cycle reports, then add a receipt-bound entry to the gallery. A failed comparison is never registered.</p></li></ol>
+<p><code>--backend</code> does not reduce registration to one backend: registration always performs both executions. Use ordinary <code>run</code> commands for isolated debugging.</p>
+<h2 id="follow-the-computation">Follow the computation</h2>
+<p>Use Next/Previous to move one captured cycle, or Next retirement to move to a completed instruction. The CPU diagram highlights the recorded functional-unit activity, register reads/writeback, memory requests/responses, and execution state. A highlighted region is activity in this CPU model, not a power estimate. The baseline has an overlapping fetch frontend and one serialized execution slot; the diagram does not imply five independently occupied pipeline stages.</p>
+<p>The source/disassembly view is compiled with debug information. Optimized C can map several source lines to one instruction or remove work entirely. Use <code>OPT=O0</code> for an initial walkthrough, then inspect the optimized machine instructions too. Use the gallery&#x27;s <strong>Program output &amp; performance results</strong> link for the console, ROI cycles, retired instructions, CPI, and the complete retirement CSV.</p>
+<h2 id="control-the-capture-and-compare-variants">Control the capture and compare variants</h2>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make register SOURCE=my_main.c NAME=my-sum TITLE=&quot;My sum&quot; OPT=O0
+make register SOURCE=my_main.c NAME=my-sum TITLE=&quot;My sum&quot; OPT=O2
+make register SOURCE=my_main.c NAME=my-sum TITLE=&quot;My sum&quot; MEMORY=stress
+python3 lab.py register --source my_main.c --source helpers.c \
+  --name my-filter --title &quot;My filter&quot; --description &quot;A checked integer filter&quot; \
+  --trace-symbol filter_kernel --trace-limit 5000</code></pre></div>
+<p>By default capture starts at <code>main</code> and stops after 20,000 cycles. Execution, comparison, full retirement logging, and ROI timing continue after this limit. Choose a reached, non-inlined symbol with <code>--trace-symbol</code>, or pass <code>--trace-startup</code> to capture startup. Zero captured cycles cannot be registered. <code>__attribute__((noinline))</code> can preserve a C function for this purpose. <code>TRACE_SYMBOL</code> and <code>TRACE_LIMIT</code> are the corresponding Make variables.</p>
+<p>Optional software counters use <code>CSR=1</code> and <code>lab_perf.h</code>; <code>CLOCK_MHZ=100</code> supplies an assumed clock for estimated execution time. See <a href="performance-monitoring.html">performance monitoring</a>. Keep deterministic program output separate from backend-dependent counter data.</p>
+<h2 id="understand-names-revisions-and-evidence">Understand names, revisions, and evidence</h2>
+<p>A name starts with a lowercase letter and contains at most 48 lowercase letters, digits, underscores or hyphens. <code>TITLE</code> is the human-readable label; it need not be a filename. A name identifies one ordered list of source paths within a build root. Using the same name for other sources is rejected; choose another name. Optimization and memory variants are separate entries. Re-registering the same source paths and variant replaces that run and its displayed title.</p>
+<p>The receipt is <code>&lt;printed-output-folder&gt;/registration.json</code>. It stores the source paths, options, ELF identity, and hashes of the build/verification/performance records, ELF, disassembly, retirement logs, raw cycle trace, and the viewer&#x27;s embedded recorded data. The gallery checks this evidence on refresh; template/navigation updates preserve the recorded-data identity. The source files stay where you wrote them. Registration does not copy a new application into the built-in examples and does not modify any CPU RTL or TB.</p>
+<p>Any ordinary rebuild/rerun of the same source-path/optimization/memory variant invalidates its registration first, including a hardware-only run, compilation failure, or missing source. Re-register after fixing the problem. Other variants remain explicitly recorded historical runs; editing a source file does not reexecute them. There is no file watcher and no background execution.</p>
+<p>To preserve a baseline before editing, use another output root:</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>LAB_BUILD_DIR=&quot;$PWD/build/baseline&quot; make register SOURCE=my_main.c NAME=my-sum
+# Edit the program, then:
+LAB_BUILD_DIR=&quot;$PWD/build/experiment&quot; make register SOURCE=my_main.c NAME=my-sum</code></pre></div>
+<p>Deleting a generated build root also removes its registrations. Keep sources and the register command in your project notes; repeat the command to recreate the gallery. The receipt records the actual options for review, but is not an automatic cross-machine replay mechanism.</p>
+<h2 id="share-a-report">Share a report</h2>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make export-views</code></pre></div>
+<p>Extract the printed <code>cpu_lab_examples.zip</code> and open <code>index.html</code> in a browser. The complete course manual, grouped gallery, available output/performance pages, registered traces, disassembly, logs, and evidence travel together. Navigation uses relative paths and works without a server or internet connection. Keep the directory layout intact. Paths inside run metadata describe the original host; viewing a report does not require those paths. Submit your source files separately when others need to rebuild the application, including any local headers.</p><nav class="pager" aria-label="Lesson sequence"><a href="../../index.html">Return to course overview</a></nav><p class="source-note">Source: <code>docs/register-application.md</code>. This manual also works offline. Measurements appear only after you run the experiments.</p></article></main>
+</div>
+<script>
+document.querySelectorAll('.copy-code').forEach(button=>button.addEventListener('click',async()=>{
+  const code=button.closest('.code-block').querySelector('code');
+  let copied=false;
+  if(navigator.clipboard&&window.isSecureContext){
+    try{await navigator.clipboard.writeText(code.textContent);copied=true;}catch(_){}
+  }
+  if(!copied){
+    const selection=window.getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);
+    try{copied=document.execCommand('copy');}catch(_){}
+    if(copied)selection.removeAllRanges();
+  }
+  button.textContent=copied?'Copied':'Press Ctrl+C';
+  setTimeout(()=>button.textContent='Copy',1800);
+}));
+</script>
+</body>
+</html>

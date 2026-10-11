@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Write an application, check it, and measure it · RV Lab</title>
+<style>
+:root{color-scheme:light;--ink:#203046;--muted:#59687a;--line:#dbe3eb;--blue:#17659a;--paper:#fff;--background:#f5f7fa;--accent:#e8f2fa;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--background);color:var(--ink);line-height:1.7}a{color:var(--blue);text-underline-offset:.18em}a:hover{color:#0b466f}a:focus-visible,button:focus-visible{outline:3px solid #d78917;outline-offset:3px}button{font:inherit}.skip{position:absolute;left:1rem;top:-5rem}.skip:focus{top:.5rem;background:white;padding:.5rem;z-index:3}.topbar{padding:1rem clamp(1rem,4vw,3rem);background:#17354b;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}.brand{color:white;text-decoration:none;font-size:1.1rem;font-weight:750;letter-spacing:.03em}.brand:hover{color:#d9eefc}.tagline{color:#cadce8;font-size:.88rem}.tools{display:flex;gap:1.2rem;flex-wrap:wrap}.tools a{color:#dfedf7;font-size:.9rem}.layout{max-width:1500px;margin:auto;display:grid;grid-template-columns:275px minmax(0,1fr);gap:2.3rem;padding:2rem}.sidebar{align-self:start;position:sticky;top:1.3rem;max-height:calc(100vh - 2.6rem);overflow:auto}.sidebar h2{font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 .6rem .65rem}.lesson-nav{display:grid;gap:.3rem}.lesson-nav a{padding:.6rem .7rem;border-radius:.45rem;color:#40536b;font-size:.9rem;text-decoration:none;line-height:1.45}.lesson-nav a:hover{background:#e8edf3}.lesson-nav a[aria-current=page]{background:var(--accent);color:#105783;box-shadow:inset 3px 0 #2382ba;font-weight:650}.section-nav{display:grid;gap:.25rem;margin-top:1.8rem;border-top:1px solid var(--line);padding-top:1rem}.section-nav:empty{display:none}.section-nav a{font-size:.81rem;text-decoration:none;color:var(--muted);line-height:1.5;padding:.2rem .65rem}.section-nav a.level-3{padding-left:1.4rem}.content{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:.8rem;padding:clamp(1.2rem,3.5vw,3.4rem);box-shadow:0 4px 15px #17354b04}article{max-width:940px;margin:auto}h1,h2,h3,h4{line-height:1.25;scroll-margin-top:1.2rem}h1{font-size:clamp(1.7rem,3.3vw,2.65rem);letter-spacing:-.035em;margin:.1rem 0 1.25rem}h2{font-size:1.45rem;margin:2.5rem 0 .9rem;padding-top:.3rem}h3{font-size:1.12rem;margin:1.65rem 0 .65rem}p{margin:.8rem 0 1rem}ul,ol{padding-left:1.5rem}li{padding-left:.15rem;margin:.35rem 0}li p{margin:.3rem 0}li>.code-block{margin:.9rem 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;font-size:.87em;background:#eff3f7;border-radius:.25rem;padding:.13rem .3rem;overflow-wrap:anywhere}pre{margin:0;overflow-x:auto;padding:1rem 1.15rem;font-size:.88rem;line-height:1.6;tab-size:4;max-width:100%}pre code{background:transparent;padding:0;color:#e6eff7;font-size:inherit;overflow-wrap:normal}.code-block{margin:1.1rem 0 1.4rem;border-radius:.55rem;overflow:hidden;background:#142c40;max-width:100%}.code-toolbar{display:flex;justify-content:space-between;align-items:center;padding:.35rem .7rem .35rem 1rem;background:#203c52;color:#c9dce9;font-size:.75rem;min-height:2rem}.copy-code{border:1px solid #607a8e;border-radius:.25rem;background:none;color:#e6eff7;padding:.06rem .55rem;cursor:pointer;font-size:.73rem}.copy-code:hover{background:#31536d}article>pre{background:#142c40;color:#e6eff7;border-radius:.55rem}.table-scroll{overflow-x:auto;margin:1.2rem 0;max-width:100%;border:1px solid var(--line);border-radius:.45rem}table{border-collapse:collapse;min-width:100%;font-size:.9rem}th{text-align:left;background:#edf3f8;font-weight:650}th,td{padding:.65rem .8rem;vertical-align:top;border-bottom:1px solid var(--line);min-width:110px}tr:last-child td{border-bottom:0}blockquote{margin:1.25rem 0;padding:.5rem 1.2rem;border-left:4px solid #73a6c6;background:#f0f6fa;color:#36536b}blockquote p{margin:.5rem 0}img{max-width:100%;height:auto}hr{margin:2rem 0;border:0;border-top:1px solid var(--line)}.unavailable{color:var(--muted)}.unavailable small{font-size:.75em}.pager{display:flex;justify-content:space-between;gap:1rem;border-top:1px solid var(--line);margin-top:3rem;padding-top:1.5rem}.pager a{flex:1;border:1px solid var(--line);border-radius:.45rem;padding:.8rem 1rem;text-decoration:none;font-size:.9rem}.pager a:hover{background:var(--accent)}.pager small{display:block;color:var(--muted);font-size:.75rem}.source-note{margin-top:2rem;font-size:.72rem;color:var(--muted);overflow-wrap:anywhere}.source-note code{font-size:1em}
+@media(max-width:850px){.layout{grid-template-columns:1fr;padding:1rem;gap:1rem}.sidebar{position:static;max-height:none}.lesson-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem}.section-nav{display:none}.sidebar h2{margin-top:.3rem}.content{padding:1.25rem}.tagline{display:none}.pager{flex-wrap:wrap}.pager a{flex-basis:200px}}
+@media(max-width:440px){.layout{padding:.65rem}.lesson-nav a{font-size:.78rem;padding:.45rem .55rem}.content{padding:1rem}.topbar{padding:.85rem 1rem}.tools{gap:.9rem}.tools a{font-size:.8rem}h1{font-size:1.7rem}th,td{padding:.55rem}pre{font-size:.76rem}.table-scroll{font-size:.8rem}}
+@media print{body{background:white}.topbar,.sidebar,.pager,.copy-code{display:none}.layout{display:block;padding:0}.content{border:0;box-shadow:none;padding:0}pre,pre code{white-space:pre-wrap;color:#172e43}.code-block,.code-toolbar{background:#edf2f5;color:#172e43}a{color:inherit}h2,h3{break-after:avoid}.code-block,table{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to lesson</a>
+<header class="topbar"><a class="brand" href="../../index.html">RV LAB <span class="tagline">/ C → instructions → RTL</span></a><nav class="tools" aria-label="Experiment results"><a href="https://github.com/soc-arch/rv-lab">GitHub</a></nav></header>
+<div class="layout">
+<aside class="sidebar"><h2>Course guide</h2><nav class="lesson-nav" aria-label="Course lessons"><a href="../../index.html">RV Lab practical exercises</a>
+<a href="../../01-setup.html">Lab 01 — Setup and baseline</a>
+<a href="../../02-first-main.html">Lab 02 — Your first main</a>
+<a href="../../03-debugging.html">Lab 03 — Find a wrong result</a>
+<a href="../../04-cycle-viewer.html">Lab 04 — Register and inspect your application</a>
+<a href="../../05-performance.html">Lab 05 — Measure an improvement</a>
+<a href="../../06-memory.html">Lab 06 — Change memory timing</a>
+<a href="../../07-images.html">Lab 07 — Process an image</a>
+<a href="../../08-project.html">Lab 08 — A reproducible project</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#1-write-and-check-main">1. Write and check main</a><a class="level-2" href="#2-read-the-output-on-screen">2. Read the output on screen</a><a class="level-2" href="#3-measure-a-region-and-inspect-its-instructions">3. Measure a region and inspect its instructions</a><a class="level-2" href="#4-read-performance-counters-from-your-application">4. Read performance counters from your application</a><a class="level-2" href="#5-show-that-an-optimization-helped">5. Show that an optimization helped</a></nav></aside>
+<main class="content" id="main"><article><h1 id="write-an-application-check-it-and-measure-it">Write an application, check it, and measure it</h1>
+<p>For a guided sequence with checkpoints, use the <a href="../../index.html">eight practical exercises</a>. To publish your own measured run in the interactive gallery, see <a href="register-application.html">register your program</a>.</p>
+<p>You write <code>main()</code> in C or assembly. The lab supplies startup, a linker script, SRAM, a small output library, and program completion. <code>make compare</code> builds one ELF, runs that same ELF on Spike and the RTL CPU, and checks their complete functional result signatures.</p>
+<p>Run commands from <code>~/rv-lab</code>.</p>
+<h2 id="1-write-and-check-main">1. Write and check <code>main</code></h2>
+<p>Save this as <code>my_main.c</code>:</p>
+<div class="code-block"><div class="code-toolbar"><span>c</span><button type="button" class="copy-code">Copy</button></div><pre><code>#include &quot;lab.h&quot;
+#include &lt;stdio.h&gt;
+
+static volatile unsigned input[] = {1, 2, 3, 4, 5, 6, 7, 8};
+
+int main(void) {
+    unsigned sum = 0;
+    lab_roi_begin();
+    for (unsigned i = 0; i &lt; 8; ++i) sum += input[i];
+    lab_roi_end();
+
+    lab_check(1, sum, 36);       /* check id, actual value, expected value */
+    lab_result(0, sum);         /* optional result slot, 0 through 15 */
+    printf(&quot;sum=%u\n&quot;, sum);    /* outside the measured region */
+    return 0;
+}</code></pre></div>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make doctor
+make compare SOURCE=my_main.c
+make compare SOURCE=my_main.c OPT=O0</code></pre></div>
+<p>A failed check, nonzero return from <code>main</code>, unexpected RTL trap, timeout, or different functional signatures makes the command fail. A program with no checks can terminate successfully without proving that its calculation is correct. Use known answers and exercise edge cases.</p>
+<p>For multiple C files:</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>python3 lab.py run --backend both --source my_main.c --source helpers.c</code></pre></div>
+<p>The application profile is RV32IM/ILP32. The package is freestanding: there is no OS or full C library. An assembly <code>main</code> must preserve callee-saved registers, keep the stack 16-byte aligned, and return its status in <code>a0</code>.</p>
+<h2 id="2-read-the-output-on-screen">2. Read the output on screen</h2>
+<p>The command prints checks, output, and RTL performance summaries. Each completed run also writes <code>report.html</code> and <code>performance.json</code> in its application build directory; the command reports the actual output path. The HTML report presents the buffered console, correctness results, and performance measurements.</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make serve</code></pre></div>
+<p>Open <span class="unavailable" title="Run the corresponding experiment to generate this result in the selected build directory">the application result list <small>(not in this portable copy)</small></span> in a browser and select the generated report. You can also open the generated HTML file directly in a browser. If the simulator runs on another computer, forward the server port as described in the <a href="setup.html#6-open-remote-results-through-ssh">setup guide</a>.</p>
+<p><code>printf</code>, <code>puts</code>, and <code>putchar</code> write into a 1024-byte SRAM buffer. The host displays it after completion. It is buffered simulation output, so a program that hangs does not provide a live console. Supported <code>printf</code> conversions are <code>%d</code>, <code>%i</code>, <code>%u</code>, <code>%x</code>, <code>%c</code>, <code>%s</code>, and <code>%%</code>, with integer width/zero padding and one <code>l</code> modifier for 32-bit ILP32 integers. Floating-point and <code>%llu</code> formatting are not provided. Overflow is reported as truncated output.</p>
+<p>Keep functional console output deterministic. Printing backend-dependent cycle values into this buffer makes the complete Spike/RTL signature comparison fail. Use the separate performance report for counters.</p>
+<h2 id="3-measure-a-region-and-inspect-its-instructions">3. Measure a region and inspect its instructions</h2>
+<p>The example above places one <strong>region of interest (ROI)</strong> around the loop. <code>lab_roi_begin()</code> and <code>lab_roi_end()</code> mark the region with SRAM stores. The testbench measures cycles and retired instructions between those stores. No CSR or timer is needed for this simulation measurement.</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make compare SOURCE=my_main.c COMMITS=1 TRACE=1 CLOCK_MHZ=100</code></pre></div>
+<ul><li><p><code>COMMITS=1</code> records the full RTL retirement stream as <code>commits.jsonl</code> and exports decoded <code>commits.csv</code>. It includes completed stores and branches even when they write no register.</p></li><li><p><code>TRACE=1</code> generates the detailed cycle viewer with source, disassembly, registers, memory activity, and functional-unit state.</p></li><li><p><code>CLOCK_MHZ=100</code> asks the report to convert cycles into an <strong>estimate at an assumed 100 MHz</strong>. It does not set or measure a hardware clock.</p></li></ul>
+<p>Retirement logging covers the run independently of the detailed trace limit. The default detailed trace begins at <code>main</code> and captures up to 20,000 cycles; <code>TRACE_LIMIT=50000</code> raises that capture limit. Simulation and complete result checking continue after detailed capture stops. A fetched instruction that is discarded on a redirect is not a retired instruction.</p>
+<p>The report distinguishes the full run, the ROI, and the captured viewer window. The full run includes startup and reporting. The ROI includes marker-wrapper overhead: its begin-store retirement is excluded and its end-store retirement is included. Use one begin/end pair per execution.</p>
+<h2 id="4-read-performance-counters-from-your-application">4. Read performance counters from your application</h2>
+<p>Use the optional CSR example:</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make compare APP=10_performance CSR=1 COMMITS=1 TRACE=1 CLOCK_MHZ=100</code></pre></div>
+<p>The <a href="../../files/examples/10_performance.c">example source</a> uses <a href="../../files/runtime/lab_perf.h"><code>lab_perf.h</code></a>:</p>
+<div class="code-block"><div class="code-toolbar"><span>c</span><button type="button" class="copy-code">Copy</button></div><pre><code>#include &quot;lab_perf.h&quot;
+
+/* Inside main, around an existing workload: */
+lab_perf_begin();
+lab_roi_begin();
+/* measured computation */
+lab_roi_end();
+lab_perf_end();</code></pre></div>
+<p><code>CSR=1</code> enables the optional counter runtime and host collection. Cycle and instruction measurements are stored outside the functional signature. The RTL host collects this record and displays it separately from program results. Spike executes the same instrumented ELF as a functional reference; its counter record is not collected or treated as CPU performance. Application results must still match. The supplied <code>10_performance</code> example enables this runtime automatically; specify <code>CSR=1</code> explicitly for your own source using <code>lab_perf.h</code>. Counter-enabled builds declare <code>rv32im_zicsr_zicntr</code> while retaining the ILP32 ABI.</p>
+<p>The CSR and marker intervals have different boundaries and instrumentation costs. They are useful complementary measurements, and their totals need not match. See <a href="performance-monitoring.html">performance monitoring</a> for the exact counter contract, CPI, timing estimates, and current core limitations.</p>
+<h2 id="5-show-that-an-optimization-helped">5. Show that an optimization helped</h2>
+<ol><li><p>Save a baseline run with correct results, input, compiler options, memory profile, and core identity.</p></li><li><p>Run the modified application with the same input and measurement boundaries.</p></li><li><p>Require Spike/RTL comparison and expected-value checks to pass.</p></li><li><p>Compare ROI cycles and retired instructions; inspect disassembly and the retirement/cycle reports to explain the change.</p></li><li><p>Report cycle speedup as <code>baseline_cycles / new_cycles</code>. A lower CPI alone does not prove that the program runs faster if it executes more instructions.</p></li></ol>
+<p>Separate output roots preserve both versions:</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>LAB_BUILD_DIR=&quot;$PWD/build/baseline&quot; make compare SOURCE=my_main.c COMMITS=1
+# Edit your application, then:
+LAB_BUILD_DIR=&quot;$PWD/build/experiment&quot; make compare SOURCE=my_main.c COMMITS=1</code></pre></div>
+<p>Keep printing and correctness checks outside the ROI. Ensure the workload&#x27;s result is used, and inspect the disassembly when changing optimization settings; the compiler can remove a calculation whose result has no observable use. For memory experiments, use the same <code>MEMORY</code> profile and stall seed. After a core replacement, follow the <a href="core-replacement.html">replacement procedure</a> before accepting its measurements.</p><nav class="pager" aria-label="Lesson sequence"><a href="../../index.html">Return to course overview</a></nav><p class="source-note">Source: <code>docs/student-workflow.md</code>. This manual also works offline. Measurements appear only after you run the experiments.</p></article></main>
+</div>
+<script>
+document.querySelectorAll('.copy-code').forEach(button=>button.addEventListener('click',async()=>{
+  const code=button.closest('.code-block').querySelector('code');
+  let copied=false;
+  if(navigator.clipboard&&window.isSecureContext){
+    try{await navigator.clipboard.writeText(code.textContent);copied=true;}catch(_){}
+  }
+  if(!copied){
+    const selection=window.getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);
+    try{copied=document.execCommand('copy');}catch(_){}
+    if(copied)selection.removeAllRanges();
+  }
+  button.textContent=copied?'Copied':'Press Ctrl+C';
+  setTimeout(()=>button.textContent='Copy',1800);
+}));
+</script>
+</body>
+</html>

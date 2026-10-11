@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Camera processing on the teaching CPU · RV Lab</title>
+<style>
+:root{color-scheme:light;--ink:#203046;--muted:#59687a;--line:#dbe3eb;--blue:#17659a;--paper:#fff;--background:#f5f7fa;--accent:#e8f2fa;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--background);color:var(--ink);line-height:1.7}a{color:var(--blue);text-underline-offset:.18em}a:hover{color:#0b466f}a:focus-visible,button:focus-visible{outline:3px solid #d78917;outline-offset:3px}button{font:inherit}.skip{position:absolute;left:1rem;top:-5rem}.skip:focus{top:.5rem;background:white;padding:.5rem;z-index:3}.topbar{padding:1rem clamp(1rem,4vw,3rem);background:#17354b;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}.brand{color:white;text-decoration:none;font-size:1.1rem;font-weight:750;letter-spacing:.03em}.brand:hover{color:#d9eefc}.tagline{color:#cadce8;font-size:.88rem}.tools{display:flex;gap:1.2rem;flex-wrap:wrap}.tools a{color:#dfedf7;font-size:.9rem}.layout{max-width:1500px;margin:auto;display:grid;grid-template-columns:275px minmax(0,1fr);gap:2.3rem;padding:2rem}.sidebar{align-self:start;position:sticky;top:1.3rem;max-height:calc(100vh - 2.6rem);overflow:auto}.sidebar h2{font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 .6rem .65rem}.lesson-nav{display:grid;gap:.3rem}.lesson-nav a{padding:.6rem .7rem;border-radius:.45rem;color:#40536b;font-size:.9rem;text-decoration:none;line-height:1.45}.lesson-nav a:hover{background:#e8edf3}.lesson-nav a[aria-current=page]{background:var(--accent);color:#105783;box-shadow:inset 3px 0 #2382ba;font-weight:650}.section-nav{display:grid;gap:.25rem;margin-top:1.8rem;border-top:1px solid var(--line);padding-top:1rem}.section-nav:empty{display:none}.section-nav a{font-size:.81rem;text-decoration:none;color:var(--muted);line-height:1.5;padding:.2rem .65rem}.section-nav a.level-3{padding-left:1.4rem}.content{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:.8rem;padding:clamp(1.2rem,3.5vw,3.4rem);box-shadow:0 4px 15px #17354b04}article{max-width:940px;margin:auto}h1,h2,h3,h4{line-height:1.25;scroll-margin-top:1.2rem}h1{font-size:clamp(1.7rem,3.3vw,2.65rem);letter-spacing:-.035em;margin:.1rem 0 1.25rem}h2{font-size:1.45rem;margin:2.5rem 0 .9rem;padding-top:.3rem}h3{font-size:1.12rem;margin:1.65rem 0 .65rem}p{margin:.8rem 0 1rem}ul,ol{padding-left:1.5rem}li{padding-left:.15rem;margin:.35rem 0}li p{margin:.3rem 0}li>.code-block{margin:.9rem 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;font-size:.87em;background:#eff3f7;border-radius:.25rem;padding:.13rem .3rem;overflow-wrap:anywhere}pre{margin:0;overflow-x:auto;padding:1rem 1.15rem;font-size:.88rem;line-height:1.6;tab-size:4;max-width:100%}pre code{background:transparent;padding:0;color:#e6eff7;font-size:inherit;overflow-wrap:normal}.code-block{margin:1.1rem 0 1.4rem;border-radius:.55rem;overflow:hidden;background:#142c40;max-width:100%}.code-toolbar{display:flex;justify-content:space-between;align-items:center;padding:.35rem .7rem .35rem 1rem;background:#203c52;color:#c9dce9;font-size:.75rem;min-height:2rem}.copy-code{border:1px solid #607a8e;border-radius:.25rem;background:none;color:#e6eff7;padding:.06rem .55rem;cursor:pointer;font-size:.73rem}.copy-code:hover{background:#31536d}article>pre{background:#142c40;color:#e6eff7;border-radius:.55rem}.table-scroll{overflow-x:auto;margin:1.2rem 0;max-width:100%;border:1px solid var(--line);border-radius:.45rem}table{border-collapse:collapse;min-width:100%;font-size:.9rem}th{text-align:left;background:#edf3f8;font-weight:650}th,td{padding:.65rem .8rem;vertical-align:top;border-bottom:1px solid var(--line);min-width:110px}tr:last-child td{border-bottom:0}blockquote{margin:1.25rem 0;padding:.5rem 1.2rem;border-left:4px solid #73a6c6;background:#f0f6fa;color:#36536b}blockquote p{margin:.5rem 0}img{max-width:100%;height:auto}hr{margin:2rem 0;border:0;border-top:1px solid var(--line)}.unavailable{color:var(--muted)}.unavailable small{font-size:.75em}.pager{display:flex;justify-content:space-between;gap:1rem;border-top:1px solid var(--line);margin-top:3rem;padding-top:1.5rem}.pager a{flex:1;border:1px solid var(--line);border-radius:.45rem;padding:.8rem 1rem;text-decoration:none;font-size:.9rem}.pager a:hover{background:var(--accent)}.pager small{display:block;color:var(--muted);font-size:.75rem}.source-note{margin-top:2rem;font-size:.72rem;color:var(--muted);overflow-wrap:anywhere}.source-note code{font-size:1em}
+@media(max-width:850px){.layout{grid-template-columns:1fr;padding:1rem;gap:1rem}.sidebar{position:static;max-height:none}.lesson-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem}.section-nav{display:none}.sidebar h2{margin-top:.3rem}.content{padding:1.25rem}.tagline{display:none}.pager{flex-wrap:wrap}.pager a{flex-basis:200px}}
+@media(max-width:440px){.layout{padding:.65rem}.lesson-nav a{font-size:.78rem;padding:.45rem .55rem}.content{padding:1rem}.topbar{padding:.85rem 1rem}.tools{gap:.9rem}.tools a{font-size:.8rem}h1{font-size:1.7rem}th,td{padding:.55rem}pre{font-size:.76rem}.table-scroll{font-size:.8rem}}
+@media print{body{background:white}.topbar,.sidebar,.pager,.copy-code{display:none}.layout{display:block;padding:0}.content{border:0;box-shadow:none;padding:0}pre,pre code{white-space:pre-wrap;color:#172e43}.code-block,.code-toolbar{background:#edf2f5;color:#172e43}a{color:inherit}h2,h3{break-after:avoid}.code-block,table{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to lesson</a>
+<header class="topbar"><a class="brand" href="../../../index.html">RV LAB <span class="tagline">/ C → instructions → RTL</span></a><nav class="tools" aria-label="Experiment results"><a href="https://github.com/soc-arch/rv-lab">GitHub</a></nav></header>
+<div class="layout">
+<aside class="sidebar"><h2>Course guide</h2><nav class="lesson-nav" aria-label="Course lessons"><a href="../../../index.html">RV Lab practical exercises</a>
+<a href="../../../01-setup.html">Lab 01 — Setup and baseline</a>
+<a href="../../../02-first-main.html">Lab 02 — Your first main</a>
+<a href="../../../03-debugging.html">Lab 03 — Find a wrong result</a>
+<a href="../../../04-cycle-viewer.html">Lab 04 — Register and inspect your application</a>
+<a href="../../../05-performance.html">Lab 05 — Measure an improvement</a>
+<a href="../../../06-memory.html">Lab 06 — Change memory timing</a>
+<a href="../../../07-images.html">Lab 07 — Process an image</a>
+<a href="../../../08-project.html">Lab 08 — A reproducible project</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#four-experiments">Four experiments</a><a class="level-2" href="#read-the-arithmetic">Read the arithmetic</a><a class="level-2" href="#connect-the-image-to-the-cycle-viewer">Connect the image to the cycle viewer</a><a class="level-2" href="#build-and-result-contract">Build and result contract</a></nav></aside>
+<main class="content" id="main"><article><h1 id="camera-processing-on-the-teaching-cpu">Camera processing on the teaching CPU</h1>
+<p>This is an ordinary RV32IM application: the CPU executes every load, integer operation, branch and store. It does not contain a camera peripheral or a hardware image accelerator. The input is an RGB888 image embedded into the executable by the host. The host reconstructs the output from simulated SRAM after completion.</p>
+<p>The algorithms are adapted from the repository&#x27;s earlier <code>sw/camera_demo/main.c</code>. The original demo is preserved. This standalone snapshot uses linker-allocated arrays in the course&#x27;s 1 MiB SRAM instead of the original demo&#x27;s fixed addresses in a 4 MiB memory map. <code>PROVENANCE.json</code> identifies the source version and the changes.</p>
+<h2 id="four-experiments">Four experiments</h2>
+<div class="table-scroll"><table><thead><tr><th scope="col">Operation</th><th scope="col"><code>CAMERA_OPERATION</code></th><th scope="col">Work inside the measured region</th><th scope="col">Visible output</th></tr></thead><tbody><tr><td>Copy</td><td>1</td><td>Copy all RGB bytes</td><td>Same RGB image</td></tr><tr><td>Grayscale</td><td>2</td><td>RGB-to-gray conversion and replicated RGB output</td><td>Grayscale image</td></tr><tr><td>Sobel</td><td>3</td><td>Clear output and compute the Sobel stencil</td><td>Saturated edge image</td></tr><tr><td>Pipeline</td><td>4</td><td>Grayscale conversion, output clear and Sobel stencil</td><td>Same edge image, with conversion cost included</td></tr></tbody></table></div>
+<p>Each run has exactly one begin/end ROI pair. Sobel-only prepares its grayscale input <strong>before</strong> the begin marker. Pipeline prepares it <strong>inside</strong> the region. Input/output initialization, canary checking, checksums and result publication are outside the ROI. Marker function call/return overhead is included in the harness&#x27;s commit-to-commit cycle count; these counts are not a wall-clock measurement.</p>
+<h2 id="read-the-arithmetic">Read the arithmetic</h2>
+<ol><li><p><code>camera_copy</code> is a byte-copy loop. Use it to find loads, stores and loop branches.</p></li><li><p><code>camera_grayscale</code> computes <code>Y = (77*R + 150*G + 29*B + 128) &gt;&gt; 8</code> for each RGB pixel. It writes both a one-byte gray plane and three copies of Y into the RGB output. The coefficients sum to 256 and <code>+128</code> rounds before division. This is an integer luminance approximation, not a Bayer sensor conversion or a linear-light color transform.</p></li><li><p><code>camera_sobel</code> clears the complete output first, establishing a one-pixel black boundary. <code>camera_sobel_pixels</code> then processes only interior pixels using:</p>
+<div class="code-block"><div class="code-toolbar"><span>text</span><button type="button" class="copy-code">Copy</button></div><pre><code>Gx kernel       Gy kernel
+-1  0  1        -1 -2 -1
+-2  0  2         0  0  0
+-1  0  1         1  2  1
+
+output = min(255, abs(Gx) + abs(Gy))</code></pre></div>
+<p>The output is the L1 gradient magnitude with saturation, not the Euclidean magnitude. The center sample is unused. Each edge value is replicated across three RGB channels.</p></li><li><p><code>camera_pipeline</code> combines conversion and Sobel without changing their math.</p></li></ol>
+<p>The kernel functions are externally visible and <code>noinline</code> so their symbols and instruction ranges remain easy to find in the disassembly. The compiler can still transform their loops: inspect the instructions produced at the chosen optimization level instead of assuming every C multiplication becomes a MUL instruction.</p>
+<h2 id="connect-the-image-to-the-cycle-viewer">Connect the image to the cycle viewer</h2>
+<p>Use a small image, such as 16x12, for instruction-by-instruction inspection. Use a larger image, such as 80x60, for a clearer image report and steady-state loop behavior. The framework-generated viewer uses actual RTL observations. A Sobel trace can start at <code>camera_sobel_pixels</code> so the capture budget shows arithmetic instead of output clearing. This omits earlier execution from the viewer; it does <strong>not</strong> remove that work from the Sobel ROI measurement. Pipeline traces can use the same entry symbol and omit their preceding grayscale phase from capture only.</p>
+<p>Look for the prefetched instruction held while a load, multiply or divide waits. Decode, ALU/branch execution, memory access and writeback highlights are functional activities within the serialized backend, not five independently pipelined stages. The trace limit bounds captured records; it never terminates the application early.</p>
+<p>Suggested progression:</p>
+<ol><li><p>Run copy, confirm byte-for-byte equality, and locate one load/store loop iteration.</p></li><li><p>Run grayscale; explain the rounding and why all three output channels agree.</p></li><li><p>Run Sobel; identify neighbor loads, signed arithmetic, absolute value and saturation.</p></li><li><p>Run pipeline; explain why the image matches Sobel-only but its measured region contains additional work.</p></li><li><p>Change one coefficient or the saturation rule deliberately. Observe the host&#x27;s full-image comparison fail, then restore the algorithm.</p></li><li><p>Propose a custom instruction for a useful repeated operation. Keep the C oracle and numerical contract unchanged, add decoder/FU support, and compare measured cycles per output pixel. Changing an encoding alone does not implement the FU.</p></li></ol>
+<h2 id="build-and-result-contract">Build and result contract</h2>
+<p>The host generates <code>camera_input.h</code> with these declarations:</p>
+<div class="code-block"><div class="code-toolbar"><span>c</span><button type="button" class="copy-code">Copy</button></div><pre><code>#include &lt;stdint.h&gt;
+#define CAMERA_WIDTH 80
+#define CAMERA_HEIGHT 60
+static const uint8_t camera_input[CAMERA_WIDTH * CAMERA_HEIGHT * 3] = {
+    /* RGB888 row-major bytes generated by the host */
+};
+/* Optional additional checks: */
+/* #define CAMERA_EXPECTED_INPUT_FNV  0x...u */
+/* #define CAMERA_EXPECTED_OUTPUT_FNV 0x...u */</code></pre></div>
+<p>Compile <code>main.c</code> and <code>camera_kernels.c</code> with the normal course runtime, the generated header&#x27;s include directory and <code>-DCAMERA_OPERATION=1</code>, <code>2</code>, <code>3</code> or <code>4</code>. The generated header is an input artifact, not a source file to maintain manually. Width and height must lie between 3x3 and 320x240; the linker checks the actual SRAM/stack budget.</p>
+<p><code>camera_output_storage</code> is an aligned struct placed in <code>.signature_extra</code>, which the framework linker includes inside its full signature range. Its layout is:</p>
+<div class="code-block"><div class="code-toolbar"><span>text</span><button type="button" class="copy-code">Copy</button></div><pre><code>16 guard bytes | width*height*3 RGB bytes | 16 guard bytes | possible tail padding
+                ^ ELF symbol address + 16</code></pre></div>
+<p>Guards use byte arrays, so neither image data nor a guard acquires an internal alignment gap for odd-sized images. The host extracts exactly <code>width*height*3</code> bytes. Gray storage has analogous adjacent guards in BSS. The runtime checks both ends of both buffers and checks that the input checksum did not change. Checksums use 32-bit FNV-1a, with volatile reads so both input passes access simulated memory.</p>
+<p>The result slots are:</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">Slot</th><th scope="col">Value</th></tr></thead><tbody><tr><td>0</td><td>Operation number</td></tr><tr><td>1, 2</td><td>Width, height</td></tr><tr><td>3</td><td>RGB output byte count</td></tr><tr><td>4</td><td>Output FNV-1a checksum</td></tr><tr><td>5</td><td>Input FNV-1a checksum</td></tr><tr><td>6</td><td>Gray FNV-1a checksum; zero for copy</td></tr></tbody></table></div>
+<p>Checksums and canaries are useful diagnostics. Correctness ultimately includes the host&#x27;s <strong>full output-byte comparison</strong> with an independently expressed Python reference, in addition to matching software/RTL signatures. The displayed image must come from simulator output; a reference image is only the expected result.</p><nav class="pager" aria-label="Lesson sequence"><a href="../../../index.html">Return to course overview</a></nav><p class="source-note">Source: <code>examples/camera/README.md</code>. This manual also works offline. Measurements appear only after you run the experiments.</p></article></main>
+</div>
+<script>
+document.querySelectorAll('.copy-code').forEach(button=>button.addEventListener('click',async()=>{
+  const code=button.closest('.code-block').querySelector('code');
+  let copied=false;
+  if(navigator.clipboard&&window.isSecureContext){
+    try{await navigator.clipboard.writeText(code.textContent);copied=true;}catch(_){}
+  }
+  if(!copied){
+    const selection=window.getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);
+    try{copied=document.execCommand('copy');}catch(_){}
+    if(copied)selection.removeAllRanges();
+  }
+  button.textContent=copied?'Copied':'Press Ctrl+C';
+  setTimeout(()=>button.textContent='Copy',1800);
+}));
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "project": "EEMBC CoreMark",
+  "repository": "https://github.com/eembc/coremark",
+  "revision": "1f483d5b8316753a742cbf5590caf5bd0a4e4777",
+  "snapshot_source": "sw/coremark/coremark-src",
+  "license_file": "upstream/LICENSE.md",
+  "upstream_files_modified": false,
+  "files": [
+    {
+      "path": "upstream/core_main.c",
+      "sha256": "17884c93c5b94378eb0ff02b4df3725756cf2addb9b8cbcaa6200a4649ff5ca7",
+      "url": "https://github.com/eembc/coremark/blob/1f483d5b8316753a742cbf5590caf5bd0a4e4777/core_main.c",
+      "matches_git_blob": true
+    },
+    {
+      "path": "upstream/core_list_join.c",
+      "sha256": "ca00e4e010ece47d7f040cb92aa50a95345a00d3171b59d088f6b243be06ce7b",
+      "url": "https://github.com/eembc/coremark/blob/1f483d5b8316753a742cbf5590caf5bd0a4e4777/core_list_join.c",
+      "matches_git_blob": true
+    },
+    {
+      "path": "upstream/core_matrix.c",
+      "sha256": "ecdff717b5a5c4907d221a606760e25499899cbf617582c05d40db71c91351e4",
+      "url": "https://github.com/eembc/coremark/blob/1f483d5b8316753a742cbf5590caf5bd0a4e4777/core_matrix.c",
+      "matches_git_blob": true
+    },
+    {
+      "path": "upstream/core_state.c",
+      "sha256": "f4b84bb0a3452c45a4daa664ab502bfdccbd31cb57d93e9ac490c60937717a4e",
+      "url": "https://github.com/eembc/coremark/blob/1f483d5b8316753a742cbf5590caf5bd0a4e4777/core_state.c",
+      "matches_git_blob": true
+    },
+    {
+      "path": "upstream/core_util.c",
+      "sha256": "a3fbfcb9bb943b638624b8ece01c5836dd56a96d7bcde2697b248d077447327f",
+      "url": "https://github.com/eembc/coremark/blob/1f483d5b8316753a742cbf5590caf5bd0a4e4777/core_util.c",
+      "matches_git_blob": true
+    },
+    {
+      "path": "upstream/coremark.h",
+      "sha256": "42642b9a06c7ed2b3bd9eda971b7c3868c4f5d27bf7ef6c4bba11291a0c2598a",
+      "url": "https://github.com/eembc/coremark/blob/1f483d5b8316753a742cbf5590caf5bd0a4e4777/coremark.h",
+      "matches_git_blob": true
+    },
+    {
+      "path": "upstream/LICENSE.md",
+      "sha256": "9577b9c846f61fd69a0d8ac965998c6450c7d8969f71f0bb4a931b91aebad28a",
+      "url": "https://github.com/eembc/coremark/blob/1f483d5b8316753a742cbf5590caf5bd0a4e4777/LICENSE.md",
+      "matches_git_blob": true
+    },
+    {
+      "path": "upstream/README.md",
+      "sha256": "5581fb67dc1609cbd1865f150dbcb1050d96c602987792456850eb96eb0dd08c",
+      "url": "https://github.com/eembc/coremark/blob/1f483d5b8316753a742cbf5590caf5bd0a4e4777/README.md",
+      "matches_git_blob": true
+    },
+    {
+      "path": "upstream/coremark.md5",
+      "sha256": "dad92861212f8f012e75974e23ea97f7a275a375e0d3bc1d3b216423ba6b6306",
+      "url": "https://github.com/eembc/coremark/blob/1f483d5b8316753a742cbf5590caf5bd0a4e4777/coremark.md5",
+      "matches_git_blob": true
+    },
+    {
+      "path": "upstream/barebones_porting.md",
+      "sha256": "487ab4d058aad127ebad527a314d4c5bea72e093bdd18b9728359a9098e4e8fb",
+      "url": "https://github.com/eembc/coremark/blob/1f483d5b8316753a742cbf5590caf5bd0a4e4777/barebones_porting.md",
+      "matches_git_blob": true
+    }
+  ],
+  "upstream_md5_check": {
+    "status": "5 of 6 pass; upstream header checksum is stale",
+    "file": "upstream/coremark.h",
+    "upstream_manifest_md5": "8ca974c013b380dc7f0d6d1afb76eb2d",
+    "actual_pinned_blob_md5": "b0ec69b6c8e75853d06accb3b1bcf534",
+    "action": "Preserved both upstream files unchanged. Verified all snapshot contents against pinned Git blobs and recorded SHA-256 values instead."
+  }
+}

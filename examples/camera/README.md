@@ -1,0 +1,136 @@
+# Camera processing on the teaching CPU
+
+This is an ordinary RV32IM application: the CPU executes every load, integer
+operation, branch and store. It does not contain a camera peripheral or a hardware
+image accelerator. The input is an RGB888 image embedded into the executable by
+the host. The host reconstructs the output from simulated SRAM after completion.
+
+The algorithms are adapted from the repository's earlier
+`sw/camera_demo/main.c`. The original demo is preserved. This standalone snapshot
+uses linker-allocated arrays in the course's 1 MiB SRAM instead of the original
+demo's fixed addresses in a 4 MiB memory map. `PROVENANCE.json` identifies the
+source version and the changes.
+
+## Four experiments
+
+| Operation | `CAMERA_OPERATION` | Work inside the measured region | Visible output |
+|---|---:|---|---|
+| Copy | 1 | Copy all RGB bytes | Same RGB image |
+| Grayscale | 2 | RGB-to-gray conversion and replicated RGB output | Grayscale image |
+| Sobel | 3 | Clear output and compute the Sobel stencil | Saturated edge image |
+| Pipeline | 4 | Grayscale conversion, output clear and Sobel stencil | Same edge image, with conversion cost included |
+
+Each run has exactly one begin/end ROI pair. Sobel-only prepares its grayscale
+input **before** the begin marker. Pipeline prepares it **inside** the region.
+Input/output initialization, canary checking, checksums and result publication are
+outside the ROI. Marker function call/return overhead is included in the harness's
+commit-to-commit cycle count; these counts are not a wall-clock measurement.
+
+## Read the arithmetic
+
+1. `camera_copy` is a byte-copy loop. Use it to find loads, stores and loop branches.
+2. `camera_grayscale` computes
+   `Y = (77*R + 150*G + 29*B + 128) >> 8` for each RGB pixel. It writes both a
+   one-byte gray plane and three copies of Y into the RGB output. The coefficients
+   sum to 256 and `+128` rounds before division. This is an integer luminance
+   approximation, not a Bayer sensor conversion or a linear-light color transform.
+3. `camera_sobel` clears the complete output first, establishing a one-pixel black
+   boundary. `camera_sobel_pixels` then processes only interior pixels using:
+
+   ```text
+   Gx kernel       Gy kernel
+   -1  0  1        -1 -2 -1
+   -2  0  2         0  0  0
+   -1  0  1         1  2  1
+
+   output = min(255, abs(Gx) + abs(Gy))
+   ```
+
+   The output is the L1 gradient magnitude with saturation, not the Euclidean
+   magnitude. The center sample is unused. Each edge value is replicated across
+   three RGB channels.
+4. `camera_pipeline` combines conversion and Sobel without changing their math.
+
+The kernel functions are externally visible and `noinline` so their symbols and
+instruction ranges remain easy to find in the disassembly. The compiler can still
+transform their loops: inspect the instructions produced at the chosen optimization
+level instead of assuming every C multiplication becomes a MUL instruction.
+
+## Connect the image to the cycle viewer
+
+Use a small image, such as 16x12, for instruction-by-instruction inspection. Use a
+larger image, such as 80x60, for a clearer image report and steady-state loop behavior.
+The framework-generated viewer uses actual RTL observations. A Sobel trace can start
+at `camera_sobel_pixels` so the capture budget shows arithmetic instead of output
+clearing. This omits earlier execution from the viewer; it does **not** remove that
+work from the Sobel ROI measurement. Pipeline traces can use the same entry symbol
+and omit their preceding grayscale phase from capture only.
+
+Look for the prefetched instruction held while a load, multiply or divide waits.
+Decode, ALU/branch execution, memory access and writeback highlights are functional
+activities within the serialized backend, not five independently pipelined stages.
+The trace limit bounds captured records; it never terminates the application early.
+
+Suggested progression:
+
+1. Run copy, confirm byte-for-byte equality, and locate one load/store loop iteration.
+2. Run grayscale; explain the rounding and why all three output channels agree.
+3. Run Sobel; identify neighbor loads, signed arithmetic, absolute value and saturation.
+4. Run pipeline; explain why the image matches Sobel-only but its measured region
+   contains additional work.
+5. Change one coefficient or the saturation rule deliberately. Observe the host's
+   full-image comparison fail, then restore the algorithm.
+6. Propose a custom instruction for a useful repeated operation. Keep the C oracle
+   and numerical contract unchanged, add decoder/FU support, and compare measured
+   cycles per output pixel. Changing an encoding alone does not implement the FU.
+
+## Build and result contract
+
+The host generates `camera_input.h` with these declarations:
+
+```c
+#include <stdint.h>
+#define CAMERA_WIDTH 80
+#define CAMERA_HEIGHT 60
+static const uint8_t camera_input[CAMERA_WIDTH * CAMERA_HEIGHT * 3] = {
+    /* RGB888 row-major bytes generated by the host */
+};
+/* Optional additional checks: */
+/* #define CAMERA_EXPECTED_INPUT_FNV  0x...u */
+/* #define CAMERA_EXPECTED_OUTPUT_FNV 0x...u */
+```
+
+Compile `main.c` and `camera_kernels.c` with the normal course runtime, the generated
+header's include directory and `-DCAMERA_OPERATION=1`, `2`, `3` or `4`. The generated
+header is an input artifact, not a source file to maintain manually. Width and height
+must lie between 3x3 and 320x240; the linker checks the actual SRAM/stack budget.
+
+`camera_output_storage` is an aligned struct placed in `.signature_extra`, which
+the framework linker includes inside its full signature range. Its layout is:
+
+```text
+16 guard bytes | width*height*3 RGB bytes | 16 guard bytes | possible tail padding
+                ^ ELF symbol address + 16
+```
+
+Guards use byte arrays, so neither image data nor a guard acquires an internal
+alignment gap for odd-sized images. The host extracts exactly `width*height*3`
+bytes. Gray storage has analogous adjacent guards in BSS. The runtime checks both
+ends of both buffers and checks that the input checksum did not change. Checksums
+use 32-bit FNV-1a, with volatile reads so both input passes access simulated memory.
+
+The result slots are:
+
+| Slot | Value |
+|---:|---|
+| 0 | Operation number |
+| 1, 2 | Width, height |
+| 3 | RGB output byte count |
+| 4 | Output FNV-1a checksum |
+| 5 | Input FNV-1a checksum |
+| 6 | Gray FNV-1a checksum; zero for copy |
+
+Checksums and canaries are useful diagnostics. Correctness ultimately includes the
+host's **full output-byte comparison** with an independently expressed Python
+reference, in addition to matching software/RTL signatures. The displayed image
+must come from simulator output; a reference image is only the expected result.

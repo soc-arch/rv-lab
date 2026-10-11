@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="C 프로그램에서 실제 RISC-V RTL 실행까지, 8개의 단계별 컴퓨터구조 실습">
+<title>RV Lab · SoC Architecture Laboratory</title>
+<style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#203046;background:#f5f7fa;line-height:1.65;--blue:#17659a;--line:#dbe3eb}*{box-sizing:border-box}body{margin:0}a{color:var(--blue);text-underline-offset:.2em}a:focus-visible,button:focus-visible{outline:3px solid #db971e;outline-offset:4px}.skip{position:absolute;top:-5rem;left:1rem}.skip:focus{top:.5rem;background:#fff;padding:.5rem;z-index:2}header{background:#17354b;color:#fff}nav{max-width:1120px;margin:auto;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}nav a{color:#dfedf7;text-decoration:none}.brand{color:#fff;font-weight:800;letter-spacing:.1em}.navlinks{display:flex;gap:1.4rem;font-size:.9rem}main{max-width:1120px;margin:auto;padding:3rem 1.5rem 2rem}.eyebrow{color:var(--blue);font-weight:700;letter-spacing:.12em;font-size:.75rem;text-transform:uppercase}h1{font-size:clamp(2.1rem,5vw,3.7rem);line-height:1.2;letter-spacing:-.045em;margin:.65rem 0 1.2rem}h1 span{color:var(--blue)}.lead{font-size:1.05rem;max-width:720px;color:#59687a}.actions{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.8rem 0}.button{display:inline-block;padding:.75rem 1.1rem;background:var(--blue);border:1px solid var(--blue);border-radius:.5rem;color:white;text-decoration:none;font-weight:650}.button.secondary{background:white;color:var(--blue);border-color:var(--line)}.route{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin:2rem 0;color:#496279;font-size:.86rem}.route span{background:white;border:1px solid var(--line);padding:.45rem .8rem;border-radius:2rem}.route b{color:#9aa8b6}.intro{border-left:4px solid #73a6c6;background:#eaf2f8;padding:.9rem 1.2rem;border-radius:.25rem;font-size:.92rem;margin:2rem 0 2.5rem}.intro p{margin:.3rem 0}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:1rem;margin:2.4rem 0 1rem}h2{font-size:1.45rem;letter-spacing:-.025em;margin:0}.sectionhead p{margin:0;color:#59687a;font-size:.9rem}.labs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.lab{display:grid;grid-template-columns:48px 1fr;gap:1rem;padding:1.45rem;border:1px solid var(--line);border-radius:.65rem;background:#fff;text-decoration:none;color:inherit;transition:transform .15s,border-color .15s}.lab:hover{border-color:#73a6c6;transform:translateY(-2px)}.number{color:var(--blue);font:700 1.7rem ui-monospace,SFMono-Regular,monospace}.lab h3{font-size:1.04rem;margin:0 0 .4rem;line-height:1.35}.lab p{color:#59687a;font-size:.88rem;margin:0 0 .65rem}.topic{font-size:.72rem;color:var(--blue);letter-spacing:.015em}.next{font-size:.8rem;display:block;color:var(--blue);margin-top:.65rem}.start{margin-top:2.4rem;padding:1.5rem;border:1px solid var(--line);border-radius:.65rem;background:white}.start p{color:#59687a;font-size:.92rem}.command{background:#142c40;color:#e6eff7;border-radius:.5rem;padding:1rem;overflow:auto;font: .86rem/1.6 ui-monospace,SFMono-Regular,monospace;white-space:pre}.start small{color:#59687a}footer{max-width:1120px;margin:0 auto;padding:1rem 1.5rem 2rem;color:#59687a;font-size:.78rem;border-top:1px solid var(--line)}@media(max-width:700px){main{padding:2rem 1rem}.labs{grid-template-columns:1fr}.lab{padding:1.1rem}.sectionhead{display:block}.sectionhead p{margin-top:.4rem}.navlinks{gap:.8rem;font-size:.8rem}nav{padding:1rem}.route{gap:.4rem}.route span{font-size:.78rem}.lead{font-size:.95rem}}@media(prefers-reduced-motion:reduce){.lab{transition:none}.lab:hover{transform:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">실습 안내로 이동</a>
+<header><nav aria-label="주 메뉴"><a class="brand" href="index.html">RV LAB</a><div class="navlinks"><a href="#labs">8개 실습</a><a href="course/index.html">Course manual</a><a href="https://github.com/soc-arch/rv-lab">GitHub ↗</a></div></nav></header>
+<main id="main">
+<div class="eyebrow">SoC Architecture Laboratory · Hands-on RISC-V</div>
+<h1>내가 쓴 코드가<br><span>CPU에서 실행되는 순간.</span></h1>
+<p class="lead">C 프로그램을 작성하고, 같은 실행 파일을 Spike와 교육용 RTL CPU에서 비교합니다. 명령어가 실제로 수행되는 과정을 관찰하고, 결과를 유지하면서 성능이 달라지는 이유를 설명해보세요.</p>
+<div class="actions"><a class="button" href="course/01-setup.html">Lab 01부터 시작 →</a><a class="button secondary" href="course/index.html">전체 실습 안내</a></div>
+<div class="route" aria-label="학습 순서"><span>C / Assembly</span><b aria-hidden="true">→</b><span>Same ELF · Spike + RTL</span><b aria-hidden="true">→</b><span>Cycle viewer</span><b aria-hidden="true">→</b><span>Measured experiments</span></div>
+<div class="intro"><p><strong>이 웹사이트는 실습 안내입니다.</strong> 명령어는 Linux 작업 환경의 터미널에서 실행합니다. 실습 후 생성되는 실행 결과와 cycle viewer는 각자의 작업 환경에서 열 수 있습니다.</p><p>C의 함수·반복문·배열과 기본 터미널 사용법을 알면 시작할 수 있습니다. FPGA나 물리 카메라 없이 실습하며, 상세 단계와 체크포인트는 영어로 제공합니다.</p></div>
+<section id="labs" aria-labelledby="labs-title">
+<div class="sectionhead"><h2 id="labs-title">한 단계씩, 8개의 Lab</h2><p>목표 → 실행 → 관찰 → 체크포인트 → 기록</p></div>
+<div class="labs">
+<a class="lab" href="course/01-setup.html"><span class="number">01</span><div><h3>환경 확인과 첫 실행</h3><p>도구를 확인하고 같은 ELF의 Spike·RTL 결과가 일치하는지 확인합니다.</p><span class="topic">Setup · Baseline · 17-case smoke</span><span class="next">실습 시작 →</span></div></a>
+<a class="lab" href="course/02-first-main.html"><span class="number">02</span><div><h3>나의 첫 main()</h3><p>배열의 합을 구하고, 정답 검사와 콘솔 출력을 가진 프로그램을 만듭니다.</p><span class="topic">C runtime · Known answers · Results</span><span class="next">실습 시작 →</span></div></a>
+<a class="lab" href="course/03-debugging.html"><span class="number">03</span><div><h3>틀린 결과를 찾아 고치기</h3><p>의도된 실패를 읽고, 잘못된 예상값과 계산 오류를 구분합니다.</p><span class="topic">Debugging · Expected failure · Evidence</span><span class="next">실습 시작 →</span></div></a>
+<a class="lab" href="course/04-cycle-viewer.html"><span class="number">04</span><div><h3>명령어와 CPU 실행 관찰</h3><p>내 프로그램을 등록하고 load·branch·retirement가 일어나는 사이클을 관찰합니다.</p><span class="topic">Registration · Disassembly · Cycle viewer</span><span class="next">실습 시작 →</span></div></a>
+<a class="lab" href="course/05-performance.html"><span class="number">05</span><div><h3>성능 개선을 측정하기</h3><p>같은 정답을 유지하면서 O0·O2의 사이클 수와 명령어 수를 비교합니다.</p><span class="topic">ROI · CPI · CSR counters</span><span class="next">실습 시작 →</span></div></a>
+<a class="lab" href="course/06-memory.html"><span class="number">06</span><div><h3>메모리가 느려지면?</h3><p>메모리 지연과 요청 대기를 바꾸고, 같은 프로그램의 실행 시간이 달라지는 이유를 찾습니다.</p><span class="topic">Latency · Backpressure · Handshake</span><span class="next">실습 시작 →</span></div></a>
+<a class="lab" href="course/07-images.html"><span class="number">07</span><div><h3>눈에 보이는 이미지 처리</h3><p>copy·grayscale·Sobel 결과를 픽셀 기준과 비교하고 실제 커널의 비용을 측정합니다.</p><span class="topic">Pixel oracle · Image kernels · Trace</span><span class="next">실습 시작 →</span></div></a>
+<a class="lab" href="course/08-project.html"><span class="number">08</span><div><h3>재현 가능한 나의 프로젝트</h3><p>소스·실행 조건·결과를 모아 다른 사람이 확인할 수 있는 실험 기록을 제출합니다.</p><span class="topic">Independent builds · Receipts · Submission</span><span class="next">실습 시작 →</span></div></a>
+</div></section>
+<section class="start" aria-labelledby="start-title"><h2 id="start-title">실습 코드를 준비하세요</h2><p>도구가 설치된 작업 환경에서 공개 저장소를 내려받습니다. 필요한 도구와 환경 선택은 <a href="course/references/docs/setup.html">설치·접속 안내</a>에서 확인하세요.</p><pre class="command"><code>git clone https://github.com/soc-arch/rv-lab.git ~/rv-lab
+cd ~/rv-lab
+make doctor</code></pre><small>생성 결과는 build/에, 개인 코드는 student/에 저장합니다. 각 실습의 체크포인트를 통과한 뒤 다음 단계로 진행하세요.</small></section>
+</main>
+<footer>RV Lab · soc-arch &nbsp; / &nbsp; Fixed educational RV32IM CPU · Real simulation measurements &nbsp; / &nbsp; <a href="course/references/docs/validation.html">실습 검증 기록</a><br>실습의 사이클 측정은 논리 시뮬레이션 결과이며 물리 구현의 동작 주파수나 tapeout signoff를 나타내지 않습니다.</footer>
+</body>
+</html>
