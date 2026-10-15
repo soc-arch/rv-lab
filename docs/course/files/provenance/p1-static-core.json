@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "description": "Current HY-RV P1 F0 static CPU imported byte-for-byte from the verified common RTL. Legacy teaching CPU is historical.",
+  "source_origin": "HY-RV core/p1_f0_bp0_ls0_x1 working RTL, English header revision",
+  "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+  "source_hash_algorithm": "SHA-256 of sorted compact JSON mapping relative RTL paths to SHA-256; filelist and compiled sources included.",
+  "rtl_files_sha256": {
+    "common/fu_alu.sv": "370b42f524e0a21570d6131153aeab47b51e914cd0ce8024e28a110f53b56b74",
+    "common/fu_br.sv": "3ca01c4aa1c3fe2b2ca38593e00602987ac96306abcc5eeb6655fb31ff5cd8c1",
+    "common/fu_div.sv": "f0cc1b7fb21962ee77bd525a3e42b25974f4868dd73c9a1fd7a3b582a1f9d103",
+    "common/fu_mul.sv": "3e3401835e0056cacae5e13c7dfe62cdc0955885de7d98b4d8e2a9c30ff82e7b",
+    "common/insn_supply_if.sv": "197f82a60dfeaf40d62370273f613f74ed7c07ba87e1f83cd696a7cfb5eb8ff8",
+    "common/mem_if.sv": "e740287c2cd68af5ff80a03fdb35936be5e7bd6d20c22a1508585196261608fa",
+    "common/rv32_alu_op_decode.sv": "008a0cbbc8700d979b565c20f09c5a287c43586270f921be202636c3b621db65",
+    "common/rv32_csr.sv": "31a1d3a6c045c74de745cc731d06ad97eb77112d5a61ad5d7db1a6e1c9cd6fe0",
+    "common/rv32_decoder.sv": "19655bf6a96d423c4b0b7a5caae0f8bf47b029fd302acabad3a54c5f8c58a651",
+    "common/rv32_ls_align2.sv": "e701b0283decfaefd1a4a2aefca190658b1299c4c4d5d5a16726ce5b11856886",
+    "common/rv32_ls_split.sv": "89adc978e85e9f0539f6fc7f7baf7ee517b3e15f04e430f1980904361006b861",
+    "common/rv32_pmu.sv": "6d6d674b9405a9ba7d7c8884979c71975d70309857b049e88b9994b0b21f511e",
+    "common/rv32_rf.sv": "1732b604f3caf116e9daf37a44d50bee48b6307d4dccb165c805b46d810ed9ee",
+    "common/rv_bp_pkg.sv": "94e6a52d7d513b35c6888caecdd9166d4bb273f62cd47c8536b7f6675ce9413b",
+    "common/rv_insn_link.sv": "d55495ea475ed35ec4783602f6473af53140a5f07d957534ca5921b8664d3f2b",
+    "common/rv_trace_pkg.sv": "754fd9547ee8ffea08ed3846e6477d19d571f64d9e7e793f0aaf490c9a81069e",
+    "compat/teaching_cpu.sv": "0a31552d9c64f0d54a0fcef7a4287e175a2582efb5da56870027d9aa11d28222",
+    "compat/teaching_trace_pkg.sv": "49445231ea52a1bc359fe0f7bde0efc194ee85eb0f642ab7c2af14066447d65e",
+    "filelist.f": "e5018d14b58000453b7cdc40ffa9a4f8d6ed461fddb84a97a7b921e1a4170fa0",
+    "frontend/fetch_ctrl.sv": "41bad3568e14453f2afe1a2a0e7bd4ebd5bdc4bf99140494ccc39f4124719f17",
+    "frontend/fetch_tracker.sv": "47fed82df538310272a730404c99cd7af97b790c90aea78cad9fd598ac32e203",
+    "frontend/gen_pc_nxt.sv": "cc43739d2a79e7665bf8b064393e831b82f8d52e68dd6762a116f276cdbca78f",
+    "frontend/insn_assemble.sv": "41d180e71b288d76744ce127a05d0a5dcbcb9d721618bb3452c6afb79330a8f5",
+    "frontend/rv_bp_policy.sv": "26d8becdcb7f1a40b108cebb13c850fe15328fb0367b4ab6da5dc2ccb2d9c060",
+    "frontend/rv_branch_predecode.sv": "d1151da42aaad96a49879d7436612355029bc02ae3975ba2d115922bd0fd4bb2",
+    "frontend/rv_branch_predictor.sv": "590231de52f55d272030b2d82398d38846e90cdadf867d8742aa65cce4597e44",
+    "frontend/rv_frontend.sv": "e743ead6d5ba4e72b0019758d9ac008ad897903f41c7acc19e04dc61e9ca04da",
+    "simple/rv_backend.sv": "c550b65ec2f60df66688df5bd7ce979fab720660af6ae46b2dc7abecb18bd29c",
+    "simple/rv_core_simple.sv": "cb7fe58da9bd66fb20e76f223cf67763b2ef4dacf7857625ba7b2930231121a4"
+  },
+  "default_preset": "ant_j0",
+  "default_memory_adapter": "ii1",
+  "early_jal_en": 0,
+  "queue_depth": 0,
+  "presets": {
+    "ant_j0": {
+      "model_id": "p1_f0_bp0_ls0_x1",
+      "effective_parameters": {
+        "BP_PROFILE": 0,
+        "COND_POLICY": 0,
+        "EARLY_JAL_EN": 0,
+        "INSN_QUEUE_DEPTH": 0,
+        "STATIC_POLICY_EN": 1,
+        "SUCCESSOR_CHECK_EN": 1,
+        "RESET_PC": "0x80000000"
+      },
+      "preset_config_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1"
+    },
+    "ant_j1": {
+      "model_id": "p1_f0_bp0_ls0_x1",
+      "effective_parameters": {
+        "BP_PROFILE": 0,
+        "COND_POLICY": 0,
+        "EARLY_JAL_EN": 1,
+        "INSN_QUEUE_DEPTH": 0,
+        "STATIC_POLICY_EN": 1,
+        "SUCCESSOR_CHECK_EN": 1,
+        "RESET_PC": "0x80000000"
+      },
+      "preset_config_sha256": "8cc333aa83999d56bbde8120a98249e6b02857f8d4d54b87031c2a8d103da523"
+    },
+    "btfnt_j0": {
+      "model_id": "p1_f0_bp1_ls0_x1",
+      "effective_parameters": {
+        "BP_PROFILE": 1,
+        "COND_POLICY": 1,
+        "EARLY_JAL_EN": 0,
+        "INSN_QUEUE_DEPTH": 0,
+        "STATIC_POLICY_EN": 1,
+        "SUCCESSOR_CHECK_EN": 1,
+        "RESET_PC": "0x80000000"
+      },
+      "preset_config_sha256": "17c8e69b62e563045742fb0694563b385572246747536b7d02ee2482b3849659"
+    },
+    "btfnt_j1": {
+      "model_id": "p1_f0_bp1_ls0_x1",
+      "effective_parameters": {
+        "BP_PROFILE": 1,
+        "COND_POLICY": 1,
+        "EARLY_JAL_EN": 1,
+        "INSN_QUEUE_DEPTH": 0,
+        "STATIC_POLICY_EN": 1,
+        "SUCCESSOR_CHECK_EN": 1,
+        "RESET_PC": "0x80000000"
+      },
+      "preset_config_sha256": "d41e7bc12a25ca5f25990689fae5f230ff168123556217b0abfec333c8fbfdcd"
+    }
+  },
+  "canonical_verification_summary_sha256": "d1398d9a592f275dae1b0320fe0d0312677f3191f27fc2fdf2deb4fc46ada221",
+  "legacy_public_commit": "51562ceede6c3e74b8fa5f0d47bb24fbe50583c7",
+  "rtl_logic_modified_during_import": false
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "kind": "canonical_project_artwork_import",
+  "canonical_context": "HY-RV core/p1_f0_bp0_ls0_x1/docs/overview",
+  "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+  "files_sha256": {
+    "hy-rv-cpu-overview-en-v1.png": "bea1f1e53d368009a802567e0850789618e4f5caece43025dc53e3b9d0b9e0a9",
+    "generation-prompt-en-v1.txt": "8599a940de1f8b8aa8a560c860c7a21dbe350d80df8033f8e3662fc2d42389ff",
+    "provenance-en-v1.json": "c2a2f7eb32c64a0b2c6fc0831623a89eac4aee58c1f42f419a4b96cfc2e0b598"
+  },
+  "original_provenance_preserved": true,
+  "reference_documents_note": "Relative reference_documents paths inside original provenance retain their original canonical context; current public references are in docs/core-overview.md.",
+  "diagram_kind": "Conceptual architecture and ideal overlap, not a measured RTL trace."
+}

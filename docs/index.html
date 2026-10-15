@@ -1,4 +1,18 @@
 <!doctype html>
+<!--
+=============================================================================
+HY-RV | rv_lab_home
+Description: Public top-down introduction to the current HY-RV P1 lab.
+Purpose: Computer architecture and RTL design education and lab exercises.
+Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+Website: https://dsa.hanyang.ac.kr
+Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+AI tools such as Codex or Claude may have assisted in creating or modifying
+this file. See applicable manifests and verification records for provenance.
+Preserve existing license, copyright, and original author notices.
+=============================================================================
+-->
+
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -15,10 +29,11 @@
 <main id="main">
 <div class="eyebrow">SoC Architecture Laboratory · Hands-on RISC-V</div>
 <h1>내가 쓴 코드가<br><span>CPU에서 실행되는 순간.</span></h1>
-<p class="lead">C 프로그램을 작성하고, 같은 실행 파일을 Spike와 교육용 RTL CPU에서 비교합니다. 명령어가 실제로 수행되는 과정을 관찰하고, 결과를 유지하면서 성능이 달라지는 이유를 설명해보세요.</p>
+<p class="lead">C 프로그램을 작성하고, 같은 실행 파일을 Spike와 최신 HY-RV P1/Q0 RTL CPU에서 비교합니다. 명령어가 실제로 수행되는 과정을 관찰하고, 결과를 유지하면서 성능이 달라지는 이유를 설명해보세요.</p>
 <div class="actions"><a class="button" href="course/01-setup.html">Lab 01부터 시작 →</a><a class="button secondary" href="course/index.html">전체 실습 안내</a><a class="button secondary" href="course/references/docs/expected-results.html">정답과 실제 화면 보기</a></div>
 <div class="route" aria-label="학습 순서"><span>C / Assembly</span><b aria-hidden="true">→</b><span>Same ELF · Spike + RTL</span><b aria-hidden="true">→</b><span>Cycle viewer</span><b aria-hidden="true">→</b><span>Measured experiments</span></div>
 <div class="intro"><p><strong>이 웹사이트는 실습 안내입니다.</strong> 명령어는 Linux 작업 환경의 터미널에서 실행합니다. 실습 후 생성되는 실행 결과와 cycle viewer는 각자의 작업 환경에서 열 수 있습니다.</p><p>C의 함수·반복문·배열과 기본 터미널 사용법을 알면 시작할 수 있습니다. FPGA나 물리 카메라 없이 실습하며, 상세 단계와 체크포인트는 영어로 제공합니다.</p></div>
+<section class="start" aria-labelledby="cpu-title"><h2 id="cpu-title">현재 실습 CPU: HY-RV P1 · F0 · Q0</h2><p>기본 <code>ant_j0</code> · static ANT · early JAL OFF. Frontend, depth-zero link, backend, static predictor를 독립 module로 구성합니다. 기존 여덟 실습의 학습 목표와 같은 ELF 비교 환경을 유지합니다.</p><a href="course/references/docs/core-overview.html"><img src="assets/hy-rv-cpu-overview-en-v1.png" alt="HY-RV P1 F0 Q0 CPU overview, English conceptual architecture diagram" style="width:100%;height:auto;border-radius:.5rem"></a><p>개념 구조도와 이상적 overlap 예시이며 실측 trace가 아닙니다. <a href="course/references/docs/core-overview.html">CPU 사양과 microarchitecture</a> · <a href="course/references/docs/image-review.html">이미지 출처 검토</a> · <a href="course/references/docs/current-validation.html">현재 코어 검증</a></p></section>
 <section id="labs" aria-labelledby="labs-title">
 <div class="sectionhead"><h2 id="labs-title">한 단계씩, 8개의 Lab</h2><p>목표 → 실행 → 관찰 → 체크포인트 → 기록</p></div>
 <div class="labs">
@@ -35,6 +50,6 @@
 cd ~/rv-lab
 make doctor</code></pre><small>생성 결과는 build/에, 개인 코드는 student/에 저장합니다. 각 실습의 체크포인트를 통과한 뒤 다음 단계로 진행하세요.</small></section>
 </main>
-<footer>RV Lab · soc-arch &nbsp; / &nbsp; Fixed educational RV32IM CPU · Real simulation measurements &nbsp; / &nbsp; <a href="course/references/docs/validation.html">실습 검증 기록</a><br>실습의 사이클 측정은 논리 시뮬레이션 결과이며 물리 구현의 동작 주파수나 tapeout signoff를 나타내지 않습니다.</footer>
+<footer>RV Lab · soc-arch &nbsp; / &nbsp; HY-RV P1/Q0 RV32IM · ant_j0 / ii1 · Real simulation measurements &nbsp; / &nbsp; <a href="course/references/docs/validation.html">실습 검증 기록</a><br>실습의 사이클 측정은 논리 시뮬레이션 결과이며 물리 구현의 동작 주파수나 tapeout signoff를 나타내지 않습니다.</footer>
 </body>
 </html>

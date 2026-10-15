@@ -34,6 +34,8 @@
 <h2 id="2-preserve-a-baseline">2. Preserve a baseline</h2>
 <p>Copy your chosen source to <code>student/project.c</code>, adapt its checks, and run:</p>
 <div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>cd ~/rv-lab
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
 LAB_BUILD_DIR=&quot;$PWD/build/project-baseline&quot; make register SOURCE=student/project.c NAME=project TITLE=&quot;Project baseline&quot; COMMITS=1</code></pre></div>
 <p>Keep the printed output directory. Preserve the baseline source before editing, for example as <code>student/project-baseline.c</code>. Generated build metadata records source/ELF identity, but does not substitute for retaining the source itself. If the application uses <code>lab_perf.h</code>, include <code>CSR=1</code> in both runs.</p>
 <h2 id="3-make-one-change-and-measure-again">3. Make one change and measure again</h2>

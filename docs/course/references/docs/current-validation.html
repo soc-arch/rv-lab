@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Current P1 lab validation — 2026-10-15 · RV Lab</title>
+<style>
+:root{color-scheme:light;--ink:#203046;--muted:#59687a;--line:#dbe3eb;--blue:#17659a;--paper:#fff;--background:#f5f7fa;--accent:#e8f2fa;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--background);color:var(--ink);line-height:1.7}a{color:var(--blue);text-underline-offset:.18em}a:hover{color:#0b466f}a:focus-visible,button:focus-visible{outline:3px solid #d78917;outline-offset:3px}button{font:inherit}.skip{position:absolute;left:1rem;top:-5rem}.skip:focus{top:.5rem;background:white;padding:.5rem;z-index:3}.topbar{padding:1rem clamp(1rem,4vw,3rem);background:#17354b;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}.brand{color:white;text-decoration:none;font-size:1.1rem;font-weight:750;letter-spacing:.03em}.brand:hover{color:#d9eefc}.tagline{color:#cadce8;font-size:.88rem}.tools{display:flex;gap:1.2rem;flex-wrap:wrap}.tools a{color:#dfedf7;font-size:.9rem}.layout{max-width:1500px;margin:auto;display:grid;grid-template-columns:275px minmax(0,1fr);gap:2.3rem;padding:2rem}.sidebar{align-self:start;position:sticky;top:1.3rem;max-height:calc(100vh - 2.6rem);overflow:auto}.sidebar h2{font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 .6rem .65rem}.lesson-nav{display:grid;gap:.3rem}.lesson-nav a{padding:.6rem .7rem;border-radius:.45rem;color:#40536b;font-size:.9rem;text-decoration:none;line-height:1.45}.lesson-nav a:hover{background:#e8edf3}.lesson-nav a[aria-current=page]{background:var(--accent);color:#105783;box-shadow:inset 3px 0 #2382ba;font-weight:650}.section-nav{display:grid;gap:.25rem;margin-top:1.8rem;border-top:1px solid var(--line);padding-top:1rem}.section-nav:empty{display:none}.section-nav a{font-size:.81rem;text-decoration:none;color:var(--muted);line-height:1.5;padding:.2rem .65rem}.section-nav a.level-3{padding-left:1.4rem}.content{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:.8rem;padding:clamp(1.2rem,3.5vw,3.4rem);box-shadow:0 4px 15px #17354b04}article{max-width:940px;margin:auto}h1,h2,h3,h4{line-height:1.25;scroll-margin-top:1.2rem}h1{font-size:clamp(1.7rem,3.3vw,2.65rem);letter-spacing:-.035em;margin:.1rem 0 1.25rem}h2{font-size:1.45rem;margin:2.5rem 0 .9rem;padding-top:.3rem}h3{font-size:1.12rem;margin:1.65rem 0 .65rem}p{margin:.8rem 0 1rem}ul,ol{padding-left:1.5rem}li{padding-left:.15rem;margin:.35rem 0}li p{margin:.3rem 0}li>.code-block{margin:.9rem 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;font-size:.87em;background:#eff3f7;border-radius:.25rem;padding:.13rem .3rem;overflow-wrap:anywhere}pre{margin:0;overflow-x:auto;padding:1rem 1.15rem;font-size:.88rem;line-height:1.6;tab-size:4;max-width:100%}pre code{background:transparent;padding:0;color:#e6eff7;font-size:inherit;overflow-wrap:normal}.code-block{margin:1.1rem 0 1.4rem;border-radius:.55rem;overflow:hidden;background:#142c40;max-width:100%}.code-toolbar{display:flex;justify-content:space-between;align-items:center;padding:.35rem .7rem .35rem 1rem;background:#203c52;color:#c9dce9;font-size:.75rem;min-height:2rem}.copy-code{border:1px solid #607a8e;border-radius:.25rem;background:none;color:#e6eff7;padding:.06rem .55rem;cursor:pointer;font-size:.73rem}.copy-code:hover{background:#31536d}article>pre{background:#142c40;color:#e6eff7;border-radius:.55rem}.table-scroll{overflow-x:auto;margin:1.2rem 0;max-width:100%;border:1px solid var(--line);border-radius:.45rem}table{border-collapse:collapse;min-width:100%;font-size:.9rem}th{text-align:left;background:#edf3f8;font-weight:650}th,td{padding:.65rem .8rem;vertical-align:top;border-bottom:1px solid var(--line);min-width:110px}tr:last-child td{border-bottom:0}blockquote{margin:1.25rem 0;padding:.5rem 1.2rem;border-left:4px solid #73a6c6;background:#f0f6fa;color:#36536b}blockquote p{margin:.5rem 0}img{max-width:100%;height:auto}hr{margin:2rem 0;border:0;border-top:1px solid var(--line)}.unavailable{color:var(--muted)}.unavailable small{font-size:.75em}.pager{display:flex;justify-content:space-between;gap:1rem;border-top:1px solid var(--line);margin-top:3rem;padding-top:1.5rem}.pager a{flex:1;border:1px solid var(--line);border-radius:.45rem;padding:.8rem 1rem;text-decoration:none;font-size:.9rem}.pager a:hover{background:var(--accent)}.pager small{display:block;color:var(--muted);font-size:.75rem}.source-note{margin-top:2rem;font-size:.72rem;color:var(--muted);overflow-wrap:anywhere}.source-note code{font-size:1em}
+@media(max-width:850px){.layout{grid-template-columns:1fr;padding:1rem;gap:1rem}.sidebar{position:static;max-height:none}.lesson-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem}.section-nav{display:none}.sidebar h2{margin-top:.3rem}.content{padding:1.25rem}.tagline{display:none}.pager{flex-wrap:wrap}.pager a{flex-basis:200px}}
+@media(max-width:440px){.layout{padding:.65rem}.lesson-nav a{font-size:.78rem;padding:.45rem .55rem}.content{padding:1rem}.topbar{padding:.85rem 1rem}.tools{gap:.9rem}.tools a{font-size:.8rem}h1{font-size:1.7rem}th,td{padding:.55rem}pre{font-size:.76rem}.table-scroll{font-size:.8rem}}
+@media print{body{background:white}.topbar,.sidebar,.pager,.copy-code{display:none}.layout{display:block;padding:0}.content{border:0;box-shadow:none;padding:0}pre,pre code{white-space:pre-wrap;color:#172e43}.code-block,.code-toolbar{background:#edf2f5;color:#172e43}a{color:inherit}h2,h3{break-after:avoid}.code-block,table{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to lesson</a>
+<header class="topbar"><a class="brand" href="../../index.html">RV LAB <span class="tagline">/ C → instructions → RTL</span></a><nav class="tools" aria-label="Experiment results"><a href="https://github.com/soc-arch/rv-lab">GitHub</a></nav></header>
+<div class="layout">
+<aside class="sidebar"><h2>Course guide</h2><nav class="lesson-nav" aria-label="Course lessons"><a href="../../index.html">RV Lab practical exercises</a>
+<a href="../../01-setup.html">Lab 01 — Setup and baseline</a>
+<a href="../../02-first-main.html">Lab 02 — Your first main</a>
+<a href="../../03-debugging.html">Lab 03 — Find a wrong result</a>
+<a href="../../04-cycle-viewer.html">Lab 04 — Register and inspect your application</a>
+<a href="../../05-performance.html">Lab 05 — Measure an improvement</a>
+<a href="../../06-memory.html">Lab 06 — Change memory timing</a>
+<a href="../../07-images.html">Lab 07 — Process an image</a>
+<a href="../../08-project.html">Lab 08 — A reproducible project</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#functional-and-student-workflow-results">Functional and student workflow results</a><a class="level-2" href="#directed-frontend-and-predictor-verification">Directed frontend and predictor verification</a><a class="level-2" href="#actual-synthesis-and-formality">Actual synthesis and Formality</a><a class="level-2" href="#reproduction-and-historical-boundary">Reproduction and historical boundary</a></nav></aside>
+<main class="content" id="main"><article><h1 id="current-p1-lab-validation-2026-10-15">Current P1 lab validation — 2026-10-15</h1>
+<p>The public lab now runs the actual HY-RV P1/F0/Q0 static core. The default is <strong>ant_j0 / early JAL OFF / ii1 memory adapter</strong>; btfnt_j0 is the active static comparison. Explicit j1 presets retain the previously implemented early-JAL comparisons. They do not change the course default.</p>
+<p>The <a href="../../files/docs/current-validation.json">functional summary</a> records actual runs against source SHA-256 <code>35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8</code>. It is the same source identity as the new real synthesis/Formality runs, rather than an inherited old-core PASS label.</p>
+<h2 id="functional-and-student-workflow-results">Functional and student workflow results</h2>
+<div class="table-scroll"><table><thead><tr><th scope="col">Actual preset</th><th scope="col">Full regression</th><th scope="col">Memory protocol</th><th scope="col">Camera</th><th scope="col">Visual</th><th scope="col">Student / CSR / registration</th></tr></thead><tbody><tr><td>ant_j0</td><td>47/47</td><td>20/20</td><td>11 successes + 1 expected negative</td><td>7/7</td><td>PASS</td></tr><tr><td>btfnt_j0</td><td>47/47</td><td>20/20</td><td>11 successes + 1 expected negative</td><td>7/7</td><td>PASS</td></tr><tr><td>ant_j1</td><td>47/47</td><td>20/20</td><td>11 successes + 1 expected negative</td><td>7/7</td><td>PASS</td></tr><tr><td>btfnt_j1</td><td>47/47</td><td>20/20</td><td>11 successes + 1 expected negative</td><td>7/7</td><td>PASS</td></tr></tbody></table></div>
+<p>The 47 outcomes include 44 positive programs and three correctly detected negative programs. Camera negatives include the timeout/stale-output check. Image tests compare complete output bytes with Spike and independent host references. Identical output, rather than an image&#x27;s visual similarity, is the functional criterion.</p>
+<p>All <strong>eight lessons / 27 workflow commands</strong> were rerun with ant_j0. Deliberate Lab 03 failures were detected and then repaired. The same-ELF comparisons, ROI, CSR, memory profiles, 7×5/16×12 camera frames, 64×48 visual examples, registration, gallery, and extracted offline export are recorded in <a href="../../files/docs/reference-results.json">reference-results.json</a>. The <a href="expected-results.html">expected-results page</a> uses the new measurements and actual browser captures; previous results are retained as historical material.</p>
+<p>See <a href="../../files/validation/functional-p1-receipts.zip">complete functional receipts</a>. The renderer records the actual selected preset and early JAL mode in its HTML and downloaded SVG. External or unbound cores do not receive a P1 architecture claim. Desktop/mobile/browser checks are recorded separately from CPU execution.</p>
+<h2 id="directed-frontend-and-predictor-verification">Directed frontend and predictor verification</h2>
+<p><a href="../../files/validation/core-directed.json">Directed results</a> cover all four presets: transport/ownership and redirect-fault behavior, 930 static-prediction vectors plus 36 core scenarios, and 723 backend successor/correction checks. The <a href="../../files/validation/core-directed-receipts.zip">directed receipts</a> and <a href="../../files/validation/core-directed-harness.zip">replay harness</a> preserve the actual run and reproduction inputs. These runs use the imported RTL source identity.</p>
+<p>The actual ant_j0 mul/div trace also contains 876 qualifying edges with retirement, IR admission, and successor-fetch acceptance together; its longest consecutive sequence has 11 edges. One measured sequence begins at cycles 6061–6063. This is an observation of that trace, not a promise of whole-program IPC=1. The summary preserves its trace hash and three sampled PC triplets.</p>
+<h2 id="actual-synthesis-and-formality">Actual synthesis and Formality</h2>
+<p>Fresh real synthesis and RTL-to-gate Formality were rerun for all four imported presets. <a href="../../files/provenance/p1-rtl-gate-equivalence.json">p1-rtl-gate-equivalence.json</a> links actual source/configuration/library/tool/flow hashes, mapped netlist, SVF, reports and match/verify results.</p>
+<ul><li><p>Elaborated and mapped latch counts: 0 in every preset.</p></li><li><p>Unintended combinational loops and unmapped leaf cells: 0 in every preset.</p></li><li><p>Formality: 2,381 successful compare points per preset; failing, aborted and unverified points 0; black boxes 0.</p></li><li><p>The 32 unmatched reference storage bits are the unused x0 RF storage, reviewed explicitly. They are not failed compare points.</p></li><li><p>Synthesis warning counts match the prior reviewed source/preset results; the record does not claim a warning-free tool run.</p></li></ul>
+<p>Samsung LN28LPP libraries and commercial tool inputs remain private/read-only. The public provenance includes identities and results, not foundry files or proprietary netlists. Logical synthesis is not post-layout timing/signoff.</p>
+<h2 id="reproduction-and-historical-boundary">Reproduction and historical boundary</h2>
+<p>Select a fresh output root and actual configuration before the documented checks:</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>export LAB_BUILD_DIR=&quot;$PWD/build/p1-check&quot;
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
+make doctor
+make compare APP=01_arithmetic
+make test
+make camera-test
+make visual-test
+make perf-test
+make registration-test</code></pre></div>
+<p>Use the <a href="../../index.html">eight lesson commands</a> for the full student workflow, and <a href="reproducibility.html">reproducibility guide</a> for browser/export gates. Set <code>PYTHON=/usr/bin/python3.11</code> with Make when that is the working interpreter on the selected host; do not accidentally select an unrelated tool&#x27;s python wrapper.</p>
+<p>The <a href="validation.html">historical teaching validation</a>, <a href="../../files/docs/historical/teaching-validation.json">historical JSON</a>, and <a href="../../files/docs/historical/teaching-reference-results.json">historical course results</a> are kept for provenance. Their old one-entry-response-buffer CPU and cycle totals are not the default implementation or current measurement baseline.</p><nav class="pager" aria-label="Lesson sequence"><a href="../../index.html">Return to course overview</a></nav><p class="source-note">Source: <code>docs/current-validation.md</code>. This manual also works offline. Measurements appear only after you run the experiments.</p></article></main>
+</div>
+<script>
+document.querySelectorAll('.copy-code').forEach(button=>button.addEventListener('click',async()=>{
+  const code=button.closest('.code-block').querySelector('code');
+  let copied=false;
+  if(navigator.clipboard&&window.isSecureContext){
+    try{await navigator.clipboard.writeText(code.textContent);copied=true;}catch(_){}
+  }
+  if(!copied){
+    const selection=window.getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);
+    try{copied=document.execCommand('copy');}catch(_){}
+    if(copied)selection.removeAllRanges();
+  }
+  button.textContent=copied?'Copied':'Press Ctrl+C';
+  setTimeout(()=>button.textContent='Copy',1800);
+}));
+</script>
+</body>
+</html>

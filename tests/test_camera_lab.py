@@ -1,3 +1,15 @@
+# =============================================================================
+# HY-RV | test_camera_lab
+# Description: Verify the public CPU laboratory contract and preserve source-bound evidence.
+# Purpose: Computer architecture and RTL design education and lab exercises.
+# Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+# Website: https://dsa.hanyang.ac.kr
+# Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+# AI tools such as Codex or Claude may have assisted in creating or modifying
+# this file. See applicable manifests and verification records for provenance.
+# Preserve existing license, copyright, and original author notices.
+# =============================================================================
+
 """Camera arithmetic, real Spike/RTL execution, and failed-run artifact checks.
 
 Run from the package root: python3 tests/test_camera_lab.py -v
@@ -21,6 +33,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import camera_support as camera
 import lab
+from artifact_receipt import capture
 
 
 def arguments(**overrides):
@@ -144,6 +157,7 @@ class FirmwareTests(unittest.TestCase):
                 self.assertGreater(metrics["roi_cycles"], 0)
                 self.assertGreater(metrics["roi_retired"], 0)
                 record["backends"][backend]["metrics"] = metrics
+        record["evidence"] = capture(out)
         self.evidence.append(record)
 
     def test_real_firmware_modes_shapes_and_known_images(self):
@@ -207,7 +221,7 @@ class FirmwareTests(unittest.TestCase):
         self.assertEqual(after["trace_truncated"], 1)
         self.assertTrue((out / "trace.html").is_file())
         self.evidence.append({"case": "traced-versus-untraced", "status": "pass",
-                              "timing_unchanged": True, "bounded_capture": 500})
+                              "timing_unchanged": True, "bounded_capture": 500, "evidence": capture(out)})
 
 
 if __name__ == "__main__":

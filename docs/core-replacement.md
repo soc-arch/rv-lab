@@ -1,14 +1,14 @@
 # Replace the CPU while preserving the lab
 
-The bundled `rtl/` directory is a fixed teaching CPU used to establish this lab.
-It has no source links to another repository. Keep this copy as the reference
-while developing a replacement in a separate directory. The copy's origin and
-file hashes are recorded in [snapshot.json](../provenance/snapshot.json).
+The bundled `rtl/` is now the current HY-RV P1/F0/Q0 static core, default
+`ant_j0`. Its source/configuration identity is in
+[p1-static-core.json](../provenance/p1-static-core.json). The former teaching CPU
+is preserved under `reference/legacy_teaching_51562ce/`; the original
+[snapshot.json](../provenance/snapshot.json) remains historical provenance.
 
-An alternative CPU has **not** been validated merely because the reference
-passes. Every replacement needs its own results, source identity, and viewer
-checks. A future frontend diagram is a design proposal until the corresponding
-implementation and measured traces exist.
+The eight software labs and same-ELF Spike comparison use the stable compatibility
+wrapper. A replacement is validated only by its own actual results and identity;
+previous PASS labels do not carry over.
 
 ## Compatibility boundary
 
@@ -28,8 +28,9 @@ model. Preserve the following boundary, using a wrapper if needed:
 | Observations | `teaching_trace_pkg::cpu_trace_t`, mapped to schema-2 JSONL by the testbench |
 
 The SRAM response occurs after request acceptance, never in the same cycle.
-The current blocking model does not reuse its transaction slot on the response
-edge. Drain finishes existing work and continues accepting its responses before
+The default ii1 adapter can consume a response and accept its replacement
+request at the same edge. The optional frozen adapter retains the former
+bubble-producing timing. P1/F0/Q0 has no frontend instruction response buffer. Drain finishes existing work and continues accepting its responses before
 acknowledging quiescence. The harness uses public CPU ports, without reaching
 into the candidate's internal hierarchy.
 
@@ -59,7 +60,9 @@ when connecting new observation signals.
 - Full-run cycles, captured samples, and ROI cycles have separate meanings.
   Reaching the capture limit stops recording; the program still runs to completion.
 
-The current viewer represents fetch overlapping one serialized execution slot.
+The viewer represents frontend preparation overlapping one backend IR.
+rv_frontend, rv_insn_link, rv_backend, and rv_branch_predictor are sibling
+modules; Q0 and the predictor are not additional stages.
 It reconstructs dynamic occurrences under that contract. A CPU with multiple
 execution slots needs explicit instruction identities and corresponding viewer
 changes; mapping arbitrary pipeline stages onto the old fields is insufficient.
@@ -75,6 +78,8 @@ choose an unused output directory and keep it for the whole candidate run:
 ```sh
 export LAB_BUILD_DIR="$PWD/build/candidate-v1"
 export LAB_RTL_DIR=/absolute/path/to/frozen-candidate/rtl
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
 make doctor
 make compare APP=01_arithmetic
 make test-smoke
@@ -105,3 +110,15 @@ affected ports/fields, pre/post-edge convention, applying CPU revision, commands
 and results, and required work in the other session. Keep CPU internals in the
 CPU development session. There are no new public-interface or testbench changes
 required solely to select a compatible replacement.
+
+## Synthesis and equivalence gates
+
+Functional PASS is one gate. RTL changes also require actual synthesis with zero
+elaborated/mapped latches, zero unintended combinational loops, and no unresolved
+references. Formality must compare actual mapped netlist and RTL using the SVF
+and identical source/preset/configuration/library/tool identity. Preserve actual
+match/verify results and hashes. See
+[p1-rtl-gate-equivalence.json](../provenance/p1-rtl-gate-equivalence.json).
+Foundry libraries and proprietary tool inputs remain outside the public student
+package. Unrun gates must be explicit; functional success does not imply them.
+Logical synthesis timing does not establish post-layout signoff.

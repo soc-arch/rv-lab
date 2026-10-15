@@ -1,0 +1,352 @@
+{
+  "browser": {
+    "browser_errors": 0,
+    "copy_command": "PASS",
+    "desktop": "1440px PASS",
+    "lessons": 8,
+    "mobile": "390px PASS",
+    "status": "pass"
+  },
+  "course_memory": {
+    "expected_sum": 36,
+    "functional_signature_sha256": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b",
+    "loaded_program_hex_sha256": "5573e6695a68f4b8190076c348b5738e135fb7e47f4fd282e1c240aa9ad716b9",
+    "profiles": [
+      {
+        "configuration": {
+          "d_interval": 1,
+          "d_latency": 1,
+          "i_interval": 1,
+          "i_latency": 1,
+          "stall_max": 0,
+          "stall_seed": 1
+        },
+        "full_cycles": 8253,
+        "profile": "fast",
+        "roi_cycles": 114
+      },
+      {
+        "configuration": {
+          "d_interval": 3,
+          "d_latency": 3,
+          "i_interval": 3,
+          "i_latency": 3,
+          "stall_max": 0,
+          "stall_seed": 1
+        },
+        "full_cycles": 15639,
+        "profile": "latency3",
+        "roi_cycles": 218
+      },
+      {
+        "configuration": {
+          "d_interval": 3,
+          "d_latency": 5,
+          "i_interval": 2,
+          "i_latency": 5,
+          "stall_max": 4,
+          "stall_seed": 11
+        },
+        "full_cycles": 29824,
+        "profile": "stress11",
+        "roi_cycles": 435
+      }
+    ],
+    "same_program_and_full_signature_for_all_profiles": true,
+    "status": "pass"
+  },
+  "course_starters": [
+    {
+      "case": "sum36",
+      "check": {
+        "actual": 36,
+        "expected": 36,
+        "id": 201
+      },
+      "elf_sha256": "3f2d77150a52bca80e744da935061ea31ac942948cecea39834883567f19349a",
+      "expected_backend_status": "pass",
+      "expected_outcome_verified": true,
+      "program_hex_sha256": "5573e6695a68f4b8190076c348b5738e135fb7e47f4fd282e1c240aa9ad716b9",
+      "signature_match": true
+    },
+    {
+      "case": "debug-expected-failure",
+      "check": {
+        "actual": 24,
+        "expected": 99,
+        "id": 301
+      },
+      "elf_sha256": "1e43d86156f8b307293ba5d2e431fa79a7e54b5e3db249a15858bf6905c4b921",
+      "expected_backend_status": "fail",
+      "expected_outcome_verified": true,
+      "program_hex_sha256": "36dbcf156a3b533a83dd4600176645772d67b2aeec83e7206a1e53bd7f32e9c0",
+      "signature_match": true
+    },
+    {
+      "case": "debug-oracle-repaired",
+      "check": {
+        "actual": 24,
+        "expected": 24,
+        "id": 301
+      },
+      "elf_sha256": "20531274953ae8e407cac55d7be5338a997ce0027025c8730600af23e149ac7c",
+      "expected_backend_status": "pass",
+      "expected_outcome_verified": true,
+      "program_hex_sha256": "ec822f5588fe68aa2cdce82e4f08e3f2264e043f2178252c22d63f66ff2d22f3",
+      "signature_match": true
+    },
+    {
+      "case": "debug-last-element-good",
+      "check": {
+        "actual": 30,
+        "expected": 30,
+        "id": 301
+      },
+      "elf_sha256": "9b42d56b5b021e747ab23c0658d9918dedfcb9e0f9462a9f40fb102a1027e74e",
+      "expected_backend_status": "pass",
+      "expected_outcome_verified": true,
+      "program_hex_sha256": "b5ab269676278b0eb7735b28487cfb388abce55a0b5021c4697ed8aec16db103",
+      "signature_match": true
+    },
+    {
+      "case": "debug-introduced-loop-defect",
+      "check": {
+        "actual": 24,
+        "expected": 30,
+        "id": 301
+      },
+      "elf_sha256": "eba84ffaac2c42f7100889d013fcb8666d8b49d9d540f48756fb74d5c98f828a",
+      "expected_backend_status": "fail",
+      "expected_outcome_verified": true,
+      "program_hex_sha256": "dc4106e0ed047b7eed4ba05ad140c9e444402ca1792faf6e47a6cad70b26c8cb",
+      "signature_match": true
+    },
+    {
+      "case": "debug-loop-restored",
+      "check": {
+        "actual": 30,
+        "expected": 30,
+        "id": 301
+      },
+      "elf_sha256": "e4039134a410a3e52f43efec944668863aa04c4163fe859da26304bc85712b80",
+      "expected_backend_status": "pass",
+      "expected_outcome_verified": true,
+      "program_hex_sha256": "b5ab269676278b0eb7735b28487cfb388abce55a0b5021c4697ed8aec16db103",
+      "signature_match": true
+    },
+    {
+      "case": "performance136",
+      "check": {
+        "actual": 136,
+        "expected": 136,
+        "id": 501
+      },
+      "elf_sha256": "f9ee9a93801db8daebf799a185eed702ac13f0dd508e669af5fe09e7a4bc45dc",
+      "expected_backend_status": "pass",
+      "expected_outcome_verified": true,
+      "program_hex_sha256": "b0c47a0ef5de6b0fafc0a9c994397b2dfa7401df13015f422e38655489704c5a",
+      "signature_match": true
+    }
+  ],
+  "directed_images": {
+    "all_test_commands_pass": true,
+    "camera_evidence_outcomes": 12,
+    "camera_expected_timeout": 1,
+    "camera_positive": 11,
+    "camera_unittest_methods": 8,
+    "visual_actual_firmware_cases": 7,
+    "visual_unittest_methods": 6
+  },
+  "evidence_note": "Hashes identify privately retained raw receipts and logs. This public summary intentionally omits machine paths, addresses and account details.",
+  "evidence_sha256": {
+    "browser_raw_receipt": "6400c26fba0c8d802f06f618e931abcbad5e2a649704d8ad3011e7f429a0371b",
+    "fresh_rerun_raw_receipt": "f26b2443e2f277e51c907bb6e820a6c1704e2a619db30446b822cc1f4472b3ad",
+    "initial_raw_receipt": "2e867b48a0d4b3a25b9fe302a995b775882f3b86a6722f7c9ba9e2549f69b52a",
+    "strict_semantic_summary": "56a3e596c78fb44ea2a1d575169a5d4a7f84e19f0e670c875f89c0d50f601596",
+    "tool_identity_record": "68fe9709f0bef5f556d6554377e8c27585caf96e35fece8fa48cf8c2a5abdced"
+  },
+  "fresh_simulator_build": {
+    "note": "Fresh Verilator simulator compilation succeeded after isolating the child make environment from outer Make variables.",
+    "outer_make_OPT": "O0",
+    "status": "pass"
+  },
+  "functional_regression": {
+    "expected_failure_outcomes": 3,
+    "expected_failures": [
+      "return_nonzero: exit 7",
+      "check_failure: one failed check",
+      "hang: bounded timeout/cycle budget"
+    ],
+    "memory_protocol_cases": 20,
+    "outcomes": 47,
+    "positive_passes": 44,
+    "status": "pass"
+  },
+  "images": {
+    "applications": [
+      "copy",
+      "grayscale",
+      "sobel",
+      "pipeline",
+      "07_denoise",
+      "08_cartoon",
+      "09_ball"
+    ],
+    "ball_frame": 24,
+    "cases": 7,
+    "height": 48,
+    "mismatched_bytes": 0,
+    "rgb_bytes_compared_per_backend_per_case": 9216,
+    "same_elf_sw_hw_signatures_match": true,
+    "status": "pass",
+    "width": 64
+  },
+  "not_run_or_not_claimed": [
+    "Full verify.py reproducibility driver",
+    "EDA synthesis",
+    "Formality equivalence",
+    "Achieved hardware timing",
+    "Place and route",
+    "Tapeout signoff"
+  ],
+  "performance": {
+    "additional_custom_program_outcomes": [
+      "pass",
+      "expected failed-check rejection"
+    ],
+    "cases": [
+      {
+        "csr_interval": {
+          "cycles": 1571,
+          "retired": 660
+        },
+        "csr_record_status": "complete",
+        "elf_sha256": "5e6aeee8ffd12a5b03983ed37fea7ac38042ad3cedbf8c545f0eaad2120b5374",
+        "expected_sum": 528,
+        "full_run": {
+          "cycles": 23619,
+          "retired": 10344
+        },
+        "optimization": "O0",
+        "retirement_log": {
+          "count_matches_testbench": true,
+          "instruction_classes": {
+            "branch": 806,
+            "divide/remainder": 6,
+            "integer/other": 4974,
+            "jump": 134,
+            "load": 2677,
+            "store": 1735,
+            "system/CSR": 12
+          },
+          "retired": 10344,
+          "roi_retired": 486,
+          "sha256": "f39f4f3df0853d314a7207a6ebd762654df6e4e143271cd0e41610bf03cb117f",
+          "status": "complete"
+        },
+        "roi": {
+          "cycles": 1178,
+          "retired": 486
+        }
+      },
+      {
+        "csr_interval": {
+          "cycles": 390,
+          "retired": 172
+        },
+        "csr_record_status": "complete",
+        "elf_sha256": "6250a49b8438826590081bb5a56b35e92d5c992a5e9204db22f9e57d6c118be8",
+        "expected_sum": 528,
+        "full_run": {
+          "cycles": 9195,
+          "retired": 4085
+        },
+        "optimization": "O2",
+        "retirement_log": {
+          "count_matches_testbench": true,
+          "instruction_classes": {
+            "branch": 793,
+            "divide/remainder": 6,
+            "integer/other": 2356,
+            "jump": 49,
+            "load": 91,
+            "store": 778,
+            "system/CSR": 12
+          },
+          "retired": 4085,
+          "roi_retired": 143,
+          "sha256": "f35d2de7a730ae8830b6a73db1ec40bed98bbb74030d971aa991299783d51d3a",
+          "status": "complete"
+        },
+        "roi": {
+          "cycles": 322,
+          "retired": 143
+        }
+      }
+    ],
+    "host_parser_tests": 3,
+    "measurement_note": "CSR reads are sequential and include read/record overhead. Testbench ROI and CSR intervals have different boundaries. CLOCK_MHZ=100 was an assumption, not an achieved hardware clock.",
+    "real_student_workflow_tests": 2,
+    "status": "pass"
+  },
+  "preserved_setup_failure": {
+    "cause": "Default compiler-cache location was not writable in the restricted execution environment.",
+    "cpu_outcomes_already_passed": 47,
+    "initial_run_status": "fail",
+    "memory_cases_executed": 0,
+    "resolution": "A fresh run with an explicit writable cache directory passed full 47 and memory 20; source hashes were unchanged.",
+    "stage": "memory protocol setup"
+  },
+  "record_date": "2026-10-11",
+  "registration": {
+    "course_sum_registered_with_trace_and_complete_retirement_log": true,
+    "status": "pass",
+    "successful_lifecycle_receipts": 5,
+    "test_methods": 2
+  },
+  "reproduce": [
+    "make compare APP=01_arithmetic OPT=O0",
+    "make test",
+    "make images WIDTH=64 HEIGHT=48 FRAME=24",
+    "make perf-test",
+    "make registration-test",
+    "make camera-test",
+    "make visual-test"
+  ],
+  "schema_version": 1,
+  "scope": "Standalone teaching CPU functional execution, student workflows, and documentation browser checks.",
+  "shared_tools_server": {
+    "arithmetic_same_elf_compare": "pass",
+    "environment_selection": "source /tools/rv-lab/env.sh",
+    "host_cxx": "GCC 13.2.1",
+    "inaccessible_tool_files": 0,
+    "memory_all_pass": true,
+    "memory_cases": 20,
+    "memory_status": "pass",
+    "python": "Python 3.11.7",
+    "raw_memory_sha256": "43193f9572e99cd2dc9848315ae4d6d275098332e4438cc37efe0a7e90715c98",
+    "raw_regression_sha256": "b5e7421e08c63bca3d3c9d9cf4ed51ff7dc812d9793db3062f20cb1d51a74e7d",
+    "regression_outcomes": 47,
+    "regression_status": "pass",
+    "riscv_gcc": "GCC 15.2.0",
+    "shared_tool_files_readable": 1016,
+    "smoke_expected_outcomes": 17,
+    "spike": "Spike 1.1.1-dev",
+    "verified_at_utc": "2026-10-11T09:50:26Z",
+    "verilator": "Verilator 5.028"
+  },
+  "source_identity": {
+    "before_after_and_cross_run_hashes_equal": true,
+    "implementation_files": 93,
+    "includes": "Selected framework, RTL, TB, runtime, application/benchmark/test sources, viewer assets, and course C starters; generated docs and metadata are outside this runtime identity.",
+    "manifest_sha256": "410b8f4133f82d42486fa9b838250849ab294a86c62edddfd9eec768b081fd91"
+  },
+  "status": "functional_workflows_pass",
+  "tools": {
+    "cxx": "g++ (GCC) 13.2.1 20231205 (Red Hat 13.2.1-6)",
+    "python": "Python 3.11.13",
+    "riscv_gcc": "riscv32-unknown-elf-gcc (GCC) 15.2.0",
+    "spike": "Spike RISC-V ISA Simulator 1.1.1-dev",
+    "verilator": "Verilator 5.028 2024-08-21 rev v5.028"
+  }
+}

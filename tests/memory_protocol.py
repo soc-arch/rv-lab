@@ -1,4 +1,19 @@
 #!/usr/bin/env python3
+# =============================================================================
+# HY-RV | memory_protocol
+# Description: Independent memory and CPU public-port protocol regression.
+#
+# Purpose: Computer architecture and RTL design education and lab exercises.
+# Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+# Website: https://dsa.hanyang.ac.kr
+# Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+#
+# AI tools such as Codex or Claude may have assisted in creating or modifying
+# this file. See the applicable manifests and verification records for
+# file-specific provenance, revision history, and validation evidence.
+# Preserve existing license, copyright, and original author notices.
+# =============================================================================
+
 """Memory-v1 boundary tests: independent RAM driver and public-port CPU tests.
 
 Run with the same prerequisites as lab.py. No CPU hierarchy or DPI is used.
@@ -16,24 +31,31 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import lab
+import core_config
 
 BASE = 0x80000000
 
 def digest_files(files):
     return {str(p): lab.digest(p) for p in files}
 
-def build_standalone(rtl, out):
-    files = [rtl / 'common/mem_if.sv', ROOT / 'tb/teaching_sram.sv', ROOT / 'tests/memory_protocol_tb.sv']
+def build_standalone(rtl, out, config):
+    adapter = core_config.adapter_path(config['memory_adapter'])
+    files = [rtl / 'common/mem_if.sv', adapter, ROOT / 'tests/memory_protocol_tb.sv']
     cxx = lab.cxx_compiler()
-    identity = {'files': digest_files(files), 'verilator': lab.version(lab.tool('verilator')),
+    identity = {'files': digest_files(files), 'memory_adapter': {'name': config['memory_adapter'], 'source': lab.source_label(adapter), 'sha256': lab.digest(adapter)},
+                'verilator': lab.version(lab.tool('verilator')),
                 'verilator_path': lab.tool('verilator'), 'cxx_path': cxx, 'cxx': lab.version(cxx), 'flags': '--binary --timing --assert'}
     key = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()[:16]
     dest = out / 'ram-build' / key
     binary = dest / 'Vmemory_protocol_tb'
     if not binary.exists():
         dest.mkdir(parents=True, exist_ok=True)
+        build_env = os.environ.copy()
+        for name in ('MAKEFLAGS', 'MFLAGS', 'MAKEOVERRIDES', 'OPT'):
+            build_env.pop(name, None)
+        build_env.setdefault('CCACHE_DIR', str(lab.BUILD / 'ccache'))
         lab.require([lab.tool('verilator'), '--binary', '--timing', '--assert', '--top-module', 'memory_protocol_tb',
-                     '--Mdir', dest, '-j', '4', '-MAKEFLAGS', f'CXX={cxx}', *files], dest / 'build.log', timeout=600)
+                     '--Mdir', dest, '-j', '4', '-MAKEFLAGS', f'CXX={cxx}', *files], dest / 'build.log', timeout=600, env=build_env)
     return binary, identity
 
 def compile_program(out, body):
@@ -167,11 +189,16 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=lab.BUILD/'memory_protocol.json')
     parser.add_argument('--rtl-dir', type=Path, default=os.environ.get('LAB_RTL_DIR'))
+    parser.add_argument('--preset', dest='core_preset', choices=core_config.PRESETS, default=os.environ.get('LAB_CORE_PRESET', 'ant_j0'))
+    parser.add_argument('--memory-adapter', choices=core_config.MEMORY_ADAPTERS, default=os.environ.get('LAB_MEMORY_ADAPTER', 'ii1'))
     args = parser.parse_args()
     rtl = args.rtl_dir.resolve() if args.rtl_dir else ROOT/'rtl'
+    cpu_config = core_config.resolve(args.core_preset, args.memory_adapter, rtl)
     out = args.output.resolve().parent / 'memory_protocol_cases'
     out.mkdir(parents=True, exist_ok=True)
-    report = {'schema_version': 1, 'status': 'fail', 'cases': [], 'scope': 'blocking memory-v1 profile; no IRQ/cache/multiple-ID concurrency claims'}
+    report = {'schema_version': 1, 'status': 'fail', 'cases': [], 'scope': 'blocking memory-v1 profile; no IRQ/cache/multiple-ID concurrency claims',
+              'core_configuration': cpu_config, 'configuration_sha256': core_config.configuration_sha256(cpu_config),
+              'rtl_source_hash': core_config.source_hash(rtl)}
     lab.save_json(args.output, report)
     def record(name, work):
         case = {'name': name, 'passed': False}
@@ -181,7 +208,7 @@ def main():
         lab.save_json(args.output, report)
         print(('PASS ' if case['passed'] else 'FAIL ')+name+('' if case['passed'] else ': '+case['error']), flush=True)
     try:
-        ram_binary, report['ram_build'] = build_standalone(rtl, out)
+        ram_binary, report['ram_build'] = build_standalone(rtl, out, cpu_config)
         for name, config in [('ram_latency1', dict(i_latency=1,d_latency=1,i_interval=1,d_interval=1,stall_seed=1,stall_max=0)),
                              ('ram_latency3',dict(i_latency=3,d_latency=3,i_interval=7,d_interval=9,stall_seed=1,stall_max=0)),
                              ('ram_latency5_stalls',dict(i_latency=5,d_latency=5,i_interval=2,d_interval=3,stall_seed=17,stall_max=7))]:
@@ -191,7 +218,7 @@ def main():
                 lab.require(command,out/f'{name}.log',timeout=30)
                 return {'command':list(map(str,command)), **json.loads(result.read_text())}
             record(name,work)
-        hardware, key=lab.build_hardware(argparse.Namespace(rtl_dir=str(rtl)))
+        hardware, key=lab.build_hardware(argparse.Namespace(rtl_dir=str(rtl), core_preset=args.core_preset, memory_adapter=args.memory_adapter))
         report['cpu_build']={'key':key,'identity':json.loads((hardware.parent/'build.json').read_text())}
         fast=dict(i_latency=1,d_latency=1,i_interval=1,d_interval=1,stall_seed=1,stall_max=0)
         stress=dict(i_latency=5,d_latency=3,i_interval=2,d_interval=13,stall_seed=17,stall_max=7)
@@ -211,6 +238,10 @@ def main():
         case('illegal_store_encoding_before_bus','fault: .word 0x00003023\n',fault=lambda s:(2,s['fault'],0x00003023),check=no_data)
         case('misaligned_jump_before_bus','fault: jal x0,target+2\nnop\ntarget: nop\n',fault=lambda s:(0,s['fault'],s['target']+2),check=no_data)
         body='li t0,12345\nli t1,7\ndiv t2,t0,t1\nj target\nstale: .word 0xffffffff\ntarget: nop\n'
+        if cpu_config['memory_directed_revision'] == 'unpredicted_jalr_v2':
+            # An early-predicted JAL cannot exercise a stale sequential response.
+            # Keep the original assertions and induce the redirect with JALR.
+            body='li t0,12345\nli t1,7\nla t3,target\ndiv t2,t0,t1\njalr x0,0(t3)\nstale: .word 0xffffffff\ntarget: nop\n'
         def stale_checked(m,r,mem,s,c):
             assert c['stale_error_responses']>0, 'test did not observe obsolete instruction error response'
             assert not any(x['execute']['valid'] and x['execute']['pc']==s['stale'] for x in r), 'obsolete instruction executed'
@@ -219,7 +250,8 @@ def main():
         # deterministic seeds are retained as evidence; at least one must hit it.
         stalled=[]
         for seed in (1,17,39):
-            cfg=dict(stress,stall_seed=seed,stall_max=60,i_interval=1)
+            cfg=dict(stress,stall_seed=seed,stall_max=60,
+                     i_interval=41 if cpu_config['memory_adapter']=='ii1' else 1)
             def work(seed=seed,cfg=cfg):
                 value=cpu_case(hardware,out/f'redirect_stalled_seed{seed}',body,cfg,
                                extra=lambda s:[f'+i_error_addr={s["stale"]:x}'])

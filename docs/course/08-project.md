@@ -24,6 +24,8 @@ Copy your chosen source to `student/project.c`, adapt its checks, and run:
 
 ```sh
 cd ~/rv-lab
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
 LAB_BUILD_DIR="$PWD/build/project-baseline" make register SOURCE=student/project.c NAME=project TITLE="Project baseline" COMMITS=1
 ```
 

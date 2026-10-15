@@ -1,3 +1,16 @@
+<!--
+=============================================================================
+HY-RV | cycle_viewer
+Description: Offline viewer of actual P1/Q0 instruction and memory traces.
+Purpose: Computer architecture and RTL design education and lab exercises.
+Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+Website: https://dsa.hanyang.ac.kr
+Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+AI tools such as Codex or Claude may have assisted in creating or modifying
+this file. See applicable manifests and verification records for provenance.
+Preserve existing license, copyright, and original author notices.
+=============================================================================
+-->
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,7 +32,7 @@
 <body>
 <main class="shell">
   <header class="header">
-    <div><div class="eyebrow">CPU lab · cycle explorer</div><h1 id="report-title">Instruction to hardware</h1><p>Follow a real RTL run from the fetched instruction to its architectural result. Fetch overlaps one serialized execution slot.</p><div class="meta" id="metadata"></div></div>
+    <div><div class="eyebrow">CPU lab · cycle explorer</div><h1 id="report-title">Instruction to hardware</h1><p>Follow a real RTL run from the fetched instruction to its architectural result. Read the recorded core identity before interpreting internal timing.</p><div class="meta" id="metadata"></div></div>
     <span class="badge" id="run-status">Recorded RTL activity</span>
   </header>
   <nav class="example-navigation" id="example-navigation" aria-label="Choose an example" hidden>
@@ -32,6 +45,7 @@
   <section class="panel image-result" id="image-result" aria-labelledby="image-result-title" hidden><div class="panel-head"><div><h2 id="image-result-title">Application inputs and results</h2><p class="hint" id="image-result-description"></p></div><span class="hint" id="image-result-size"></span></div><div class="image-result-strip" id="image-result-strip"></div><p class="hint" id="image-result-verification"></p></section>
   <div class="notice" id="truncation" hidden></div>
   <div class="notice" id="legacy-trace" hidden></div>
+  <p class="notice" id="core-profile-note"></p>
   <div id="error" hidden></div>
   <nav class="toolbar" aria-label="Cycle navigation">
     <div class="controls">
@@ -50,54 +64,64 @@
   </section>
   <section class="panel" aria-labelledby="diagram-heading">
     <div class="panel-head"><h2 id="diagram-heading">A word becomes an instruction, then a result</h2><div class="legend"><span><i class="dot" style="background:var(--blue)"></i>fetch</span><span><i class="dot" style="background:var(--green)"></i>execution</span><span><i class="dot" style="background:var(--purple)"></i>memory</span><span><i class="dot" style="background:var(--gold)"></i>multi-cycle wait</span><span><i class="dot" style="background:#20864a"></i>register write</span><span><svg width="15" height="15" viewBox="0 0 15 15" aria-hidden="true"><path d="M7 15 V8 M1 8 L7 1 L13 8" fill="none" stroke="#465e72" stroke-width="1.5"/></svg>positive-edge state</span></div></div>
-    <p class="hint" id="functional-view-note">Functional view, not RTL module hierarchy. The frontend delivery box already contains a one-entry response buffer plus a combinational fresh-response bypass. Only the buffer has a clock marker.</p>
-    <div class="diagram-scroll"><!-- MICROARCHITECTURE --></div>
+    <p class="hint" id="functional-view-note">HY-RV P1/F0/Q0 functional view. Frontend assembly and rv_insn_link are combinational delivery; no instruction response buffer or queue register. The SRAM adapter holds a response while the backend waits. The static predictor is a sibling module, not a pipeline stage.</p>
+    <p class="hint" id="predictor-profile-note"></p>
+    <div class="diagram-scroll" id="architecture-diagram"><!-- MICROARCHITECTURE --></div>
     <div class="explanation" id="explanation" aria-live="polite"></div>
     <div class="ports-grid" id="ports" hidden><section class="port"><h3>Instruction memory · I port</h3><div class="bus-lane" id="i-request"></div><div class="bus-lane" id="i-response"></div></section><section class="port"><h3>Data memory · D port</h3><div class="bus-lane" id="d-request"></div><div class="bus-lane" id="d-response"></div></section></div>
     <p class="hint" id="handshake-note">Memory-port responses and frontend instruction admission are separate events.</p>
     <div class="detail-grid"><section><h3>Fetch</h3><p class="mono" id="fetch-value"></p><p id="fetch-detail"></p></section><section><h3>Decode &amp; operands</h3><p class="mono" id="operand-value"></p><p id="operand-detail"></p></section><section><h3>Memory access</h3><p class="mono" id="memory-value"></p><p id="memory-detail"></p></section><section><h3>Writeback</h3><p class="mono" id="writeback-value"></p><p id="writeback-detail"></p></section></div>
     <details id="pc-explanation"><summary>PC state, request address, and instruction owner</summary>
-      <p><strong>The RTL variable <code>next_pc</code> is registered Q state.</strong> Its name does not make it a combinational D/next-state signal. The request address is a separate combinational selection: <code>req_addr = held ? held_pc : next_pc</code>. A stalled offered request keeps its address stable.</p>
+      <p><strong><code>pc_nxt</code> is the combinational output of <code>gen_pc_nxt</code>.</strong> Request and owner control are stored separately. The address priority is held offer → pending redirect → boot address → predicted successor → sequential owner PC + 4. A stalled offered request keeps its address stable.</p>
       <div class="mapping-scroll"><table class="mapping-table"><thead><tr><th>Role</th><th>Meaning</th><th>Selected sample</th></tr></thead><tbody id="pc-values"></tbody></table></div>
-      <p>On a request-accept edge, <code>pending_pc &larr; req_addr</code> records ownership and the sequential cursor normally advances to <code>req_addr + 4</code>. A redirect has final priority for the cursor and writes the target instead. Otherwise the cursor holds. An already offered or accepted old-path request is still completed and its obsolete response discarded.</p>
-      <p>The response owner identifies the returned instruction. The frontend selects the buffered word or a fresh accepted response; the backend slot captures that delivered PC only on admission. These addresses need not be equal. Each displayed value is the pre-edge observation; hidden internal registers are not reconstructed from address wires.</p>
+      <p>On request acceptance, <code>fetch_tracker</code> records <code>owner_pc</code> and predictor lookup metadata. Response consumption releases that owner; allocation of the next request can replace it at the same edge. The response bits remain in the memory adapter while admission is blocked. The frontend assembles a live token and Q0 forwards it to the backend IR.</p>
+      <p>Accepted obsolete fetches still complete, but their instruction and error are discarded. Request address, response owner, and executing IR PC can be different. Values here are pre-edge observations; absent internal metadata is labeled unrecorded rather than reconstructed.</p>
     </details>
-    <details><summary>How to read this diagram</summary><p>Each record samples signals immediately before a rising clock edge. A retirement, accepted memory transfer, or enabled register write takes effect at that edge. Valid alone is an offered transfer; valid AND ready is acceptance. Decoder and register reads are combinational; their activity markers identify logical use, not transistor switching. The offered memory request, accepted response owner, and frontend word may have different PCs. I-memory response acceptance and frontend admission are separate events.</p><p>The labeled functions are not a five-stage pipeline. One instruction occupies the backend slot until it finishes. Another instruction can be held by the frontend while that slot waits. A redirect discards the sequential fetch word. Stores and branches can retire without a register write; a destination of x0 never changes the register file.</p></details>
+    <details id="design-interpretation"><summary>How to read this diagram</summary><p>Each record samples signals immediately before a rising clock edge. A retirement, accepted memory transfer, or enabled register write takes effect at that edge. Valid alone is an offered transfer; valid AND ready is acceptance. Decoder and register reads are combinational; their activity markers identify logical use, not transistor switching. The offered memory request, accepted response owner, and frontend word may have different PCs. I-memory response acceptance and frontend admission are separate events.</p><p>The labeled functions are not a five-stage pipeline. One instruction occupies the backend slot until it finishes. A valid instruction-memory response can be held by the SRAM adapter while that slot waits. A redirect discards the sequential fetch word. Stores and branches can retire without a register write; a destination of x0 never changes the register file.</p></details>
     <details id="rtl-hierarchy"><summary>RTL hierarchy and diagram mapping</summary>
-      <p><code>teaching_</code> is the course-local, editable RTL module namespace. It does not select a special hardware teaching mode.</p>
-      <p>The shaded layout groups related functions; it is not an RTL module boundary. Hover or keyboard-focus a diagram block for its implementation mapping. Clock wedges indicate positive-edge storage or enabled writes; they do not mean the block updates on every edge. Combinational functions have no wedge.</p>
+      <p><code>teaching_cpu</code> is the stable lab compatibility wrapper around the actual <code>rv_core_simple</code> implementation. The public testbench contract is unchanged.</p>
+      <p>Hover or keyboard-focus a block for its implementation mapping. Functional groups are not extra pipeline stages. Clock wedges denote rising-edge state or enabled writes.</p>
       <div class="hierarchy-grid"><pre class="hierarchy-tree" tabindex="0" aria-label="Actual module instance hierarchy">tb_cpu_lab
-├── u_cpu : teaching_cpu
-│   ├── u_fetch : teaching_fetch
-│   └── u_backend : teaching_backend
-│       ├── u_decoder : rv32_decoder
-│       ├── u_rf : rv32_rf
-│       ├── u_alu_op : rv32_alu_op_decode
-│       ├── u_alu : fu_alu
-│       ├── u_br : fu_br
-│       ├── u_mul : fu_mul
-│       ├── u_div : fu_div
-│       ├── u_ls_split : rv32_ls_split
-│       ├── u_ls_align2 : rv32_ls_align2
-│       └── u_csr : rv32_csr
-│           └── u_pmu : rv32_pmu
-└── u_mem : teaching_sram</pre>
+├── u_cpu : teaching_cpu [compatibility wrapper]
+│   └── u_core : rv_core_simple
+│       ├── u_frontend : rv_frontend (F0)
+│       │   ├── u_gen_pc_nxt : gen_pc_nxt
+│       │   ├── u_fetch_ctrl : fetch_ctrl
+│       │   ├── u_fetch_tracker : fetch_tracker
+│       │   ├── u_branch_predecode : rv_branch_predecode
+│       │   └── u_insn_assemble : insn_assemble
+│       ├── u_insn_link : rv_insn_link (Q0)
+│       ├── u_bp : rv_branch_predictor (static ANT/BTFNT)
+│       └── u_backend : rv_backend (one IR)
+│           ├── u_decoder : rv32_decoder
+│           ├── u_rf : rv32_rf
+│           ├── u_alu_op : rv32_alu_op_decode
+│           ├── u_alu : fu_alu
+│           ├── u_br : fu_br
+│           ├── u_mul : fu_mul
+│           ├── u_div : fu_div
+│           ├── u_ls_split : rv32_ls_split
+│           ├── u_ls_align2 : rv32_ls_align2
+│           └── u_csr : rv32_csr
+│               └── u_pmu : rv32_pmu
+└── u_mem : teaching_sram [shared array; ii1 default]</pre>
       <div class="mapping-scroll"><table class="mapping-table"><thead><tr><th>Diagram function</th><th>Actual implementation</th><th>Clocked part</th></tr></thead><tbody>
-        <tr><td>Fetch control + frontend delivery</td><td><code>u_fetch</code>; buffer and bypass are internal logic</td><td>PC/request state and one response buffer. The delivery mux is combinational.</td></tr>
-        <tr><td>Instruction slot</td><td>Inline registers in <code>u_backend</code></td><td><code>pc_pipe_r</code>, <code>insn_pipe_r</code>, valid/fault state</td></tr>
-        <tr><td>RF read + RF write</td><td>Two views of the same <code>u_rf</code></td><td>Write port only; two reads are asynchronous</td></tr>
-        <tr><td>ALU + branch + writeback mux</td><td><code>u_alu</code>/<code>u_alu_op</code>, <code>u_br</code>, and inline result selection</td><td>None in these combinational functions</td></tr>
-        <tr><td>Multiply + divide</td><td><code>u_mul</code> and <code>u_div</code></td><td>Multiplier result state; divider iteration state</td></tr>
-        <tr><td>Load-store unit</td><td>Shared <code>u_alu</code> supplies the address; backend FSM + <code>u_ls_split</code>/<code>u_ls_align2</code> supply the remaining LSU functions</td><td>Response register and control state; byte-lane logic is combinational</td></tr>
-        <tr><td>SRAM I/D ports</td><td>Two logical ports of the same external <code>u_mem</code></td><td>Clocked interface/model, including enabled data writes; no all-flop array claim</td></tr>
+        <tr><td>Fetch PC/control</td><td><code>u_frontend.u_fetch_ctrl</code>, <code>u_fetch_tracker</code>, <code>u_gen_pc_nxt</code></td><td>Owner, held offer, restart and control metadata. Next-PC policy is combinational.</td></tr>
+        <tr><td>Instruction delivery / Q0</td><td><code>u_insn_assemble</code> and sibling <code>u_insn_link</code></td><td>No instruction buffer or queue register. Local fetch-fault metadata has separate state.</td></tr>
+        <tr><td>Static predictor</td><td>Sibling <code>u_bp</code></td><td>Static policy; no learned dynamic table. ANT default / BTFNT selectable.</td></tr>
+        <tr><td>Execution IR</td><td>Registers inside <code>u_backend</code></td><td>PC, instruction, valid/fault and prediction metadata</td></tr>
+        <tr><td>RF read / RF write</td><td>Two views of the same <code>u_rf</code></td><td>Write port only; two reads are asynchronous</td></tr>
+        <tr><td>ALU / branch / result mux</td><td><code>u_alu</code>, <code>u_br</code>, and backend result selection</td><td>Combinational; no independent stages</td></tr>
+        <tr><td>Multiply / divide / LSU</td><td><code>u_mul</code>, <code>u_div</code>, backend FSM and lane helpers</td><td>Multicycle result/control state; the execution IR stays occupied</td></tr>
+        <tr><td>SRAM I/D ports</td><td>Two logical ports of external <code>u_mem</code></td><td>Memory adapter holds valid response until ready; ii1 permits response/request replacement</td></tr>
       </tbody></table></div></div>
-      <p><strong>Fresh response:</strong> if the execution slot is ready, a fresh, non-stale memory response can enter it at the same rising edge without first occupying the response buffer. <strong>Backend busy:</strong> the response is captured into the existing one-entry buffer and held until admitted. It is not a future queue placeholder. The current trace exposes the delivered word, not a separate buffer-occupancy signal.</p>
-      <p>CSR and performance-monitor state exist in the implementation but are omitted from this RV32IM datapath view. The interfaces and trace wiring also exist; a module tree is not a schematic of every signal.</p>
+      <p>When the backend is ready, a fresh non-obsolete memory response is consumed and admitted through Q0 at the same edge. When it is busy, the memory producer holds the response. In ideal latency-one/II-one steady state, retirement of I, admission of I+1, and fetch acceptance for I+2 can coincide. Fetch follows capacity and handshake conditions, not a commit pulse.</p>
+      <p>The predictor mode and early JAL setting above come from this run's effective elaboration parameters. The course defaults <code>ant_j0</code> and <code>btfnt_j0</code> disable early JAL; explicit j1 comparisons enable it. The backend checks the actual successor and recovers on mismatch. CSR/trap/PMU details are omitted from the introductory datapath drawing.</p>
     </details>
   </section>
   <section class="panel" aria-labelledby="timeline-heading">
     <div class="panel-head"><h2 id="timeline-heading">Dynamic instruction timeline</h2><span class="hint">Click any cycle · current column outlined</span></div>
-    <div class="timeline-key" aria-label="Frontend and memory events"><div><b>F · available, not admitted</b><span>A valid frontend word waits. This can be a fresh response about to be buffered, not only a word already stored.</span></div><div><b>A · admitted at this edge</b><span>Frontend valid AND ready transfers the word into the backend slot. Its execution appears in the next pre-edge sample.</span></div><div><b>Q / R · memory transfers</b><span>Accepted memory request / response. A fresh bypass can produce R + A together with no preceding F cell.</span></div></div>
+    <div class="timeline-key" aria-label="Frontend and memory events"><div><b>F · available, not admitted</b><span id="frontend-token-note">A live instruction response is available but waits for admission. The memory producer retains it; F0 has no response buffer.</span></div><div><b>A · admitted at this edge</b><span>Frontend valid AND ready transfers the word into the backend slot. Its execution appears in the next pre-edge sample.</span></div><div><b>Q / R · memory transfers</b><span id="response-admission-note">Accepted memory request / response. A direct Q0 handoff can produce R + A together with no preceding F cell.</span></div></div>
     <div class="timeline-wrap"><table class="timeline" id="timeline" aria-label="Recorded dynamic instruction timeline"></table></div>
     <p class="hint">F = frontend word available but not admitted; A = frontend valid AND ready, admitted into the execution slot at this edge; D/X = decode / execute; Mq / Mr = backend memory request / response FSM phases, not bus transfers; W = multi-cycle wait. +R in an instruction row marks retirement; plain R in a bus row is a memory response. Rows are dynamic occurrences, so loop iterations remain distinct. Bus rows: Q/R = accepted request/response; q/r = offered but not accepted; ERR = accepted error response; · = no transfer.</p>
     <p class="hint">F/A are availability/admission events, not two extra pipeline stages. Their cells are associated with the next matching execution-slot occurrence. A fetched word discarded by a redirect is shown in the fetch details, not as a retired instruction.</p>
@@ -115,6 +139,21 @@
 try {
  const data=JSON.parse(document.getElementById('trace-data').textContent), trace=data.trace, meta=data.metadata, assembly=data.assembly;
  const $=id=>document.getElementById(id), put=(id,value)=>{ $(id).textContent=value; };
+ const coreConfig=meta.core_configuration||{},coreParams=coreConfig.effective_parameters||{};
+ const isP1=['p1_f0_bp0_ls0_x1','p1_f0_bp1_ls0_x1'].includes(coreConfig.model_id)&&coreConfig.configuration_status==='elaboration_parameters';
+ if(isP1){
+   const policy=Number(coreParams.COND_POLICY)?'BP1 BTFNT':'BP0 ANT',early=Number(coreParams.EARLY_JAL_EN)?'ON':'OFF';
+   put('core-profile-note',(coreConfig.display_name||'HY-RV P1')+' / '+coreConfig.preset+' / queue depth '+coreParams.INSN_QUEUE_DEPTH+' / early JAL '+early+' / memory adapter '+(coreConfig.memory_adapter||meta.memory_adapter?.name||'unrecorded'));
+   put('predictor-profile-note','Recorded elaboration: '+policy+'; early JAL '+early+'. The predictor is a sibling policy module, not a pipeline stage.');
+ }else{
+   put('core-profile-note',(coreConfig.display_name||'Core identity unrecorded')+'. The P1 diagram is reference only and is hidden; it does not describe this selected external or unbound CPU. Recorded public-interface events remain available.');
+   put('functional-view-note','P1-specific architecture and hierarchy are hidden because this run does not declare the P1 build identity. Use the selected CPU documentation for internal structure.');
+   put('predictor-profile-note','Actual branch prediction / early JAL capability is not established by this trace.');
+   put('frontend-token-note','A public instruction token is available but not admitted. Its internal storage or producer-holding mechanism is not specified by this trace.');
+   put('response-admission-note','Accepted memory request / response and instruction admission are distinct recorded events. Their relation depends on the selected CPU.');
+   document.querySelector('footer a[download]').textContent='Download the P1 reference diagram';
+   for(const id of ['architecture-diagram','rtl-hierarchy','pc-explanation','design-interpretation'])$(id).hidden=true;
+ }
  const number=value=>typeof value==='string'?(value.startsWith('0x')?parseInt(value,16):(/^[0-9]+$/.test(value)?Number(value):parseInt(value,16))):Number(value||0);
  const hex=value=>'0x'+(number(value)>>>0).toString(16).padStart(8,'0');
  const on=value=>value===true||value===1||value==='1';
@@ -194,7 +233,7 @@ try {
  const catalogExample=meta.navigation?.groups?.flatMap(g=>g.examples).find(e=>e.id===meta.navigation.current_id);
  const reportTitle=meta.display_title||catalogExample?.title||meta.title||'Instruction to hardware';
  put('report-title',reportTitle);document.title=reportTitle+' · CPU lab';
- const info=[meta.application||'Application',meta.profile||'RV32IM',trace.length.toLocaleString()+' recorded cycles',retired.length.toLocaleString()+' retirements in trace'];
+ const info=[meta.application||'Application',meta.profile||'RV32IM',coreConfig.preset?'Preset: '+coreConfig.preset:'CPU preset unrecorded',trace.length.toLocaleString()+' recorded cycles',retired.length.toLocaleString()+' retirements in trace'];
  if(meta.cycles!==undefined)info.push(number(meta.cycles).toLocaleString()+' cycles in full run');
  if(meta.status){put('run-status','RTL run: '+String(meta.status).toUpperCase());if(meta.status!=='pass'){$('run-status').style.background='#fff1e8';$('run-status').style.borderColor='#dcb59e';}}
  for(const item of info){const span=document.createElement('span');span.textContent=String(item);$('metadata').append(span);}
@@ -247,14 +286,14 @@ try {
    else if(st==='MUL_WAIT'||st==='DIV_WAIT')parts.push('The '+(st==='MUL_WAIT'?'multiplier':'divider')+(bool(s.commit,'valid')?' completes; the instruction can retire at this edge.':' is still working. The same instruction remains in the execution slot.'));
    else if(bool(s.units,'mul')||bool(s.units,'div'))parts.push('Decode dispatches the instruction to the '+(bool(s.units,'mul')?'multiplier':'divider')+'. The slot remains occupied until the result is ready.');
    else if(bool(s.units,'branch'))parts.push('The branch/jump unit evaluates the target'+(bool(s.redirect,'valid')?' and redirects instruction fetch.':' without redirecting fetch in this cycle.'));
-   else parts.push('Decode and asynchronous register reads select operands for the operation.');
+   else parts.push(isP1?'Decode and asynchronous register reads select operands for the operation.':'Recorded decode/execution activity uses the operand taps shown below; the selected CPU defines its internal register-read timing.');
    if(bool(s.trap,'valid'))parts.push('A trap is reported (cause '+number(s.trap.cause)+'); this is not a normal retirement.');
-   if(bool(s.regs,'wb_enable'))parts.push('The one physical register file writes x'+number(s.regs.rd)+' = '+hex(s.regs.wb_value)+' at the rising edge.');
+   if(bool(s.regs,'wb_enable'))parts.push((isP1?'The one physical register file writes x':'The recorded register-write event updates x')+number(s.regs.rd)+' = '+hex(s.regs.wb_value)+' at the rising edge.');
    else if(bool(s.commit,'valid'))parts.push('The instruction retires with the register-file write disabled.');
    const iText=portExplanation(ip,'Instruction-memory');if(iText)parts.push(iText);
    if(bool(s.redirect,'valid'))parts.push('Fetch redirects to '+hex(s.redirect.pc)+'. An already offered or accepted memory request must still complete; an obsolete response is discarded.');
    else if(bool(s.fetch,'accepted'))parts.push('Separately, the frontend admits its valid instruction into the execution slot at this edge.');
-   else if(bool(s.fetch,'valid'))parts.push('A valid frontend word is available but is not admitted at this edge. A fresh response is buffered if it cannot be admitted.');
+   else if(bool(s.fetch,'valid'))parts.push(isP1?'A valid frontend word is available but is not admitted. The memory producer holds the response stable until ready; F0 has no instruction response buffer.':'A valid frontend word is available but is not admitted at this edge. Its storage location depends on the selected CPU.');
    return parts.join(' ');
  }
  function renderPort(id,p){
@@ -274,13 +313,13 @@ try {
  function renderPCs(s){
    const ip=port(s,'instruction'),recorded=(obj,key)=>obj&&Object.prototype.hasOwnProperty.call(obj,key)?hex(obj[key]):'Not separately recorded';
    const rows=[
-     ['Fetch cursor Q','Registered RTL next_pc; holds or updates at an edge',recorded(s.fetch,'next_pc_q')],
+     ['Fetch owner Q','fetch_tracker holds owner_pc for the accepted request',ip&&on(ip.resp_valid)?hex(ip.owner_pc):'Not separately recorded'],
      ['Held request Q','held_pc preserves an offered request during backpressure',recorded(s.fetch,'held_pc_q')],
-     ['Request address','Combinational held ? held_pc : next_pc',ip?(on(ip.req_valid)?hex(ip.req_addr)+(take(ip,'req')?' · accepted':' · offered, waiting'):'No valid request'):hex(s.fetch.request_pc)+' · legacy address tap'],
-     ['Response owner PC','Request PC captured into pending_pc on acceptance',ip&&on(ip.resp_valid)?hex(ip.owner_pc):'No valid response; internal pending_pc not exposed'],
-     ['Delivered frontend PC','Buffered word or fresh-response bypass',bool(s.fetch,'valid')?hex(s.fetch.pc)+(bool(s.fetch,'accepted')?' · admitted (A)':' · available (F)'):'No valid delivered word'],
+     ['Request address','Combinational gen_pc_nxt: held / redirect / boot / predicted successor',ip?(on(ip.req_valid)?hex(ip.req_addr)+(take(ip,'req')?' · accepted':' · offered, waiting'):'No valid request'):hex(s.fetch.request_pc)+' · legacy address tap'],
+     ['Response owner PC','Request PC captured into owner_pc on acceptance',ip&&on(ip.resp_valid)?hex(ip.owner_pc):'No valid response; internal owner_pc not separately exposed'],
+     ['Delivered frontend PC','Live response / fault token through rv_insn_link Q0',bool(s.fetch,'valid')?hex(s.fetch.pc)+(bool(s.fetch,'accepted')?' · admitted (A)':' · available (F)'):'No valid delivered word'],
      ['Executing slot PC','Registered pc_pipe_r; held while the instruction runs',bool(s.execute,'valid')?hex(s.execute.pc):'Execution slot empty'],
-     ['Redirect target','New cursor value selected on a redirect edge',bool(s.redirect,'valid')?hex(s.redirect.pc):'No redirect']
+     ['Redirect target','Redirect state feeds gen_pc_nxt after younger tokens are killed',bool(s.redirect,'valid')?hex(s.redirect.pc):'No redirect']
    ];
    const body=$('pc-values');body.replaceChildren();for(const values of rows){const tr=document.createElement('tr');values.forEach((value,i)=>{const cell=document.createElement(i===0?'th':'td');if(i===0)cell.scope='row';if(i===2)cell.className='mono';cell.textContent=value;tr.append(cell);});body.append(tr);}
  }
@@ -292,7 +331,7 @@ try {
    put('explanation',explanation(s));put('fetch-value',f?hex(s.fetch.pc)+' · '+short(s.fetch.pc):'No valid frontend word');
    put('fetch-detail',bool(s.redirect,'valid')?'Redirect to '+hex(s.redirect.pc)+'; stale responses are drained and discarded.':bool(s.fetch,'accepted')?'Frontend → execution-slot admission at this edge.':f?'Valid frontend word, not admitted at this edge.':'The frontend has no instruction to admit.');
    const operands=[];for(const n of [1,2])if(uses(s,n))operands.push('x'+number(s.regs['rs'+n])+' = '+hex(s.regs['rs'+n+'_value']));put('operand-value',operands.join(' · ')||(e?'No integer source register is used':'No valid instruction'));
-   put('operand-detail',bool(s.stages,'decode')?'Register read is asynchronous. The two read ports and the rightmost write port belong to the same physical RF.':'Decoded fields can stay stable during waits; read-port highlights indicate logical operand use at entry.');
+   put('operand-detail',!isP1?'Operands are public trace taps. The selected CPU defines its register-read organization and timing.':bool(s.stages,'decode')?'Register read is asynchronous. The two read ports and the rightmost write port belong to the same physical RF.':'Decoded fields can stay stable during waits; read-port highlights indicate logical operand use at entry.');
    put('memory-value',dp?busSummary(dp):m?(bool(s.memory,'write')?'STORE valid ':'LOAD valid ')+hex(s.memory.addr):resp?'Response valid '+hex(s.memory.read_data):'No memory request valid');
    put('memory-detail',dp?(portExplanation(dp,'Data-memory')||'No request or response is valid. A pending access may still be waiting internally.'):'Legacy trace: valid signals alone do not establish an accepted transfer.');
    put('writeback-value',wb?'x'+number(s.regs.rd)+' ← '+hex(s.regs.wb_value):'Register write disabled');

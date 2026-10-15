@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+# =============================================================================
+# HY-RV | build_site
+# Description: Build the portable eight-lab GitHub Pages manual.
+# Purpose: Computer architecture and RTL design education and lab exercises.
+# Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+# Website: https://dsa.hanyang.ac.kr
+# Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+# AI tools such as Codex or Claude may have assisted in creating or modifying
+# this file. See applicable manifests and verification records for provenance.
+# Preserve existing license, copyright, and original author notices.
+# =============================================================================
+
 """Render the eight lesson sources into the committed GitHub Pages directory."""
 import argparse
 import json

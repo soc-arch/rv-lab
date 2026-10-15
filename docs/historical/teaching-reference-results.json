@@ -1,0 +1,2118 @@
+{
+  "cases": [
+    {
+      "case": "lab01-arithmetic-o2",
+      "check_count": 4,
+      "checks": [
+        {
+          "actual": 22,
+          "expected": 22,
+          "id": 1
+        },
+        {
+          "actual": 12,
+          "expected": 12,
+          "id": 2
+        },
+        {
+          "actual": 20,
+          "expected": 20,
+          "id": 3
+        },
+        {
+          "actual": 68,
+          "expected": 68,
+          "id": 4
+        }
+      ],
+      "console": "sum=22, xor=0x00000014\n",
+      "csr_counters": {},
+      "elf_sha256": "7a13e3051a3a37bb2876dfb8ee2837919e91a682c15b115277cea6869b42693f",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": null,
+        "instruction_classes": null,
+        "jsonl_sha256": null,
+        "retired": null,
+        "roi_retired": null,
+        "status": "not_recorded"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 2.2637252444221607,
+          "cycles": 9030,
+          "estimated_seconds": null,
+          "retired": 3989
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 9030,
+        "retired": 3989,
+        "roi_cycles": 0,
+        "roi_retired": 0,
+        "trace_cycles": 0,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "6e5b3d4ee50e8d71d5920bc6a219ea7865b9d6fdde62884c8782e9a78aa8e177",
+      "receipt_sha256": "5e8f09259ec56baa2e2b84ad31d43d1c020f5fc272a201b645efbb6ff660b180",
+      "signature_sha256": {
+        "hw": "427ece9362f6e939d24d4b44b0f802fd875aa6fcd9b12aad82b4dd536624bcb7",
+        "sw": "427ece9362f6e939d24d4b44b0f802fd875aa6fcd9b12aad82b4dd536624bcb7"
+      },
+      "source_file_sha256": {
+        "01_arithmetic.c": "da2eb12921f323a5f0fa7aa18be3e8585f50de9b1b9700fc4d4e0a2cc68ad822"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab01-smoke",
+      "correctly_rejected": 3,
+      "outcomes": 17,
+      "positive": 14,
+      "receipt_sha256": "f66fdf041b6aa51d0ca4164b0c9aec53de09f70eb7a348a18440c433d297d1b8",
+      "regression_sha256": "ec6f6a1ebba58fdc5e4fcbdf326270d9c516f381429e650c6a0d28b777641fab",
+      "status": "pass"
+    },
+    {
+      "case": "lab02-sum36",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 36,
+          "expected": 36,
+          "id": 201
+        }
+      ],
+      "console": "sum=36\n",
+      "csr_counters": {},
+      "elf_sha256": "6833f36332dfd25c7548b38cca630bca93005678a8a590fcc08ed71559c90efd",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": null,
+        "instruction_classes": null,
+        "jsonl_sha256": null,
+        "retired": null,
+        "roi_retired": null,
+        "status": "not_recorded"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 2.23901247965274,
+          "cycles": 8253,
+          "estimated_seconds": null,
+          "retired": 3686
+        },
+        "roi": {
+          "cpi": 2.235294117647059,
+          "cycles": 114,
+          "end_cycle_included": 7509,
+          "estimated_seconds": null,
+          "retired": 51,
+          "start_cycle_excluded": 7395
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 8253,
+        "retired": 3686,
+        "roi_cycles": 114,
+        "roi_retired": 51,
+        "trace_cycles": 0,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "5573e6695a68f4b8190076c348b5738e135fb7e47f4fd282e1c240aa9ad716b9",
+      "receipt_sha256": "623e355a583dc141e497c39f511e7c4c4ebb6dffb8d80bc15655612d003dc945",
+      "signature_sha256": {
+        "hw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b",
+        "sw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b"
+      },
+      "source_file_sha256": {
+        "sum36.c": "08659cef757e6b3decbcb89648dac45c17596eb7af7822c8e1e8b242912de560"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab02-sum38",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 38,
+          "expected": 38,
+          "id": 201
+        }
+      ],
+      "console": "sum=38\n",
+      "csr_counters": {},
+      "elf_sha256": "47ee9dedbf9e1f34af2e32e51e06d3e264f3c58ae8be653257b58b81e7c2ff7a",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": null,
+        "instruction_classes": null,
+        "jsonl_sha256": null,
+        "retired": null,
+        "roi_retired": null,
+        "status": "not_recorded"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 2.23901247965274,
+          "cycles": 8253,
+          "estimated_seconds": null,
+          "retired": 3686
+        },
+        "roi": {
+          "cpi": 2.235294117647059,
+          "cycles": 114,
+          "end_cycle_included": 7509,
+          "estimated_seconds": null,
+          "retired": 51,
+          "start_cycle_excluded": 7395
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 8253,
+        "retired": 3686,
+        "roi_cycles": 114,
+        "roi_retired": 51,
+        "trace_cycles": 0,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "2f2ee8db77b204b1d3397c48f3a35dc13774bbe42e47272663ce3dd3734b6c27",
+      "receipt_sha256": "b13df7239d581aab43e0ed6c8096771d6c826c4405125a5614d55f78309c1a7a",
+      "signature_sha256": {
+        "hw": "d79f0017ded5392ae6e560899cc67287d09817975e184e4e58e4915ed35503a0",
+        "sw": "d79f0017ded5392ae6e560899cc67287d09817975e184e4e58e4915ed35503a0"
+      },
+      "source_file_sha256": {
+        "sum38.c": "fed25bf90c49e1c1534180a725259805281d4f11fad73fe2fac571a06e850c9e"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab03-wrong99",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 24,
+          "expected": 99,
+          "id": 301
+        }
+      ],
+      "console": "maximum=24\n",
+      "csr_counters": {},
+      "elf_sha256": "58a7c5ebda311e7063ae10f12fc168d73aa2cb5670830535524b980c1551c3c7",
+      "expected_outcome_verified": true,
+      "failure_count": 1,
+      "instruction_log": {
+        "count_matches_testbench": null,
+        "instruction_classes": null,
+        "jsonl_sha256": null,
+        "retired": null,
+        "roi_retired": null,
+        "status": "not_recorded"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 2.2376105009375835,
+          "cycles": 8353,
+          "estimated_seconds": null,
+          "retired": 3733
+        },
+        "roi": {
+          "cpi": 2.3488372093023258,
+          "cycles": 101,
+          "end_cycle_included": 7496,
+          "estimated_seconds": null,
+          "retired": 43,
+          "start_cycle_excluded": 7395
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 8353,
+        "retired": 3733,
+        "roi_cycles": 101,
+        "roi_retired": 43,
+        "trace_cycles": 0,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "36dbcf156a3b533a83dd4600176645772d67b2aeec83e7206a1e53bd7f32e9c0",
+      "receipt_sha256": "2cd3c15536f65bc59dbcd4e85f4c5d238017d5ad544077bbce762709498089dd",
+      "signature_sha256": {
+        "hw": "90f3e9d2164b071c9b0490a445ca90dd80cf69defba0166ce84c1879054d6ebd",
+        "sw": "90f3e9d2164b071c9b0490a445ca90dd80cf69defba0166ce84c1879054d6ebd"
+      },
+      "source_file_sha256": {
+        "debug-wrong99.c": "7a7c34a889c4e339205e0e3febe30d3dc5c7228736879b2ffe6ad7db1ad5ec2d"
+      },
+      "status": "fail"
+    },
+    {
+      "case": "lab03-repaired24",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 24,
+          "expected": 24,
+          "id": 301
+        }
+      ],
+      "console": "maximum=24\n",
+      "csr_counters": {},
+      "elf_sha256": "cf41ad4617a3fe61b223e7a214f82c2546cddf0486f158ba2493a2bbace5f2da",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": null,
+        "instruction_classes": null,
+        "jsonl_sha256": null,
+        "retired": null,
+        "roi_retired": null,
+        "status": "not_recorded"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 2.238069705093834,
+          "cycles": 8348,
+          "estimated_seconds": null,
+          "retired": 3730
+        },
+        "roi": {
+          "cpi": 2.3488372093023258,
+          "cycles": 101,
+          "end_cycle_included": 7496,
+          "estimated_seconds": null,
+          "retired": 43,
+          "start_cycle_excluded": 7395
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 8348,
+        "retired": 3730,
+        "roi_cycles": 101,
+        "roi_retired": 43,
+        "trace_cycles": 0,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "ec822f5588fe68aa2cdce82e4f08e3f2264e043f2178252c22d63f66ff2d22f3",
+      "receipt_sha256": "f1b8695ac9cba1d828228a4113364d43bd7386cc464915c92159bcbce78d0390",
+      "signature_sha256": {
+        "hw": "85091c61ccbb82a357117955053d4d9c49bd85369dce5e72a202ae2288f27df7",
+        "sw": "85091c61ccbb82a357117955053d4d9c49bd85369dce5e72a202ae2288f27df7"
+      },
+      "source_file_sha256": {
+        "debug-repaired24.c": "38381602e03a0dc3fc27dea9d8bbe7ca9feff449a17d82fba8925b29e2772dc6"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab03-loopbug",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 24,
+          "expected": 30,
+          "id": 301
+        }
+      ],
+      "console": "maximum=24\n",
+      "csr_counters": {},
+      "elf_sha256": "fe48cfecb15dd32d3f606a7ae54ff6740449aad0ef68023bb46ca74133618ec1",
+      "expected_outcome_verified": true,
+      "failure_count": 1,
+      "instruction_log": {
+        "count_matches_testbench": null,
+        "instruction_classes": null,
+        "jsonl_sha256": null,
+        "retired": null,
+        "roi_retired": null,
+        "status": "not_recorded"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 2.2369973190348524,
+          "cycles": 8344,
+          "estimated_seconds": null,
+          "retired": 3730
+        },
+        "roi": {
+          "cpi": 2.3,
+          "cycles": 92,
+          "end_cycle_included": 7487,
+          "estimated_seconds": null,
+          "retired": 40,
+          "start_cycle_excluded": 7395
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 8344,
+        "retired": 3730,
+        "roi_cycles": 92,
+        "roi_retired": 40,
+        "trace_cycles": 0,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "dc4106e0ed047b7eed4ba05ad140c9e444402ca1792faf6e47a6cad70b26c8cb",
+      "receipt_sha256": "eb169e6d9ae5561e3573ad8f6d941837e261ff73cec238bd37d83f27b55c0054",
+      "signature_sha256": {
+        "hw": "3d1c4bafe6bf971126eff3ce3be92898f3eb9e7ad53e34ea8d4ac0675b3b945b",
+        "sw": "3d1c4bafe6bf971126eff3ce3be92898f3eb9e7ad53e34ea8d4ac0675b3b945b"
+      },
+      "source_file_sha256": {
+        "debug-loopbug.c": "df8aa931ca80c6f21b71ba00b36e0ea9563f983b0e0b31d84815598e6d9f2f44"
+      },
+      "status": "fail"
+    },
+    {
+      "case": "lab03-restored30",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 30,
+          "expected": 30,
+          "id": 301
+        }
+      ],
+      "console": "maximum=30\n",
+      "csr_counters": {},
+      "elf_sha256": "e7267af1a806ca48f91f769806ad8e6263c1d48f887b6da7f4f6957051ed4b34",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": null,
+        "instruction_classes": null,
+        "jsonl_sha256": null,
+        "retired": null,
+        "roi_retired": null,
+        "status": "not_recorded"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 2.237469847225945,
+          "cycles": 8348,
+          "estimated_seconds": null,
+          "retired": 3731
+        },
+        "roi": {
+          "cpi": 2.2954545454545454,
+          "cycles": 101,
+          "end_cycle_included": 7496,
+          "estimated_seconds": null,
+          "retired": 44,
+          "start_cycle_excluded": 7395
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 8348,
+        "retired": 3731,
+        "roi_cycles": 101,
+        "roi_retired": 44,
+        "trace_cycles": 0,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "b5ab269676278b0eb7735b28487cfb388abce55a0b5021c4697ed8aec16db103",
+      "receipt_sha256": "8d76fabb594e94b10ccf8931a890581c0d08c276a333c72f4207ddc8c7ef2337",
+      "signature_sha256": {
+        "hw": "e9aa0e03640846e5ee0b6bdbf6fe4238376ff5b37455dd21aed309eddf79ed4e",
+        "sw": "e9aa0e03640846e5ee0b6bdbf6fe4238376ff5b37455dd21aed309eddf79ed4e"
+      },
+      "source_file_sha256": {
+        "debug-restored30.c": "a0137651497f6f9ce1eeff713869d78a28c07029e3ce2fad69ec535b307de22a"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab04-register-sum",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 36,
+          "expected": 36,
+          "id": 201
+        }
+      ],
+      "console": "sum=36\n",
+      "csr_counters": {},
+      "elf_sha256": "961945b9bd223b9af202e425b7924045da9ecb1371f2b55629be0ef41bdcc4e2",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": true,
+        "instruction_classes": {
+          "branch": 711,
+          "divide/remainder": 4,
+          "integer/other": 2186,
+          "jump": 27,
+          "load": 45,
+          "store": 713
+        },
+        "jsonl_sha256": "778d98245b8738b76636b699a72e0556810d11765259e56be1d65ee985e2fa80",
+        "retired": 3686,
+        "roi_retired": 51,
+        "status": "complete"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 2.23901247965274,
+          "cycles": 8253,
+          "estimated_seconds": null,
+          "retired": 3686
+        },
+        "roi": {
+          "cpi": 2.235294117647059,
+          "cycles": 114,
+          "end_cycle_included": 7509,
+          "estimated_seconds": null,
+          "retired": 51,
+          "start_cycle_excluded": 7395
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 8253,
+        "retired": 3686,
+        "roi_cycles": 114,
+        "roi_retired": 51,
+        "trace_cycles": 844,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "5573e6695a68f4b8190076c348b5738e135fb7e47f4fd282e1c240aa9ad716b9",
+      "receipt_sha256": "fb30b6d51dd5360bb44abc350d7994bd172a1ca782fba55853d4c30923ca91ee",
+      "signature_sha256": {
+        "hw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b",
+        "sw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b"
+      },
+      "source_file_sha256": {
+        "sum36.c": "08659cef757e6b3decbcb89648dac45c17596eb7af7822c8e1e8b242912de560"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab05-performance-o0",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 136,
+          "expected": 136,
+          "id": 501
+        }
+      ],
+      "console": "sum(1..16)=136\n",
+      "csr_counters": {
+        "atomic_counter_pair": false,
+        "begin_cycle": 18599,
+        "begin_instret": 8302,
+        "cycles": 1027,
+        "end_cycle": 19626,
+        "end_instret": 8738,
+        "retired": 436,
+        "schema_version": 1,
+        "source": "software reads of mcycle/minstret",
+        "status": "complete"
+      },
+      "elf_sha256": "aece8ce65f3606a976d62358bec5b0af88110a48810e4c29ecc776d296e42038",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": true,
+        "instruction_classes": {
+          "branch": 790,
+          "divide/remainder": 6,
+          "integer/other": 4910,
+          "jump": 134,
+          "load": 2565,
+          "store": 1703,
+          "system/CSR": 12
+        },
+        "jsonl_sha256": "5ef7b48c5e9fb855ee843e8156c9905f9315c47ad02ca0ea0dca3999622a4904",
+        "retired": 10120,
+        "roi_retired": 262,
+        "status": "complete"
+      },
+      "measurements": {
+        "csr": {
+          "cpi": 2.3555045871559632,
+          "cycles": 1027,
+          "estimated_seconds": 1.027e-05,
+          "retired": 436
+        },
+        "full_run": {
+          "cpi": 2.2801383399209487,
+          "cycles": 23075,
+          "estimated_seconds": 0.00023075,
+          "retired": 10120
+        },
+        "roi": {
+          "cpi": 2.4198473282442747,
+          "cycles": 634,
+          "end_cycle_included": 19575,
+          "estimated_seconds": 6.34e-06,
+          "retired": 262,
+          "start_cycle_excluded": 18941
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 23075,
+        "retired": 10120,
+        "roi_cycles": 634,
+        "roi_retired": 262,
+        "trace_cycles": 4885,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "815eba7c192db3e80010f7d62e9a37af7d1494cc01ae623c7a0828a05c5fe865",
+      "receipt_sha256": "9a1825af47949b45b7d75747d715ff69dcde0cb6761b1803b67ddb1e0223f253",
+      "signature_sha256": {
+        "hw": "b08328adb3c7ce39b8d601fa1ef9ef1e0d7997815c3291370beb519eb06a9e70",
+        "sw": "b08328adb3c7ce39b8d601fa1ef9ef1e0d7997815c3291370beb519eb06a9e70"
+      },
+      "source_file_sha256": {
+        "performance.c": "16245b72bc39f647db5e4a6583878242fdfaf0be34178ac9402b1db352bc557d"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab05-performance-o2",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 136,
+          "expected": 136,
+          "id": 501
+        }
+      ],
+      "console": "sum(1..16)=136\n",
+      "csr_counters": {
+        "atomic_counter_pair": false,
+        "begin_cycle": 7703,
+        "begin_instret": 3504,
+        "cycles": 254,
+        "end_cycle": 7957,
+        "end_instret": 3616,
+        "retired": 112,
+        "schema_version": 1,
+        "source": "software reads of mcycle/minstret",
+        "status": "complete"
+      },
+      "elf_sha256": "2273e685013789b09b4f3a4e5e9b24d985a0c35acfaa281792f5b3e26793eae1",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": true,
+        "instruction_classes": {
+          "branch": 778,
+          "divide/remainder": 6,
+          "integer/other": 2327,
+          "jump": 49,
+          "load": 75,
+          "store": 778,
+          "system/CSR": 12
+        },
+        "jsonl_sha256": "e745382d024bb3e5063739c2b60b4fddc7d41a42584f7e5c21f8f525d7f0db8f",
+        "retired": 4025,
+        "roi_retired": 83,
+        "status": "complete"
+      },
+      "measurements": {
+        "csr": {
+          "cpi": 2.267857142857143,
+          "cycles": 254,
+          "estimated_seconds": 2.54e-06,
+          "retired": 112
+        },
+        "full_run": {
+          "cpi": 2.2506832298136645,
+          "cycles": 9059,
+          "estimated_seconds": 9.059e-05,
+          "retired": 4025
+        },
+        "roi": {
+          "cpi": 2.2409638554216866,
+          "cycles": 186,
+          "end_cycle_included": 7936,
+          "estimated_seconds": 1.86e-06,
+          "retired": 83,
+          "start_cycle_excluded": 7750
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 9059,
+        "retired": 4025,
+        "roi_cycles": 186,
+        "roi_retired": 83,
+        "trace_cycles": 1523,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "b0c47a0ef5de6b0fafc0a9c994397b2dfa7401df13015f422e38655489704c5a",
+      "receipt_sha256": "7b39d004c718aa791888b3b3d12992ab054d5506fccb2dee61472fba0fe94e01",
+      "signature_sha256": {
+        "hw": "b08328adb3c7ce39b8d601fa1ef9ef1e0d7997815c3291370beb519eb06a9e70",
+        "sw": "b08328adb3c7ce39b8d601fa1ef9ef1e0d7997815c3291370beb519eb06a9e70"
+      },
+      "source_file_sha256": {
+        "performance.c": "16245b72bc39f647db5e4a6583878242fdfaf0be34178ac9402b1db352bc557d"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab05-register-counters",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 136,
+          "expected": 136,
+          "id": 501
+        }
+      ],
+      "console": "sum(1..16)=136\n",
+      "csr_counters": {
+        "atomic_counter_pair": false,
+        "begin_cycle": 7703,
+        "begin_instret": 3504,
+        "cycles": 254,
+        "end_cycle": 7957,
+        "end_instret": 3616,
+        "retired": 112,
+        "schema_version": 1,
+        "source": "software reads of mcycle/minstret",
+        "status": "complete"
+      },
+      "elf_sha256": "33e58a060223ee11face67820339b0cec1d673d9966ba08af306da812c1dfc19",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": true,
+        "instruction_classes": {
+          "branch": 778,
+          "divide/remainder": 6,
+          "integer/other": 2327,
+          "jump": 49,
+          "load": 75,
+          "store": 778,
+          "system/CSR": 12
+        },
+        "jsonl_sha256": "e745382d024bb3e5063739c2b60b4fddc7d41a42584f7e5c21f8f525d7f0db8f",
+        "retired": 4025,
+        "roi_retired": 83,
+        "status": "complete"
+      },
+      "measurements": {
+        "csr": {
+          "cpi": 2.267857142857143,
+          "cycles": 254,
+          "estimated_seconds": 2.54e-06,
+          "retired": 112
+        },
+        "full_run": {
+          "cpi": 2.2506832298136645,
+          "cycles": 9059,
+          "estimated_seconds": 9.059e-05,
+          "retired": 4025
+        },
+        "roi": {
+          "cpi": 2.2409638554216866,
+          "cycles": 186,
+          "end_cycle_included": 7936,
+          "estimated_seconds": 1.86e-06,
+          "retired": 83,
+          "start_cycle_excluded": 7750
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 9059,
+        "retired": 4025,
+        "roi_cycles": 186,
+        "roi_retired": 83,
+        "trace_cycles": 1523,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "b0c47a0ef5de6b0fafc0a9c994397b2dfa7401df13015f422e38655489704c5a",
+      "receipt_sha256": "2041d27562f463e3689857eb5460bf68e4993df9b401580cd1d71549fb689638",
+      "signature_sha256": {
+        "hw": "b08328adb3c7ce39b8d601fa1ef9ef1e0d7997815c3291370beb519eb06a9e70",
+        "sw": "b08328adb3c7ce39b8d601fa1ef9ef1e0d7997815c3291370beb519eb06a9e70"
+      },
+      "source_file_sha256": {
+        "performance.c": "16245b72bc39f647db5e4a6583878242fdfaf0be34178ac9402b1db352bc557d"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab06-fast",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 36,
+          "expected": 36,
+          "id": 201
+        }
+      ],
+      "console": "sum=36\n",
+      "csr_counters": {},
+      "elf_sha256": "e2becce748bf66ad9f685e737c27c4189d855d2a500b9ea1e745dc2547929fd8",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": true,
+        "instruction_classes": {
+          "branch": 711,
+          "divide/remainder": 4,
+          "integer/other": 2186,
+          "jump": 27,
+          "load": 45,
+          "store": 713
+        },
+        "jsonl_sha256": "778d98245b8738b76636b699a72e0556810d11765259e56be1d65ee985e2fa80",
+        "retired": 3686,
+        "roi_retired": 51,
+        "status": "complete"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 2.23901247965274,
+          "cycles": 8253,
+          "estimated_seconds": null,
+          "retired": 3686
+        },
+        "roi": {
+          "cpi": 2.235294117647059,
+          "cycles": 114,
+          "end_cycle_included": 7509,
+          "estimated_seconds": null,
+          "retired": 51,
+          "start_cycle_excluded": 7395
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 8253,
+        "retired": 3686,
+        "roi_cycles": 114,
+        "roi_retired": 51,
+        "trace_cycles": 844,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "5573e6695a68f4b8190076c348b5738e135fb7e47f4fd282e1c240aa9ad716b9",
+      "receipt_sha256": "9a9761b0f66e458476cb067f5b3d0e3be5743bca1eb83ce66912489527632c48",
+      "signature_sha256": {
+        "hw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b",
+        "sw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b"
+      },
+      "source_file_sha256": {
+        "sum36.c": "08659cef757e6b3decbcb89648dac45c17596eb7af7822c8e1e8b242912de560"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab06-latency3",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 36,
+          "expected": 36,
+          "id": 201
+        }
+      ],
+      "console": "sum=36\n",
+      "csr_counters": {},
+      "elf_sha256": "89b23304ae23be2f37b1cd60b38a6c1b13a32d84fede8ab492f23f68aec8b3dd",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": true,
+        "instruction_classes": {
+          "branch": 711,
+          "divide/remainder": 4,
+          "integer/other": 2186,
+          "jump": 27,
+          "load": 45,
+          "store": 713
+        },
+        "jsonl_sha256": "3d23810f662c64e11e0d2cc09e566475de685ff9bc9133d957eb6d834623bb00",
+        "retired": 3686,
+        "roi_retired": 51,
+        "status": "complete"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 4.242810634834509,
+          "cycles": 15639,
+          "estimated_seconds": null,
+          "retired": 3686
+        },
+        "roi": {
+          "cpi": 4.2745098039215685,
+          "cycles": 218,
+          "end_cycle_included": 14337,
+          "estimated_seconds": null,
+          "retired": 51,
+          "start_cycle_excluded": 14119
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 3,
+        "d_latency": 3,
+        "i_interval": 3,
+        "i_latency": 3,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 15639,
+        "retired": 3686,
+        "roi_cycles": 218,
+        "roi_retired": 51,
+        "trace_cycles": 1492,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "5573e6695a68f4b8190076c348b5738e135fb7e47f4fd282e1c240aa9ad716b9",
+      "receipt_sha256": "18f406dc922626a5db9b8e67f57679e9f6c07145c779266f9659b91e73110be8",
+      "signature_sha256": {
+        "hw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b",
+        "sw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b"
+      },
+      "source_file_sha256": {
+        "sum36.c": "08659cef757e6b3decbcb89648dac45c17596eb7af7822c8e1e8b242912de560"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab06-stress",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 36,
+          "expected": 36,
+          "id": 201
+        }
+      ],
+      "console": "sum=36\n",
+      "csr_counters": {},
+      "elf_sha256": "0f40d357155afef5303b359c02fe90c31b3d2d32ec1b6b1da11a5b495b2748ef",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": true,
+        "instruction_classes": {
+          "branch": 711,
+          "divide/remainder": 4,
+          "integer/other": 2186,
+          "jump": 27,
+          "load": 45,
+          "store": 713
+        },
+        "jsonl_sha256": "6ec53b2252c3ff5996413b64ad549f01dbae47d07a12aea82b0a8a32ff770818",
+        "retired": 3686,
+        "roi_retired": 51,
+        "status": "complete"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 8.091155724362453,
+          "cycles": 29824,
+          "estimated_seconds": null,
+          "retired": 3686
+        },
+        "roi": {
+          "cpi": 8.529411764705882,
+          "cycles": 435,
+          "end_cycle_included": 27464,
+          "estimated_seconds": null,
+          "retired": 51,
+          "start_cycle_excluded": 27029
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 3,
+        "d_latency": 5,
+        "i_interval": 2,
+        "i_latency": 5,
+        "stall_max": 4,
+        "stall_seed": 11
+      },
+      "metrics": {
+        "cycles": 29824,
+        "retired": 3686,
+        "roi_cycles": 435,
+        "roi_retired": 51,
+        "trace_cycles": 2000,
+        "trace_truncated": 1
+      },
+      "program_hex_sha256": "5573e6695a68f4b8190076c348b5738e135fb7e47f4fd282e1c240aa9ad716b9",
+      "receipt_sha256": "354ac0002fef1c676bc578cfe9d7a3ad5645a8eb23a67bd4f0551b0eccc725d2",
+      "signature_sha256": {
+        "hw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b",
+        "sw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b"
+      },
+      "source_file_sha256": {
+        "sum36.c": "08659cef757e6b3decbcb89648dac45c17596eb7af7822c8e1e8b242912de560"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab07-camera-7x5",
+      "height": 5,
+      "image_cases": [
+        {
+          "application": "copy",
+          "check_count": 7,
+          "elf_sha256": "c9920d8e5aa6af61e05dc1a552a0600220e1979dc2ad944f80f4963ab402d707",
+          "image_check": {
+            "bytes_compared": 105,
+            "expected_sha256": "2b7adbf45b37f57934b445a8ecc284f9920c2b056fa730bae4979e05b83abfb8",
+            "height": 5,
+            "mismatched_bytes": 0,
+            "mode": "copy",
+            "output_fnv32": 3969517264,
+            "output_sha256": "2b7adbf45b37f57934b445a8ecc284f9920c2b056fa730bae4979e05b83abfb8",
+            "passed": true,
+            "width": 7
+          },
+          "metrics": {
+            "backend": "rtl",
+            "cycles": 14905,
+            "drain_count": 0,
+            "drain_wait_cycles": 0,
+            "memory_config": {
+              "d_interval": 1,
+              "d_latency": 1,
+              "i_interval": 1,
+              "i_latency": 1,
+              "stall_max": 0,
+              "stall_seed": 1
+            },
+            "memory_counts": {
+              "d_accepted": 1483,
+              "d_completed": 1483,
+              "d_errors": 0,
+              "d_request_wait": 0,
+              "d_response_backpressure": 0,
+              "d_response_wait": 0,
+              "i_accepted": 6807,
+              "i_completed": 6806,
+              "i_errors": 0,
+              "i_request_wait": 0,
+              "i_response_backpressure": 0,
+              "i_response_wait": 0,
+              "store_writes": 975
+            },
+            "reason": "tohost",
+            "retired": 6684,
+            "roi_complete": 1,
+            "roi_cycles": 1297,
+            "roi_end_cycle": 10848,
+            "roi_retired": 542,
+            "roi_start_cycle": 9551,
+            "schema_version": 2,
+            "status": "pass",
+            "tohost": 1,
+            "trace_cycles": 5340,
+            "trace_truncated": 0,
+            "trap_cause": 0,
+            "trap_pc": 2147484136,
+            "trap_value": 0
+          },
+          "program_hex_sha256": "360ae22e6e55fc4983ca258bb37777946d60d273c8b1ae453bdd271c56003e11",
+          "signature_sha256": {
+            "hw": "23acc3b39899040a2854cab2dbedf41a0def5f8a7cb56cc18a22b8ecc14a048e",
+            "sw": "23acc3b39899040a2854cab2dbedf41a0def5f8a7cb56cc18a22b8ecc14a048e"
+          }
+        },
+        {
+          "application": "grayscale",
+          "check_count": 7,
+          "elf_sha256": "311c2af1cf2065d78b4938867b2d2289de0045c7859e6beb799c3131773b1f94",
+          "image_check": {
+            "bytes_compared": 105,
+            "expected_sha256": "d2a94b9d0fd801d4bcf5d89144ee57f92083b61f9cd8753d32ff112e474373e6",
+            "height": 5,
+            "mismatched_bytes": 0,
+            "mode": "grayscale",
+            "output_fnv32": 2959770450,
+            "output_sha256": "d2a94b9d0fd801d4bcf5d89144ee57f92083b61f9cd8753d32ff112e474373e6",
+            "passed": true,
+            "width": 7
+          },
+          "metrics": {
+            "backend": "rtl",
+            "cycles": 15784,
+            "drain_count": 0,
+            "drain_wait_cycles": 0,
+            "memory_config": {
+              "d_interval": 1,
+              "d_latency": 1,
+              "i_interval": 1,
+              "i_latency": 1,
+              "stall_max": 0,
+              "stall_seed": 1
+            },
+            "memory_counts": {
+              "d_accepted": 1555,
+              "d_completed": 1555,
+              "d_errors": 0,
+              "d_request_wait": 0,
+              "d_response_backpressure": 0,
+              "d_response_wait": 0,
+              "i_accepted": 7140,
+              "i_completed": 7139,
+              "i_errors": 0,
+              "i_request_wait": 0,
+              "i_response_backpressure": 0,
+              "i_response_wait": 0,
+              "store_writes": 1011
+            },
+            "reason": "tohost",
+            "retired": 7087,
+            "roi_complete": 1,
+            "roi_cycles": 1754,
+            "roi_end_cycle": 11312,
+            "roi_retired": 753,
+            "roi_start_cycle": 9558,
+            "schema_version": 2,
+            "status": "pass",
+            "tohost": 1,
+            "trace_cycles": 6210,
+            "trace_truncated": 0,
+            "trap_cause": 0,
+            "trap_pc": 2147484136,
+            "trap_value": 0
+          },
+          "program_hex_sha256": "998e58970e35f31e03ac649344f20c668501c91b03ddabe237f4ccf42a344f8b",
+          "signature_sha256": {
+            "hw": "353ffe943684ceb8301fd43307fb9435ab31f12275b249714d3b8eb153f61853",
+            "sw": "353ffe943684ceb8301fd43307fb9435ab31f12275b249714d3b8eb153f61853"
+          }
+        },
+        {
+          "application": "sobel",
+          "check_count": 7,
+          "elf_sha256": "b31a124411f95796496b1ee48350034ecf0cd14c2457dabdbf793cdc98ae9e3f",
+          "image_check": {
+            "bytes_compared": 105,
+            "expected_sha256": "55a46df7eae70dd47a5e4e651eb945dbfe35d898a4efd586d126a3771a6e524e",
+            "height": 5,
+            "mismatched_bytes": 0,
+            "mode": "sobel",
+            "output_fnv32": 884946587,
+            "output_sha256": "55a46df7eae70dd47a5e4e651eb945dbfe35d898a4efd586d126a3771a6e524e",
+            "passed": true,
+            "width": 7
+          },
+          "metrics": {
+            "backend": "rtl",
+            "cycles": 18021,
+            "drain_count": 0,
+            "drain_wait_cycles": 0,
+            "memory_config": {
+              "d_interval": 1,
+              "d_latency": 1,
+              "i_interval": 1,
+              "i_latency": 1,
+              "stall_max": 0,
+              "stall_seed": 1
+            },
+            "memory_counts": {
+              "d_accepted": 1835,
+              "d_completed": 1835,
+              "d_errors": 0,
+              "d_request_wait": 0,
+              "d_response_backpressure": 0,
+              "d_response_wait": 0,
+              "i_accepted": 8134,
+              "i_completed": 8133,
+              "i_errors": 0,
+              "i_request_wait": 0,
+              "i_response_backpressure": 0,
+              "i_response_wait": 0,
+              "store_writes": 1166
+            },
+            "reason": "tohost",
+            "retired": 8081,
+            "roi_complete": 1,
+            "roi_cycles": 2254,
+            "roi_end_cycle": 13549,
+            "roi_retired": 1001,
+            "roi_start_cycle": 11295,
+            "schema_version": 2,
+            "status": "pass",
+            "tohost": 1,
+            "trace_cycles": 5959,
+            "trace_truncated": 0,
+            "trap_cause": 0,
+            "trap_pc": 2147484136,
+            "trap_value": 0
+          },
+          "program_hex_sha256": "5cc54c2bf1edc457aae203838e69c0ba4f8cbe1ae06bc2fb6c7b7abbce468e65",
+          "signature_sha256": {
+            "hw": "799703e8add5366f8f1546f08293a673fe44478484c3dcad12209731ce3e2686",
+            "sw": "799703e8add5366f8f1546f08293a673fe44478484c3dcad12209731ce3e2686"
+          }
+        },
+        {
+          "application": "pipeline",
+          "check_count": 7,
+          "elf_sha256": "8289e5772d4fb29512ee9d8975e87b64358e79351ed89d7a2d299f5d757e9021",
+          "image_check": {
+            "bytes_compared": 105,
+            "expected_sha256": "55a46df7eae70dd47a5e4e651eb945dbfe35d898a4efd586d126a3771a6e524e",
+            "height": 5,
+            "mismatched_bytes": 0,
+            "mode": "pipeline",
+            "output_fnv32": 884946587,
+            "output_sha256": "55a46df7eae70dd47a5e4e651eb945dbfe35d898a4efd586d126a3771a6e524e",
+            "passed": true,
+            "width": 7
+          },
+          "metrics": {
+            "backend": "rtl",
+            "cycles": 18063,
+            "drain_count": 0,
+            "drain_wait_cycles": 0,
+            "memory_config": {
+              "d_interval": 1,
+              "d_latency": 1,
+              "i_interval": 1,
+              "i_latency": 1,
+              "stall_max": 0,
+              "stall_seed": 1
+            },
+            "memory_counts": {
+              "d_accepted": 1845,
+              "d_completed": 1845,
+              "d_errors": 0,
+              "d_request_wait": 0,
+              "d_response_backpressure": 0,
+              "d_response_wait": 0,
+              "i_accepted": 8152,
+              "i_completed": 8151,
+              "i_errors": 0,
+              "i_request_wait": 0,
+              "i_response_backpressure": 0,
+              "i_response_wait": 0,
+              "store_writes": 1171
+            },
+            "reason": "tohost",
+            "retired": 8099,
+            "roi_complete": 1,
+            "roi_cycles": 4033,
+            "roi_end_cycle": 13591,
+            "roi_retired": 1765,
+            "roi_start_cycle": 9558,
+            "schema_version": 2,
+            "status": "pass",
+            "tohost": 1,
+            "trace_cycles": 8460,
+            "trace_truncated": 0,
+            "trap_cause": 0,
+            "trap_pc": 2147484136,
+            "trap_value": 0
+          },
+          "program_hex_sha256": "a44e88db26cfbf0631a9f73ce1f0e669b23c0819044da5b63bb3394540d22611",
+          "signature_sha256": {
+            "hw": "b2780776d9fc21840f242ac34c667e3f21b4d6e5b5fb649729248eb42e903802",
+            "sw": "b2780776d9fc21840f242ac34c667e3f21b4d6e5b5fb649729248eb42e903802"
+          }
+        }
+      ],
+      "receipt_sha256": "573fa45e598af0845a35a1de0ebb59456c659d3d5ead3911910f00454aee218e",
+      "status": "pass",
+      "width": 7
+    },
+    {
+      "case": "lab07-camera-16x12",
+      "height": 12,
+      "image_cases": [
+        {
+          "application": "copy",
+          "check_count": 7,
+          "elf_sha256": "86ee0990665d6dedd0344cb7667a5476fe4127beb6dd41a9743a94e835dddf1d",
+          "image_check": {
+            "bytes_compared": 576,
+            "expected_sha256": "88656dbd87cd21ec2c013425c7239f90a87cca373569a0e677e418163337e129",
+            "height": 12,
+            "mismatched_bytes": 0,
+            "mode": "copy",
+            "output_fnv32": 2023578592,
+            "output_sha256": "88656dbd87cd21ec2c013425c7239f90a87cca373569a0e677e418163337e129",
+            "passed": true,
+            "width": 16
+          },
+          "metrics": {
+            "backend": "rtl",
+            "cycles": 37343,
+            "drain_count": 0,
+            "drain_wait_cycles": 0,
+            "memory_config": {
+              "d_interval": 1,
+              "d_latency": 1,
+              "i_interval": 1,
+              "i_latency": 1,
+              "stall_max": 0,
+              "stall_seed": 1
+            },
+            "memory_counts": {
+              "d_accepted": 4006,
+              "d_completed": 4006,
+              "d_errors": 0,
+              "d_request_wait": 0,
+              "d_response_backpressure": 0,
+              "d_response_wait": 0,
+              "i_accepted": 17235,
+              "i_completed": 17234,
+              "i_errors": 0,
+              "i_request_wait": 0,
+              "i_response_backpressure": 0,
+              "i_response_wait": 0,
+              "store_writes": 1613
+            },
+            "reason": "tohost",
+            "retired": 16641,
+            "roi_complete": 1,
+            "roi_cycles": 6949,
+            "roi_end_cycle": 22927,
+            "roi_retired": 2897,
+            "roi_start_cycle": 15978,
+            "schema_version": 2,
+            "status": "pass",
+            "tohost": 1,
+            "trace_cycles": 20000,
+            "trace_truncated": 1,
+            "trap_cause": 0,
+            "trap_pc": 2147484136,
+            "trap_value": 0
+          },
+          "program_hex_sha256": "c20636013270220df12646ce0ae0fbcd2f93eab21d173e952c278cbce87e32fd",
+          "signature_sha256": {
+            "hw": "dee40608f6ecd0c2b484163d00f05afbdecc670af35b85fac75baaddc149d6f9",
+            "sw": "dee40608f6ecd0c2b484163d00f05afbdecc670af35b85fac75baaddc149d6f9"
+          }
+        },
+        {
+          "application": "grayscale",
+          "check_count": 7,
+          "elf_sha256": "99aa68e820f2fbaf48aa172eeabe96187b0c39554d665a641627e38d020cd04e",
+          "image_check": {
+            "bytes_compared": 576,
+            "expected_sha256": "18709c0b200e686e831416839c494ba33c46d3700ac953ff10f53f5f74cccb37",
+            "height": 12,
+            "mismatched_bytes": 0,
+            "mode": "grayscale",
+            "output_fnv32": 1486299571,
+            "output_sha256": "18709c0b200e686e831416839c494ba33c46d3700ac953ff10f53f5f74cccb37",
+            "passed": true,
+            "width": 16
+          },
+          "metrics": {
+            "backend": "rtl",
+            "cycles": 41990,
+            "drain_count": 0,
+            "drain_wait_cycles": 0,
+            "memory_config": {
+              "d_interval": 1,
+              "d_latency": 1,
+              "i_interval": 1,
+              "i_latency": 1,
+              "stall_max": 0,
+              "stall_seed": 1
+            },
+            "memory_counts": {
+              "d_accepted": 4392,
+              "d_completed": 4392,
+              "d_errors": 0,
+              "d_request_wait": 0,
+              "d_response_backpressure": 0,
+              "d_response_wait": 0,
+              "i_accepted": 18981,
+              "i_completed": 18980,
+              "i_errors": 0,
+              "i_request_wait": 0,
+              "i_response_backpressure": 0,
+              "i_response_wait": 0,
+              "store_writes": 1806
+            },
+            "reason": "tohost",
+            "retired": 18771,
+            "roi_complete": 1,
+            "roi_cycles": 9447,
+            "roi_end_cycle": 25432,
+            "roi_retired": 4050,
+            "roi_start_cycle": 15985,
+            "schema_version": 2,
+            "status": "pass",
+            "tohost": 1,
+            "trace_cycles": 20000,
+            "trace_truncated": 1,
+            "trap_cause": 0,
+            "trap_pc": 2147484136,
+            "trap_value": 0
+          },
+          "program_hex_sha256": "4b6f239565c49b3bbca38f5126ce77aa19753b5ca96a0638206090feb0d5187b",
+          "signature_sha256": {
+            "hw": "b511524b70782dd7b439edd373a2bc24b8fb7c4d079edb33d5f6f453fff452ac",
+            "sw": "b511524b70782dd7b439edd373a2bc24b8fb7c4d079edb33d5f6f453fff452ac"
+          }
+        },
+        {
+          "application": "sobel",
+          "check_count": 7,
+          "elf_sha256": "b846bdd7345ce7e30d1fa82eab6b4df78569eb287263a8a97db884741bc1338a",
+          "image_check": {
+            "bytes_compared": 576,
+            "expected_sha256": "89373df05cd1d0a216cbd9cc7ca2e1feea04c38280ab6ce91d181e7f3c298dd0",
+            "height": 12,
+            "mismatched_bytes": 0,
+            "mode": "sobel",
+            "output_fnv32": 4212001670,
+            "output_sha256": "89373df05cd1d0a216cbd9cc7ca2e1feea04c38280ab6ce91d181e7f3c298dd0",
+            "passed": true,
+            "width": 16
+          },
+          "metrics": {
+            "backend": "rtl",
+            "cycles": 59011,
+            "drain_count": 0,
+            "drain_wait_cycles": 0,
+            "memory_config": {
+              "d_interval": 1,
+              "d_latency": 1,
+              "i_interval": 1,
+              "i_latency": 1,
+              "stall_max": 0,
+              "stall_seed": 1
+            },
+            "memory_counts": {
+              "d_accepted": 6518,
+              "d_completed": 6518,
+              "d_errors": 0,
+              "d_request_wait": 0,
+              "d_response_backpressure": 0,
+              "d_response_wait": 0,
+              "i_accepted": 26569,
+              "i_completed": 26568,
+              "i_errors": 0,
+              "i_request_wait": 0,
+              "i_response_backpressure": 0,
+              "i_response_wait": 0,
+              "store_writes": 2807
+            },
+            "reason": "tohost",
+            "retired": 26359,
+            "roi_complete": 1,
+            "roi_cycles": 17038,
+            "roi_end_cycle": 42453,
+            "roi_retired": 7595,
+            "roi_start_cycle": 25415,
+            "schema_version": 2,
+            "status": "pass",
+            "tohost": 1,
+            "trace_cycles": 20000,
+            "trace_truncated": 1,
+            "trap_cause": 0,
+            "trap_pc": 2147484136,
+            "trap_value": 0
+          },
+          "program_hex_sha256": "5950484853aa29916ae4533a16550bacc2179a415f05c258e06311c9db53c8ac",
+          "signature_sha256": {
+            "hw": "036a92afa5124e9b9e43ec6e6da5c12ce3c18b4ba933b1cb2c338c241a8a69d6",
+            "sw": "036a92afa5124e9b9e43ec6e6da5c12ce3c18b4ba933b1cb2c338c241a8a69d6"
+          }
+        },
+        {
+          "application": "pipeline",
+          "check_count": 7,
+          "elf_sha256": "6413eec7f6ff9a11ead4ad3eb84bcdfc3eee395641ac1c8e6033cc3642128bbc",
+          "image_check": {
+            "bytes_compared": 576,
+            "expected_sha256": "89373df05cd1d0a216cbd9cc7ca2e1feea04c38280ab6ce91d181e7f3c298dd0",
+            "height": 12,
+            "mismatched_bytes": 0,
+            "mode": "pipeline",
+            "output_fnv32": 4212001670,
+            "output_sha256": "89373df05cd1d0a216cbd9cc7ca2e1feea04c38280ab6ce91d181e7f3c298dd0",
+            "passed": true,
+            "width": 16
+          },
+          "metrics": {
+            "backend": "rtl",
+            "cycles": 59053,
+            "drain_count": 0,
+            "drain_wait_cycles": 0,
+            "memory_config": {
+              "d_interval": 1,
+              "d_latency": 1,
+              "i_interval": 1,
+              "i_latency": 1,
+              "stall_max": 0,
+              "stall_seed": 1
+            },
+            "memory_counts": {
+              "d_accepted": 6528,
+              "d_completed": 6528,
+              "d_errors": 0,
+              "d_request_wait": 0,
+              "d_response_backpressure": 0,
+              "d_response_wait": 0,
+              "i_accepted": 26587,
+              "i_completed": 26586,
+              "i_errors": 0,
+              "i_request_wait": 0,
+              "i_response_backpressure": 0,
+              "i_response_wait": 0,
+              "store_writes": 2812
+            },
+            "reason": "tohost",
+            "retired": 26377,
+            "roi_complete": 1,
+            "roi_cycles": 26510,
+            "roi_end_cycle": 42495,
+            "roi_retired": 11656,
+            "roi_start_cycle": 15985,
+            "schema_version": 2,
+            "status": "pass",
+            "tohost": 1,
+            "trace_cycles": 20000,
+            "trace_truncated": 1,
+            "trap_cause": 0,
+            "trap_pc": 2147484136,
+            "trap_value": 0
+          },
+          "program_hex_sha256": "dbc3fd6d364e100d986e8b36dda2ab0a0e5f791b331073f51a6d181127aed9a2",
+          "signature_sha256": {
+            "hw": "edcf572da89d5d30f16c15812fe4354cc04e4a7d25cf4b8dbe9dc88318f21543",
+            "sw": "edcf572da89d5d30f16c15812fe4354cc04e4a7d25cf4b8dbe9dc88318f21543"
+          }
+        }
+      ],
+      "receipt_sha256": "2166acac1dd72a72d30d51ee0c618b130fd7d70b52ce3c4307761a9abc93aba2",
+      "status": "pass",
+      "width": 16
+    },
+    {
+      "case": "lab07-visual-64x48",
+      "height": 48,
+      "image_cases": [
+        {
+          "application": "07_denoise",
+          "check_count": 8,
+          "elf_sha256": "a7169cb86fb38ea89f4140594700298a86d7a4bb1375ad55b06285637bb2d4b0",
+          "image_check": {
+            "bytes_compared": 9216,
+            "expected_sha256": "21e5e9dbce04f4982e2ab3b97b06d13e911beb6c1ba274aba4e371fbc903e6b6",
+            "frame": 24,
+            "height": 48,
+            "mismatched_bytes": 0,
+            "mode": "denoise",
+            "oracle": "Python sorted windows + convolution",
+            "output_fnv32": 2713520624,
+            "output_sha256": "21e5e9dbce04f4982e2ab3b97b06d13e911beb6c1ba274aba4e371fbc903e6b6",
+            "passed": true,
+            "width": 64
+          },
+          "metrics": {
+            "backend": "rtl",
+            "cycles": 2480805,
+            "drain_count": 0,
+            "drain_wait_cycles": 0,
+            "memory_config": {
+              "d_interval": 1,
+              "d_latency": 1,
+              "i_interval": 1,
+              "i_latency": 1,
+              "stall_max": 0,
+              "stall_seed": 1
+            },
+            "memory_counts": {
+              "d_accepted": 243753,
+              "d_completed": 243753,
+              "d_errors": 0,
+              "d_request_wait": 0,
+              "d_response_backpressure": 0,
+              "d_response_wait": 0,
+              "i_accepted": 1129293,
+              "i_completed": 1129292,
+              "i_errors": 0,
+              "i_request_wait": 0,
+              "i_response_backpressure": 0,
+              "i_response_wait": 0,
+              "store_writes": 102683
+            },
+            "reason": "tohost",
+            "retired": 1116841,
+            "roi_complete": 1,
+            "roi_cycles": 2077096,
+            "roi_end_cycle": 2276240,
+            "roi_retired": 935026,
+            "roi_start_cycle": 199144,
+            "schema_version": 2,
+            "status": "pass",
+            "tohost": 1,
+            "trace_cycles": 20000,
+            "trace_truncated": 1,
+            "trap_cause": 0,
+            "trap_pc": 2147484136,
+            "trap_value": 0
+          },
+          "program_hex_sha256": "0c6e9b7cd755c5d475dbdcae414ad7283de881df173ae5dbf8791d04ece85bf2",
+          "signature_sha256": {
+            "hw": "933ec4c18006f6cf675d867459951922c6c7b23746400d0c358e84abcb62cf9d",
+            "sw": "933ec4c18006f6cf675d867459951922c6c7b23746400d0c358e84abcb62cf9d"
+          }
+        },
+        {
+          "application": "08_cartoon",
+          "check_count": 8,
+          "elf_sha256": "51b980e1e7896a069071dea0a4bd2bb075bc5b476ef9d6242d54c62f2a6847c6",
+          "image_check": {
+            "bytes_compared": 9216,
+            "expected_sha256": "5c1f6fcccdcf0ca6039de00976a4adc5a4e631f3b8dca20b50a98f70ade75aea",
+            "frame": 24,
+            "height": 48,
+            "mismatched_bytes": 0,
+            "mode": "cartoon",
+            "oracle": "Python sorted windows + convolution",
+            "output_fnv32": 455272361,
+            "output_sha256": "5c1f6fcccdcf0ca6039de00976a4adc5a4e631f3b8dca20b50a98f70ade75aea",
+            "passed": true,
+            "width": 64
+          },
+          "metrics": {
+            "backend": "rtl",
+            "cycles": 6313934,
+            "drain_count": 0,
+            "drain_wait_cycles": 0,
+            "memory_config": {
+              "d_interval": 1,
+              "d_latency": 1,
+              "i_interval": 1,
+              "i_latency": 1,
+              "stall_max": 0,
+              "stall_seed": 1
+            },
+            "memory_counts": {
+              "d_accepted": 582816,
+              "d_completed": 582816,
+              "d_errors": 0,
+              "d_request_wait": 0,
+              "d_response_backpressure": 0,
+              "d_response_wait": 0,
+              "i_accepted": 2878919,
+              "i_completed": 2878918,
+              "i_errors": 0,
+              "i_request_wait": 0,
+              "i_response_backpressure": 0,
+              "i_response_wait": 0,
+              "store_writes": 233178
+            },
+            "reason": "tohost",
+            "retired": 2847793,
+            "roi_complete": 1,
+            "roi_cycles": 5910225,
+            "roi_end_cycle": 6109369,
+            "roi_retired": 2665978,
+            "roi_start_cycle": 199144,
+            "schema_version": 2,
+            "status": "pass",
+            "tohost": 1,
+            "trace_cycles": 20000,
+            "trace_truncated": 1,
+            "trap_cause": 0,
+            "trap_pc": 2147484136,
+            "trap_value": 0
+          },
+          "program_hex_sha256": "9977e94255836dbb766751da4d478feae952855bebe0a14a082cf148c836ed9a",
+          "signature_sha256": {
+            "hw": "12c332ef580ce7c99de1b1e49b39370ae04a20441e170f696b2fc6056df1d47e",
+            "sw": "12c332ef580ce7c99de1b1e49b39370ae04a20441e170f696b2fc6056df1d47e"
+          }
+        },
+        {
+          "application": "09_ball",
+          "check_count": 8,
+          "elf_sha256": "9cff273607b5038f59c4d353232d8cb855b20a164363ef1f0c4fbffc673c38ca",
+          "image_check": {
+            "bytes_compared": 9216,
+            "expected_sha256": "3f22420ae38e26666bc5709803976b8542cd9f067787a583d9127ef56fdfc5d0",
+            "frame": 24,
+            "height": 48,
+            "mismatched_bytes": 0,
+            "mode": "ball",
+            "oracle": "Python scene geometry + math.isqrt",
+            "output_fnv32": 3716143737,
+            "output_sha256": "3f22420ae38e26666bc5709803976b8542cd9f067787a583d9127ef56fdfc5d0",
+            "passed": true,
+            "width": 64
+          },
+          "metrics": {
+            "backend": "rtl",
+            "cycles": 523877,
+            "drain_count": 0,
+            "drain_wait_cycles": 0,
+            "memory_config": {
+              "d_interval": 1,
+              "d_latency": 1,
+              "i_interval": 1,
+              "i_latency": 1,
+              "stall_max": 0,
+              "stall_seed": 1
+            },
+            "memory_counts": {
+              "d_accepted": 50242,
+              "d_completed": 50242,
+              "d_errors": 0,
+              "d_request_wait": 0,
+              "d_response_backpressure": 0,
+              "d_response_wait": 0,
+              "i_accepted": 235291,
+              "i_completed": 235290,
+              "i_errors": 0,
+              "i_request_wait": 0,
+              "i_response_backpressure": 0,
+              "i_response_wait": 0,
+              "store_writes": 22103
+            },
+            "reason": "tohost",
+            "retired": 235098,
+            "roi_complete": 1,
+            "roi_cycles": 120166,
+            "roi_end_cycle": 319312,
+            "roi_retired": 53282,
+            "roi_start_cycle": 199146,
+            "schema_version": 2,
+            "status": "pass",
+            "tohost": 1,
+            "trace_cycles": 20000,
+            "trace_truncated": 1,
+            "trap_cause": 0,
+            "trap_pc": 2147484136,
+            "trap_value": 0
+          },
+          "program_hex_sha256": "4e45026a156b868f061f2bb8b9932334825418c50397419499d19fc9257f8de0",
+          "signature_sha256": {
+            "hw": "6d4237ffc8a73dbf03782d2a2c9837e855823a2995415c9cb1fbe4f0645f1ad8",
+            "sw": "6d4237ffc8a73dbf03782d2a2c9837e855823a2995415c9cb1fbe4f0645f1ad8"
+          }
+        }
+      ],
+      "receipt_sha256": "8892f158f854edceeacd6d0f2610741800c5fbe457696a2c2f3fc8a392aafd37",
+      "status": "pass",
+      "width": 64
+    },
+    {
+      "case": "lab08-baseline",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 36,
+          "expected": 36,
+          "id": 201
+        }
+      ],
+      "console": "sum=36\n",
+      "csr_counters": {},
+      "elf_sha256": "f300aaefd25d1fff583a9ffe3634c2c03d383a4519661633ee81dbc25b7262e5",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": true,
+        "instruction_classes": {
+          "branch": 722,
+          "divide/remainder": 4,
+          "integer/other": 4338,
+          "jump": 55,
+          "load": 2249,
+          "store": 1482
+        },
+        "jsonl_sha256": "36917647dae0cc9e646cfb359b9aa28fc50bf76ca681ebb676ed62e3d9682107",
+        "retired": 8850,
+        "roi_retired": 150,
+        "status": "complete"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 2.272994350282486,
+          "cycles": 20116,
+          "estimated_seconds": null,
+          "retired": 8850
+        },
+        "roi": {
+          "cpi": 2.4133333333333336,
+          "cycles": 362,
+          "end_cycle_included": 18420,
+          "estimated_seconds": null,
+          "retired": 150,
+          "start_cycle_excluded": 18058
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 20116,
+        "retired": 8850,
+        "roi_cycles": 362,
+        "roi_retired": 150,
+        "trace_cycles": 2000,
+        "trace_truncated": 1
+      },
+      "program_hex_sha256": "6561fd69a059d9a0ff52c2dfb94aa5e8bd55ce4982540dd2d0d3fcb8350a57d4",
+      "receipt_sha256": "9dc9424a737a41d07ca5a3f5640c9563cc3f9ae6a47d1a280d57a5926b7fd9a2",
+      "signature_sha256": {
+        "hw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b",
+        "sw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b"
+      },
+      "source_file_sha256": {
+        "project.c": "08659cef757e6b3decbcb89648dac45c17596eb7af7822c8e1e8b242912de560"
+      },
+      "status": "pass"
+    },
+    {
+      "case": "lab08-candidate",
+      "check_count": 1,
+      "checks": [
+        {
+          "actual": 36,
+          "expected": 36,
+          "id": 201
+        }
+      ],
+      "console": "sum=36\n",
+      "csr_counters": {},
+      "elf_sha256": "f1aa75fa008d98353d3a738e3ff2f6be7e302d9450167680b852b3b76eb553f6",
+      "expected_outcome_verified": true,
+      "failure_count": 0,
+      "instruction_log": {
+        "count_matches_testbench": true,
+        "instruction_classes": {
+          "branch": 711,
+          "divide/remainder": 4,
+          "integer/other": 2186,
+          "jump": 27,
+          "load": 45,
+          "store": 713
+        },
+        "jsonl_sha256": "778d98245b8738b76636b699a72e0556810d11765259e56be1d65ee985e2fa80",
+        "retired": 3686,
+        "roi_retired": 51,
+        "status": "complete"
+      },
+      "measurements": {
+        "full_run": {
+          "cpi": 2.23901247965274,
+          "cycles": 8253,
+          "estimated_seconds": null,
+          "retired": 3686
+        },
+        "roi": {
+          "cpi": 2.235294117647059,
+          "cycles": 114,
+          "end_cycle_included": 7509,
+          "estimated_seconds": null,
+          "retired": 51,
+          "start_cycle_excluded": 7395
+        }
+      },
+      "memory_configuration": {
+        "d_interval": 1,
+        "d_latency": 1,
+        "i_interval": 1,
+        "i_latency": 1,
+        "stall_max": 0,
+        "stall_seed": 1
+      },
+      "metrics": {
+        "cycles": 8253,
+        "retired": 3686,
+        "roi_cycles": 114,
+        "roi_retired": 51,
+        "trace_cycles": 844,
+        "trace_truncated": 0
+      },
+      "program_hex_sha256": "5573e6695a68f4b8190076c348b5738e135fb7e47f4fd282e1c240aa9ad716b9",
+      "receipt_sha256": "d6e7aef7b0ba21221dc054de0607e798217acfd3f387f2a4d4b02e25f7ccb6df",
+      "signature_sha256": {
+        "hw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b",
+        "sw": "4acd4215a21595462e475698c27749c844bf8702bb30f1563c5abb20d500761b"
+      },
+      "source_file_sha256": {
+        "project.c": "08659cef757e6b3decbcb89648dac45c17596eb7af7822c8e1e8b242912de560"
+      },
+      "status": "pass"
+    },
+    {
+      "archive_sha256": "6629f2486658ca5a4c0525d431714aa4fecfe741ed4ba2c7ddb990b1e389b9a6",
+      "case": "lab08-export",
+      "examples": 1,
+      "receipt_sha256": "2c82f2ce8eccc1cc74309d5dc8c7641d03b4884a06b09e577fbecc94f8cc5b80",
+      "status": "pass",
+      "verified_entry_hashes": 47,
+      "zip_entries": 49
+    }
+  ],
+  "finished_at_utc": "2026-10-15T00:55:36.133432+00:00",
+  "project_comparison": {
+    "algorithm_changed": false,
+    "baseline_roi_cycles": 362,
+    "candidate_roi_cycles": 114,
+    "cycle_speedup": 3.175438596491228,
+    "independent_variable": "compiler optimization O0 versus O2; identical source, input, CPU and memory settings",
+    "source_sha256": "08659cef757e6b3decbcb89648dac45c17596eb7af7822c8e1e8b242912de560"
+  },
+  "raw_execution_record_sha256": "10668e67fd733078cb494f1638d6f19fc5b820be2662320c2b384d62efaa864c",
+  "schema_version": 1,
+  "scope": "Actual execution of the eight teaching labs and browser captures. RTL logic and runtime were unchanged. No new EDA or physical timing claim.",
+  "screenshots": [
+    {
+      "browser_errors": [],
+      "case": "lab01-arithmetic-o2",
+      "file": "screenshots/lab01.png",
+      "height": 1127,
+      "sha256": "ed4f6a48d7418325b6a890c54bc52fb0d3a39e2c62fbe4df1d0cd01062859cc8",
+      "width": 1440
+    },
+    {
+      "browser_errors": [],
+      "case": "lab02-sum36",
+      "file": "screenshots/lab02.png",
+      "height": 887,
+      "sha256": "417c1ac615c80dfcdd41eac81b763f770f9ff17bdee55277c9aa4a20ff655f54",
+      "width": 1440
+    },
+    {
+      "browser_errors": [],
+      "case": "lab02-sum38",
+      "file": "screenshots/lab02-sum38.png",
+      "height": 887,
+      "sha256": "b23d7039e3e786074d7d9baf4467f5a730d9c7360cce8a05036418a9d468f635",
+      "width": 1440
+    },
+    {
+      "browser_errors": [],
+      "case": "lab03-wrong99",
+      "file": "screenshots/lab03.png",
+      "height": 922,
+      "sha256": "34a9125b7df6e45b65d77b9d2826c75db919e43114459a951b329c928d9016d6",
+      "width": 1440
+    },
+    {
+      "browser_errors": [],
+      "case": "lab03-repaired24",
+      "file": "screenshots/lab03-fixed.png",
+      "height": 887,
+      "sha256": "6d76d97dbba266a14b052ca6559cfafa1cad82e4fdb7edcef74bd37ab04728ec",
+      "width": 1440
+    },
+    {
+      "browser_errors": [],
+      "case": "lab04-register-sum",
+      "file": "screenshots/lab04.png",
+      "height": 2230,
+      "requested_wait_observed": false,
+      "selected_cycle": 7420,
+      "selected_port": null,
+      "sha256": "355c20ae0f9890f356f880b79101e6377ce678c84f93c2188e5e6e59ca8732d4",
+      "width": 1440,
+      "within_roi": true
+    },
+    {
+      "browser_errors": [],
+      "case": "lab05-performance-o0",
+      "file": "screenshots/lab05-o0.png",
+      "height": 469,
+      "sha256": "99cc24a38db810548b298676e9a988745db157d9673fb659f97bb9a0b7d0bbe6",
+      "width": 1100
+    },
+    {
+      "browser_errors": [],
+      "case": "lab05-performance-o2",
+      "file": "screenshots/lab05.png",
+      "height": 469,
+      "sha256": "6caca26a13350c49e6563ceb396394ef748732e4f18a33eb1c4350f57c3f433b",
+      "width": 1100
+    },
+    {
+      "browser_errors": [],
+      "case": "lab06-stress",
+      "file": "screenshots/lab06.png",
+      "height": 2295,
+      "requested_wait_observed": true,
+      "selected_cycle": 27087,
+      "selected_port": "instruction",
+      "sha256": "92883f342c71ce8aa149f8dedde71c24092c69397bb996ca4a5867f43d4195b6",
+      "width": 1440,
+      "within_roi": true
+    },
+    {
+      "browser_errors": [],
+      "case": "lab07-camera-7x5",
+      "coordinate": [
+        2,
+        2
+      ],
+      "file": "screenshots/lab07.png",
+      "height": 1189,
+      "pixel": {
+        "input": "RGB [63, 104, 127]",
+        "output": "RGB [94, 94, 94]"
+      },
+      "sha256": "b1f27580025e2e01e38d32c4c9f1390958420317048a76ca3646f10cda9ac65e",
+      "width": 1440
+    },
+    {
+      "browser_errors": [],
+      "case": "lab07-camera-16x12",
+      "coordinate": [
+        2,
+        2
+      ],
+      "file": "screenshots/lab07-16x12.png",
+      "height": 1210,
+      "pixel": {
+        "input": "RGB [68, 143, 217]",
+        "output": "RGB [129, 129, 129]"
+      },
+      "sha256": "b4d5cba901a3d4c5ddb96308c2545e599f1abd8160a109b05036f2857318bbf0",
+      "width": 1440
+    },
+    {
+      "browser_errors": [],
+      "case": "lab07-visual-64x48",
+      "file": "screenshots/lab07-ball.png",
+      "height": 649,
+      "sha256": "0aff7548c627f610b560f20357383380c5981ae2504b51783d9d7b5820722567",
+      "width": 1440
+    },
+    {
+      "browser_errors": [],
+      "case": "lab08-export",
+      "file": "screenshots/lab08.png",
+      "height": 1284,
+      "sha256": "66ccf41f39c719256fba9acd93b3a6cb8442820cf075e09cca63f7a668a814c6",
+      "width": 1440
+    }
+  ],
+  "source_commit": "7401d223c4e704c40c7ceb89780a29add8fe2063",
+  "source_drift_detected": false,
+  "started_at_utc": "2026-10-15T00:54:58.072687+00:00",
+  "status": "pass",
+  "tools": {
+    "cxx": {
+      "executable_sha256": "86292e35b221be015ea2a8900840b956c23894ed27f2f587b0ddba51be10d804",
+      "version_firstline": "g++ (GCC) 13.2.1 20231205 (Red Hat 13.2.1-6)"
+    },
+    "python": {
+      "executable_sha256": "695bf83254bba94ab3b2a9d00c94b9316e483965b006936b076916f0a85a9ae5",
+      "version_firstline": "Python 3.11.13"
+    },
+    "riscv_gcc": {
+      "executable_sha256": "ed1d74978f32dd451426cd8f4e5a6c254e8743afd12050004657c23effa4260a",
+      "version_firstline": "riscv32-unknown-elf-gcc (GCC) 15.2.0"
+    },
+    "spike": {
+      "executable_sha256": "74073e92970552a915c4aed7cfbfdaa1a7b8436acc4d4954cd18a1ca31c7c41f",
+      "version_firstline": "Spike RISC-V ISA Simulator 1.1.1-dev"
+    },
+    "verilator": {
+      "executable_sha256": "d796cb4b5eaf792ee3bf673ab13c85a138ec53da5167f1cedc6861e2b42c3cb7",
+      "version_firstline": "Verilator 5.028 2024-08-21 rev v5.028"
+    }
+  }
+}

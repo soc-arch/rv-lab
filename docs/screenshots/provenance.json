@@ -1,0 +1,690 @@
+{
+  "schema_version": 1,
+  "kind": "actual_browser_screenshots",
+  "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+  "preset": "ant_j0",
+  "memory_adapter": "ii1",
+  "capture_convention": "Native browser viewport capture of actual result/trace pages; no retouching or synthetic trace samples.",
+  "historical_images_reused": false,
+  "additional_real_firmware_receipts": "../../validation/screenshot-reruns.zip",
+  "additional_receipts_sha256": "05307ea6ac0c9c34b66d807eb815f4a081181ada746ea1375361af1c852aac70",
+  "actual_export_sha256": "e1e24a014d7075c5398f2282aad3a901b84d29a87b1200b1daeb87bd9db2302b",
+  "renderer_sha256": {
+    "viewer/render.py": "4ba913c4883fc29f6f8ef27c65461332ba40d6f28ebc10cb66fb1680fd2d1949",
+    "viewer/template.html": "8426fe7b91941e7ec34d3455a12bcc9fb3abcae6a68c85fea451d61396c71325",
+    "viewer/microarchitecture.svg": "d3c7b03864311c0f9ca544939c7274442ccea57cf8776f6396ea7886162c758b"
+  },
+  "images": [
+    {
+      "image": "lab01.png",
+      "png_sha256": "46a4a6f796b4d28add4caa13b47c8c979d08610754c1d4213ab6979b7e7e5bdd",
+      "actual_html": "build/validation-p1/screenshots/01_arithmetic-O2/report.html",
+      "html_sha256": "59cbe631155db671c282c91db3787bee63c8333e12f8b449ebdfb1dce72a784d",
+      "application_directory": "build/validation-p1/screenshots/01_arithmetic-O2",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "0a5a315535ef63b1b6689bf05d6433280e9d693b47c5cf3ec8fcd70cdc2978d0",
+      "status": "pass",
+      "expected_negative": false,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 1,
+          "actual": 22,
+          "expected": 22
+        },
+        {
+          "id": 2,
+          "actual": 12,
+          "expected": 12
+        },
+        {
+          "id": 3,
+          "actual": 20,
+          "expected": 20
+        },
+        {
+          "id": 4,
+          "actual": 68,
+          "expected": 68
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "5d1e25b2e91832c7bce130bf553518013b270cb5f4b614ef43632b8738866800",
+        "hw.json": "70e0a5cf22138f55b28d3dbb2635410e677102b34cba61fe043db5fb4524292c",
+        "sw.json": "582f03874038785ed545e8b7c67e66ae36dc9458bf46c6d47ab1a23fe2d527ad",
+        "build.json": "03af9024553fd0b65b3a86c2cb31fd5aab8219462d0350b8aa71ca600ed534de",
+        "performance.json": "6bf49106f71959e0717bb29527f9dfa7adae5e76a856dba22e3c130cfc9ac901"
+      },
+      "selection": null,
+      "viewport": [
+        1440,
+        1150
+      ],
+      "png_dimensions": [
+        1440,
+        1150
+      ],
+      "historical_png_sha256": "ed4f6a48d7418325b6a890c54bc52fb0d3a39e2c62fbe4df1d0cd01062859cc8"
+    },
+    {
+      "image": "lab02.png",
+      "png_sha256": "a6d491ddca299863dcebc67d08381e2180a86d9bd7349056b4404f8cb3bf9f7d",
+      "actual_html": "build/validation-p1-final2/ant_j0/application-920e2127-O2/report.html",
+      "html_sha256": "9e8b7e88ac418054452c69e5e45c0d538707ff8f00d0ae62487ab629a905bb4a",
+      "application_directory": "build/validation-p1-final2/ant_j0/application-920e2127-O2",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "941f84882aad09f620d567ab057218607dab83f529173d87a39e43ae0d7ab1b9",
+      "status": "pass",
+      "expected_negative": false,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 201,
+          "actual": 36,
+          "expected": 36
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "906572548d622d562ea0d839c4392d859aa77e2994aa8a180f0878097153a555",
+        "hw.json": "5aacb15a2645db80786e18e0c23de1dc9e6511a300cd11f55c0508c5fd96aedf",
+        "sw.json": "c8a0a10822e8c140e66f465cb632c4ca350d35e818b8f7a7acae12bd0458bdbf",
+        "build.json": "66363e810f28f8e01d35728e70460e80fe97622119a0ba3a4b3d6f826a4cdeb6",
+        "performance.json": "33e0cad4c75ab37ac0fbc31c4c1540e1b9066020d080d16ec81539e5278fb645",
+        "trace.jsonl": "d045fe850bfb25cb4667495c545bfb10bcf902393f2f932d1ed1acbcf4f527ba"
+      },
+      "selection": null,
+      "viewport": [
+        1440,
+        1150
+      ],
+      "png_dimensions": [
+        1440,
+        1150
+      ],
+      "historical_png_sha256": "417c1ac615c80dfcdd41eac81b763f770f9ff17bdee55277c9aa4a20ff655f54"
+    },
+    {
+      "image": "lab02-sum38.png",
+      "png_sha256": "5ae06a8479df0af36ce4ed118547986bb6e73fe89fc7cb1710c20f17405849c4",
+      "actual_html": "build/validation-p1/screenshots/application-0fdad6c2-O2/report.html",
+      "html_sha256": "7d392427fa7ed5241734f25a1803748cfaa4a2d8b35aa54d2ba03fb578fb3fde",
+      "application_directory": "build/validation-p1/screenshots/application-0fdad6c2-O2",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "2f1e4e7dfdcaeae9ca0c82d90f0d19173185741c4e62ce79abf08f1e75856a2d",
+      "status": "pass",
+      "expected_negative": false,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 201,
+          "actual": 38,
+          "expected": 38
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "b13f7a1ac7381ecb464fed98dbf7cb3dd085266f5dc135635b150920b397f94d",
+        "hw.json": "6800b3460373d460190297504a31be11d875fcc72dea55a55a44457294eb0c4b",
+        "sw.json": "30b4599900ef37f5e1663d6ae5408acb92f16bef091242f769c97efcca4fdcc1",
+        "build.json": "5dda76a4ec3ccd02484fac2da31ad2367f57e03993a0a5dc0652b0a39165d3d5",
+        "performance.json": "3a07cf1e2230b62f76c41fcbe7e49e742459f90a53fd19109669e2e38e9c6929"
+      },
+      "selection": null,
+      "viewport": [
+        1440,
+        1150
+      ],
+      "png_dimensions": [
+        1440,
+        1150
+      ],
+      "historical_png_sha256": "b23d7039e3e786074d7d9baf4467f5a730d9c7360cce8a05036418a9d468f635"
+    },
+    {
+      "image": "lab03.png",
+      "png_sha256": "2157af9e7282a0f13edc195c9cf1f1dbdab977f72fbfd5c874078ae4550a630c",
+      "actual_html": "build/validation-p1/screenshots/application-735e8942-O2/report.html",
+      "html_sha256": "4f933cbfbd4a42dffcb25062a9a3d7e944d9f8fb97d32ed5e872c30023439f42",
+      "application_directory": "build/validation-p1/screenshots/application-735e8942-O2",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "cc8d98916114c3eceac0f1d43721477e64adcf1caf414ac97d63ff663d42477a",
+      "status": "fail",
+      "expected_negative": true,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 301,
+          "actual": 24,
+          "expected": 99
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "2c46884784538647bdb9d50780ef0ebf8486c328824f5eda957d26465d700f87",
+        "hw.json": "076eb8e7cbd26a05d0915c9b2ffd3f7b0d17c8c8e35f061539561d09f03f3027",
+        "sw.json": "be18e44d5fad636b26d09b0bb00e668fb7ecc219252045133372f013fa435380",
+        "build.json": "216c16792ba058d6e584a0cac4b0892a8717933735864a02ebeb3a5400a6b1da",
+        "performance.json": "d8bb8bc544467cfaeea4b3d50db6dcdfcbdc8c444fd9e5d014b8e60957727cce"
+      },
+      "selection": null,
+      "viewport": [
+        1440,
+        1150
+      ],
+      "png_dimensions": [
+        1440,
+        1150
+      ],
+      "historical_png_sha256": "34a9125b7df6e45b65d77b9d2826c75db919e43114459a951b329c928d9016d6"
+    },
+    {
+      "image": "lab03-fixed.png",
+      "png_sha256": "adfad279ff56d24865ad4ba6429baf05f476f6571c080aeaffba437b99ee3302",
+      "actual_html": "build/validation-p1/screenshots/application-910d8bb2-O2/report.html",
+      "html_sha256": "d7c0cb6fc6e4ee0c49fbe28031a63e9252b2887ba910095eb4dc33d83eebb268",
+      "application_directory": "build/validation-p1/screenshots/application-910d8bb2-O2",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "19eb35ce30a1c6c04111ee320bcbb718a2999fd7b46c2cc953a4734a9aa09bce",
+      "status": "pass",
+      "expected_negative": false,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 301,
+          "actual": 24,
+          "expected": 24
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "6c5ebba626cfddf56ffed90cc839b89fcfabbbe62000d7579ad819274b1d1eaa",
+        "hw.json": "8d2c9fd63f0cdb947156752b56e75f63bbd62854f6b970432ae35664b9bb5969",
+        "sw.json": "9c7fd6f1b06736c2c13a8e00409cb303b3d5b6f6e17051fcecaf9798c1607372",
+        "build.json": "72ecf5a0e5c2d0bbb371af6c0c8978ba00802ff3725e6c85f975ace51df15d52",
+        "performance.json": "e06a23f46c7a06ca42e5d7f7689bde2ebc3395c6c591d3a9a17d5ed4049016f3"
+      },
+      "selection": null,
+      "viewport": [
+        1440,
+        1150
+      ],
+      "png_dimensions": [
+        1440,
+        1150
+      ],
+      "historical_png_sha256": "6d76d97dbba266a14b052ca6559cfafa1cad82e4fdb7edcef74bd37ab04728ec"
+    },
+    {
+      "image": "lab04.png",
+      "png_sha256": "98996bc6582a89b61446812116a3890ba65859ef833982e0f8c97f39d1a2148f",
+      "actual_html": "build/validation-p1-final2/ant_j0/application-920e2127-O2/trace.html",
+      "html_sha256": "f018b4b4e6a54fe0ded4b38691c5ecc4f78e1172de4bbc3f595e9b9c1066003b",
+      "application_directory": "build/validation-p1-final2/ant_j0/application-920e2127-O2",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "941f84882aad09f620d567ab057218607dab83f529173d87a39e43ae0d7ab1b9",
+      "status": "pass",
+      "expected_negative": false,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 201,
+          "actual": 36,
+          "expected": 36
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "906572548d622d562ea0d839c4392d859aa77e2994aa8a180f0878097153a555",
+        "hw.json": "5aacb15a2645db80786e18e0c23de1dc9e6511a300cd11f55c0508c5fd96aedf",
+        "sw.json": "c8a0a10822e8c140e66f465cb632c4ca350d35e818b8f7a7acae12bd0458bdbf",
+        "build.json": "66363e810f28f8e01d35728e70460e80fe97622119a0ba3a4b3d6f826a4cdeb6",
+        "performance.json": "33e0cad4c75ab37ac0fbc31c4c1540e1b9066020d080d16ec81539e5278fb645",
+        "trace.jsonl": "d045fe850bfb25cb4667495c545bfb10bcf902393f2f932d1ed1acbcf4f527ba"
+      },
+      "selection": {
+        "index": 33,
+        "cycle": 6061,
+        "pc": 2147485864,
+        "kind": "load"
+      },
+      "viewport": [
+        1440,
+        1550
+      ],
+      "png_dimensions": [
+        1440,
+        1550
+      ],
+      "historical_png_sha256": "355c20ae0f9890f356f880b79101e6377ce678c84f93c2188e5e6e59ca8732d4"
+    },
+    {
+      "image": "lab05-o0.png",
+      "png_sha256": "d6d2d7ddcb801518827355a8af53f545c18e6a301ee240c2321774374ff5a13e",
+      "actual_html": "build/validation-p1-final2/ant_j0/application-25bc7fc9-O0/report.html",
+      "html_sha256": "380f725539e612d425eb3c92f9776c1db493e6c3e0f71247823fd094164479f7",
+      "application_directory": "build/validation-p1-final2/ant_j0/application-25bc7fc9-O0",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "082e7a2fc8fbd3a016307444493d7b4d5f635cbb0822d79c6d82eea8b1702a5c",
+      "status": "pass",
+      "expected_negative": false,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 501,
+          "actual": 136,
+          "expected": 136
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "1bd1f277280e061dd8eba8ff2ecffab2ccec6af2ccdffe23ce7fcb67d8b167e4",
+        "hw.json": "96ac83b1738df7c07b2b854c40124011cb5017f1f6d4434c9f0fbf705513a48f",
+        "sw.json": "e6468db6f34171d984e63006aaa4b8bf060c173d26352829c9903ac297a4952f",
+        "build.json": "64a2ce5011f98010a27da4f37cf243fa4d3bd58174b42702f4d823cd8c357544",
+        "performance.json": "da5022b47b9ef005b236871a6a36942612f79e3f63f715e1d788f1af6276a21d",
+        "trace.jsonl": "c30fb3b6309e8f159b47fb3d025e672584ad15084b57d4bf5279518c30a9f0c3"
+      },
+      "selection": null,
+      "viewport": [
+        1440,
+        1150
+      ],
+      "png_dimensions": [
+        1440,
+        2837
+      ],
+      "historical_png_sha256": "99cc24a38db810548b298676e9a988745db157d9673fb659f97bb9a0b7d0bbe6"
+    },
+    {
+      "image": "lab05.png",
+      "png_sha256": "ed3820e4a0d5243465ec7fc944843ae0483614f33a9e5a30bfd5d946a16b4607",
+      "actual_html": "build/validation-p1-final2/ant_j0/application-25bc7fc9-O2/report.html",
+      "html_sha256": "b125f8f897a3838769a43a4d231f0b80dd477747a8f1170fe4d9fd42c3e1bb06",
+      "application_directory": "build/validation-p1-final2/ant_j0/application-25bc7fc9-O2",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "60a5f01cfba85d82f7ced973488b2ca82e7b580caf2980da372990a55856e743",
+      "status": "pass",
+      "expected_negative": false,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 501,
+          "actual": 136,
+          "expected": 136
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "4d18a2e7fcd4338cf4c513a40686a4cbd75cae263678f282734f6ffe1a901f1d",
+        "hw.json": "fde61aa3ff4660ab5cceec59d84f8a4e5a3de7afe248a32ab85cb2d8c96b011f",
+        "sw.json": "8077eac875a6796cfdf429f150fdd94a073d66a3e3ca9c2dc7f030294885d232",
+        "build.json": "2ab636d4e037bd80ff65dc66ac060678319d3762bb79a780786c271325e4fee4",
+        "performance.json": "97e0849ef49b868d6099586ea0957952c70b9003b661d2e74761f3d7cb1bb112",
+        "trace.jsonl": "bc86fa3c71369c7aea5afe1ba45e34646673ddb9a9a2852eece6248539943683"
+      },
+      "selection": null,
+      "viewport": [
+        1440,
+        1150
+      ],
+      "png_dimensions": [
+        1440,
+        2837
+      ],
+      "historical_png_sha256": "6caca26a13350c49e6563ceb396394ef748732e4f18a33eb1c4350f57c3f433b"
+    },
+    {
+      "image": "lab06.png",
+      "png_sha256": "ef5ea60ac48697e76bae55b01c8d7a74fb403bef4fa192bec8a5f318eae6b878",
+      "actual_html": "build/validation-p1-final2/ant_j0/application-920e2127-O2-mem-5b03f904/trace.html",
+      "html_sha256": "050761fbfc6aba275c2ddaf586643044cfb1f4c1c31aef1f212a6563965bdb63",
+      "application_directory": "build/validation-p1-final2/ant_j0/application-920e2127-O2-mem-5b03f904",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "6067576d60d17bf0271837410625a5ef42270c55c1c3bc7f6fb21707dc7c3480",
+      "status": "pass",
+      "expected_negative": false,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 201,
+          "actual": 36,
+          "expected": 36
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "c0c54ec026c5920f4f9f705b4c7a75974777d7452a6a4b8e2aa15725cb616296",
+        "hw.json": "e6f9c626fc2f9be060f8102cedc13e6120baaa4355cbe5f1f5264beda101edc7",
+        "sw.json": "71eac7d4802c87bcaf6713b9936e5ee7df919f83b14a15b0bcf3a95efb606944",
+        "build.json": "53b9fafc97edc9f77e699720d0ee0040b2e9c2a977946c4e36e134727ca8f816",
+        "performance.json": "a773b253c010c41844e91f278e66f940404bcb47ca19233aa73cac0469f955b6",
+        "trace.jsonl": "989aceca4089b22a215e597d47a4816ee2d7a97b6d156a72f6bd2ff67537af6c"
+      },
+      "selection": {
+        "index": 621,
+        "cycle": 22065,
+        "pc": 2147484296,
+        "kind": "request_wait"
+      },
+      "viewport": [
+        1440,
+        1550
+      ],
+      "png_dimensions": [
+        1440,
+        1550
+      ],
+      "historical_png_sha256": "92883f342c71ce8aa149f8dedde71c24092c69397bb996ca4a5867f43d4195b6"
+    },
+    {
+      "image": "lab07.png",
+      "png_sha256": "8fb68439848d5b4fcd20cd4284d0c743fe90c2ae9e9004fe34cc3ff8624a56a4",
+      "actual_html": "build/validation-p1/screenshots/camera/report.html",
+      "html_sha256": "5edbdd9cb6377d03962acc6266e622b90fbaa7d607b5f470f9e042f4e3467786",
+      "application_directory": "build/validation-p1/screenshots/06_camera-grayscale-O2",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "af0a22f947f0748c1a51094163d73c886dbafab715430d2da1c52ed7eae028cd",
+      "status": "pass",
+      "expected_negative": false,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 200,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 201,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 202,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 203,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 204,
+          "actual": 3969517264,
+          "expected": 3969517264
+        },
+        {
+          "id": 205,
+          "actual": 3969517264,
+          "expected": 3969517264
+        },
+        {
+          "id": 206,
+          "actual": 2959770450,
+          "expected": 2959770450
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "0f1a4569425e883f853c2f4050b1ca197887c41b7eae8b4fb8f114413f4d41dc",
+        "hw.json": "cb8f41cf8fda1e16cf5d2826317693c35a978596a43b380d50880655fd749fa8",
+        "sw.json": "5d0a0f9c9423f7d8836f814912e16c0dba5be170257861ac1f8c957171539de7",
+        "build.json": "7c030114de69e5e39257cb20decc747ba48aa55c1eba63ec9f172fb653449605",
+        "performance.json": "56e83cf7d9aacbb02adaf94e07926f63247a9e6104625f1c43326440d127ca97",
+        "trace.jsonl": "5d210540b9f0a19c61a86d7a5bff238f2e27c7ef259bab2f22b7a149d0d15ab9"
+      },
+      "selection": {
+        "selected": "grayscale",
+        "traceHref": "grayscale-trace.html",
+        "cycleExpanded": false,
+        "x": 2,
+        "y": 2,
+        "width": 7,
+        "height": 5,
+        "frames": 5,
+        "input": [
+          63,
+          104,
+          127,
+          255
+        ],
+        "output": [
+          94,
+          94,
+          94,
+          255
+        ]
+      },
+      "viewport": [
+        1440,
+        1150
+      ],
+      "png_dimensions": [
+        1440,
+        1150
+      ],
+      "historical_png_sha256": "b1f27580025e2e01e38d32c4c9f1390958420317048a76ca3646f10cda9ac65e"
+    },
+    {
+      "image": "lab07-16x12.png",
+      "png_sha256": "4330ca415a13547e500be3cb3132b4d8531bf473ffddd2ffdd23565b1e4495a3",
+      "actual_html": "build/validation-p1-final2/ant_j0/camera/report.html",
+      "html_sha256": "3e665a0e6cd39a215a764160a4b86be8026efecb716ab72deb88941268d9ab07",
+      "application_directory": "build/validation-p1-final2/ant_j0/06_camera-grayscale-O2",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "ed23a7baf741fc13078976a4ff140fc4a372db9f4d4fd7f34a10e9839a7e82f7",
+      "status": "pass",
+      "expected_negative": false,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 200,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 201,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 202,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 203,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 204,
+          "actual": 2023578592,
+          "expected": 2023578592
+        },
+        {
+          "id": 205,
+          "actual": 2023578592,
+          "expected": 2023578592
+        },
+        {
+          "id": 206,
+          "actual": 1486299571,
+          "expected": 1486299571
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "427242897088fc5e8b86b15f98eefa4517c1488bc944b149a4973ce33eaa1675",
+        "hw.json": "5ca8c14e0f57296da603618a0f092f3af3c57cc92611f84024460435efdd22a5",
+        "sw.json": "b21b6e5f78ffe3cbab1e176f8cd9149781c508fd75f7fc534f5337aeed28dec8",
+        "build.json": "7ccb31cf8f8955b149a588ea5dcc483d3ef7eb12cfe84e19f823cb5425448d79",
+        "performance.json": "ad8ff2be79bc9516bda4a1aefc9099853eac50284e63aeea9d8a9b23073dc1bb",
+        "trace.jsonl": "70f7db2cd3e781ca1bd46f257eaab3de42bc9c4cc4762861a80b2a353c8eb699"
+      },
+      "selection": {
+        "selected": "grayscale",
+        "traceHref": "grayscale-trace.html",
+        "cycleExpanded": false,
+        "x": 2,
+        "y": 2,
+        "width": 16,
+        "height": 12,
+        "frames": 5,
+        "input": [
+          68,
+          143,
+          217,
+          255
+        ],
+        "output": [
+          129,
+          129,
+          129,
+          255
+        ]
+      },
+      "viewport": [
+        1440,
+        1150
+      ],
+      "png_dimensions": [
+        1440,
+        1150
+      ],
+      "historical_png_sha256": "b4d5cba901a3d4c5ddb96308c2545e599f1abd8160a109b05036f2857318bbf0"
+    },
+    {
+      "image": "lab07-ball.png",
+      "png_sha256": "b0d3b6dd74c2ba638ea30e6f2b09befdddf570f1e45190880adf5fafbb0afb46",
+      "actual_html": "build/validation-p1-final2/ant_j0/09_ball-O2/trace.html",
+      "html_sha256": "a9bbeafbc8655fefc973eeb3b03b7df0d8e29402d483e64c564e33650495c56f",
+      "application_directory": "build/validation-p1-final2/ant_j0/09_ball-O2",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "96c1d8d94f06f1ab1e2a3a4835685a7315ec320984ff3c9694d331cb69f2ccfe",
+      "status": "pass",
+      "expected_negative": false,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 300,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 301,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 302,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 303,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 304,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "id": 305,
+          "actual": 45608389,
+          "expected": 45608389
+        },
+        {
+          "id": 306,
+          "actual": 45608389,
+          "expected": 45608389
+        },
+        {
+          "id": 307,
+          "actual": 3716143737,
+          "expected": 3716143737
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "db977037a52ad7f8669a7fb8d2024a497100f63e6a5740101773182ce1cb06dd",
+        "hw.json": "5ca1704c9681705f382cf69fdaf35fe3c5a25f013528c3f92702de1eaa0278cc",
+        "sw.json": "1f036b8beba2a8afed37aadf92d468ecc8aee69dc10751d93d6f50e581f991fd",
+        "build.json": "375b27b03c3883084c58484e40aff85411d7d994fa41ea9a5c5528f505124749",
+        "performance.json": "257f06fe8f4207e9f9970e5b71edc7d2b7be7fb2415db39c44fe18d9b8aceea5",
+        "trace.jsonl": "e2172ad367917db87647e09582e2c7401883f9e357d08756af6c9d89a7e98eb7"
+      },
+      "selection": null,
+      "viewport": [
+        1440,
+        1150
+      ],
+      "png_dimensions": [
+        1440,
+        1150
+      ],
+      "historical_png_sha256": "0aff7548c627f610b560f20357383380c5981ae2504b51783d9d7b5820722567"
+    },
+    {
+      "image": "lab08.png",
+      "png_sha256": "18d5940d75ed897d6972d9b5381ef57211973cd90951ce3fdc193ce79b9358d2",
+      "actual_html": "build/validation-p1/offline-for-screenshots/index.html",
+      "html_sha256": "6da8c68ebfadd27e38197b0b7e7b155cc5583c18bd28afac03d18b629ba34094",
+      "application_directory": "build/validation-p1-final2/ant_j0/application-e56f07ba-O2",
+      "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+      "preset": "ant_j0",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "elf_sha256": "575a0c3c0834c1a44857f438ab3ed601c6eeeddb25bb3f76f133194c91128f3a",
+      "status": "pass",
+      "expected_negative": false,
+      "signature_match": true,
+      "checks": [
+        {
+          "id": 201,
+          "actual": 36,
+          "expected": 36
+        }
+      ],
+      "artifact_sha256": {
+        "result.json": "76aaab5f4c54f546097a016e14d7c55d4866bb4d20f5803fb9695d9f57b530a9",
+        "hw.json": "b3d056482227a9e13aaa99adfe4ab5249d64b28c3ccf7ac07917a73c828c81bb",
+        "sw.json": "451bd82b932169de69749b08899b53f919847edfc84ef592b54e8656ef83ae0e",
+        "build.json": "00f155d84f5331e98ecf6ffafcac30b49b13a92f917898995fcd2d92e2751846",
+        "performance.json": "8bb79251ea441c4aad961984e2a2bd4f2c5aa064b980e996235389a095bc6d2b",
+        "trace.jsonl": "d045fe850bfb25cb4667495c545bfb10bcf902393f2f932d1ed1acbcf4f527ba"
+      },
+      "selection": {
+        "selected_group": "custom",
+        "offline": true
+      },
+      "viewport": [
+        1440,
+        1150
+      ],
+      "png_dimensions": [
+        1440,
+        1150
+      ],
+      "historical_png_sha256": "66ccf41f39c719256fba9acd93b3a6cb8442820cf075e09cca63f7a668a814c6"
+    }
+  ],
+  "browser_errors": [],
+  "external_requests": [],
+  "status": "PASS"
+}

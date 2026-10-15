@@ -1,3 +1,15 @@
+# =============================================================================
+# HY-RV | test_environment
+# Description: Verify the public CPU laboratory contract and preserve source-bound evidence.
+# Purpose: Computer architecture and RTL design education and lab exercises.
+# Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+# Website: https://dsa.hanyang.ac.kr
+# Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+# AI tools such as Codex or Claude may have assisted in creating or modifying
+# this file. See applicable manifests and verification records for provenance.
+# Preserve existing license, copyright, and original author notices.
+# =============================================================================
+
 """Output isolation and replacement selection, without running any simulator."""
 import argparse
 import contextlib
@@ -65,13 +77,18 @@ class EnvironmentTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="cpu-memory-selection-") as tmp:
             directory = Path(tmp) / "candidate-output"
             candidate = Path(tmp) / "candidate-core"
+            candidate.mkdir()
+            (candidate / "filelist.f").write_text("teaching_cpu.sv\n")
+            (candidate / "teaching_cpu.sv").write_text("module teaching_cpu; endmodule\n")
             with mock.patch.object(lab, "BUILD", directory), \
                     mock.patch.dict(os.environ, {"LAB_RTL_DIR": str(candidate)}), \
                     mock.patch.object(sys, "argv", ["memory_protocol.py"]), \
                     mock.patch.object(memory_protocol, "build_standalone", side_effect=RuntimeError("fixture stop")) as build, \
                     contextlib.redirect_stdout(io.StringIO()):
                 memory_protocol.main()
-            self.assertEqual(build.call_args.args, (candidate, directory / "memory_protocol_cases"))
+            self.assertEqual(build.call_args.args[:2], (candidate, directory / "memory_protocol_cases"))
+            self.assertEqual(build.call_args.args[2]["model_id"], "external_memory_v1_cpu")
+            self.assertEqual(build.call_args.args[2]["memory_adapter"], "ii1")
             report = json.loads((directory / "memory_protocol.json").read_text())
             self.assertEqual(report["setup_error"], "fixture stop")
 

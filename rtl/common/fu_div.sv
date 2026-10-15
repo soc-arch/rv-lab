@@ -1,3 +1,18 @@
+// =============================================================================
+// HY-RV | fu_div
+// Description: Multicycle RV32M division and remainder unit.
+//
+// Purpose: Computer architecture and RTL design education and lab exercises.
+// Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+// Website: https://dsa.hanyang.ac.kr
+// Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+//
+// AI tools such as Codex or Claude may have assisted in creating or modifying
+// this file. See the applicable manifests and verification records for
+// file-specific provenance, revision history, and validation evidence.
+// Preserve existing license, copyright, and original author notices.
+// =============================================================================
+
 // Local editable teaching snapshot; see SOURCE_SNAPSHOT.json for provenance.
 // =============================================================================
 // fu_div — RV32 Integer Divider (HY-RV FU pool member)
@@ -7,9 +22,13 @@
 // register.  Structural reference: CVA6 `serdiv.sv` (Solderpad v0.51, ETH
 // Zurich — Schaffner/Traber, 2018).  Clean-room reimplementation.
 //
-// Leading-zero-count early termination is disabled.  Each request follows
-// the same fixed iteration count, making the execution timeline predictable
-// for classroom observations and repeatable tests.
+// Key difference from CVA6 serdiv: the **leading-zero-count early termination
+// is disabled** in this pool member.  Reasoning (doc/wiki/architecture/
+// fu_pool_mul_div.md §3.2): the current DPI lock-step timing model is static
+// (opcode-based dwell prediction), so operand-dependent iteration counts
+// would break the 0-cycle-error invariant agreed on 2026-04-19 for in-order
+// cores.  A sibling unit `fu_div_early` with LZC + data-dependent DPI hook
+// is scheduled as a post-plan round.
 //
 // Latency / throughput:
 //   L  = 1 (load) + 32 (iterations) + 0 (result in FINISH)
@@ -17,8 +36,8 @@
 //        holds valid_out until ready_out = 1).
 //   II = L (blocking — ready_in low throughout DIVIDE/FINISH)
 //
-// The request/response ports carry operation, operands, validity and tag.
-// RISC-V M-extension div-by-zero and signed
+// Interface follows the common FU protocol in doc/wiki/architecture/
+// datapath_p0_p1.md §1.3.  RISC-V M-extension div-by-zero and signed
 // overflow (INT_MIN / -1) are non-trapping — we produce the spec-mandated
 // result and leave xcpt_out = 0.
 //

@@ -1,3 +1,14 @@
+# =============================================================================
+# HY-RV | Course checks
+# Description: Check portable course tools, CPU profile identity, and published pages.
+# Purpose: Computer architecture and RTL design education and lab exercises.
+# Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+# Website: https://dsa.hanyang.ac.kr
+# Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+# AI tools such as Codex or Claude may have assisted in creating or modifying
+# this file. See applicable manifests and verification records for provenance.
+# Preserve existing license, copyright, and original author notices.
+# =============================================================================
 name: Course checks
 on: [push, pull_request]
 permissions:
@@ -12,6 +23,8 @@ jobs:
           python3 -m unittest discover -s tests -p test_course.py -v
           python3 -m unittest discover -s tests -p test_environment.py -v
           python3 -m unittest discover -s tests -p test_verify.py -v
+          python3 -m unittest discover -s tests -p test_core_profiles.py -v
+          python3 -m unittest discover -s tests -p test_viewer_core_identity.py -v
       - name: Check committed HTML and navigation
         run: |
           python3 tools/build_site.py --check

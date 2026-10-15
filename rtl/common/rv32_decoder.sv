@@ -1,3 +1,18 @@
+// =============================================================================
+// HY-RV | rv32_decoder
+// Description: Combinational RV32IM field decoding, instruction classification, and immediate generation.
+//
+// Purpose: Computer architecture and RTL design education and lab exercises.
+// Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+// Website: https://dsa.hanyang.ac.kr
+// Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+//
+// AI tools such as Codex or Claude may have assisted in creating or modifying
+// this file. See the applicable manifests and verification records for
+// file-specific provenance, revision history, and validation evidence.
+// Preserve existing license, copyright, and original author notices.
+// =============================================================================
+
 // Local editable teaching snapshot; see SOURCE_SNAPSHOT.json for provenance.
 // =============================================================================
 // rv32_decoder — RV32IM combinational decoder + immediate generator
@@ -25,7 +40,7 @@ module rv32_decoder (
     // decoder only uses it for is_misalign_* outputs.  Cores that don't yet
     // have the computed effective address at decode time may tie 2'b00 and
     // ignore is_misalign_*; then perform the same check at EX stage when
-    // alu_result[1:0] becomes available.
+    // alu_result[1:0] becomes available.  Round 11 (2026-04-23).
     input  logic [1:0]  addr_lo,
 
 
@@ -57,7 +72,7 @@ module rv32_decoder (
     output logic        is_mul,       // is_muldiv && funct3[2] == 0
     output logic        is_div,       // is_muldiv && funct3[2] == 1
 
-    // System, CSR and trap-class decoding.
+    // SYSTEM / CSR / trap-class (Stage 1 telemetry round, 2026-04-22)
     output logic        is_system,    // opcode == 0x73 (SYSTEM)
     output logic        is_csr,       // SYSTEM + funct3 in {1..3, 5..7}
     output logic        is_csr_imm,   // CSR immediate variants (funct3[2]=1)
@@ -166,7 +181,7 @@ module rv32_decoder (
                       | is_load    | is_jal    | is_jalr | is_csr;
     assign needs_mem  = is_load | is_store;
 
-    // ── Effective-address alignment check ──────────────────────────────────
+    // ── Misalign check (round 11) ───────────────────────────────────────────
     //   funct3[1:0]: 00=byte, 01=half, 10=word (funct3[2] = unsigned flag on
     //   loads only).  Byte access is always aligned; half needs addr_lo[0]=0;
     //   word needs addr_lo[1:0]=2'b00.

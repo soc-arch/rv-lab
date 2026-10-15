@@ -1,0 +1,64 @@
+INITIAL GENERATION PROMPT
+
+Use case: scientific-educational.
+Asset type: a single finished introduction slide for university computer architecture students.
+Create a native high-resolution 3840 x 2160 pixel image, EXACT 16:9 landscape. All visible text must be English. The slide introduces the real HY-RV teaching CPU's specifications and microarchitecture, based on the verified facts below.
+
+Style: polished university engineering lecture slide, crisp vector-like technical infographic rendered as a raster image. White or very pale background, dark navy typography, restrained blue/teal accents, amber only for recovery. Clean sans-serif typography, generous whitespace and precise alignment. Large readable labels. No photographic chip, no 3D decoration, no fabricated waveforms, no seals or invented logos. This is a clear architecture introduction, not an advertising poster.
+
+Hierarchy and composition:
+Top 15%: title and subtitle plus a concise spec ribbon.
+Middle 60%: a large CPU architecture schematic on the left (~68% width), and three tidy specification cards on the right (~27%). The outer CPU boundary contains four sibling blocks: Frontend, Q0 Instruction Link, Backend, Static Branch Predictor. Frontend -> Q0 -> Backend is the instruction-token path. Put the predictor beneath the frontend/link, not as a pipeline stage in that path. Show frontend/predictor cooperation with a short thin two-way metadata connection. Show an amber recovery arrow from Backend back to Frontend labelled "Redirect / flush". Q0 must look like a thin direct connection, not a storage FIFO. Frontend and Backend can be broad rounded rectangles with concise internal sub-block labels.
+Instruction memory port is external to the CPU boundary at the left connected only to Frontend. Data memory port is external at the right connected only to Backend. Use double-headed connections for request/response with labels "I-memory" and "D-memory". These are interface ports, not caches or on-chip SRAM blocks. No line crosses over a text label.
+Bottom 20%: a wide "ONE RISING EDGE" explanatory strip, three equally weighted event tiles grouped around a single clock-edge symbol. This is a conceptual illustration, not a measured RTL trace. Add the required conditions immediately below, and institutional credit as a discreet footer.
+
+Exact visible text to include, grouped by region:
+Title: "HY-RV CPU CORE"
+Subtitle: "A compact RV32IM teaching microarchitecture"
+Spec ribbon: "32-bit RISC-V  |  Single-issue, in-order  |  One backend IR  |  Queue depth 0"
+Small configuration label: "CURRENT DEFAULT: P1.F0.BP0.LS0.X1 / ant_j0"
+
+CPU boundary label: "rv_core_simple"
+Frontend heading: "FRONTEND"
+Frontend module: "rv_frontend"
+Frontend contents, on separate short lines: "PC selection + request control"; "Fetch tracking + predecode"; "Instruction assembly"
+Thin link heading: "Q0 LINK"
+Link module, wrap cleanly if needed: "rv_insn_link"
+Link caption: "Direct token handoff"
+Token arrow label: "PC + instruction + fault + prediction"
+Backend heading: "BACKEND"
+Backend module: "rv_backend"
+Backend contents: "1 execution IR"; "32 x 32-bit register file"; "ALU + branch unit"; "Multicycle LSU / MUL / DIV"; "Machine CSRs + traps / IRQ"
+Predictor heading: "STATIC BRANCH PREDICTOR"
+Predictor module: "rv_branch_predictor"
+Predictor contents: "BP0: ANT (default)"; "BP1: BTFNT (selectable)"
+Recovery arrow: "Redirect / flush"
+External ports: "I-memory"; "D-memory"
+
+Right card 1 heading: "CONTROL FLOW"
+Right card 1 lines: "Early JAL: OFF"; "Backend resolves JAL / JALR"; "Actual next PC checked at completion"
+Right card 2 heading: "MEMORY CONTRACT"
+Right card 2 lines: "Ready / valid request + response"; "One outstanding request per port"; "Stable payload under backpressure"
+Right card 3 heading: "IMPLEMENTATION STATUS"
+Right card 3 lines: "Functional + directed tests: PASS"; "Latch / combinational loop: 0"; "RTL-to-gate Formality: PASS"
+Right card 3 small qualification: "Samsung LN28LPP logical synthesis"
+
+Bottom strip heading: "ONE RISING EDGE"
+Bottom event 1: "I commits"
+Bottom event 2: "I+1 enters backend IR"
+Bottom event 3: "I+2 fetch request accepted"
+Bottom conditions text: "Ideal steady state: memory latency 1, memory II=1, backend ready, no redirect or fault."
+Bottom short note: "Fetch follows handshakes; it is not gated by commit."
+Bottom small evidence label: "Conceptual overlap illustration — not a measured trace"
+Footer: "Hanyang University | DSAL — Digital System Architecture Lab"
+Footer small: "Supervisor: Prof. Ji-Hoon Kim | dsa.hanyang.ac.kr"
+
+Accuracy constraints:
+Do not depict a conventional five-stage pipeline. Backend has only one execution instruction register; frontend preparation overlaps it. Q0 has no storage. Static predictor is a sibling combinational policy block, not an extra pipeline stage. No frontend instruction-response buffer. Do not invent cache, MMU, BTB, PHT, dynamic predictor, reorder buffer, or superscalar lanes. Early JAL remains OFF; BP1 comparison is available, not the default. No frequency or performance benchmark claim. The three bottom events happen on the SAME edge only under the stated conditions; do not draw them as three consecutive pipeline clock stages. Ensure all specified technical names, numbers and English words are legible and correct. Reserve safe margins.
+
+REFINEMENT PROMPT
+
+Edit the supplied HY-RV CPU educational slide. Preserve ALL English text, diagram structure, connections, color palette, typography, and readable layout exactly. This is a resolution-and-canvas correction only. Render the final full slide as a genuine 3840 x 2160 pixel PNG, EXACT 16:9 landscape, with crisp re-rendered text and lines at 4K resolution, not a preview-size image. The current source file is 1672 x 941; ensure the actual resulting image dimensions are exactly 3840 x 2160. No cropping of title or footer. Keep safe margins.
+One small diagram correction: place the "D-memory" label outside the outer rv_core_simple boundary, next to the external bidirectional data-memory port, so it is visibly external. Keep the four internal modules as siblings. The Q0 link remains a direct connection with no storage, and static predictor remains separate from the instruction flow.
+Everything else unchanged. All text English. No new claims, components, logos, or footnotes.
+

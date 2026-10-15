@@ -11,7 +11,8 @@ time nor Spike timing is the CPU's RTL cycle count.
 
 ## Evidence and output directories
 
-[provenance/snapshot.json](../provenance/snapshot.json) identifies the public
+[provenance/p1-static-core.json](../provenance/p1-static-core.json) identifies the current P1 core.
+[provenance/snapshot.json](../provenance/snapshot.json) retains the historical public
 source copy. A source hash identifies files; it does not establish a passing
 execution. Use each new run's manifests and results to record what was actually
 tested, with the selected tools and configuration.
@@ -22,6 +23,8 @@ output directory so baseline and candidate reports remain separate:
 ```sh
 export LAB_BUILD_DIR="$PWD/build/reference-check"
 unset RTL_DIR LAB_RTL_DIR
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
 make doctor
 make compare APP=01_arithmetic
 make test-smoke

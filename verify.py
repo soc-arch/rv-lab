@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+# =============================================================================
+# HY-RV | verify
+# Description: Verify the public CPU laboratory contract and preserve source-bound evidence.
+# Purpose: Computer architecture and RTL design education and lab exercises.
+# Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+# Website: https://dsa.hanyang.ac.kr
+# Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+# AI tools such as Codex or Claude may have assisted in creating or modifying
+# this file. See applicable manifests and verification records for provenance.
+# Preserve existing license, copyright, and original author notices.
+# =============================================================================
+
 """Run the reproducibility gates and retain immutable, source-bound evidence.
 
 Run from any directory. LAB_BUILD_DIR selects generated outputs; --rtl-dir
@@ -97,6 +109,20 @@ def source_changes(before, after):
 
 
 def pin_identity(root, manifest):
+    current = root / "provenance/p1-static-core.json"
+    if current.is_file():
+        saved = json.loads(current.read_text())
+        import core_config
+        actual = core_config.rtl_identity(root / "rtl")
+        expected = saved.get("rtl_files_sha256", {})
+        different = [name for name in sorted(actual.keys() | expected.keys())
+                     if actual.get(name) != expected.get(name)]
+        return {"status": "current_p1_manifest", "path": str(current),
+                "sha256": sha256(current),
+                "source_hash": core_config.source_hash(root / "rtl"),
+                "matches_manifest": not different and bool(expected),
+                "differences": different,
+                "note": "The actual selected RTL/configuration is recorded separately in core_identity; legacy snapshot.json is historical."}
     pin = root / "provenance/snapshot.json"
     if not pin.is_file():
         return {"status": "unavailable", "path": str(pin)}
@@ -160,10 +186,14 @@ def gate_plan(rtl, baseline_only=False):
                   ("performance-o2", make("compare", "APP=10_performance", "OPT=O2", "COMMITS=1", "TRACE=1", "CLOCK_MHZ=100")),
                   ("viewer-catalog-tests", [sys.executable, "-m", "unittest", "discover", "-s", "tests",
                                             "-p", "test_viewer_catalog.py", "-v"]),
+                  ("viewer-identity-tests", [sys.executable, "-m", "unittest", "discover", "-s", "tests",
+                                            "-p", "test_viewer_core_identity.py", "-v"]),
                   ("environment-tests", [sys.executable, "-m", "unittest", "discover", "-s", "tests",
                                          "-p", "test_environment.py", "-v"]),
                   ("verification-tests", [sys.executable, "-m", "unittest", "discover", "-s", "tests",
                                           "-p", "test_verify.py", "-v"]),
+                  ("core-profile-tests", [sys.executable, "-m", "unittest", "discover", "-s", "tests",
+                                          "-p", "test_core_profiles.py", "-v"]),
                   ("gallery", make("gallery")),
                   ("registered-starter", make("register", "SOURCE=docs/course/starter/sum.c", "NAME=student-sum", "TITLE=Student sum")),
                   ("images", make("images", "WIDTH=64", "HEIGHT=48", "FRAME=24")),
@@ -251,7 +281,7 @@ def run_verification(root, rtl, build, output, baseline_only=False):
                "baseline_only": baseline_only, "gates": [],
                "browser_ui": {"status": "not_run", "note": "Browser interaction checks require separate evidence."},
                "environment": {key: value for key, value in environment.items()
-                               if key in {"LAB_BUILD_DIR", "LAB_RTL_DIR", "CROSS_COMPILE", "SPIKE", "VERILATOR", "CC", "CXX", "MAKE"}
+                               if key in {"LAB_BUILD_DIR", "LAB_RTL_DIR", "LAB_CORE_PRESET", "LAB_MEMORY_ADAPTER", "CROSS_COMPILE", "SPIKE", "VERILATOR", "CC", "CXX", "MAKE"}
                                or key.startswith("RISCV32_UNKNOWN_ELF_")}}
     before = None
     exit_code = 1
@@ -261,6 +291,14 @@ def run_verification(root, rtl, build, output, baseline_only=False):
         before = source_manifest(root, rtl, build, output)
         save_json(output / "source-before.json", before)
         receipt["snapshot_pin"] = pin_identity(root, before)
+        if (root / "core_config.py").is_file():
+            import core_config
+            configuration = core_config.resolve(rtl=rtl)
+            receipt["core_identity"] = {
+                "configuration": configuration,
+                "configuration_sha256": core_config.configuration_sha256(configuration),
+                "rtl_source_hash": core_config.source_hash(rtl),
+                "memory_adapter": os.environ.get("LAB_MEMORY_ADAPTER", "ii1")}
         receipt["tools"] = tool_provenance()
         for index, (name, command) in enumerate(gate_plan(rtl, baseline_only), 1):
             destination = output / f"{index:02d}-{name}"

@@ -1,3 +1,15 @@
+# =============================================================================
+# HY-RV | test_verify
+# Description: Verify the public CPU laboratory contract and preserve source-bound evidence.
+# Purpose: Computer architecture and RTL design education and lab exercises.
+# Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+# Website: https://dsa.hanyang.ac.kr
+# Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+# AI tools such as Codex or Claude may have assisted in creating or modifying
+# this file. See applicable manifests and verification records for provenance.
+# Preserve existing license, copyright, and original author notices.
+# =============================================================================
+
 """Receipt integrity tests; no compiler or RTL simulator is launched."""
 import json
 from pathlib import Path
@@ -76,8 +88,20 @@ class VerificationReceiptTests(unittest.TestCase):
             if command[1:2] == ["--no-print-directory"]:
                 self.assertIn(f"RTL_DIR={self.rtl}", command)
                 checked += 1
-        self.assertEqual(checked, len(gates) - 3)
+        self.assertEqual(checked, len(gates) - 5)
         self.assertEqual(len(verify.gate_plan(self.rtl, True)), 3)
+
+    def test_current_manifest_is_distinct_from_historical_pin(self):
+        pin = self.root / "provenance/p1-static-core.json"
+        pin.parent.mkdir()
+        pin.write_text('{"description":"current P1 manifest","rtl_files_sha256":{"cpu.sv":"known"}}')
+        with patch("core_config.rtl_identity", return_value={"cpu.sv": "known"}), \
+                patch("core_config.source_hash", return_value="actual-source"):
+            identity = verify.pin_identity(self.root, {})
+        self.assertEqual(identity["status"], "current_p1_manifest")
+        self.assertEqual(identity["sha256"], verify.sha256(pin))
+        self.assertTrue(identity["matches_manifest"])
+        self.assertNotIn("matches_snapshot", identity)
 
 
 if __name__ == "__main__":
