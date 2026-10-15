@@ -1,3 +1,15 @@
+# =============================================================================
+# HY-RV | test_visual_lab
+# Description: Verify the public CPU laboratory contract and preserve source-bound evidence.
+# Purpose: Computer architecture and RTL design education and lab exercises.
+# Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+# Website: https://dsa.hanyang.ac.kr
+# Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+# AI tools such as Codex or Claude may have assisted in creating or modifying
+# this file. See applicable manifests and verification records for provenance.
+# Preserve existing license, copyright, and original author notices.
+# =============================================================================
+
 """Visual-kernel oracles, native arithmetic, and real same-ELF Spike/RTL checks.
 
 Run: python3 tests/test_visual_lab.py -v
@@ -19,6 +31,7 @@ import unittest
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 import lab
+from artifact_receipt import capture
 import visual_support as visual
 
 
@@ -148,6 +161,7 @@ class FirmwareTests(unittest.TestCase):
             self.assertTrue(all(row['schema_version']==2 for row in rows))
             self.assertTrue((out/'trace.html').is_file())
             entry['trace_rows']=len(rows)
+        entry["evidence"]=capture(out)
         self.evidence.append(entry)
 
     def test_real_image_modes_small_odd_and_stalled(self):

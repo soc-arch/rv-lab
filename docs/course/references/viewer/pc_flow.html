@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Follow the PC through current P1/F0 fetch · RV Lab</title>
+<style>
+:root{color-scheme:light;--ink:#203046;--muted:#59687a;--line:#dbe3eb;--blue:#17659a;--paper:#fff;--background:#f5f7fa;--accent:#e8f2fa;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--background);color:var(--ink);line-height:1.7}a{color:var(--blue);text-underline-offset:.18em}a:hover{color:#0b466f}a:focus-visible,button:focus-visible{outline:3px solid #d78917;outline-offset:3px}button{font:inherit}.skip{position:absolute;left:1rem;top:-5rem}.skip:focus{top:.5rem;background:white;padding:.5rem;z-index:3}.topbar{padding:1rem clamp(1rem,4vw,3rem);background:#17354b;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}.brand{color:white;text-decoration:none;font-size:1.1rem;font-weight:750;letter-spacing:.03em}.brand:hover{color:#d9eefc}.tagline{color:#cadce8;font-size:.88rem}.tools{display:flex;gap:1.2rem;flex-wrap:wrap}.tools a{color:#dfedf7;font-size:.9rem}.layout{max-width:1500px;margin:auto;display:grid;grid-template-columns:275px minmax(0,1fr);gap:2.3rem;padding:2rem}.sidebar{align-self:start;position:sticky;top:1.3rem;max-height:calc(100vh - 2.6rem);overflow:auto}.sidebar h2{font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 .6rem .65rem}.lesson-nav{display:grid;gap:.3rem}.lesson-nav a{padding:.6rem .7rem;border-radius:.45rem;color:#40536b;font-size:.9rem;text-decoration:none;line-height:1.45}.lesson-nav a:hover{background:#e8edf3}.lesson-nav a[aria-current=page]{background:var(--accent);color:#105783;box-shadow:inset 3px 0 #2382ba;font-weight:650}.section-nav{display:grid;gap:.25rem;margin-top:1.8rem;border-top:1px solid var(--line);padding-top:1rem}.section-nav:empty{display:none}.section-nav a{font-size:.81rem;text-decoration:none;color:var(--muted);line-height:1.5;padding:.2rem .65rem}.section-nav a.level-3{padding-left:1.4rem}.content{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:.8rem;padding:clamp(1.2rem,3.5vw,3.4rem);box-shadow:0 4px 15px #17354b04}article{max-width:940px;margin:auto}h1,h2,h3,h4{line-height:1.25;scroll-margin-top:1.2rem}h1{font-size:clamp(1.7rem,3.3vw,2.65rem);letter-spacing:-.035em;margin:.1rem 0 1.25rem}h2{font-size:1.45rem;margin:2.5rem 0 .9rem;padding-top:.3rem}h3{font-size:1.12rem;margin:1.65rem 0 .65rem}p{margin:.8rem 0 1rem}ul,ol{padding-left:1.5rem}li{padding-left:.15rem;margin:.35rem 0}li p{margin:.3rem 0}li>.code-block{margin:.9rem 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;font-size:.87em;background:#eff3f7;border-radius:.25rem;padding:.13rem .3rem;overflow-wrap:anywhere}pre{margin:0;overflow-x:auto;padding:1rem 1.15rem;font-size:.88rem;line-height:1.6;tab-size:4;max-width:100%}pre code{background:transparent;padding:0;color:#e6eff7;font-size:inherit;overflow-wrap:normal}.code-block{margin:1.1rem 0 1.4rem;border-radius:.55rem;overflow:hidden;background:#142c40;max-width:100%}.code-toolbar{display:flex;justify-content:space-between;align-items:center;padding:.35rem .7rem .35rem 1rem;background:#203c52;color:#c9dce9;font-size:.75rem;min-height:2rem}.copy-code{border:1px solid #607a8e;border-radius:.25rem;background:none;color:#e6eff7;padding:.06rem .55rem;cursor:pointer;font-size:.73rem}.copy-code:hover{background:#31536d}article>pre{background:#142c40;color:#e6eff7;border-radius:.55rem}.table-scroll{overflow-x:auto;margin:1.2rem 0;max-width:100%;border:1px solid var(--line);border-radius:.45rem}table{border-collapse:collapse;min-width:100%;font-size:.9rem}th{text-align:left;background:#edf3f8;font-weight:650}th,td{padding:.65rem .8rem;vertical-align:top;border-bottom:1px solid var(--line);min-width:110px}tr:last-child td{border-bottom:0}blockquote{margin:1.25rem 0;padding:.5rem 1.2rem;border-left:4px solid #73a6c6;background:#f0f6fa;color:#36536b}blockquote p{margin:.5rem 0}img{max-width:100%;height:auto}hr{margin:2rem 0;border:0;border-top:1px solid var(--line)}.unavailable{color:var(--muted)}.unavailable small{font-size:.75em}.pager{display:flex;justify-content:space-between;gap:1rem;border-top:1px solid var(--line);margin-top:3rem;padding-top:1.5rem}.pager a{flex:1;border:1px solid var(--line);border-radius:.45rem;padding:.8rem 1rem;text-decoration:none;font-size:.9rem}.pager a:hover{background:var(--accent)}.pager small{display:block;color:var(--muted);font-size:.75rem}.source-note{margin-top:2rem;font-size:.72rem;color:var(--muted);overflow-wrap:anywhere}.source-note code{font-size:1em}
+@media(max-width:850px){.layout{grid-template-columns:1fr;padding:1rem;gap:1rem}.sidebar{position:static;max-height:none}.lesson-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem}.section-nav{display:none}.sidebar h2{margin-top:.3rem}.content{padding:1.25rem}.tagline{display:none}.pager{flex-wrap:wrap}.pager a{flex-basis:200px}}
+@media(max-width:440px){.layout{padding:.65rem}.lesson-nav a{font-size:.78rem;padding:.45rem .55rem}.content{padding:1rem}.topbar{padding:.85rem 1rem}.tools{gap:.9rem}.tools a{font-size:.8rem}h1{font-size:1.7rem}th,td{padding:.55rem}pre{font-size:.76rem}.table-scroll{font-size:.8rem}}
+@media print{body{background:white}.topbar,.sidebar,.pager,.copy-code{display:none}.layout{display:block;padding:0}.content{border:0;box-shadow:none;padding:0}pre,pre code{white-space:pre-wrap;color:#172e43}.code-block,.code-toolbar{background:#edf2f5;color:#172e43}a{color:inherit}h2,h3{break-after:avoid}.code-block,table{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to lesson</a>
+<header class="topbar"><a class="brand" href="../../index.html">RV LAB <span class="tagline">/ C → instructions → RTL</span></a><nav class="tools" aria-label="Experiment results"><a href="https://github.com/soc-arch/rv-lab">GitHub</a></nav></header>
+<div class="layout">
+<aside class="sidebar"><h2>Course guide</h2><nav class="lesson-nav" aria-label="Course lessons"><a href="../../index.html">RV Lab practical exercises</a>
+<a href="../../01-setup.html">Lab 01 — Setup and baseline</a>
+<a href="../../02-first-main.html">Lab 02 — Your first main</a>
+<a href="../../03-debugging.html">Lab 03 — Find a wrong result</a>
+<a href="../../04-cycle-viewer.html">Lab 04 — Register and inspect your application</a>
+<a href="../../05-performance.html">Lab 05 — Measure an improvement</a>
+<a href="../../06-memory.html">Lab 06 — Change memory timing</a>
+<a href="../../07-images.html">Lab 07 — Process an image</a>
+<a href="../../08-project.html">Lab 08 — A reproducible project</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#select-and-track-one-address">Select and track one address</a><a class="level-2" href="#admit-a-live-token-through-q0">Admit a live token through Q0</a><a class="level-2" href="#read-illustrative-edge-diagrams">Read illustrative edge diagrams</a><a class="level-2" href="#prediction-and-future-extensions">Prediction and future extensions</a></nav></aside>
+<main class="content" id="main"><article><h1 id="follow-the-pc-through-current-p1f0-fetch">Follow the PC through current P1/F0 fetch</h1>
+<p>This is a static explanation of <code>rtl/frontend/rv_frontend.sv</code> and its helpers, <strong>not a measured waveform</strong>. The viewer shows actual public trace signals only. Absent internal metadata remains labeled unrecorded.</p>
+<h2 id="select-and-track-one-address">Select and track one address</h2>
+<p><code>gen_pc_nxt</code> is combinational. Unlike the former teaching CPU&#x27;s registered <code>next_pc</code>, current <code>pc_nxt</code> selects the request address with this priority: held request → pending redirect → boot/reset address → predicted successor → sequential owner PC + 4. <code>fetch_ctrl</code> stores offered-request/restart metadata. A valid stalled request keeps its address until acceptance even if redirected.</p>
+<p>At request valid AND ready, <code>fetch_tracker</code> captures owner PC and lookup metadata. <code>owner_pc</code> belongs to that response, independently of a successor request. Completion releases ownership, and allocation can replace it at the same edge with the ii1 memory adapter. Each port still has only one live owner.</p>
+<h2 id="admit-a-live-token-through-q0">Admit a live token through Q0</h2>
+<p>F0 has <strong>no instruction response buffer</strong>. The memory adapter holds response bits, ID and error stable until ready. <code>insn_assemble</code> forms a token and Q0 <code>rv_insn_link</code> forwards it directly. The backend IR captures it at valid AND ready. A local fetch-address fault has separate metadata, not a general queue.</p>
+<p>A response is consumed for token admission or obsolete/killed-work discard. Redirect suppresses younger tokens while preserving already-offered request obligations. Accepted stale responses complete and their bits/faults are discarded. Drain finishes backend and memory work, discards younger tokens, and resumes from the architectural resume PC; no buffered instruction is preserved.</p>
+<h2 id="read-illustrative-edge-diagrams">Read illustrative edge diagrams</h2>
+<p>These rows are <strong>design examples, not measured traces</strong>. Each column names a rising edge. Q = accepted request, R = accepted response, r = valid response waiting for ready, and A = backend IR admission.</p>
+<div class="code-block"><div class="code-toolbar"><span>text</span><button type="button" class="copy-code">Copy</button></div><pre><code>Ideal steady state: response latency 1, memory II=1, backend ready
+                                  edge N     edge N+1     edge N+2
+Backend retirement                   I         I+1          I+2
+Backend IR admission               I+1         I+2          I+3
+I-memory response R                I+1         I+2          I+3
+I-memory request Q                 I+2         I+3          I+4
+
+Backend busy when the next response becomes available
+                                  edge N     edge N+1     edge N+2     edge N+3
+I-memory request Q                  J           .            .          J+1
+I-memory response                   .           r            r           R
+Instruction J token                 .           F            F           A</code></pre></div>
+<p>The memory producer holds the second example&#x27;s response until the final edge; F0 does not copy it into a buffer. R+A can coincide without an earlier F sample. Retirement, admission and fetch acceptance are distinct events that can overlap. Fetch also starts with an empty backend without requiring a commit.</p>
+<h2 id="prediction-and-future-extensions">Prediction and future extensions</h2>
+<p>The sibling predictor uses static BP0 ANT by default; BP1 BTFNT is selectable. Both active presets disable early JAL. Prediction metadata travels with the token, and the backend checks the actual successor on completion and recovers on mismatch. The predictor and Q0 link are not extra pipeline stages.</p>
+<p>Positive-depth queues are future work. Entries must preserve PC, bits, faults and prediction metadata with capacity/flush rules. More outstanding fetches need additional owner/ID tracking. When adding frontend stages, remind the designer to reconsider early JAL with the new handshakes, timing and actual verification; that reminder does not itself authorize enabling early JAL.</p><nav class="pager" aria-label="Lesson sequence"><a href="../../index.html">Return to course overview</a></nav><p class="source-note">Source: <code>viewer/pc_flow.md</code>. This manual also works offline. Measurements appear only after you run the experiments.</p></article></main>
+</div>
+<script>
+document.querySelectorAll('.copy-code').forEach(button=>button.addEventListener('click',async()=>{
+  const code=button.closest('.code-block').querySelector('code');
+  let copied=false;
+  if(navigator.clipboard&&window.isSecureContext){
+    try{await navigator.clipboard.writeText(code.textContent);copied=true;}catch(_){}
+  }
+  if(!copied){
+    const selection=window.getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);
+    try{copied=document.execCommand('copy');}catch(_){}
+    if(copied)selection.removeAllRanges();
+  }
+  button.textContent=copied?'Copied':'Press Ctrl+C';
+  setTimeout(()=>button.textContent='Copy',1800);
+}));
+</script>
+</body>
+</html>

@@ -1,0 +1,1180 @@
+{
+  "schema_version": 2,
+  "status": "pass",
+  "scope": "Functional and student workflow verification; synthesis/Formality evidence is separate.",
+  "verified_at_utc": "2026-10-15T02:11:12.211473+00:00",
+  "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+  "default_preset": "ant_j0",
+  "memory_adapter": "ii1",
+  "source_drift": false,
+  "presets": {
+    "ant_j0": {
+      "status": "pass",
+      "model_id": "p1_f0_bp0_ls0_x1",
+      "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+      "effective_parameters": {
+        "BP_PROFILE": 0,
+        "COND_POLICY": 0,
+        "EARLY_JAL_EN": 0,
+        "INSN_QUEUE_DEPTH": 0,
+        "STATIC_POLICY_EN": 1,
+        "SUCCESSOR_CHECK_EN": 1,
+        "RESET_PC": "0x80000000"
+      },
+      "counts": {
+        "functional": 47,
+        "memory_protocol": 20,
+        "camera_positive": 11,
+        "camera_expected_negative": 1,
+        "visual": 7,
+        "functional_positive": 44,
+        "functional_expected_negative": 3
+      },
+      "expected_negative_cases": [
+        "return_nonzero",
+        "check_failure",
+        "hang"
+      ],
+      "performance_unit_tests": 3,
+      "student_workflow_tests": 2,
+      "registration_tests": 2,
+      "actual_executable_configuration_logs": 62,
+      "hardware_builds": [
+        {
+          "key": "529fc9a74593f8f0",
+          "identity": {
+            "core_configuration": {
+              "schema_version": 1,
+              "bp_numbering_version": "bp-profiles-v2",
+              "model_id": "p1_f0_bp0_ls0_x1",
+              "display_name": "HY-RV P1.F0.BP0.LS0.X1",
+              "preset": "ant_j0",
+              "parameters": {
+                "BP_PROFILE": 0,
+                "COND_POLICY": 0,
+                "EARLY_JAL_EN": 0,
+                "INSN_QUEUE_DEPTH": 0
+              },
+              "source_parameter_defaults": {
+                "BP_PROFILE": 0,
+                "COND_POLICY": 0,
+                "EARLY_JAL_EN": 0,
+                "INSN_QUEUE_DEPTH": 0,
+                "STATIC_POLICY_EN": 1,
+                "SUCCESSOR_CHECK_EN": 1
+              },
+              "effective_parameters": {
+                "BP_PROFILE": 0,
+                "COND_POLICY": 0,
+                "EARLY_JAL_EN": 0,
+                "INSN_QUEUE_DEPTH": 0,
+                "STATIC_POLICY_EN": 1,
+                "SUCCESSOR_CHECK_EN": 1,
+                "RESET_PC": "0x80000000"
+              },
+              "configuration_status": "elaboration_parameters",
+              "memory_adapter": "ii1",
+              "memory_directed_revision": "original",
+              "held_redirect_timing_revision": "i_interval41_v1",
+              "compile_flags": [
+                "+define+HY_RV_BP_PROFILE=0",
+                "+define+HY_RV_COND_POLICY=0",
+                "+define+HY_RV_EARLY_JAL_EN=0",
+                "+define+HY_RV_INSN_QUEUE_DEPTH=0"
+              ]
+            },
+            "configuration_sha256": "f0813388edc0ef52b81165842f2b11ae0ac3346fecfa3a0ade6d3227e9440af1",
+            "rtl_source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+            "rtl_files_sha256": {
+              "common/fu_alu.sv": "370b42f524e0a21570d6131153aeab47b51e914cd0ce8024e28a110f53b56b74",
+              "common/fu_br.sv": "3ca01c4aa1c3fe2b2ca38593e00602987ac96306abcc5eeb6655fb31ff5cd8c1",
+              "common/fu_div.sv": "f0cc1b7fb21962ee77bd525a3e42b25974f4868dd73c9a1fd7a3b582a1f9d103",
+              "common/fu_mul.sv": "3e3401835e0056cacae5e13c7dfe62cdc0955885de7d98b4d8e2a9c30ff82e7b",
+              "common/insn_supply_if.sv": "197f82a60dfeaf40d62370273f613f74ed7c07ba87e1f83cd696a7cfb5eb8ff8",
+              "common/mem_if.sv": "e740287c2cd68af5ff80a03fdb35936be5e7bd6d20c22a1508585196261608fa",
+              "common/rv32_alu_op_decode.sv": "008a0cbbc8700d979b565c20f09c5a287c43586270f921be202636c3b621db65",
+              "common/rv32_csr.sv": "31a1d3a6c045c74de745cc731d06ad97eb77112d5a61ad5d7db1a6e1c9cd6fe0",
+              "common/rv32_decoder.sv": "19655bf6a96d423c4b0b7a5caae0f8bf47b029fd302acabad3a54c5f8c58a651",
+              "common/rv32_ls_align2.sv": "e701b0283decfaefd1a4a2aefca190658b1299c4c4d5d5a16726ce5b11856886",
+              "common/rv32_ls_split.sv": "89adc978e85e9f0539f6fc7f7baf7ee517b3e15f04e430f1980904361006b861",
+              "common/rv32_pmu.sv": "6d6d674b9405a9ba7d7c8884979c71975d70309857b049e88b9994b0b21f511e",
+              "common/rv32_rf.sv": "1732b604f3caf116e9daf37a44d50bee48b6307d4dccb165c805b46d810ed9ee",
+              "common/rv_bp_pkg.sv": "94e6a52d7d513b35c6888caecdd9166d4bb273f62cd47c8536b7f6675ce9413b",
+              "common/rv_insn_link.sv": "d55495ea475ed35ec4783602f6473af53140a5f07d957534ca5921b8664d3f2b",
+              "common/rv_trace_pkg.sv": "754fd9547ee8ffea08ed3846e6477d19d571f64d9e7e793f0aaf490c9a81069e",
+              "compat/teaching_cpu.sv": "0a31552d9c64f0d54a0fcef7a4287e175a2582efb5da56870027d9aa11d28222",
+              "compat/teaching_trace_pkg.sv": "49445231ea52a1bc359fe0f7bde0efc194ee85eb0f642ab7c2af14066447d65e",
+              "filelist.f": "e5018d14b58000453b7cdc40ffa9a4f8d6ed461fddb84a97a7b921e1a4170fa0",
+              "frontend/fetch_ctrl.sv": "41bad3568e14453f2afe1a2a0e7bd4ebd5bdc4bf99140494ccc39f4124719f17",
+              "frontend/fetch_tracker.sv": "47fed82df538310272a730404c99cd7af97b790c90aea78cad9fd598ac32e203",
+              "frontend/gen_pc_nxt.sv": "cc43739d2a79e7665bf8b064393e831b82f8d52e68dd6762a116f276cdbca78f",
+              "frontend/insn_assemble.sv": "41d180e71b288d76744ce127a05d0a5dcbcb9d721618bb3452c6afb79330a8f5",
+              "frontend/rv_bp_policy.sv": "26d8becdcb7f1a40b108cebb13c850fe15328fb0367b4ab6da5dc2ccb2d9c060",
+              "frontend/rv_branch_predecode.sv": "d1151da42aaad96a49879d7436612355029bc02ae3975ba2d115922bd0fd4bb2",
+              "frontend/rv_branch_predictor.sv": "590231de52f55d272030b2d82398d38846e90cdadf867d8742aa65cce4597e44",
+              "frontend/rv_frontend.sv": "e743ead6d5ba4e72b0019758d9ac008ad897903f41c7acc19e04dc61e9ca04da",
+              "simple/rv_backend.sv": "c550b65ec2f60df66688df5bd7ce979fab720660af6ae46b2dc7abecb18bd29c",
+              "simple/rv_core_simple.sv": "cb7fe58da9bd66fb20e76f223cf67763b2ef4dacf7857625ba7b2930231121a4"
+            },
+            "memory_adapter": {
+              "name": "ii1",
+              "source": "tb/teaching_sram.sv",
+              "sha256": "8d9fe1d4c0af45f00b6052a936bbce7065d0a708f00bf4caf0f9dd53317c2143"
+            },
+            "elaboration_flags": [
+              "+define+HY_RV_BP_PROFILE=0",
+              "+define+HY_RV_COND_POLICY=0",
+              "+define+HY_RV_EARLY_JAL_EN=0",
+              "+define+HY_RV_INSN_QUEUE_DEPTH=0"
+            ],
+            "verilator": "Verilator 5.028 2024-08-21 rev v5.028",
+            "verilator_path": "/usr/local/bin/verilator",
+            "cxx": "g++ (GCC) 12.2.1 20221121 (Red Hat 12.2.1-7)",
+            "cxx_path": "/opt/rh/gcc-toolset-12/root/usr/bin/g++",
+            "files": {
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv_trace_pkg.sv": "754fd9547ee8ffea08ed3846e6477d19d571f64d9e7e793f0aaf490c9a81069e",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/compat/teaching_trace_pkg.sv": "49445231ea52a1bc359fe0f7bde0efc194ee85eb0f642ab7c2af14066447d65e",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv_bp_pkg.sv": "94e6a52d7d513b35c6888caecdd9166d4bb273f62cd47c8536b7f6675ce9413b",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/insn_supply_if.sv": "197f82a60dfeaf40d62370273f613f74ed7c07ba87e1f83cd696a7cfb5eb8ff8",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/mem_if.sv": "e740287c2cd68af5ff80a03fdb35936be5e7bd6d20c22a1508585196261608fa",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_decoder.sv": "19655bf6a96d423c4b0b7a5caae0f8bf47b029fd302acabad3a54c5f8c58a651",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_alu_op_decode.sv": "008a0cbbc8700d979b565c20f09c5a287c43586270f921be202636c3b621db65",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_ls_split.sv": "89adc978e85e9f0539f6fc7f7baf7ee517b3e15f04e430f1980904361006b861",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_ls_align2.sv": "e701b0283decfaefd1a4a2aefca190658b1299c4c4d5d5a16726ce5b11856886",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_rf.sv": "1732b604f3caf116e9daf37a44d50bee48b6307d4dccb165c805b46d810ed9ee",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_pmu.sv": "6d6d674b9405a9ba7d7c8884979c71975d70309857b049e88b9994b0b21f511e",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_csr.sv": "31a1d3a6c045c74de745cc731d06ad97eb77112d5a61ad5d7db1a6e1c9cd6fe0",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_alu.sv": "370b42f524e0a21570d6131153aeab47b51e914cd0ce8024e28a110f53b56b74",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_br.sv": "3ca01c4aa1c3fe2b2ca38593e00602987ac96306abcc5eeb6655fb31ff5cd8c1",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_mul.sv": "3e3401835e0056cacae5e13c7dfe62cdc0955885de7d98b4d8e2a9c30ff82e7b",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_div.sv": "f0cc1b7fb21962ee77bd525a3e42b25974f4868dd73c9a1fd7a3b582a1f9d103",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/gen_pc_nxt.sv": "cc43739d2a79e7665bf8b064393e831b82f8d52e68dd6762a116f276cdbca78f",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/fetch_ctrl.sv": "41bad3568e14453f2afe1a2a0e7bd4ebd5bdc4bf99140494ccc39f4124719f17",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/fetch_tracker.sv": "47fed82df538310272a730404c99cd7af97b790c90aea78cad9fd598ac32e203",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_branch_predecode.sv": "d1151da42aaad96a49879d7436612355029bc02ae3975ba2d115922bd0fd4bb2",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_bp_policy.sv": "26d8becdcb7f1a40b108cebb13c850fe15328fb0367b4ab6da5dc2ccb2d9c060",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_branch_predictor.sv": "590231de52f55d272030b2d82398d38846e90cdadf867d8742aa65cce4597e44",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/insn_assemble.sv": "41d180e71b288d76744ce127a05d0a5dcbcb9d721618bb3452c6afb79330a8f5",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_frontend.sv": "e743ead6d5ba4e72b0019758d9ac008ad897903f41c7acc19e04dc61e9ca04da",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv_insn_link.sv": "d55495ea475ed35ec4783602f6473af53140a5f07d957534ca5921b8664d3f2b",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/simple/rv_backend.sv": "c550b65ec2f60df66688df5bd7ce979fab720660af6ae46b2dc7abecb18bd29c",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/simple/rv_core_simple.sv": "cb7fe58da9bd66fb20e76f223cf67763b2ef4dacf7857625ba7b2930231121a4",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/compat/teaching_cpu.sv": "0a31552d9c64f0d54a0fcef7a4287e175a2582efb5da56870027d9aa11d28222",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/tb/teaching_sram.sv": "8d9fe1d4c0af45f00b6052a936bbce7065d0a708f00bf4caf0f9dd53317c2143",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/tb/tb_cpu_lab.sv": "095f07799cc2b34b4d311f33841557bd91e6cc333c4201b4213879ba3c5c1351",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/tb/sim_main.cpp": "f6d40f1a03881ee6a779193ff5b1c26d804f53efb220d6ac4e7b22f665d10285",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/filelist.f": "e5018d14b58000453b7cdc40ffa9a4f8d6ed461fddb84a97a7b921e1a4170fa0",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/core_config.py": "4f271fece8cacfcd1306693f778f9fc87f2d81764f3fd6c3753d91e3b5dbb11d"
+            },
+            "flags": "memory-v1 --assert --trace-fst"
+          },
+          "receipt_sha256": "6a57c746006efcf5a60ffbefe65de20aaddca91c58e8007b7e01d96097a0e879",
+          "binary_sha256": "92eb28b316f7c5b2705c02a1d8fe49112dc7da6c0a76500bda0c772326182459"
+        }
+      ],
+      "gates": [
+        {
+          "name": "full",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 18.343,
+          "log_sha256": "8b6b560c1256e3bbc918f7ce674c0faa0042d4986829a90f1607eb44722d6c26"
+        },
+        {
+          "name": "camera",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 5.624,
+          "log_sha256": "3e226fcc069713508a38114bfa486faf3df6d81126f8d6f4e0ae5d0d8330fb57"
+        },
+        {
+          "name": "visual",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 8.327,
+          "log_sha256": "66e9dd975901b8e065ebc9a7dd656247b8d31e42247719b823bbfbaa00cd9f7d"
+        },
+        {
+          "name": "performance",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 0.064,
+          "log_sha256": "58a68224fe76bc5b8740b3a5106e413998c2ce7f11e108fd142380f3ce0bbabd"
+        },
+        {
+          "name": "student",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 1.416,
+          "log_sha256": "9e384647be335766424ce6d36fc64371728d914e39542b30d9050b9c30df84d2"
+        },
+        {
+          "name": "registration",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 2.869,
+          "log_sha256": "2c388caaf58753ffc04547de41da16c5616f06923b9db388808a908befe0eb10"
+        }
+      ]
+    },
+    "ant_j1": {
+      "status": "pass",
+      "model_id": "p1_f0_bp0_ls0_x1",
+      "configuration_sha256": "8cc333aa83999d56bbde8120a98249e6b02857f8d4d54b87031c2a8d103da523",
+      "effective_parameters": {
+        "BP_PROFILE": 0,
+        "COND_POLICY": 0,
+        "EARLY_JAL_EN": 1,
+        "INSN_QUEUE_DEPTH": 0,
+        "STATIC_POLICY_EN": 1,
+        "SUCCESSOR_CHECK_EN": 1,
+        "RESET_PC": "0x80000000"
+      },
+      "counts": {
+        "functional": 47,
+        "memory_protocol": 20,
+        "camera_positive": 11,
+        "camera_expected_negative": 1,
+        "visual": 7,
+        "functional_positive": 44,
+        "functional_expected_negative": 3
+      },
+      "expected_negative_cases": [
+        "return_nonzero",
+        "check_failure",
+        "hang"
+      ],
+      "performance_unit_tests": 3,
+      "student_workflow_tests": 2,
+      "registration_tests": 2,
+      "actual_executable_configuration_logs": 47,
+      "hardware_builds": [
+        {
+          "key": "cbe31749c6418622",
+          "identity": {
+            "core_configuration": {
+              "schema_version": 1,
+              "bp_numbering_version": "bp-profiles-v2",
+              "model_id": "p1_f0_bp0_ls0_x1",
+              "display_name": "HY-RV P1.F0.BP0.LS0.X1",
+              "preset": "ant_j1",
+              "parameters": {
+                "BP_PROFILE": 0,
+                "COND_POLICY": 0,
+                "EARLY_JAL_EN": 1,
+                "INSN_QUEUE_DEPTH": 0
+              },
+              "source_parameter_defaults": {
+                "BP_PROFILE": 0,
+                "COND_POLICY": 0,
+                "EARLY_JAL_EN": 0,
+                "INSN_QUEUE_DEPTH": 0,
+                "STATIC_POLICY_EN": 1,
+                "SUCCESSOR_CHECK_EN": 1
+              },
+              "effective_parameters": {
+                "BP_PROFILE": 0,
+                "COND_POLICY": 0,
+                "EARLY_JAL_EN": 1,
+                "INSN_QUEUE_DEPTH": 0,
+                "STATIC_POLICY_EN": 1,
+                "SUCCESSOR_CHECK_EN": 1,
+                "RESET_PC": "0x80000000"
+              },
+              "configuration_status": "elaboration_parameters",
+              "memory_adapter": "ii1",
+              "memory_directed_revision": "unpredicted_jalr_v2",
+              "held_redirect_timing_revision": "i_interval41_v1",
+              "compile_flags": [
+                "+define+HY_RV_BP_PROFILE=0",
+                "+define+HY_RV_COND_POLICY=0",
+                "+define+HY_RV_EARLY_JAL_EN=1",
+                "+define+HY_RV_INSN_QUEUE_DEPTH=0"
+              ]
+            },
+            "configuration_sha256": "8cc333aa83999d56bbde8120a98249e6b02857f8d4d54b87031c2a8d103da523",
+            "rtl_source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+            "rtl_files_sha256": {
+              "common/fu_alu.sv": "370b42f524e0a21570d6131153aeab47b51e914cd0ce8024e28a110f53b56b74",
+              "common/fu_br.sv": "3ca01c4aa1c3fe2b2ca38593e00602987ac96306abcc5eeb6655fb31ff5cd8c1",
+              "common/fu_div.sv": "f0cc1b7fb21962ee77bd525a3e42b25974f4868dd73c9a1fd7a3b582a1f9d103",
+              "common/fu_mul.sv": "3e3401835e0056cacae5e13c7dfe62cdc0955885de7d98b4d8e2a9c30ff82e7b",
+              "common/insn_supply_if.sv": "197f82a60dfeaf40d62370273f613f74ed7c07ba87e1f83cd696a7cfb5eb8ff8",
+              "common/mem_if.sv": "e740287c2cd68af5ff80a03fdb35936be5e7bd6d20c22a1508585196261608fa",
+              "common/rv32_alu_op_decode.sv": "008a0cbbc8700d979b565c20f09c5a287c43586270f921be202636c3b621db65",
+              "common/rv32_csr.sv": "31a1d3a6c045c74de745cc731d06ad97eb77112d5a61ad5d7db1a6e1c9cd6fe0",
+              "common/rv32_decoder.sv": "19655bf6a96d423c4b0b7a5caae0f8bf47b029fd302acabad3a54c5f8c58a651",
+              "common/rv32_ls_align2.sv": "e701b0283decfaefd1a4a2aefca190658b1299c4c4d5d5a16726ce5b11856886",
+              "common/rv32_ls_split.sv": "89adc978e85e9f0539f6fc7f7baf7ee517b3e15f04e430f1980904361006b861",
+              "common/rv32_pmu.sv": "6d6d674b9405a9ba7d7c8884979c71975d70309857b049e88b9994b0b21f511e",
+              "common/rv32_rf.sv": "1732b604f3caf116e9daf37a44d50bee48b6307d4dccb165c805b46d810ed9ee",
+              "common/rv_bp_pkg.sv": "94e6a52d7d513b35c6888caecdd9166d4bb273f62cd47c8536b7f6675ce9413b",
+              "common/rv_insn_link.sv": "d55495ea475ed35ec4783602f6473af53140a5f07d957534ca5921b8664d3f2b",
+              "common/rv_trace_pkg.sv": "754fd9547ee8ffea08ed3846e6477d19d571f64d9e7e793f0aaf490c9a81069e",
+              "compat/teaching_cpu.sv": "0a31552d9c64f0d54a0fcef7a4287e175a2582efb5da56870027d9aa11d28222",
+              "compat/teaching_trace_pkg.sv": "49445231ea52a1bc359fe0f7bde0efc194ee85eb0f642ab7c2af14066447d65e",
+              "filelist.f": "e5018d14b58000453b7cdc40ffa9a4f8d6ed461fddb84a97a7b921e1a4170fa0",
+              "frontend/fetch_ctrl.sv": "41bad3568e14453f2afe1a2a0e7bd4ebd5bdc4bf99140494ccc39f4124719f17",
+              "frontend/fetch_tracker.sv": "47fed82df538310272a730404c99cd7af97b790c90aea78cad9fd598ac32e203",
+              "frontend/gen_pc_nxt.sv": "cc43739d2a79e7665bf8b064393e831b82f8d52e68dd6762a116f276cdbca78f",
+              "frontend/insn_assemble.sv": "41d180e71b288d76744ce127a05d0a5dcbcb9d721618bb3452c6afb79330a8f5",
+              "frontend/rv_bp_policy.sv": "26d8becdcb7f1a40b108cebb13c850fe15328fb0367b4ab6da5dc2ccb2d9c060",
+              "frontend/rv_branch_predecode.sv": "d1151da42aaad96a49879d7436612355029bc02ae3975ba2d115922bd0fd4bb2",
+              "frontend/rv_branch_predictor.sv": "590231de52f55d272030b2d82398d38846e90cdadf867d8742aa65cce4597e44",
+              "frontend/rv_frontend.sv": "e743ead6d5ba4e72b0019758d9ac008ad897903f41c7acc19e04dc61e9ca04da",
+              "simple/rv_backend.sv": "c550b65ec2f60df66688df5bd7ce979fab720660af6ae46b2dc7abecb18bd29c",
+              "simple/rv_core_simple.sv": "cb7fe58da9bd66fb20e76f223cf67763b2ef4dacf7857625ba7b2930231121a4"
+            },
+            "memory_adapter": {
+              "name": "ii1",
+              "source": "tb/teaching_sram.sv",
+              "sha256": "8d9fe1d4c0af45f00b6052a936bbce7065d0a708f00bf4caf0f9dd53317c2143"
+            },
+            "elaboration_flags": [
+              "+define+HY_RV_BP_PROFILE=0",
+              "+define+HY_RV_COND_POLICY=0",
+              "+define+HY_RV_EARLY_JAL_EN=1",
+              "+define+HY_RV_INSN_QUEUE_DEPTH=0"
+            ],
+            "verilator": "Verilator 5.028 2024-08-21 rev v5.028",
+            "verilator_path": "/usr/local/bin/verilator",
+            "cxx": "g++ (GCC) 12.2.1 20221121 (Red Hat 12.2.1-7)",
+            "cxx_path": "/opt/rh/gcc-toolset-12/root/usr/bin/g++",
+            "files": {
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv_trace_pkg.sv": "754fd9547ee8ffea08ed3846e6477d19d571f64d9e7e793f0aaf490c9a81069e",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/compat/teaching_trace_pkg.sv": "49445231ea52a1bc359fe0f7bde0efc194ee85eb0f642ab7c2af14066447d65e",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv_bp_pkg.sv": "94e6a52d7d513b35c6888caecdd9166d4bb273f62cd47c8536b7f6675ce9413b",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/insn_supply_if.sv": "197f82a60dfeaf40d62370273f613f74ed7c07ba87e1f83cd696a7cfb5eb8ff8",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/mem_if.sv": "e740287c2cd68af5ff80a03fdb35936be5e7bd6d20c22a1508585196261608fa",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_decoder.sv": "19655bf6a96d423c4b0b7a5caae0f8bf47b029fd302acabad3a54c5f8c58a651",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_alu_op_decode.sv": "008a0cbbc8700d979b565c20f09c5a287c43586270f921be202636c3b621db65",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_ls_split.sv": "89adc978e85e9f0539f6fc7f7baf7ee517b3e15f04e430f1980904361006b861",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_ls_align2.sv": "e701b0283decfaefd1a4a2aefca190658b1299c4c4d5d5a16726ce5b11856886",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_rf.sv": "1732b604f3caf116e9daf37a44d50bee48b6307d4dccb165c805b46d810ed9ee",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_pmu.sv": "6d6d674b9405a9ba7d7c8884979c71975d70309857b049e88b9994b0b21f511e",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_csr.sv": "31a1d3a6c045c74de745cc731d06ad97eb77112d5a61ad5d7db1a6e1c9cd6fe0",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_alu.sv": "370b42f524e0a21570d6131153aeab47b51e914cd0ce8024e28a110f53b56b74",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_br.sv": "3ca01c4aa1c3fe2b2ca38593e00602987ac96306abcc5eeb6655fb31ff5cd8c1",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_mul.sv": "3e3401835e0056cacae5e13c7dfe62cdc0955885de7d98b4d8e2a9c30ff82e7b",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_div.sv": "f0cc1b7fb21962ee77bd525a3e42b25974f4868dd73c9a1fd7a3b582a1f9d103",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/gen_pc_nxt.sv": "cc43739d2a79e7665bf8b064393e831b82f8d52e68dd6762a116f276cdbca78f",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/fetch_ctrl.sv": "41bad3568e14453f2afe1a2a0e7bd4ebd5bdc4bf99140494ccc39f4124719f17",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/fetch_tracker.sv": "47fed82df538310272a730404c99cd7af97b790c90aea78cad9fd598ac32e203",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_branch_predecode.sv": "d1151da42aaad96a49879d7436612355029bc02ae3975ba2d115922bd0fd4bb2",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_bp_policy.sv": "26d8becdcb7f1a40b108cebb13c850fe15328fb0367b4ab6da5dc2ccb2d9c060",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_branch_predictor.sv": "590231de52f55d272030b2d82398d38846e90cdadf867d8742aa65cce4597e44",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/insn_assemble.sv": "41d180e71b288d76744ce127a05d0a5dcbcb9d721618bb3452c6afb79330a8f5",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_frontend.sv": "e743ead6d5ba4e72b0019758d9ac008ad897903f41c7acc19e04dc61e9ca04da",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv_insn_link.sv": "d55495ea475ed35ec4783602f6473af53140a5f07d957534ca5921b8664d3f2b",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/simple/rv_backend.sv": "c550b65ec2f60df66688df5bd7ce979fab720660af6ae46b2dc7abecb18bd29c",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/simple/rv_core_simple.sv": "cb7fe58da9bd66fb20e76f223cf67763b2ef4dacf7857625ba7b2930231121a4",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/compat/teaching_cpu.sv": "0a31552d9c64f0d54a0fcef7a4287e175a2582efb5da56870027d9aa11d28222",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/tb/teaching_sram.sv": "8d9fe1d4c0af45f00b6052a936bbce7065d0a708f00bf4caf0f9dd53317c2143",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/tb/tb_cpu_lab.sv": "095f07799cc2b34b4d311f33841557bd91e6cc333c4201b4213879ba3c5c1351",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/tb/sim_main.cpp": "f6d40f1a03881ee6a779193ff5b1c26d804f53efb220d6ac4e7b22f665d10285",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/filelist.f": "e5018d14b58000453b7cdc40ffa9a4f8d6ed461fddb84a97a7b921e1a4170fa0",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/core_config.py": "4f271fece8cacfcd1306693f778f9fc87f2d81764f3fd6c3753d91e3b5dbb11d"
+            },
+            "flags": "memory-v1 --assert --trace-fst"
+          },
+          "receipt_sha256": "3e3d847caf3ad85096b152a794476d30537e15358ed5185f4f4a72368db13f07",
+          "binary_sha256": "4e6b7fc3d5ebae460b702534402b0869a585a055f2e21f836595df70ad557223"
+        }
+      ],
+      "gates": [
+        {
+          "name": "full",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 18.243,
+          "log_sha256": "e360765036761036b4401bb6bedc2bbfd17a7394d7af87e6706bde09f6f78947"
+        },
+        {
+          "name": "camera",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 5.724,
+          "log_sha256": "8aad1f185de83e8cb31798bde57a3d17a39e345baa059b53782261391f4bc122"
+        },
+        {
+          "name": "visual",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 7.826,
+          "log_sha256": "e78c6ee11f515fdbbb5f3e6ad7c473afeb0a6526a535a00119e7da3d90a3ad0a"
+        },
+        {
+          "name": "performance",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 0.064,
+          "log_sha256": "58a68224fe76bc5b8740b3a5106e413998c2ce7f11e108fd142380f3ce0bbabd"
+        },
+        {
+          "name": "student",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 1.416,
+          "log_sha256": "1beb8026c309373fa30ac47dd19fc14d7d16588d02a960ed7e1104b7f4d693da"
+        },
+        {
+          "name": "registration",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 2.919,
+          "log_sha256": "e9fb7ccc71e01b13db669ede9a638c723187b33e96ae0736dbef7d8a3903076f"
+        }
+      ]
+    },
+    "btfnt_j0": {
+      "status": "pass",
+      "model_id": "p1_f0_bp1_ls0_x1",
+      "configuration_sha256": "17c8e69b62e563045742fb0694563b385572246747536b7d02ee2482b3849659",
+      "effective_parameters": {
+        "BP_PROFILE": 1,
+        "COND_POLICY": 1,
+        "EARLY_JAL_EN": 0,
+        "INSN_QUEUE_DEPTH": 0,
+        "STATIC_POLICY_EN": 1,
+        "SUCCESSOR_CHECK_EN": 1,
+        "RESET_PC": "0x80000000"
+      },
+      "counts": {
+        "functional": 47,
+        "memory_protocol": 20,
+        "camera_positive": 11,
+        "camera_expected_negative": 1,
+        "visual": 7,
+        "functional_positive": 44,
+        "functional_expected_negative": 3
+      },
+      "expected_negative_cases": [
+        "return_nonzero",
+        "check_failure",
+        "hang"
+      ],
+      "performance_unit_tests": 3,
+      "student_workflow_tests": 2,
+      "registration_tests": 2,
+      "actual_executable_configuration_logs": 47,
+      "hardware_builds": [
+        {
+          "key": "9ce8297d9556b10e",
+          "identity": {
+            "core_configuration": {
+              "schema_version": 1,
+              "bp_numbering_version": "bp-profiles-v2",
+              "model_id": "p1_f0_bp1_ls0_x1",
+              "display_name": "HY-RV P1.F0.BP1.LS0.X1",
+              "preset": "btfnt_j0",
+              "parameters": {
+                "BP_PROFILE": 1,
+                "COND_POLICY": 1,
+                "EARLY_JAL_EN": 0,
+                "INSN_QUEUE_DEPTH": 0
+              },
+              "source_parameter_defaults": {
+                "BP_PROFILE": 0,
+                "COND_POLICY": 0,
+                "EARLY_JAL_EN": 0,
+                "INSN_QUEUE_DEPTH": 0,
+                "STATIC_POLICY_EN": 1,
+                "SUCCESSOR_CHECK_EN": 1
+              },
+              "effective_parameters": {
+                "BP_PROFILE": 1,
+                "COND_POLICY": 1,
+                "EARLY_JAL_EN": 0,
+                "INSN_QUEUE_DEPTH": 0,
+                "STATIC_POLICY_EN": 1,
+                "SUCCESSOR_CHECK_EN": 1,
+                "RESET_PC": "0x80000000"
+              },
+              "configuration_status": "elaboration_parameters",
+              "memory_adapter": "ii1",
+              "memory_directed_revision": "original",
+              "held_redirect_timing_revision": "i_interval41_v1",
+              "compile_flags": [
+                "+define+HY_RV_BP_PROFILE=1",
+                "+define+HY_RV_COND_POLICY=1",
+                "+define+HY_RV_EARLY_JAL_EN=0",
+                "+define+HY_RV_INSN_QUEUE_DEPTH=0"
+              ]
+            },
+            "configuration_sha256": "17c8e69b62e563045742fb0694563b385572246747536b7d02ee2482b3849659",
+            "rtl_source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+            "rtl_files_sha256": {
+              "common/fu_alu.sv": "370b42f524e0a21570d6131153aeab47b51e914cd0ce8024e28a110f53b56b74",
+              "common/fu_br.sv": "3ca01c4aa1c3fe2b2ca38593e00602987ac96306abcc5eeb6655fb31ff5cd8c1",
+              "common/fu_div.sv": "f0cc1b7fb21962ee77bd525a3e42b25974f4868dd73c9a1fd7a3b582a1f9d103",
+              "common/fu_mul.sv": "3e3401835e0056cacae5e13c7dfe62cdc0955885de7d98b4d8e2a9c30ff82e7b",
+              "common/insn_supply_if.sv": "197f82a60dfeaf40d62370273f613f74ed7c07ba87e1f83cd696a7cfb5eb8ff8",
+              "common/mem_if.sv": "e740287c2cd68af5ff80a03fdb35936be5e7bd6d20c22a1508585196261608fa",
+              "common/rv32_alu_op_decode.sv": "008a0cbbc8700d979b565c20f09c5a287c43586270f921be202636c3b621db65",
+              "common/rv32_csr.sv": "31a1d3a6c045c74de745cc731d06ad97eb77112d5a61ad5d7db1a6e1c9cd6fe0",
+              "common/rv32_decoder.sv": "19655bf6a96d423c4b0b7a5caae0f8bf47b029fd302acabad3a54c5f8c58a651",
+              "common/rv32_ls_align2.sv": "e701b0283decfaefd1a4a2aefca190658b1299c4c4d5d5a16726ce5b11856886",
+              "common/rv32_ls_split.sv": "89adc978e85e9f0539f6fc7f7baf7ee517b3e15f04e430f1980904361006b861",
+              "common/rv32_pmu.sv": "6d6d674b9405a9ba7d7c8884979c71975d70309857b049e88b9994b0b21f511e",
+              "common/rv32_rf.sv": "1732b604f3caf116e9daf37a44d50bee48b6307d4dccb165c805b46d810ed9ee",
+              "common/rv_bp_pkg.sv": "94e6a52d7d513b35c6888caecdd9166d4bb273f62cd47c8536b7f6675ce9413b",
+              "common/rv_insn_link.sv": "d55495ea475ed35ec4783602f6473af53140a5f07d957534ca5921b8664d3f2b",
+              "common/rv_trace_pkg.sv": "754fd9547ee8ffea08ed3846e6477d19d571f64d9e7e793f0aaf490c9a81069e",
+              "compat/teaching_cpu.sv": "0a31552d9c64f0d54a0fcef7a4287e175a2582efb5da56870027d9aa11d28222",
+              "compat/teaching_trace_pkg.sv": "49445231ea52a1bc359fe0f7bde0efc194ee85eb0f642ab7c2af14066447d65e",
+              "filelist.f": "e5018d14b58000453b7cdc40ffa9a4f8d6ed461fddb84a97a7b921e1a4170fa0",
+              "frontend/fetch_ctrl.sv": "41bad3568e14453f2afe1a2a0e7bd4ebd5bdc4bf99140494ccc39f4124719f17",
+              "frontend/fetch_tracker.sv": "47fed82df538310272a730404c99cd7af97b790c90aea78cad9fd598ac32e203",
+              "frontend/gen_pc_nxt.sv": "cc43739d2a79e7665bf8b064393e831b82f8d52e68dd6762a116f276cdbca78f",
+              "frontend/insn_assemble.sv": "41d180e71b288d76744ce127a05d0a5dcbcb9d721618bb3452c6afb79330a8f5",
+              "frontend/rv_bp_policy.sv": "26d8becdcb7f1a40b108cebb13c850fe15328fb0367b4ab6da5dc2ccb2d9c060",
+              "frontend/rv_branch_predecode.sv": "d1151da42aaad96a49879d7436612355029bc02ae3975ba2d115922bd0fd4bb2",
+              "frontend/rv_branch_predictor.sv": "590231de52f55d272030b2d82398d38846e90cdadf867d8742aa65cce4597e44",
+              "frontend/rv_frontend.sv": "e743ead6d5ba4e72b0019758d9ac008ad897903f41c7acc19e04dc61e9ca04da",
+              "simple/rv_backend.sv": "c550b65ec2f60df66688df5bd7ce979fab720660af6ae46b2dc7abecb18bd29c",
+              "simple/rv_core_simple.sv": "cb7fe58da9bd66fb20e76f223cf67763b2ef4dacf7857625ba7b2930231121a4"
+            },
+            "memory_adapter": {
+              "name": "ii1",
+              "source": "tb/teaching_sram.sv",
+              "sha256": "8d9fe1d4c0af45f00b6052a936bbce7065d0a708f00bf4caf0f9dd53317c2143"
+            },
+            "elaboration_flags": [
+              "+define+HY_RV_BP_PROFILE=1",
+              "+define+HY_RV_COND_POLICY=1",
+              "+define+HY_RV_EARLY_JAL_EN=0",
+              "+define+HY_RV_INSN_QUEUE_DEPTH=0"
+            ],
+            "verilator": "Verilator 5.028 2024-08-21 rev v5.028",
+            "verilator_path": "/usr/local/bin/verilator",
+            "cxx": "g++ (GCC) 12.2.1 20221121 (Red Hat 12.2.1-7)",
+            "cxx_path": "/opt/rh/gcc-toolset-12/root/usr/bin/g++",
+            "files": {
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv_trace_pkg.sv": "754fd9547ee8ffea08ed3846e6477d19d571f64d9e7e793f0aaf490c9a81069e",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/compat/teaching_trace_pkg.sv": "49445231ea52a1bc359fe0f7bde0efc194ee85eb0f642ab7c2af14066447d65e",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv_bp_pkg.sv": "94e6a52d7d513b35c6888caecdd9166d4bb273f62cd47c8536b7f6675ce9413b",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/insn_supply_if.sv": "197f82a60dfeaf40d62370273f613f74ed7c07ba87e1f83cd696a7cfb5eb8ff8",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/mem_if.sv": "e740287c2cd68af5ff80a03fdb35936be5e7bd6d20c22a1508585196261608fa",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_decoder.sv": "19655bf6a96d423c4b0b7a5caae0f8bf47b029fd302acabad3a54c5f8c58a651",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_alu_op_decode.sv": "008a0cbbc8700d979b565c20f09c5a287c43586270f921be202636c3b621db65",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_ls_split.sv": "89adc978e85e9f0539f6fc7f7baf7ee517b3e15f04e430f1980904361006b861",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_ls_align2.sv": "e701b0283decfaefd1a4a2aefca190658b1299c4c4d5d5a16726ce5b11856886",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_rf.sv": "1732b604f3caf116e9daf37a44d50bee48b6307d4dccb165c805b46d810ed9ee",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_pmu.sv": "6d6d674b9405a9ba7d7c8884979c71975d70309857b049e88b9994b0b21f511e",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_csr.sv": "31a1d3a6c045c74de745cc731d06ad97eb77112d5a61ad5d7db1a6e1c9cd6fe0",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_alu.sv": "370b42f524e0a21570d6131153aeab47b51e914cd0ce8024e28a110f53b56b74",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_br.sv": "3ca01c4aa1c3fe2b2ca38593e00602987ac96306abcc5eeb6655fb31ff5cd8c1",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_mul.sv": "3e3401835e0056cacae5e13c7dfe62cdc0955885de7d98b4d8e2a9c30ff82e7b",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_div.sv": "f0cc1b7fb21962ee77bd525a3e42b25974f4868dd73c9a1fd7a3b582a1f9d103",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/gen_pc_nxt.sv": "cc43739d2a79e7665bf8b064393e831b82f8d52e68dd6762a116f276cdbca78f",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/fetch_ctrl.sv": "41bad3568e14453f2afe1a2a0e7bd4ebd5bdc4bf99140494ccc39f4124719f17",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/fetch_tracker.sv": "47fed82df538310272a730404c99cd7af97b790c90aea78cad9fd598ac32e203",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_branch_predecode.sv": "d1151da42aaad96a49879d7436612355029bc02ae3975ba2d115922bd0fd4bb2",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_bp_policy.sv": "26d8becdcb7f1a40b108cebb13c850fe15328fb0367b4ab6da5dc2ccb2d9c060",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_branch_predictor.sv": "590231de52f55d272030b2d82398d38846e90cdadf867d8742aa65cce4597e44",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/insn_assemble.sv": "41d180e71b288d76744ce127a05d0a5dcbcb9d721618bb3452c6afb79330a8f5",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_frontend.sv": "e743ead6d5ba4e72b0019758d9ac008ad897903f41c7acc19e04dc61e9ca04da",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv_insn_link.sv": "d55495ea475ed35ec4783602f6473af53140a5f07d957534ca5921b8664d3f2b",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/simple/rv_backend.sv": "c550b65ec2f60df66688df5bd7ce979fab720660af6ae46b2dc7abecb18bd29c",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/simple/rv_core_simple.sv": "cb7fe58da9bd66fb20e76f223cf67763b2ef4dacf7857625ba7b2930231121a4",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/compat/teaching_cpu.sv": "0a31552d9c64f0d54a0fcef7a4287e175a2582efb5da56870027d9aa11d28222",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/tb/teaching_sram.sv": "8d9fe1d4c0af45f00b6052a936bbce7065d0a708f00bf4caf0f9dd53317c2143",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/tb/tb_cpu_lab.sv": "095f07799cc2b34b4d311f33841557bd91e6cc333c4201b4213879ba3c5c1351",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/tb/sim_main.cpp": "f6d40f1a03881ee6a779193ff5b1c26d804f53efb220d6ac4e7b22f665d10285",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/filelist.f": "e5018d14b58000453b7cdc40ffa9a4f8d6ed461fddb84a97a7b921e1a4170fa0",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/core_config.py": "4f271fece8cacfcd1306693f778f9fc87f2d81764f3fd6c3753d91e3b5dbb11d"
+            },
+            "flags": "memory-v1 --assert --trace-fst"
+          },
+          "receipt_sha256": "96a272b5485a9685eb355738a467d220d4d6f886a3949ec26fc5f6354b8e7478",
+          "binary_sha256": "32d9f19593341351405f41de4a5e3e765c5ee1c20621350ea2922ca22fe46486"
+        }
+      ],
+      "gates": [
+        {
+          "name": "full",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 18.042,
+          "log_sha256": "cd7bf7da5889187b3844c2de942ac52c620eb80cdc6f946c7c3cb31fdbc43a02"
+        },
+        {
+          "name": "camera",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 5.623,
+          "log_sha256": "5b06a554d4f03032730ea4b139f9b160e356acab7c7d4056669454ce48f56646"
+        },
+        {
+          "name": "visual",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 7.626,
+          "log_sha256": "df269810b90a0474050086aa3537039253bdb1c89836288caeb4f0c4392a34cf"
+        },
+        {
+          "name": "performance",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 0.064,
+          "log_sha256": "58a68224fe76bc5b8740b3a5106e413998c2ce7f11e108fd142380f3ce0bbabd"
+        },
+        {
+          "name": "student",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 1.316,
+          "log_sha256": "9976c180ebf43e74afd7f174210b6a13a4ac85988342cf5f5d66b37169ba8db6"
+        },
+        {
+          "name": "registration",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 2.818,
+          "log_sha256": "4cdec0e69f589888028cb9c7e997bb25dedd42a97ae01ea2439ead707801a528"
+        }
+      ]
+    },
+    "btfnt_j1": {
+      "status": "pass",
+      "model_id": "p1_f0_bp1_ls0_x1",
+      "configuration_sha256": "d41e7bc12a25ca5f25990689fae5f230ff168123556217b0abfec333c8fbfdcd",
+      "effective_parameters": {
+        "BP_PROFILE": 1,
+        "COND_POLICY": 1,
+        "EARLY_JAL_EN": 1,
+        "INSN_QUEUE_DEPTH": 0,
+        "STATIC_POLICY_EN": 1,
+        "SUCCESSOR_CHECK_EN": 1,
+        "RESET_PC": "0x80000000"
+      },
+      "counts": {
+        "functional": 47,
+        "memory_protocol": 20,
+        "camera_positive": 11,
+        "camera_expected_negative": 1,
+        "visual": 7,
+        "functional_positive": 44,
+        "functional_expected_negative": 3
+      },
+      "expected_negative_cases": [
+        "return_nonzero",
+        "check_failure",
+        "hang"
+      ],
+      "performance_unit_tests": 3,
+      "student_workflow_tests": 2,
+      "registration_tests": 2,
+      "actual_executable_configuration_logs": 47,
+      "hardware_builds": [
+        {
+          "key": "713b26c9242e5d5f",
+          "identity": {
+            "core_configuration": {
+              "schema_version": 1,
+              "bp_numbering_version": "bp-profiles-v2",
+              "model_id": "p1_f0_bp1_ls0_x1",
+              "display_name": "HY-RV P1.F0.BP1.LS0.X1",
+              "preset": "btfnt_j1",
+              "parameters": {
+                "BP_PROFILE": 1,
+                "COND_POLICY": 1,
+                "EARLY_JAL_EN": 1,
+                "INSN_QUEUE_DEPTH": 0
+              },
+              "source_parameter_defaults": {
+                "BP_PROFILE": 0,
+                "COND_POLICY": 0,
+                "EARLY_JAL_EN": 0,
+                "INSN_QUEUE_DEPTH": 0,
+                "STATIC_POLICY_EN": 1,
+                "SUCCESSOR_CHECK_EN": 1
+              },
+              "effective_parameters": {
+                "BP_PROFILE": 1,
+                "COND_POLICY": 1,
+                "EARLY_JAL_EN": 1,
+                "INSN_QUEUE_DEPTH": 0,
+                "STATIC_POLICY_EN": 1,
+                "SUCCESSOR_CHECK_EN": 1,
+                "RESET_PC": "0x80000000"
+              },
+              "configuration_status": "elaboration_parameters",
+              "memory_adapter": "ii1",
+              "memory_directed_revision": "unpredicted_jalr_v2",
+              "held_redirect_timing_revision": "i_interval41_v1",
+              "compile_flags": [
+                "+define+HY_RV_BP_PROFILE=1",
+                "+define+HY_RV_COND_POLICY=1",
+                "+define+HY_RV_EARLY_JAL_EN=1",
+                "+define+HY_RV_INSN_QUEUE_DEPTH=0"
+              ]
+            },
+            "configuration_sha256": "d41e7bc12a25ca5f25990689fae5f230ff168123556217b0abfec333c8fbfdcd",
+            "rtl_source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+            "rtl_files_sha256": {
+              "common/fu_alu.sv": "370b42f524e0a21570d6131153aeab47b51e914cd0ce8024e28a110f53b56b74",
+              "common/fu_br.sv": "3ca01c4aa1c3fe2b2ca38593e00602987ac96306abcc5eeb6655fb31ff5cd8c1",
+              "common/fu_div.sv": "f0cc1b7fb21962ee77bd525a3e42b25974f4868dd73c9a1fd7a3b582a1f9d103",
+              "common/fu_mul.sv": "3e3401835e0056cacae5e13c7dfe62cdc0955885de7d98b4d8e2a9c30ff82e7b",
+              "common/insn_supply_if.sv": "197f82a60dfeaf40d62370273f613f74ed7c07ba87e1f83cd696a7cfb5eb8ff8",
+              "common/mem_if.sv": "e740287c2cd68af5ff80a03fdb35936be5e7bd6d20c22a1508585196261608fa",
+              "common/rv32_alu_op_decode.sv": "008a0cbbc8700d979b565c20f09c5a287c43586270f921be202636c3b621db65",
+              "common/rv32_csr.sv": "31a1d3a6c045c74de745cc731d06ad97eb77112d5a61ad5d7db1a6e1c9cd6fe0",
+              "common/rv32_decoder.sv": "19655bf6a96d423c4b0b7a5caae0f8bf47b029fd302acabad3a54c5f8c58a651",
+              "common/rv32_ls_align2.sv": "e701b0283decfaefd1a4a2aefca190658b1299c4c4d5d5a16726ce5b11856886",
+              "common/rv32_ls_split.sv": "89adc978e85e9f0539f6fc7f7baf7ee517b3e15f04e430f1980904361006b861",
+              "common/rv32_pmu.sv": "6d6d674b9405a9ba7d7c8884979c71975d70309857b049e88b9994b0b21f511e",
+              "common/rv32_rf.sv": "1732b604f3caf116e9daf37a44d50bee48b6307d4dccb165c805b46d810ed9ee",
+              "common/rv_bp_pkg.sv": "94e6a52d7d513b35c6888caecdd9166d4bb273f62cd47c8536b7f6675ce9413b",
+              "common/rv_insn_link.sv": "d55495ea475ed35ec4783602f6473af53140a5f07d957534ca5921b8664d3f2b",
+              "common/rv_trace_pkg.sv": "754fd9547ee8ffea08ed3846e6477d19d571f64d9e7e793f0aaf490c9a81069e",
+              "compat/teaching_cpu.sv": "0a31552d9c64f0d54a0fcef7a4287e175a2582efb5da56870027d9aa11d28222",
+              "compat/teaching_trace_pkg.sv": "49445231ea52a1bc359fe0f7bde0efc194ee85eb0f642ab7c2af14066447d65e",
+              "filelist.f": "e5018d14b58000453b7cdc40ffa9a4f8d6ed461fddb84a97a7b921e1a4170fa0",
+              "frontend/fetch_ctrl.sv": "41bad3568e14453f2afe1a2a0e7bd4ebd5bdc4bf99140494ccc39f4124719f17",
+              "frontend/fetch_tracker.sv": "47fed82df538310272a730404c99cd7af97b790c90aea78cad9fd598ac32e203",
+              "frontend/gen_pc_nxt.sv": "cc43739d2a79e7665bf8b064393e831b82f8d52e68dd6762a116f276cdbca78f",
+              "frontend/insn_assemble.sv": "41d180e71b288d76744ce127a05d0a5dcbcb9d721618bb3452c6afb79330a8f5",
+              "frontend/rv_bp_policy.sv": "26d8becdcb7f1a40b108cebb13c850fe15328fb0367b4ab6da5dc2ccb2d9c060",
+              "frontend/rv_branch_predecode.sv": "d1151da42aaad96a49879d7436612355029bc02ae3975ba2d115922bd0fd4bb2",
+              "frontend/rv_branch_predictor.sv": "590231de52f55d272030b2d82398d38846e90cdadf867d8742aa65cce4597e44",
+              "frontend/rv_frontend.sv": "e743ead6d5ba4e72b0019758d9ac008ad897903f41c7acc19e04dc61e9ca04da",
+              "simple/rv_backend.sv": "c550b65ec2f60df66688df5bd7ce979fab720660af6ae46b2dc7abecb18bd29c",
+              "simple/rv_core_simple.sv": "cb7fe58da9bd66fb20e76f223cf67763b2ef4dacf7857625ba7b2930231121a4"
+            },
+            "memory_adapter": {
+              "name": "ii1",
+              "source": "tb/teaching_sram.sv",
+              "sha256": "8d9fe1d4c0af45f00b6052a936bbce7065d0a708f00bf4caf0f9dd53317c2143"
+            },
+            "elaboration_flags": [
+              "+define+HY_RV_BP_PROFILE=1",
+              "+define+HY_RV_COND_POLICY=1",
+              "+define+HY_RV_EARLY_JAL_EN=1",
+              "+define+HY_RV_INSN_QUEUE_DEPTH=0"
+            ],
+            "verilator": "Verilator 5.028 2024-08-21 rev v5.028",
+            "verilator_path": "/usr/local/bin/verilator",
+            "cxx": "g++ (GCC) 12.2.1 20221121 (Red Hat 12.2.1-7)",
+            "cxx_path": "/opt/rh/gcc-toolset-12/root/usr/bin/g++",
+            "files": {
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv_trace_pkg.sv": "754fd9547ee8ffea08ed3846e6477d19d571f64d9e7e793f0aaf490c9a81069e",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/compat/teaching_trace_pkg.sv": "49445231ea52a1bc359fe0f7bde0efc194ee85eb0f642ab7c2af14066447d65e",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv_bp_pkg.sv": "94e6a52d7d513b35c6888caecdd9166d4bb273f62cd47c8536b7f6675ce9413b",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/insn_supply_if.sv": "197f82a60dfeaf40d62370273f613f74ed7c07ba87e1f83cd696a7cfb5eb8ff8",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/mem_if.sv": "e740287c2cd68af5ff80a03fdb35936be5e7bd6d20c22a1508585196261608fa",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_decoder.sv": "19655bf6a96d423c4b0b7a5caae0f8bf47b029fd302acabad3a54c5f8c58a651",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_alu_op_decode.sv": "008a0cbbc8700d979b565c20f09c5a287c43586270f921be202636c3b621db65",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_ls_split.sv": "89adc978e85e9f0539f6fc7f7baf7ee517b3e15f04e430f1980904361006b861",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_ls_align2.sv": "e701b0283decfaefd1a4a2aefca190658b1299c4c4d5d5a16726ce5b11856886",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_rf.sv": "1732b604f3caf116e9daf37a44d50bee48b6307d4dccb165c805b46d810ed9ee",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_pmu.sv": "6d6d674b9405a9ba7d7c8884979c71975d70309857b049e88b9994b0b21f511e",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv32_csr.sv": "31a1d3a6c045c74de745cc731d06ad97eb77112d5a61ad5d7db1a6e1c9cd6fe0",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_alu.sv": "370b42f524e0a21570d6131153aeab47b51e914cd0ce8024e28a110f53b56b74",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_br.sv": "3ca01c4aa1c3fe2b2ca38593e00602987ac96306abcc5eeb6655fb31ff5cd8c1",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_mul.sv": "3e3401835e0056cacae5e13c7dfe62cdc0955885de7d98b4d8e2a9c30ff82e7b",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/fu_div.sv": "f0cc1b7fb21962ee77bd525a3e42b25974f4868dd73c9a1fd7a3b582a1f9d103",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/gen_pc_nxt.sv": "cc43739d2a79e7665bf8b064393e831b82f8d52e68dd6762a116f276cdbca78f",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/fetch_ctrl.sv": "41bad3568e14453f2afe1a2a0e7bd4ebd5bdc4bf99140494ccc39f4124719f17",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/fetch_tracker.sv": "47fed82df538310272a730404c99cd7af97b790c90aea78cad9fd598ac32e203",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_branch_predecode.sv": "d1151da42aaad96a49879d7436612355029bc02ae3975ba2d115922bd0fd4bb2",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_bp_policy.sv": "26d8becdcb7f1a40b108cebb13c850fe15328fb0367b4ab6da5dc2ccb2d9c060",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_branch_predictor.sv": "590231de52f55d272030b2d82398d38846e90cdadf867d8742aa65cce4597e44",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/insn_assemble.sv": "41d180e71b288d76744ce127a05d0a5dcbcb9d721618bb3452c6afb79330a8f5",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/frontend/rv_frontend.sv": "e743ead6d5ba4e72b0019758d9ac008ad897903f41c7acc19e04dc61e9ca04da",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/common/rv_insn_link.sv": "d55495ea475ed35ec4783602f6473af53140a5f07d957534ca5921b8664d3f2b",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/simple/rv_backend.sv": "c550b65ec2f60df66688df5bd7ce979fab720660af6ae46b2dc7abecb18bd29c",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/simple/rv_core_simple.sv": "cb7fe58da9bd66fb20e76f223cf67763b2ef4dacf7857625ba7b2930231121a4",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/compat/teaching_cpu.sv": "0a31552d9c64f0d54a0fcef7a4287e175a2582efb5da56870027d9aa11d28222",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/tb/teaching_sram.sv": "8d9fe1d4c0af45f00b6052a936bbce7065d0a708f00bf4caf0f9dd53317c2143",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/tb/tb_cpu_lab.sv": "095f07799cc2b34b4d311f33841557bd91e6cc333c4201b4213879ba3c5c1351",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/tb/sim_main.cpp": "f6d40f1a03881ee6a779193ff5b1c26d804f53efb220d6ac4e7b22f665d10285",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/rtl/filelist.f": "e5018d14b58000453b7cdc40ffa9a4f8d6ed461fddb84a97a7b921e1a4170fa0",
+              "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/core_config.py": "4f271fece8cacfcd1306693f778f9fc87f2d81764f3fd6c3753d91e3b5dbb11d"
+            },
+            "flags": "memory-v1 --assert --trace-fst"
+          },
+          "receipt_sha256": "80c8f6bb38fe4ec32df3129a8014b1f9a94b0b70d087df4fa19dc8d646e8af75",
+          "binary_sha256": "1b06034e6458b8552ee1d690a45c7a8c8a78f90d6a2b9980f4257940240da5ea"
+        }
+      ],
+      "gates": [
+        {
+          "name": "full",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 18.043,
+          "log_sha256": "745e0919b6fc140af18b7a5325dd0fa40e6b8bd7fc5a7b94d04c1c0e9689a59b"
+        },
+        {
+          "name": "camera",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 5.623,
+          "log_sha256": "1d4619654b14b1565cec7817cc29f1d1e19fcb8d3a000c9a03e0421093fa5594"
+        },
+        {
+          "name": "visual",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 7.625,
+          "log_sha256": "56a731156014382baf7d62df4e8cb7d9f6bdd03afd23d63decd05111be5420fa"
+        },
+        {
+          "name": "performance",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 0.064,
+          "log_sha256": "58a68224fe76bc5b8740b3a5106e413998c2ce7f11e108fd142380f3ce0bbabd"
+        },
+        {
+          "name": "student",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 1.316,
+          "log_sha256": "55ec490d1f3a990657cd9f14f4fe2c715ea28fb5c224cfb427d82514ddf0bbc6"
+        },
+        {
+          "name": "registration",
+          "expected_exit_code": 0,
+          "exit_code": 0,
+          "status": "pass",
+          "elapsed_seconds": 2.768,
+          "log_sha256": "346bd3d58d3db9fe6f6c9335dea64c525528ffd95b097daec31e373fafa3cdba"
+        }
+      ]
+    }
+  },
+  "lessons": {
+    "status": "pass",
+    "preset": "ant_j0",
+    "lesson_count": 8,
+    "commands": 27,
+    "export_integrity": "pass",
+    "export_sha256": "e1e24a014d7075c5398f2282aad3a901b84d29a87b1200b1daeb87bd9db2302b"
+  },
+  "unit_groups": [
+    {
+      "command": [
+        "/usr/bin/python3.11",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_course.py",
+        "-v"
+      ],
+      "expected_exit_code": 0,
+      "exit_code": 0,
+      "status": "pass",
+      "elapsed_seconds": 0.064,
+      "log": "build/validation-p1-final2/unit/course/stdout.log",
+      "log_sha256": "6dd68b7819da8904ec3446894ad1f4f92e0ac3707700d4511f20477958818ebd"
+    },
+    {
+      "command": [
+        "/usr/bin/python3.11",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_viewer_catalog.py",
+        "-v"
+      ],
+      "expected_exit_code": 0,
+      "exit_code": 0,
+      "status": "pass",
+      "elapsed_seconds": 0.415,
+      "log": "build/validation-p1-final2/unit/viewer/stdout.log",
+      "log_sha256": "438f1e44ace8068208595426abffcde057a81eff4a58c03290e58e7799adb2da"
+    },
+    {
+      "command": [
+        "/usr/bin/python3.11",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_viewer_core_identity.py",
+        "-v"
+      ],
+      "expected_exit_code": 0,
+      "exit_code": 0,
+      "status": "pass",
+      "elapsed_seconds": 0.364,
+      "log": "build/validation-p1-final2/unit/viewer-identity/stdout.log",
+      "log_sha256": "cf6255136335cf4770155869f0f649551174c5bc48671bc640bb26d12421bf7c"
+    },
+    {
+      "command": [
+        "/usr/bin/python3.11",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_environment.py",
+        "-v"
+      ],
+      "expected_exit_code": 0,
+      "exit_code": 0,
+      "status": "pass",
+      "elapsed_seconds": 0.114,
+      "log": "build/validation-p1-final2/unit/environment/stdout.log",
+      "log_sha256": "2c3796bfaed9eccb3c25210d4e7cc88b0ca9b4da7a2375f470b25fbf2152ab80"
+    },
+    {
+      "command": [
+        "/usr/bin/python3.11",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_verify.py",
+        "-v"
+      ],
+      "expected_exit_code": 0,
+      "exit_code": 0,
+      "status": "pass",
+      "elapsed_seconds": 0.114,
+      "log": "build/validation-p1-final2/unit/verify/stdout.log",
+      "log_sha256": "3ca35cfae2668f9a8ac96e508f60028305039bbfbdbd6d18f6d73a211fb6a3c8"
+    },
+    {
+      "command": [
+        "/usr/bin/python3.11",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_core_profiles.py",
+        "-v"
+      ],
+      "expected_exit_code": 0,
+      "exit_code": 0,
+      "status": "pass",
+      "elapsed_seconds": 0.214,
+      "log": "build/validation-p1-final2/unit/profiles/stdout.log",
+      "log_sha256": "f055d2a094f499cd149225a9b8b372568d5defe82acf921b5d4323b6600e27a1"
+    }
+  ],
+  "tools": {
+    "python_version": "3.11.13 (main, Apr 28 2026, 13:06:52) [GCC 8.5.0 20210514 (Red Hat 8.5.0-28)]",
+    "platform": "Linux-4.18.0-553.el8_10.x86_64-x86_64-with-glibc2.28",
+    "executables": {
+      "python": {
+        "available": true,
+        "path": "/usr/bin/python3.11",
+        "resolved_path": "/usr/bin/python3.11",
+        "sha256": "695bf83254bba94ab3b2a9d00c94b9316e483965b006936b076916f0a85a9ae5"
+      },
+      "riscv32-unknown-elf-gcc": {
+        "available": true,
+        "path": "/home/jhkim/tools/riscv/bin/riscv32-unknown-elf-gcc",
+        "resolved_path": "/home/jhkim/tools/riscv/bin/riscv32-unknown-elf-gcc",
+        "sha256": "ed1d74978f32dd451426cd8f4e5a6c254e8743afd12050004657c23effa4260a"
+      },
+      "riscv32-unknown-elf-objdump": {
+        "available": true,
+        "path": "/home/jhkim/tools/riscv/bin/riscv32-unknown-elf-objdump",
+        "resolved_path": "/home/jhkim/tools/riscv/bin/riscv32-unknown-elf-objdump",
+        "sha256": "12e29ca00c5114490b011a924c345d87a7fc43283dd4fc6ffd6ceba2e0bc7e26"
+      },
+      "riscv32-unknown-elf-nm": {
+        "available": true,
+        "path": "/home/jhkim/tools/riscv/bin/riscv32-unknown-elf-nm",
+        "resolved_path": "/home/jhkim/tools/riscv/bin/riscv32-unknown-elf-nm",
+        "sha256": "28a024605114d7b281a8e5deb7e2f9f851270ed8f0d64434f56ef9974d8a5226"
+      },
+      "riscv32-unknown-elf-objcopy": {
+        "available": true,
+        "path": "/home/jhkim/tools/riscv/bin/riscv32-unknown-elf-objcopy",
+        "resolved_path": "/home/jhkim/tools/riscv/bin/riscv32-unknown-elf-objcopy",
+        "sha256": "640b7f36bfbfe5ab7e6b6da50e45de5bf0a0992472b97cbec254343bb7af1f2a"
+      },
+      "make": {
+        "available": true,
+        "path": "/usr/bin/make",
+        "resolved_path": "/usr/bin/make",
+        "sha256": "e6874317e0f2fc2b7e6c5abdcd64a8b63b08606997196b40f922730731db4dfd"
+      },
+      "spike": {
+        "available": true,
+        "path": "/home/jhkim/tools/riscv/bin/spike",
+        "resolved_path": "/home/jhkim/tools/riscv/bin/spike",
+        "sha256": "74073e92970552a915c4aed7cfbfdaa1a7b8436acc4d4954cd18a1ca31c7c41f"
+      },
+      "verilator": {
+        "available": true,
+        "path": "/usr/local/bin/verilator",
+        "resolved_path": "/usr/local/bin/verilator",
+        "sha256": "d796cb4b5eaf792ee3bf673ab13c85a138ec53da5167f1cedc6861e2b42c3cb7"
+      },
+      "native_c": {
+        "available": true,
+        "path": "/opt/rh/gcc-toolset-12/root/usr/bin/gcc",
+        "resolved_path": "/opt/rh/gcc-toolset-12/root/usr/bin/gcc",
+        "sha256": "83bd3683448887eff092146ebd94d2357e2e0ae4ba205e6d7eea0422b2ec827f"
+      },
+      "cxx": {
+        "available": true,
+        "path": "/opt/rh/gcc-toolset-12/root/usr/bin/g++",
+        "resolved_path": "/opt/rh/gcc-toolset-12/root/usr/bin/g++",
+        "sha256": "c840a0e77326212efca3d758f7547abf37bc7b04c60809feaaa26b0ac4baab74"
+      }
+    },
+    "versions": "See doctor log; compiler/RTL build identities are also embedded in gate reports."
+  },
+  "runtime_source_snapshot": {
+    "files": 99,
+    "sha256": "7000fcde24225642be60b7daf81bae99ca0f36605f2d3aad8969395411ddbff0"
+  },
+  "reproduce": {
+    "build_root": "build/validation-p1-final2",
+    "commands": [
+      "python3 validation/run_p1_validation.py --phase all --build-root build/validation-p1-final2 --workers 2",
+      "python3 validation/audit_p1_results.py --build-root build/validation-p1-final2"
+    ]
+  },
+  "browser": {
+    "status": "pass",
+    "report": "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/build/validation-p1-final2/ant_j0/04_muldiv-O2/trace.html",
+    "checkedCycles": 2176,
+    "executionStates": [
+      "IDLE",
+      "MEM_REQ",
+      "MEM_RESP",
+      "MEM_WB",
+      "MUL_WAIT",
+      "DIV_WAIT"
+    ],
+    "handshakeCases": 10,
+    "geometry": {
+      "readNearDecode": true,
+      "writeAfterExecution": true,
+      "ramBelowLsu": true,
+      "memoryArrowsVertical": true,
+      "identityRF": true,
+      "identityRAM": true
+    },
+    "browser": "153.0.8010.12",
+    "externalRequests": 0,
+    "errors": [],
+    "screenshots": "/home/jhkim/hy_rv/build/rv-lab-p1-20261015/build/validation-p1-final2/browser-muldiv",
+    "receipt_sha256": "a5963edcb388e19e60af766e840940a099b1e7fb114f87023bdd0d743c5d2406",
+    "report_sha256_at_audit": "30b6d5b02a257a76818e7d817a435ab60c3044ab31497c8dcb4e6b8d81042f06"
+  },
+  "measured_overlap": {
+    "status": "pass",
+    "preset": "ant_j0",
+    "example_kind": "measured_rtl_trace",
+    "trace_sha256": "494fd6a28a0f3017090be98497c9a9043f6024f57eeea099435578f83b24db7c",
+    "qualifying_edges": 876,
+    "maximum_consecutive_qualifying_edges": 11,
+    "examples": [
+      {
+        "cycle": 6061,
+        "commit_pc": 2147484152,
+        "ir_accept_pc": 2147484156,
+        "fetch_request_pc": 2147484160
+      },
+      {
+        "cycle": 6062,
+        "commit_pc": 2147484156,
+        "ir_accept_pc": 2147484160,
+        "fetch_request_pc": 2147484164
+      },
+      {
+        "cycle": 6063,
+        "commit_pc": 2147484160,
+        "ir_accept_pc": 2147484164,
+        "fetch_request_pc": 2147484168
+      }
+    ]
+  },
+  "viewer_configuration_checks": {
+    "status": "pass",
+    "browser": "153.0.8010.12",
+    "checks": [
+      {
+        "preset": "ant_j0",
+        "status": "pass",
+        "page_sha256": "30b6d5b02a257a76818e7d817a435ab60c3044ab31497c8dcb4e6b8d81042f06",
+        "early_jal_label": "Early JAL OFF / static policy"
+      },
+      {
+        "preset": "ant_j1",
+        "status": "pass",
+        "page_sha256": "8daa1cf97acfaf712fec3926f0aefd9b1668fdd88edc17389c3afd9aed64a100",
+        "early_jal_label": "Early JAL ON / static policy"
+      },
+      {
+        "preset": "btfnt_j0",
+        "status": "pass",
+        "page_sha256": "b808e2ab7bebf1b5fe9080638a850d49703357ff697c877bbff3ef389604c201",
+        "early_jal_label": "Early JAL OFF / static policy"
+      },
+      {
+        "preset": "btfnt_j1",
+        "status": "pass",
+        "page_sha256": "432ae06349ca76940b9d290d3f5a7d100c408d5a3cd0a6715b467c730ec95d57",
+        "early_jal_label": "Early JAL ON / static policy"
+      },
+      {
+        "fixture": "external",
+        "status": "pass",
+        "scope": "render-only fixture; no external CPU measurement",
+        "page_sha256": "291a2cbbd11310c8fe27d798c1db556a4b0addd330f81758257b8f40442d78a4"
+      },
+      {
+        "fixture": "unknown",
+        "status": "pass",
+        "scope": "render-only fixture; no external CPU measurement",
+        "page_sha256": "5656bdb275d90d3d05c40234a340954a2059f0538b27c0d66717e312d929db02"
+      }
+    ],
+    "errors": []
+  },
+  "receipts": {
+    "path": "validation/functional-p1-receipts.zip",
+    "sha256": "efa3d5b2aa0014d2538260533f3479c8b9b95a8e533938ca4967ce95c8e72e1f",
+    "bytes": 900263,
+    "files": 186,
+    "reference_results_sha256": "57e9ab6612ae8a7b6d930a5df3b68609bd3d4b30f507f2ae15099ee428b591de"
+  }
+}

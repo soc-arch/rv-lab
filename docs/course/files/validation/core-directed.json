@@ -1,0 +1,396 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+  "scope": "Fresh canonical transport/static prediction/backend successor tests against the actual imported public RTL. Testbench/runner archive is separate from the software lab tests.",
+  "presets": {
+    "ant_j0": {
+      "status": "pass",
+      "model_id": "p1_f0_bp0_ls0_x1",
+      "canonical_runner_sha256": "0abdebb909985025e5a58562477cba5b086f7fe7a10e252e4b921c098ded169b",
+      "receipt_sha256": "a9ed74d085a5660bd10c10aba48f011dae304cbc4e23524fccbf8135c42c6f46",
+      "tests": [
+        {
+          "name": "frontend_transport_tb",
+          "status": "pass",
+          "binary_sha256": "67ba932b6cb839fc8786cf7ffa4189d44294efb8bd1fa93b7d492bef31cad056",
+          "compiled_controls": {
+            "BP_PROFILE": 0,
+            "COND_POLICY": 0,
+            "EARLY_JAL_EN": 0,
+            "STATIC_POLICY_EN": 1,
+            "REQUIRE_II1": 1,
+            "memory_adapter": "independent variable latency 1..7, same-edge reuse, stable hold"
+          },
+          "result_lines": [
+            "PASS frontend transport reset=80000000 policy=0 early_jal=0 ii1_required=1 cycles=6252 requests=987 tokens=583 reuse=464 held_redirects=8 pending_redirects=104 response_redirects=29 stale_errors=18 drain=117 local_faults=16 fresh_faults=19 stalled_tokens=177",
+            "PASS frontend transport reset=80000002 policy=0 early_jal=0 ii1_required=1 cycles=6252 requests=991 tokens=602 reuse=496 held_redirects=10 pending_redirects=106 response_redirects=23 stale_errors=26 drain=133 local_faults=21 fresh_faults=24 stalled_tokens=162",
+            "PASS frontend transport both reset profiles"
+          ],
+          "flags": [
+            "--binary",
+            "--timing",
+            "--assert",
+            "-Wno-fatal",
+            "--output-split",
+            "0",
+            "--output-split-cfuncs",
+            "0",
+            "--top-module",
+            "frontend_transport_tb",
+            "-GCOND_POLICY=0",
+            "-GEARLY_JAL_EN=0",
+            "-GREQUIRE_II1=1"
+          ]
+        },
+        {
+          "name": "static_prediction_tb",
+          "status": "pass",
+          "binary_sha256": "34e0d690093b71d9b188d545e99c41067c73490df2c8a447af1dde25f3f04783",
+          "compiled_controls": {
+            "BP_PROFILE": 0,
+            "COND_POLICY": 0,
+            "EARLY_JAL_EN": 0,
+            "STATIC_POLICY_EN": 1,
+            "SUCCESSOR_CHECK_EN": 1,
+            "memory_adapter": "independent L1/II1 stable response hold"
+          },
+          "result_lines": [
+            "PASS measured P1 triple overlap policy=0 early_jal=0 triple_edges=22 sampled_edges=24",
+            "PASS static prediction policy=0 early_jal=0 unit_checks=930 core_cases=36 tokens=36 corrections=16 correct_taken=0 traps=6 cycles=266"
+          ],
+          "flags": [
+            "--binary",
+            "--timing",
+            "--assert",
+            "-Wno-fatal",
+            "--output-split",
+            "0",
+            "--output-split-cfuncs",
+            "0",
+            "--top-module",
+            "static_prediction_tb",
+            "-GCOND_POLICY=0",
+            "-GEARLY_JAL_EN=0"
+          ]
+        },
+        {
+          "name": "backend_successor_tb",
+          "status": "pass",
+          "binary_sha256": "32c3d2453db6478da681d47f6c3f5ee21f3cb0ab507befb597533e045afa76c4",
+          "compiled_controls": {
+            "SUCCESSOR_CHECK_EN": 1,
+            "memory_adapter": "direct token and owned D-memory response injection"
+          },
+          "result_lines": [
+            "BACKEND_SUCCESSOR_PASS checks=723"
+          ],
+          "flags": [
+            "--binary",
+            "--timing",
+            "--assert",
+            "-Wno-fatal",
+            "--output-split",
+            "0",
+            "--output-split-cfuncs",
+            "0",
+            "--top-module",
+            "backend_successor_tb"
+          ]
+        }
+      ]
+    },
+    "ant_j1": {
+      "status": "pass",
+      "model_id": "p1_f0_bp0_ls0_x1",
+      "canonical_runner_sha256": "0abdebb909985025e5a58562477cba5b086f7fe7a10e252e4b921c098ded169b",
+      "receipt_sha256": "65e0be34f4a6dfa3f42178cfc010b84cca03cbe3a7ade69dd511d2b5341fae68",
+      "tests": [
+        {
+          "name": "frontend_transport_tb",
+          "status": "pass",
+          "binary_sha256": "ec5ea4a119456b160fa80a7788f3e8450967c6942aec9272b39824a166c20e45",
+          "compiled_controls": {
+            "BP_PROFILE": 0,
+            "COND_POLICY": 0,
+            "EARLY_JAL_EN": 1,
+            "STATIC_POLICY_EN": 1,
+            "REQUIRE_II1": 1,
+            "memory_adapter": "independent variable latency 1..7, same-edge reuse, stable hold"
+          },
+          "result_lines": [
+            "PASS frontend transport reset=80000000 policy=0 early_jal=1 ii1_required=1 cycles=6252 requests=987 tokens=583 reuse=464 held_redirects=8 pending_redirects=104 response_redirects=29 stale_errors=18 drain=117 local_faults=16 fresh_faults=19 stalled_tokens=177",
+            "PASS frontend transport reset=80000002 policy=0 early_jal=1 ii1_required=1 cycles=6252 requests=991 tokens=602 reuse=496 held_redirects=10 pending_redirects=106 response_redirects=23 stale_errors=26 drain=133 local_faults=21 fresh_faults=24 stalled_tokens=162",
+            "PASS frontend transport both reset profiles"
+          ],
+          "flags": [
+            "--binary",
+            "--timing",
+            "--assert",
+            "-Wno-fatal",
+            "--output-split",
+            "0",
+            "--output-split-cfuncs",
+            "0",
+            "--top-module",
+            "frontend_transport_tb",
+            "-GCOND_POLICY=0",
+            "-GEARLY_JAL_EN=1",
+            "-GREQUIRE_II1=1"
+          ]
+        },
+        {
+          "name": "static_prediction_tb",
+          "status": "pass",
+          "binary_sha256": "88e32c0cb96d15c103ba08edb50ccf2524fc6cd3bb5d193a367342f92343b2cf",
+          "compiled_controls": {
+            "BP_PROFILE": 0,
+            "COND_POLICY": 0,
+            "EARLY_JAL_EN": 1,
+            "STATIC_POLICY_EN": 1,
+            "SUCCESSOR_CHECK_EN": 1,
+            "memory_adapter": "independent L1/II1 stable response hold"
+          },
+          "result_lines": [
+            "PASS measured P1 triple overlap policy=0 early_jal=1 triple_edges=22 sampled_edges=24",
+            "PASS static prediction policy=0 early_jal=1 unit_checks=930 core_cases=36 tokens=36 corrections=10 correct_taken=9 traps=6 cycles=254"
+          ],
+          "flags": [
+            "--binary",
+            "--timing",
+            "--assert",
+            "-Wno-fatal",
+            "--output-split",
+            "0",
+            "--output-split-cfuncs",
+            "0",
+            "--top-module",
+            "static_prediction_tb",
+            "-GCOND_POLICY=0",
+            "-GEARLY_JAL_EN=1"
+          ]
+        },
+        {
+          "name": "backend_successor_tb",
+          "status": "pass",
+          "binary_sha256": "32c3d2453db6478da681d47f6c3f5ee21f3cb0ab507befb597533e045afa76c4",
+          "compiled_controls": {
+            "SUCCESSOR_CHECK_EN": 1,
+            "memory_adapter": "direct token and owned D-memory response injection"
+          },
+          "result_lines": [
+            "BACKEND_SUCCESSOR_PASS checks=723"
+          ],
+          "flags": [
+            "--binary",
+            "--timing",
+            "--assert",
+            "-Wno-fatal",
+            "--output-split",
+            "0",
+            "--output-split-cfuncs",
+            "0",
+            "--top-module",
+            "backend_successor_tb"
+          ]
+        }
+      ]
+    },
+    "btfnt_j0": {
+      "status": "pass",
+      "model_id": "p1_f0_bp1_ls0_x1",
+      "canonical_runner_sha256": "0abdebb909985025e5a58562477cba5b086f7fe7a10e252e4b921c098ded169b",
+      "receipt_sha256": "a37adbd3611032a95884c5306f9f3c3acd459cfdfad0cd35cef32a9a13409166",
+      "tests": [
+        {
+          "name": "frontend_transport_tb",
+          "status": "pass",
+          "binary_sha256": "443c44e5a52f33e218c76a2b302aaab39295118553f0ee5ff23e2cddb40cc51f",
+          "compiled_controls": {
+            "BP_PROFILE": 1,
+            "COND_POLICY": 1,
+            "EARLY_JAL_EN": 0,
+            "STATIC_POLICY_EN": 1,
+            "REQUIRE_II1": 1,
+            "memory_adapter": "independent variable latency 1..7, same-edge reuse, stable hold"
+          },
+          "result_lines": [
+            "PASS frontend transport reset=80000000 policy=1 early_jal=0 ii1_required=1 cycles=6252 requests=987 tokens=583 reuse=464 held_redirects=8 pending_redirects=104 response_redirects=29 stale_errors=18 drain=117 local_faults=16 fresh_faults=19 stalled_tokens=177",
+            "PASS frontend transport reset=80000002 policy=1 early_jal=0 ii1_required=1 cycles=6252 requests=991 tokens=602 reuse=496 held_redirects=10 pending_redirects=106 response_redirects=23 stale_errors=26 drain=133 local_faults=21 fresh_faults=24 stalled_tokens=162",
+            "PASS frontend transport both reset profiles"
+          ],
+          "flags": [
+            "--binary",
+            "--timing",
+            "--assert",
+            "-Wno-fatal",
+            "--output-split",
+            "0",
+            "--output-split-cfuncs",
+            "0",
+            "--top-module",
+            "frontend_transport_tb",
+            "-GCOND_POLICY=1",
+            "-GEARLY_JAL_EN=0",
+            "-GREQUIRE_II1=1"
+          ]
+        },
+        {
+          "name": "static_prediction_tb",
+          "status": "pass",
+          "binary_sha256": "623128207b85621929dbba55c311f2969a4d463d449e66fc9c7ea736db775e37",
+          "compiled_controls": {
+            "BP_PROFILE": 1,
+            "COND_POLICY": 1,
+            "EARLY_JAL_EN": 0,
+            "STATIC_POLICY_EN": 1,
+            "SUCCESSOR_CHECK_EN": 1,
+            "memory_adapter": "independent L1/II1 stable response hold"
+          },
+          "result_lines": [
+            "PASS measured P1 triple overlap policy=1 early_jal=0 triple_edges=22 sampled_edges=24",
+            "PASS static prediction policy=1 early_jal=0 unit_checks=930 core_cases=36 tokens=36 corrections=16 correct_taken=6 traps=6 cycles=266"
+          ],
+          "flags": [
+            "--binary",
+            "--timing",
+            "--assert",
+            "-Wno-fatal",
+            "--output-split",
+            "0",
+            "--output-split-cfuncs",
+            "0",
+            "--top-module",
+            "static_prediction_tb",
+            "-GCOND_POLICY=1",
+            "-GEARLY_JAL_EN=0"
+          ]
+        },
+        {
+          "name": "backend_successor_tb",
+          "status": "pass",
+          "binary_sha256": "32c3d2453db6478da681d47f6c3f5ee21f3cb0ab507befb597533e045afa76c4",
+          "compiled_controls": {
+            "SUCCESSOR_CHECK_EN": 1,
+            "memory_adapter": "direct token and owned D-memory response injection"
+          },
+          "result_lines": [
+            "BACKEND_SUCCESSOR_PASS checks=723"
+          ],
+          "flags": [
+            "--binary",
+            "--timing",
+            "--assert",
+            "-Wno-fatal",
+            "--output-split",
+            "0",
+            "--output-split-cfuncs",
+            "0",
+            "--top-module",
+            "backend_successor_tb"
+          ]
+        }
+      ]
+    },
+    "btfnt_j1": {
+      "status": "pass",
+      "model_id": "p1_f0_bp1_ls0_x1",
+      "canonical_runner_sha256": "0abdebb909985025e5a58562477cba5b086f7fe7a10e252e4b921c098ded169b",
+      "receipt_sha256": "a4117a38746038d820cb11f4c8eeac863d93b5d473edf927ead7e39e4dd6d3ef",
+      "tests": [
+        {
+          "name": "frontend_transport_tb",
+          "status": "pass",
+          "binary_sha256": "7e1a531c8fc7e2e1939d38fc352586b24e65d592087e04d68603ff7ff393f0d5",
+          "compiled_controls": {
+            "BP_PROFILE": 1,
+            "COND_POLICY": 1,
+            "EARLY_JAL_EN": 1,
+            "STATIC_POLICY_EN": 1,
+            "REQUIRE_II1": 1,
+            "memory_adapter": "independent variable latency 1..7, same-edge reuse, stable hold"
+          },
+          "result_lines": [
+            "PASS frontend transport reset=80000000 policy=1 early_jal=1 ii1_required=1 cycles=6252 requests=987 tokens=583 reuse=464 held_redirects=8 pending_redirects=104 response_redirects=29 stale_errors=18 drain=117 local_faults=16 fresh_faults=19 stalled_tokens=177",
+            "PASS frontend transport reset=80000002 policy=1 early_jal=1 ii1_required=1 cycles=6252 requests=991 tokens=602 reuse=496 held_redirects=10 pending_redirects=106 response_redirects=23 stale_errors=26 drain=133 local_faults=21 fresh_faults=24 stalled_tokens=162",
+            "PASS frontend transport both reset profiles"
+          ],
+          "flags": [
+            "--binary",
+            "--timing",
+            "--assert",
+            "-Wno-fatal",
+            "--output-split",
+            "0",
+            "--output-split-cfuncs",
+            "0",
+            "--top-module",
+            "frontend_transport_tb",
+            "-GCOND_POLICY=1",
+            "-GEARLY_JAL_EN=1",
+            "-GREQUIRE_II1=1"
+          ]
+        },
+        {
+          "name": "static_prediction_tb",
+          "status": "pass",
+          "binary_sha256": "22b4a0d2e152bf71009e8e9ad8792488c30766ba426f4d75f6975675bfcb5736",
+          "compiled_controls": {
+            "BP_PROFILE": 1,
+            "COND_POLICY": 1,
+            "EARLY_JAL_EN": 1,
+            "STATIC_POLICY_EN": 1,
+            "SUCCESSOR_CHECK_EN": 1,
+            "memory_adapter": "independent L1/II1 stable response hold"
+          },
+          "result_lines": [
+            "PASS measured P1 triple overlap policy=1 early_jal=1 triple_edges=22 sampled_edges=24",
+            "PASS static prediction policy=1 early_jal=1 unit_checks=930 core_cases=36 tokens=36 corrections=10 correct_taken=15 traps=6 cycles=254"
+          ],
+          "flags": [
+            "--binary",
+            "--timing",
+            "--assert",
+            "-Wno-fatal",
+            "--output-split",
+            "0",
+            "--output-split-cfuncs",
+            "0",
+            "--top-module",
+            "static_prediction_tb",
+            "-GCOND_POLICY=1",
+            "-GEARLY_JAL_EN=1"
+          ]
+        },
+        {
+          "name": "backend_successor_tb",
+          "status": "pass",
+          "binary_sha256": "32c3d2453db6478da681d47f6c3f5ee21f3cb0ab507befb597533e045afa76c4",
+          "compiled_controls": {
+            "SUCCESSOR_CHECK_EN": 1,
+            "memory_adapter": "direct token and owned D-memory response injection"
+          },
+          "result_lines": [
+            "BACKEND_SUCCESSOR_PASS checks=723"
+          ],
+          "flags": [
+            "--binary",
+            "--timing",
+            "--assert",
+            "-Wno-fatal",
+            "--output-split",
+            "0",
+            "--output-split-cfuncs",
+            "0",
+            "--top-module",
+            "backend_successor_tb"
+          ]
+        }
+      ]
+    }
+  },
+  "harness_archive": "core-directed-harness.zip",
+  "receipts_archive": "core-directed-receipts.zip",
+  "harness_archive_sha256": "248ee54a0ca069be5e3089a75ffd542c3036a681255dcc26e259393e9c3d680b",
+  "receipts_archive_sha256": "4dcc48499fbbfe391c94b48f1ba316fa2b8734a6b2bdfd5b045f01005499613e"
+}

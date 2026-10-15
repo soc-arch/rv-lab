@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "review_client_date": "2026-10-15",
+  "baseline_public_commit": "51562ceede6c3e74b8fa5f0d47bb24fbe50583c7",
+  "baseline_public_source_matches_legacy_image_manifest": {
+    "rtl/teaching_cpu.sv": true,
+    "rtl/teaching_fetch.sv": true,
+    "rtl/teaching_backend.sv": true,
+    "rtl/common/rv32_rf.sv": true,
+    "rtl/common/fu_mul.sv": true,
+    "rtl/common/fu_div.sv": true,
+    "rtl/common/rv32_csr.sv": true,
+    "rtl/common/rv32_pmu.sv": true,
+    "tb/teaching_sram.sv": true,
+    "tb/tb_cpu_lab.sv": true,
+    "runtime/link.ld": true,
+    "rtl/README.md": true,
+    "viewer/README.md": true
+  },
+  "legacy_image_content": "teaching_fetch + teaching_backend + one frontend response buffer; this matches the legacy teaching implementation, not current P1/F0/Q0.",
+  "legacy_microarchitecture_raster_in_baseline_git_tree": false,
+  "submitted_legacy_image_sha256": "c00b256d3d62e3b3df78fd30a91476b0b7208677338ddbd45a4b7fc70d9b0b1e",
+  "public_html_before_sha256": "47d3fd72fa37917909322a7c0a75f61d8b309d40032b2913a262f0abd2595c2c",
+  "migration": "The eight lab learning objectives and software are retained; canonical P1 CPU, II1 memory adapter, profile-aware identity, diagrams and actual results replace the legacy default.",
+  "current_source_manifest": "p1-static-core.json",
+  "current_eda_evidence": "p1-rtl-gate-equivalence.json",
+  "legacy_reference_path": "reference/legacy_teaching_51562ce",
+  "old_measurements_and_screenshots": "docs/historical",
+  "old_checkout_modified": false,
+  "canonical_rtl_modified": false
+}

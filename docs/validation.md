@@ -1,6 +1,12 @@
-# Validation record — 2026-10-11
+# Historical teaching-core validation — 2026-10-11
 
-The standalone teaching package passed actual functional execution and student-workflow checks. The machine-readable record is [validation.json](validation.json). These results cover the teaching CPU and its local framework; the full `verify.py` driver, EDA synthesis, Formality, achieved timing, place and route, and tapeout signoff were not performed.
+**Historical record:** the results below cover the previous `teaching_fetch` /
+one-entry response-buffer CPU. They do not describe the current P1/Q0 core.
+Use the [current P1 validation](current-validation.md) and its source/preset hashes
+for the default shipped core. The historical JSON is preserved as
+[teaching-validation.json](historical/teaching-validation.json).
+
+The standalone teaching package passed actual functional execution and student-workflow checks. The machine-readable record is [teaching-validation.json](historical/teaching-validation.json). These results cover the teaching CPU and its local framework; the full `verify.py` driver, EDA synthesis, Formality, achieved timing, place and route, and tapeout signoff were not performed.
 
 ## What passed
 

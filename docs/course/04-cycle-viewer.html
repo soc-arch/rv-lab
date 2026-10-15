@@ -31,6 +31,8 @@
 <h2 id="1-register-your-program">1. Register your program</h2>
 <div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>cd ~/rv-lab
 export LAB_BUILD_DIR=&quot;$PWD/build/course&quot;
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
 python3 lab.py register --source student/main.c --name my-sum --title &quot;My sum&quot; --opt O2</code></pre></div>
 <p>The registration command builds your application, compares the same ELF on Spike and RTL, records the actual RTL cycle trace and full retirement log, and adds the successful result to <strong>My applications</strong>. It prints the output paths. The equivalent Make command is:</p>
 <div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make register SOURCE=student/main.c NAME=my-sum TITLE=&quot;My sum&quot; OPT=O2</code></pre></div>
@@ -42,7 +44,7 @@ python3 lab.py register --source student/main.c --name my-sum --title &quot;My s
 <p>The selected-cycle panel provides operands and the instruction identity. The diagram highlights logical use of ALU, branch, multiply/divide, and memory units from the recorded RTL signals. The highlights are not measurements of electrical switching, power, or physical delay.</p>
 <h2 id="3-separate-execution-retirement-and-register-writes">3. Separate execution, retirement, and register writes</h2>
 <p>Use <strong>Next retirement</strong> to skip waiting cycles. Find a branch and a store, for example one of the ROI marker stores. Record a retirement that does not enable a register-file write. Why would counting only register writes undercount executed instructions?</p>
-<p>Each sample describes signals immediately before a rising edge. An accepted memory transfer or enabled register write takes effect at that edge; resulting state appears in the next sample. The current CPU overlaps fetch with one serialized execution slot. The functional diagram does not imply five independently occupied pipeline stages.</p>
+<p>Each sample describes signals immediately before a rising edge. An accepted memory transfer or enabled register write takes effect at that edge; resulting state appears in the next sample. The current CPU overlaps fetch with one backend execution IR. The depth-zero <code>rv_insn_link</code> adds no register stage, and the branch predictor is a sibling of the frontend and backend. In ideal latency-one, initiation-interval-one conditions, one edge can retire I, admit I+1 into the IR, and accept the fetch request for I+2. Handshakes, memory stalls, redirects, faults, and multicycle execution determine whether that overlap occurs.</p>
 <p>The timeline&#x27;s <strong>A</strong> is admission to the execution slot, not retirement. <strong>F</strong> means a delivered instruction word is available but not admitted. A word fetched on a path later discarded by a branch can appear in the trace without retiring. See the <a href="references/viewer/README.html">viewer guide</a> for all timeline symbols.</p>
 <h2 id="4-focus-the-capture-and-update-the-example">4. Focus the capture and update the example</h2>
 <p>For a shorter trace beginning at the sum function, run:</p>

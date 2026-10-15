@@ -12,6 +12,8 @@
 ```sh
 cd ~/rv-lab
 export LAB_BUILD_DIR="$PWD/build/course"
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
 python3 lab.py register --source student/main.c --name my-sum --title "My sum" --opt O2
 ```
 
@@ -58,8 +60,11 @@ instructions?
 Each sample describes signals immediately before a rising edge. An accepted
 memory transfer or enabled register write takes effect at that edge; resulting
 state appears in the next sample. The current CPU overlaps fetch with one
-serialized execution slot. The functional diagram does not imply five
-independently occupied pipeline stages.
+backend execution IR. The depth-zero `rv_insn_link` adds no register stage,
+and the branch predictor is a sibling of the frontend and backend. In ideal
+latency-one, initiation-interval-one conditions, one edge can retire I, admit
+I+1 into the IR, and accept the fetch request for I+2. Handshakes, memory stalls,
+redirects, faults, and multicycle execution determine whether that overlap occurs.
 
 The timeline's **A** is admission to the execution slot, not retirement. **F**
 means a delivered instruction word is available but not admitted. A word fetched

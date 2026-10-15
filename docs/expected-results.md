@@ -1,5 +1,11 @@
 # 8개 Lab의 정답과 실제 실행 화면
 
+현재 기본 CPU는 HY-RV P1/Q0의 `ant_j0`입니다. 아래 참고 화면과 수치는 최신 P1 코어로 8개 Lab을 다시 실행한 결과입니다.
+[실행 기록](reference-results.json)의 소스·preset·메모리 설정과 함께 읽으세요.
+기존 teaching-core 결과와 화면은 [과거 실행 기록](historical/teaching-reference-results.json)과
+[과거 화면 목록](historical/teaching-screenshots/lab01.png)에 보존했습니다.
+[현재 P1 검증](current-validation.md)에서 새 실행의 판정 범위를 확인하세요.
+
 각 실습을 완료했을 때 확인할 결과를 모았습니다. 아래 이미지는 실습 코드를
 Spike와 Verilator에서 실행한 뒤 결과 페이지를 브라우저로 연 **실제 화면 캡처**입니다.
 실행한 소스와 판정·측정값은 [실행 기록](reference-results.json)에 함께 보관합니다.
@@ -95,8 +101,8 @@ expected 30으로 실패해야 합니다. 원래 반복문으로 복구하면 30
 
 | 설정 | 정답 | ROI cycles | ROI retired | ROI CPI | CSR cycles / retired |
 | --- | --- | ---: | ---: | ---: | ---: |
-| O0 | 136 · PASS | 634 | 262 | 2.420 | 1,027 / 436 |
-| O2 | 136 · PASS | 186 | 83 | 2.241 | 254 / 112 |
+| O0 | 136 · PASS | 626 | 262 | 2.389 | 958 / 436 |
+| O2 | 136 · PASS | 155 | 83 | 1.867 | 208 / 112 |
 
 
 ![Lab 05 O0의 실제 ROI와 CSR 성능 보고서](screenshots/lab05-o0.png)
@@ -114,15 +120,17 @@ signature와 ROI 명령어 수를 확인한 뒤 cycles를 비교합니다.
 
 | 메모리 | 정답 | ROI cycles | ROI retired | ROI CPI |
 | --- | --- | ---: | ---: | ---: |
-| fast | 36 · PASS | 114 | 51 | 2.235 |
-| latency3 | 36 · PASS | 218 | 51 | 4.275 |
-| stress · seed 11 | 36 · PASS | 435 | 51 | 8.529 |
+| fast | 36 · PASS | 91 | 51 | 1.784 |
+| latency3 | 36 · PASS | 204 | 51 | 4.000 |
+| stress · seed 11 | 36 · PASS | 328 | 51 | 6.431 |
 
 
 ![Lab 06 메모리 요청이 대기하는 실제 RTL cycle viewer](screenshots/lab06.png)
 
-선택한 cycle 27087은 합계 프로그램의 ROI 안에서 **instruction fetch 요청이 ready를
-기다리는 시점**입니다. 메모리 지연은 데이터 load뿐 아니라 명령어 공급에도 영향을 줍니다.
+새 참고 화면은 cycle 22065에서 **data request가 ready를 기다리는 시점**입니다.
+이는 ROI 이후 runtime 실행 구간이며, 위 ROI 측정값과 구분합니다. 다른 사이클에서는
+instruction response가 backend를 기다리는 backpressure도 관찰할 수 있습니다.
+메모리 지연은 데이터 load뿐 아니라 명령어 공급에도 영향을 줍니다.
 
 소문자 q/r는 ready를 기다리는 offered transfer, 대문자 Q/R는 수락된 transfer입니다.
 요청을 내는 시점, 수락되는 시점과 응답 시점을 나누어 관찰하세요.
@@ -154,10 +162,10 @@ signature와 ROI 명령어 수를 확인한 뒤 cycles를 비교합니다.
 
 | 버전 | 바꾼 조건 | 정답 | ROI cycles | ROI retired | ROI CPI |
 | --- | --- | --- | ---: | ---: | ---: |
-| 기준 | O0 | 36 · PASS | 362 | 150 | 2.413 |
-| 변경 | O2 | 36 · PASS | 114 | 51 | 2.235 |
+| 기준 | O0 | 36 · PASS | 354 | 150 | 2.360 |
+| 변경 | O2 | 36 · PASS | 91 | 51 | 1.784 |
 
-이 참고 실험의 cycle speedup은 **3.18×**입니다. 알고리즘은 바꾸지 않았으며 이 수치는 학생 프로젝트의 필수 목표가 아닙니다.
+이 참고 실험의 cycle speedup은 **3.89×**입니다. 알고리즘은 바꾸지 않았으며 이 수치는 학생 프로젝트의 필수 목표가 아닙니다.
 
 
 ![Lab 08 검증한 candidate 결과를 보존한 실제 offline gallery](screenshots/lab08.png)
@@ -169,18 +177,21 @@ signature와 ROI 명령어 수를 확인한 뒤 cycles를 비교합니다.
 
 ## 측정 환경과 재현
 
-실행 기록 시각(UTC): `2026-10-15T00:55:36.133432+00:00`. 공개 코드 기준 commit은 `7401d22`입니다.
+기준은 `ant_j0` / `EARLY_JAL_EN=0` / Q0 / `ii1` adapter입니다.
+실제 소스 SHA-256은 다음과 같습니다.
 
-- g++ (GCC) 13.2.1 20231205 (Red Hat 13.2.1-6)
-- Python 3.11.13
-- riscv32-unknown-elf-gcc (GCC) 15.2.0
-- Spike RISC-V ISA Simulator 1.1.1-dev
-- Verilator 5.028 2024-08-21 rev v5.028
+`35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8`
 
-새로 컴파일한 RTL simulator를 이용했고, 격리된 소스 사본은 실행 전후에 동일했습니다. 의도한 실패 두 건도 예상한 실패로 확인했습니다. 공개된 PNG는 실제 결과 페이지의 화면 영역을 캡처했으며 raw 로그·개인 경로는 포함하지 않습니다.
+[현재 실행 기록](reference-results.json)에 각 단계의 실제 ELF, 판정, 명령과
+ROI/CSR/retirement 값이 들어 있습니다. [화면 캡처 provenance](screenshots/provenance.json)는
+각 PNG를 실제 HTML·result/ELF/trace hash와 연결합니다. 화면을 위해 과거 teaching-core
+PNG를 재사용하거나 수치를 그려 넣지 않았습니다. 의도된 실패는 정상 PASS와 구분합니다.
 
-이 자료는 application 실행과 결과 관찰을 설명하는 참고 기록입니다. RTL 논리와
-시뮬레이션 runtime은 변경하지 않았습니다. 다른 코어를 선택하는 실습에서는 그 코어의
-별도 기능·합성·형식 검증 기록을 확인해야 합니다.
+공개 실습 검증은 [현재 검증 기록](current-validation.md)을 참고하세요. 실제 실행 도구는
+Python 3.11.13, RISC-V GCC 15.2.0, Spike 1.1.1-dev, Verilator 5.028이며,
+정확한 도구·설정 hash는 실행 기록에 보존했습니다. 현재 source와 preset으로 실제 합성과
+Formality도 다시 수행했으며 [별도 증빙](../provenance/p1-rtl-gate-equivalence.json)에
+latch/loop 검사, netlist/SVF, 도구와 라이브러리 identity를 보관합니다.
+이는 배치·배선 후 timing 또는 tapeout signoff를 뜻하지 않습니다.
 
 [전체 실습 순서로 돌아가기](course/index.md).

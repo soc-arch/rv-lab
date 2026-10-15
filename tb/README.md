@@ -1,5 +1,18 @@
 # Reusable hardware harness
 
+The default CPU is the verified P1 static core. `PRESET=ant_j0`
+(`LAB_CORE_PRESET=ant_j0`) selects ANT with early JAL disabled; `btfnt_j0`
+selects BTFNT. Optional `ant_j1`/`btfnt_j1` retain early JAL comparisons.
+These are actual elaboration parameters, recorded with source/configuration
+hashes in every hardware build receipt and result. `core_config.py` is shared
+by application and independent protocol tests.
+
+The default `MEMORY_ADAPTER=ii1` (`LAB_MEMORY_ADAPTER=ii1`) selects
+`tb/teaching_sram.sv`, copied unchanged from the verified P1 harness. Select
+`MEMORY_ADAPTER=frozen` for the former adapter preserved under
+`reference/legacy_teaching_51562ce/tb/teaching_sram.sv`. Adapter selection is
+independent of the software and CPU preset and participates in the build key.
+
 Optional student performance collection uses `+perf_addr=<hex>` and
 `+perf_file=<path>` to dump the 16-word LPM1 CSR record from SRAM at termination.
 The address must be 16-byte aligned and within SRAM. The runner verifies that
@@ -38,7 +51,10 @@ Timing values and `stall_max` are bounded at 1,000,000 cycles. Each memory port
 reserves one response slot until its response handshake. Consequently the blocking
 profile may accept requests less frequently than `interval` alone permits. For
 example, latency 3 does not imply one request per cycle when there is only one
-live slot. The model does not reuse its slot on the response-consumption edge.
+live slot. The default II=1 adapter may replace its slot on the response-consumption
+edge: it completes the old response before allocating the new accepted request.
+An unconsumed response is held and there is still exactly one live owner per port.
+The selectable frozen adapter does not reuse its slot on that edge.
 
 The memory performs each array operation once when its service latency expires.
 A successful store response means the selected bytes have already been written.

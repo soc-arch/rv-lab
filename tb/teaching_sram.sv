@@ -1,4 +1,21 @@
-// Shared dual-port SRAM transaction model, blocking memory-v1 profile.
+// =============================================================================
+// HY-RV | teaching_sram
+// Description: Behavioral shared SRAM adapter supporting same-edge completion and reuse.
+//
+// Purpose: Computer architecture and RTL design education and lab exercises.
+// Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+// Website: https://dsa.hanyang.ac.kr
+// Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+//
+// AI tools such as Codex or Claude may have assisted in creating or modifying
+// this file. See the applicable manifests and verification records for
+// file-specific provenance, revision history, and validation evidence.
+// Preserve existing license, copyright, and original author notices.
+// =============================================================================
+
+// Explicit II=1 private overlay of the frozen Lab blocking memory-v1 SRAM.
+// Completion and replacement may share one edge; acceptance has state priority.
+// The producer still holds its response until ready and never cancels requests.
 // One reserved response slot per physical port. Array access occurs when service
 // finishes; same-edge reads see OLD data. Latency and issue interval are distinct.
 module teaching_sram #(
@@ -88,8 +105,8 @@ module teaching_sram #(
         else if(REQUIRE_PROGRAM) $fatal(1,"Missing +program=<relative byte hex>");
         for (int n=0;n<WORDS;n++) mem[n]={image_bytes[4*n+3],image_bytes[4*n+2],image_bytes[4*n+1],image_bytes[4*n]};
     end
-    assign imem_if.req_ready=rst_n && !i_busy && i_gap==0 && i_stall==0;
-    assign dmem_if.req_ready=rst_n && !d_busy && d_gap==0 && d_stall==0;
+    assign imem_if.req_ready=rst_n && (!i_busy || (imem_if.resp_valid && imem_if.resp_ready)) && i_gap==0 && i_stall==0;
+    assign dmem_if.req_ready=rst_n && (!d_busy || (dmem_if.resp_valid && dmem_if.resp_ready)) && d_gap==0 && d_stall==0;
     always_ff @(posedge clk or negedge rst_n) begin
         if(!rst_n) begin
             i_busy<=0; d_busy<=0; i_left<=0; d_left<=0; i_gap<=0; d_gap<=0;

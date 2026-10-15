@@ -1,3 +1,18 @@
+// =============================================================================
+// HY-RV | rv32_ls_align2
+// Description: Align load/store data and byte enables across memory words.
+//
+// Purpose: Computer architecture and RTL design education and lab exercises.
+// Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+// Website: https://dsa.hanyang.ac.kr
+// Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+//
+// AI tools such as Codex or Claude may have assisted in creating or modifying
+// this file. See the applicable manifests and verification records for
+// file-specific provenance, revision history, and validation evidence.
+// Preserve existing license, copyright, and original author notices.
+// =============================================================================
+
 // Local editable teaching snapshot; see SOURCE_SNAPSHOT.json for provenance.
 // =============================================================================
 // rv32_ls_align2 — 2-word load aligner with misalign-spanning support

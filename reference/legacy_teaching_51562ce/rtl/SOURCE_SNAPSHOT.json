@@ -1,0 +1,89 @@
+{
+  "schema_version": 2,
+  "description": "Standalone editable RV32 teaching CPU; the public copy preserves every code token of its teaching baseline. Only documentation comments were adapted.",
+  "source_scope": "The 17 SystemVerilog sources selected by rtl/filelist.f; no separately developed research CPU is included.",
+  "sources": {
+    "rtl/teaching_trace_pkg.sv": {
+      "sha256": "4617f3cf953f7a9b0e88bb68c903bb6816d71b030876d3463d4e66227f5a9e7c",
+      "code_tokens_sha256": "9c54e920be9b9cf3a760c73b34baff4c66affa26891b7f7e00a1e833f880c61c"
+    },
+    "rtl/common/insn_supply_if.sv": {
+      "sha256": "2042d02f7ea8734af422f38e25a59ccaac2032ed6e574a8e23db274b645ea5fe",
+      "code_tokens_sha256": "3cbc68eed499adf14f88f68e45c15d7e816f169d9841021d4cb8ce60540b26ad"
+    },
+    "rtl/common/mem_if.sv": {
+      "sha256": "d5e18090d139a7a899eb43c87dd516cea488c1b8ed4db4642879ad1796a73ab2",
+      "code_tokens_sha256": "ab90f8ed9d4bfebc4766721ef3df1ccbccc7c81cd5c5f269ca892f1ea3b0d2ff"
+    },
+    "rtl/common/rv32_decoder.sv": {
+      "sha256": "4fe8d2e64b0e67dda5360121ec0eaf19bea012ecad673b4fdb2a183caf4b5101",
+      "code_tokens_sha256": "1a7400ab233418705a847c9f91abb369a778569cf884d768aa9ad953f058d139"
+    },
+    "rtl/common/rv32_alu_op_decode.sv": {
+      "sha256": "d5cf6b265fb8ab6deaedf7550427c99f3cbb24c11ec3b1a444bdce7bb7c9e809",
+      "code_tokens_sha256": "286446eab54d63a9c01ee0332408a302d4b38663570dd18e0260b355795cf2fc"
+    },
+    "rtl/common/rv32_ls_split.sv": {
+      "sha256": "374ac07bdef2012dc415c028456b0e89f0a32081996fda4a87d96a8fee818f4d",
+      "code_tokens_sha256": "df76d59a38d6403025164decb805089b4bb0d847b1510889a48f5e21420e7c20"
+    },
+    "rtl/common/rv32_ls_align2.sv": {
+      "sha256": "cd68f3df1a0275c1135f5ff0b21c7ba2417f22eeaf8deb41c586f921129b7ccd",
+      "code_tokens_sha256": "967759b871ed2246e4384a3f24d8dc6f82857eb48ec398aa5b6ccd56989541bf"
+    },
+    "rtl/common/rv32_rf.sv": {
+      "sha256": "4de63c14278998ce2f610e0f071a1924c61bacd89b1bb2b0dd4f0528274836a0",
+      "code_tokens_sha256": "edce6fbbfcfdc03fa56e9b90dd5f30a2e751f81165aa1a359b1354349471c787"
+    },
+    "rtl/common/rv32_pmu.sv": {
+      "sha256": "3e646ac1790836e2c86c85827ea2190113c83132b164502da1293cd0953fc931",
+      "code_tokens_sha256": "9d96da78ec59f3c2dd2d03e9d0d369aef99646c2502302a3288559d09b2cfc0c"
+    },
+    "rtl/common/rv32_csr.sv": {
+      "sha256": "303b327523a326329ff066006df725801d68332c4cc016a43d29ee12986fd779",
+      "code_tokens_sha256": "e48f348170e50ead7b7a81a91d614908ed3857cff6f69b58d766a3e16cf0401b"
+    },
+    "rtl/common/fu_alu.sv": {
+      "sha256": "7b73c56c2a19d9043199066b039d98417cf32acf68dea4f122787419e12938de",
+      "code_tokens_sha256": "301dd2c15d70c842b5276b4aa7303be37a84c1f1644771e02441027e4ffa8f2d"
+    },
+    "rtl/common/fu_br.sv": {
+      "sha256": "c70e0230e60fca5e57c128feb9611f8d1885be0d3817303dbec0e051890726a4",
+      "code_tokens_sha256": "6946fac1693d46f3e17b4d8b5aeea5385999738975ee4e109fb0987593891281"
+    },
+    "rtl/common/fu_mul.sv": {
+      "sha256": "9d131464c6f429ce4bdbbe36047b5c1e17e580dd6cddb3f814bc2473764ad2a7",
+      "code_tokens_sha256": "6104c58c03e226dbba13bdc9d621d2179846e0295895af57a1639c5e08a216a8"
+    },
+    "rtl/common/fu_div.sv": {
+      "sha256": "2fc6241f04dba10cd6521d98490d6f49634495bc1a7a161aee467b8960acec07",
+      "code_tokens_sha256": "ba908e0f0bff450c46052cdc7ceea980497ec06dffd0afb7c0279217b34a88b5"
+    },
+    "rtl/teaching_fetch.sv": {
+      "sha256": "dad858fa08939027dc1c7d4e3d8a0378697c2449f72aab667b59e335e8f77116",
+      "code_tokens_sha256": "64c0f80ae679c32c373dc5042a9bd141b4ce2c5978bd73abf3ca5aef49ca931d"
+    },
+    "rtl/teaching_backend.sv": {
+      "sha256": "e1c779ea7aa29e2a75f81215f55d140dd34e2feaf9785d3230f5e91eecb5c5bb",
+      "code_tokens_sha256": "9a038f90f5d80d892e0e5af5c48fb57a952ecf2b6e364cf09f7f8a1c0380d388"
+    },
+    "rtl/teaching_cpu.sv": {
+      "sha256": "b7222f112d054c9ed59e8d47c96f6a67bc61d998e3d27239ebe74351198897ad",
+      "code_tokens_sha256": "28c7fe82321231232be9984aeeac8c732302a468af9c770e867e5130a4077249"
+    }
+  },
+  "filelist_sha256": "a57bab6d69769e61fc51a9370b584449014c03253bab7c647bf8df402ec66592",
+  "comment_adaptation": {
+    "date": "2026-10-11",
+    "code_tokens_unchanged": true,
+    "string_literals_unchanged": true,
+    "sv_attributes_unchanged": true,
+    "tool_directive_comments_unchanged": true,
+    "scope": "Replace server paths and research-only timing/history commentary with standalone educational explanations. CVA6 structural-reference and clean-room attribution is retained."
+  },
+  "memory_v1_adaptation": {
+    "date": "2026-10-08",
+    "profile": "One outstanding ID0 per I/D port; aligned accesses; precise response faults; uncached/unbuffered completion",
+    "trace_version": 2
+  }
+}

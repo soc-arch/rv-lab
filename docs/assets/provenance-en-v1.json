@@ -1,0 +1,41 @@
+{
+  "asset": "hy-rv-cpu-overview-en-v1.png",
+  "language": "English",
+  "tool": "built-in image_gen.imagegen",
+  "generated_for_client_date": "2026-10-15",
+  "requested_canvas": [
+    3840,
+    2160
+  ],
+  "actual_png_dimensions": [
+    1672,
+    941
+  ],
+  "aspect_ratio": 1.7768331562167907,
+  "resolution_note": "Built-in tool returned 1672 x 941 despite the requested 3840 x 2160. Original returned pixels are preserved, without upscaling. Approximately 16:9; not a native 4K export.",
+  "sha256": "bea1f1e53d368009a802567e0850789618e4f5caece43025dc53e3b9d0b9e0a9",
+  "prompt_file": "generation-prompt-en-v1.txt",
+  "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+  "default_preset": "ant_j0",
+  "early_jal_en": 0,
+  "queue_depth": 0,
+  "reference_documents": [
+    "../../README.md",
+    "../implementation.md",
+    "../../handoff/current-policy.md",
+    "../header-update.json"
+  ],
+  "diagram_type": "Conceptual architecture and ideal same-edge overlap illustration, not a measured RTL trace.",
+  "verified_content": [
+    "RV32IM, 32-bit, single-issue in-order, one backend IR",
+    "Four sibling modules: rv_frontend, rv_insn_link, rv_backend, rv_branch_predictor",
+    "Q0 link has no instruction storage; frontend preparation overlaps backend execution",
+    "Default BP0 ANT; BP1 BTFNT selectable; early JAL disabled",
+    "Separate I/D ready-valid memory interfaces; one outstanding request per port",
+    "ALU/branch, 32x32 RF, multicycle LSU/MUL/DIV, machine CSRs/traps/IRQs",
+    "Ideal same-edge commit/admission/fetch acceptance conditions stated",
+    "Existing functional, latch/loop and Formality PASS linked to actual verification record"
+  ],
+  "review_note": "I-memory and D-memory denote external interfaces. The generated D-memory label is positioned near the core boundary and must not be interpreted as an on-core memory.",
+  "rtl_modified": false
+}

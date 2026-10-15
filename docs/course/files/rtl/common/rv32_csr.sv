@@ -1,3 +1,18 @@
+// =============================================================================
+// HY-RV | rv32_csr
+// Description: Machine-mode control and status registers and trap control.
+//
+// Purpose: Computer architecture and RTL design education and lab exercises.
+// Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+// Website: https://dsa.hanyang.ac.kr
+// Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+//
+// AI tools such as Codex or Claude may have assisted in creating or modifying
+// this file. See the applicable manifests and verification records for
+// file-specific provenance, revision history, and validation evidence.
+// Preserve existing license, copyright, and original author notices.
+// =============================================================================
+
 // Local editable teaching snapshot; see SOURCE_SNAPSHOT.json for provenance.
 // =============================================================================
 // rv32_csr — RV32I M-mode CSR file + trap controller + PMU integration
@@ -189,7 +204,7 @@ module rv32_csr #(
             12'h324: rdata = {28'b0, hpmevent_r[1]};
             12'h325: rdata = {28'b0, hpmevent_r[2]};
             12'h326: rdata = {28'b0, hpmevent_r[3]};
-            // User-read-only counter mirrors.  The architecture permits
+            // URO user-mode counter mirrors (round 10).  Spec allows
             // unprivileged reads when mcounteren bit is set; Stage 1
             // just returns the same value as the M-mode counter.
             12'hC00: begin rdata = mcycle_q[31:0];                addr_readonly = 1'b1; end // cycle

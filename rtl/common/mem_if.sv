@@ -1,3 +1,18 @@
+// =============================================================================
+// HY-RV | mem_if
+// Description: Independent ready/valid memory request and completion channels.
+//
+// Purpose: Computer architecture and RTL design education and lab exercises.
+// Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+// Website: https://dsa.hanyang.ac.kr
+// Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+//
+// AI tools such as Codex or Claude may have assisted in creating or modifying
+// this file. See the applicable manifests and verification records for
+// file-specific provenance, revision history, and validation evidence.
+// Preserve existing license, copyright, and original author notices.
+// =============================================================================
+
 // HY-RV memory v1: independent ready/valid request and completion channels.
 // Payload remains stable under backpressure. Every accepted read OR write has
 // exactly one response; minimum response latency is one cycle. See rtl/README.md.

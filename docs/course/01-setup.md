@@ -16,6 +16,8 @@ Open a terminal and run:
 cd ~/rv-lab
 mkdir -p student
 export LAB_BUILD_DIR="$PWD/build/course"
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
 ```
 
 `student/` holds your editable application files. `LAB_BUILD_DIR` selects all

@@ -1,3 +1,18 @@
+// =============================================================================
+// HY-RV | rv32_rf
+// Description: Integer register file with architectural x0 behavior.
+//
+// Purpose: Computer architecture and RTL design education and lab exercises.
+// Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+// Website: https://dsa.hanyang.ac.kr
+// Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+//
+// AI tools such as Codex or Claude may have assisted in creating or modifying
+// this file. See the applicable manifests and verification records for
+// file-specific provenance, revision history, and validation evidence.
+// Preserve existing license, copyright, and original author notices.
+// =============================================================================
+
 // Local editable teaching snapshot; see SOURCE_SNAPSHOT.json for provenance.
 // =============================================================================
 // rv32_rf — RV32 32×32-bit Register File
@@ -11,7 +26,7 @@
 // SYNC_READ=0).
 //
 // - 2 read ports (rs1, rs2):
-//     SYNC_READ=0 → combinational (async).  x0 read returns 0.
+//     SYNC_READ=0 → combinational (async).  x0 read returns 0.  P0/P1/P2.
 
 
 // - 1 write port (rd, wb_data): synchronous on posedge clk.  x0 write ignored.
@@ -31,7 +46,7 @@
 
 
 
-//   - Optional write forwarding supplies same-cycle writeback data to a read.
+//   - P3 (8-stage IF1/IF2/ID/RR/EX/MEM1/MEM2/WB): WB→RR same-cycle write fwd
 
 
 
@@ -45,7 +60,7 @@
 
 //
 
-// The teaching backend selects the required read and forwarding parameters.
+// rf_mode_decision.md.
 // =============================================================================
 
 module rv32_rf #(

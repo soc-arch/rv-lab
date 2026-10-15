@@ -1,5 +1,20 @@
-// Serialized execution backend with one instruction holding register.
-// Teaching map: DECODE/RF -> EXECUTE/FUs -> MEMORY -> WRITEBACK -> CONTROL.
+// =============================================================================
+// HY-RV | rv_backend
+// Description: Single-slot execution backend with multicycle LSU and RV32M operations.
+//
+// Purpose: Computer architecture and RTL design education and lab exercises.
+// Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+// Website: https://dsa.hanyang.ac.kr
+// Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+//
+// AI tools such as Codex or Claude may have assisted in creating or modifying
+// this file. See the applicable manifests and verification records for
+// file-specific provenance, revision history, and validation evidence.
+// Preserve existing license, copyright, and original author notices.
+// =============================================================================
+
+// Single-slot execution backend; the independent frontend prepares its successor.
+// Functional map: DECODE/RF -> EXECUTE/FUs -> MEMORY -> WRITEBACK -> CONTROL.
 // These are functional responsibilities, NOT five independent pipeline stages.
 // The separate frontend can hold the next fetched instruction while this backend
 // executes one instruction. Arithmetic: 1 cycle; MUL: 2; DIV: 34.
@@ -8,7 +23,12 @@
 // FENCE is satisfied by this ordered, unbuffered SRAM profile.
 // Optional CSR/trap logic remains present but the required application ISA is RV32IM.
 
-module teaching_backend (
+module rv_backend #(
+    parameter logic [31:0] RESET_PC = 32'h8000_0000,
+    // C0-C2 preserve the seed's taken-CFI redirect behavior. C4 enables the
+    // canonical comparison for every ordinary architectural completion.
+    parameter bit SUCCESSOR_CHECK_EN = 1'b1
+) (
     input  logic        clk,
     input  logic        rst_n,
 
@@ -18,13 +38,14 @@ module teaching_backend (
 
     mem_if.master           dmem_if,
 
-    // Machine-mode software, timer and external interrupt inputs.
+    // External IRQ lines (from CLINT/PLIC/CLIC) — round 9 (M-mode).
     input  logic            irq_software_i,  // MSIP
     input  logic            irq_timer_i,     // MTIP
     input  logic            irq_external_i,  // MEIP
 
-    // Read-only 16-bit event observation bus; bit meanings are listed below.
-    // Bits 11-15 report interrupt, exception, CSR and memory-wait activity.
+    // Telemetry overlay (Stage B.2 round 7) — 16-bit event bus, read-only tap.
+    // See doc/wiki/architecture/event_bus_spec.md for bit assignments.
+    // Round 9 (2026-04-23): bits 11-15 now driven (IRQ/EXC/CSR/MEM_WAIT).
     output logic [15:0]     events_o,
     output logic idle_o,
 
@@ -34,7 +55,14 @@ module teaching_backend (
     output logic [4:0]      commit_rd,
     output logic [31:0]     commit_rd_data,
     output logic            commit_rd_we,
-    output teaching_trace_pkg::cpu_trace_t trace_o
+    output rv_trace_pkg::cpu_trace_t trace_o,
+
+    output logic bp_update_valid_o,
+    output rv_bp_pkg::bp_update_t bp_update_o,
+    output logic bp_invalidate_o,
+    output logic [31:0] resume_pc_o,
+    // NONE=0, exception=1, IRQ=2, mret=3, FENCE.I=4, correction=5.
+    output logic [2:0] redirect_reason_o
 );
 
     // =========================================================================
@@ -68,6 +96,11 @@ module teaching_backend (
     logic [31:0] insn_pipe_r;
     logic        valid_pipe_r;
     logic fetch_fault_r, fetch_misaligned_r, mem_entry_checked_r;
+    logic trap_kill; // Declared before FU dispatch; a preempted token never dispatches.
+    rv_bp_pkg::bp_prediction_t prediction_pipe_r;
+    rv_bp_pkg::bp_lookup_t bp_meta_pipe_r;
+    logic [31:0] architectural_resume_pc_r;
+    assign resume_pc_o = architectural_resume_pc_r;
     assign idle_o = !valid_pipe_r;
 
     // =========================================================================
@@ -85,16 +118,17 @@ module teaching_backend (
     logic dec_is_load, dec_is_store, dec_is_branch, dec_is_jal, dec_is_jalr;
     logic dec_is_alu_reg, dec_is_alu_imm, dec_is_lui, dec_is_auipc;
     logic dec_is_muldiv, dec_is_mul, dec_is_div;
-    // System, CSR and privileged-instruction decode outputs.
+    // Round 9 — SYSTEM/CSR/priv decode outputs
     logic dec_is_system, dec_is_csr, dec_is_csr_imm, dec_is_mret;
     logic dec_is_ecall, dec_is_ebreak, dec_is_fence, dec_is_fence_i, dec_is_illegal;
     logic [11:0] dec_csr_addr;
     logic dec_needs_wb, dec_needs_mem;
-    // Misalignment outputs — alu_result[1:0] drives addr_lo (same
+    // Round 11: misalign outputs — alu_result[1:0] drives addr_lo (same
     // instruction is in EX, alu_result is combinationally available).
     logic dec_is_misalign_load, dec_is_misalign_store;
 
-    // Declare addr_lo before connecting it so no implicit wire is inferred.
+    // Forward-declared so u_decoder.addr_lo does not implicit-wire; DC
+    // elaborator raises VER-954 otherwise (Verilator/VCS tolerate).
     logic [31:0] alu_result;
 
     rv32_decoder u_decoder (
@@ -139,7 +173,7 @@ module teaching_backend (
         .is_misalign_store (dec_is_misalign_store)
     );
 
-    // Valid-gated class flags: is_* must be 0 when the held instruction is invalid.
+    // Valid-gated class flags (P1 needs is_* = 0 when pipe invalid).
     logic is_load, is_store, is_branch, is_jal, is_jalr;
     logic is_alu_reg, is_alu_imm, is_lui, is_auipc;
     logic is_muldiv, is_mul, is_div;
@@ -226,7 +260,7 @@ module teaching_backend (
     assign store_data = rs2_data;
 
     // =========================================================================
-    // EXECUTION: ALU operand / op mux (address generation uses ADD)
+    // EXECUTION: ALU operand / op mux  (same structure as P0; AGU absorbed as ADD)
     //   Core R/I-type op mapping handled by rv32_alu_op_decode.  Outer mux
     //   selects ADD (AUIPC/mem) or PASS_B (LUI).
     // =========================================================================
@@ -299,10 +333,11 @@ module teaching_backend (
     logic        mul_valid_out, div_valid_out;
     logic        mul_valid_in,  div_valid_in;
 
-    assign mul_valid_in = is_mul && (ex_substate_r == EX_IDLE);
-    assign div_valid_in = is_div && (ex_substate_r == EX_IDLE);
+    assign mul_valid_in = is_mul && (ex_substate_r == EX_IDLE) && !trap_kill;
+    assign div_valid_in = is_div && (ex_substate_r == EX_IDLE) && !trap_kill;
 
-    // The serialized teaching backend selects one multiplier output stage.
+    // P1 keeps MUL_L=1 — target Fmax is already bounded by RF→ALU path, and
+    // separating MUL/FWD would trade a CPI cycle for no Fmax gain.  Round 16.
     fu_mul #(.XLEN(32), .TAG_W(3), .MUL_L(1)) u_mul (
         .clk        (clk),
         .rst_n      (rst_n),
@@ -475,7 +510,7 @@ module teaching_backend (
 
     // Release the backend slot after either successful retirement or a trap.
     // Faulting operations do not retire, even though the pipeline advances.
-    logic trap_kill;  // blocks normal wb_en / commit_valid
+    // trap_kill blocks normal dispatch, writeback and commit.
     logic ex_commits_now;
     assign ex_commits_now = normal_commit_now | trap_kill;
 
@@ -502,7 +537,9 @@ module teaching_backend (
     assign memory_align_fault = at_mem_entry && (is_misalign_load || is_misalign_store);
     assign memory_resp_fault = valid_pipe_r && (ex_substate_r == EX_MEM_RESP) &&
         dmem_if.resp_valid && dmem_if.resp_ready && dmem_if.resp_error;
-    assign instruction_target_fault = at_ex_entry && br_valid_in && br_taken &&
+    // A reserved CFI encoding has no architectural target to validate. Its
+    // illegal-instruction exception wins over a coincidental decoded address.
+    assign instruction_target_fault = at_ex_entry && !is_illegal && br_valid_in && br_taken &&
         br_target_pc[1:0] != 0;
     assign exception_fire = (at_ex_entry &&
         (fetch_fault_r || is_ecall || is_ebreak || is_illegal || (is_csr && csr_illegal))) ||
@@ -551,11 +588,19 @@ module teaching_backend (
     assign wb_en = normal_commit_now & needs_writeback & (rd_addr != 5'd0) & !trap_kill;
 
     // =========================================================================
-    // Redirect after a branch, trap or machine-mode return.
-    //   Priority: trap > mret > branch.  pipe_flush == any redirect.
+    // Redirect and completion feedback. Typed control takes priority over
+    // ordinary prediction correction; a correction still completes normally.
     // =========================================================================
     logic branch_redirect;
-    assign branch_redirect = ex_commits_now & br_valid_in & br_taken & !trap_kill;
+    logic ordinary_completion;
+    logic [31:0] actual_next_pc;
+    logic successor_mismatch;
+    assign actual_next_pc = br_valid_in && br_taken ? br_target_pc : pc_pipe_r + 32'd4;
+    assign ordinary_completion = normal_commit_now && !trap_kill && !dec_is_fence_i;
+    assign successor_mismatch = ordinary_completion &&
+        prediction_pipe_r.next_pc != actual_next_pc;
+    assign branch_redirect = SUCCESSOR_CHECK_EN ? successor_mismatch :
+        (ex_commits_now & br_valid_in & br_taken & !trap_kill);
 
     logic pipe_flush;
     wire fence_i_redirect = normal_commit_now && dec_is_fence_i && !trap_kill;
@@ -564,7 +609,32 @@ module teaching_backend (
     logic [31:0] redirect_pc_sel;
     assign redirect_pc_sel = trap_take   ? trap_vector :
                              mret_take   ? mret_target :
-                             fence_i_redirect ? pc_pipe_r + 32'd4 : br_target_pc;
+                             fence_i_redirect ? pc_pipe_r + 32'd4 :
+                             SUCCESSOR_CHECK_EN ? actual_next_pc : br_target_pc;
+
+    always_comb begin
+        redirect_reason_o = 3'd0;
+        if (trap_take) redirect_reason_o = trap_is_irq ? 3'd2 : 3'd1;
+        else if (mret_take) redirect_reason_o = 3'd3;
+        else if (fence_i_redirect) redirect_reason_o = 3'd4;
+        else if (branch_redirect) redirect_reason_o = 3'd5;
+    end
+
+    assign bp_update_valid_o = ordinary_completion;
+    assign bp_invalidate_o = fence_i_redirect;
+    always_comb begin
+        bp_update_o = '0;
+        bp_update_o.pc = pc_pipe_r;
+        bp_update_o.actual_kind = is_branch ? rv_bp_pkg::CFI_COND :
+            is_jal ? rv_bp_pkg::CFI_JAL : is_jalr ? rv_bp_pkg::CFI_JALR : rv_bp_pkg::CFI_NONE;
+        bp_update_o.actual_taken = br_valid_in && br_taken;
+        bp_update_o.resolved_target_valid = br_valid_in;
+        // Branch feedback preserves the encoded target even for actual NT.
+        bp_update_o.resolved_target = br_valid_in ? br_target_pc : 32'd0;
+        bp_update_o.actual_next_pc = actual_next_pc;
+        bp_update_o.prediction = prediction_pipe_r;
+        bp_update_o.bp_meta = bp_meta_pipe_r;
+    end
 
     // Kept as alias for historical ex_substate logic below (replaced wholesale).
     logic do_redirect;
@@ -685,9 +755,20 @@ module teaching_backend (
             valid_pipe_r  <= 1'b0;
             fetch_fault_r <= 0; fetch_misaligned_r <= 0; mem_entry_checked_r <= 0;
             load_data_r   <= 32'h0;
+            prediction_pipe_r <= '0;
+            bp_meta_pipe_r <= '0;
+            architectural_resume_pc_r <= RESET_PC;
         end else begin
             ex_substate_r <= ex_substate_next;
             div_counter_r <= div_counter_next;
+
+            // Resume follows architectural completion, never a speculative
+            // frontend descriptor. An in-flight instruction can finish while
+            // the frontend drains, including its trap or control transition.
+            if (trap_take) architectural_resume_pc_r <= trap_vector;
+            else if (mret_take) architectural_resume_pc_r <= mret_target;
+            else if (normal_commit_now && !trap_kill)
+                architectural_resume_pc_r <= actual_next_pc;
 
             if (pipe_advance) mem_entry_checked_r <= 0;
             else if (at_mem_entry) mem_entry_checked_r <= 1;
@@ -701,6 +782,8 @@ module teaching_backend (
                     insn_pipe_r  <= insn_if.insn;
                     fetch_fault_r <= insn_if.fault;
                     fetch_misaligned_r <= insn_if.fault_misaligned;
+                    prediction_pipe_r <= insn_if.prediction;
+                    bp_meta_pipe_r <= insn_if.bp_meta;
                 end else begin
                     valid_pipe_r <= 1'b0;
                 end
@@ -724,13 +807,13 @@ module teaching_backend (
     assign commit_rd_we   = wb_en;
 
     // =========================================================================
-    // Read-only event bus for observing machine-mode execution.
-    // The following definitions describe all 16 bits.
+    // Event bus — Stage B.2 round 7 + round 9 (M-mode telemetry).
+    // 16-bit spec per doc/wiki/architecture/event_bus_spec.md.
     //   [0] CYCLE, [1] INSTRET, [2] BRANCH_TAKEN, [3] LOAD, [4] STORE,
     //   [5] MUL, [6] DIV
-    //   [7] STALL_LOADUSE — serialized backend → 0
+    //   [7] STALL_LOADUSE — P1 serial → 0
     //   [8] STALL_MUL (EX_MUL_WAIT)  [9] STALL_DIV (EX_DIV_WAIT)
-    //   [10] BRANCH_FLUSH — serialized backend → 0
+    //   [10] BRANCH_FLUSH — P1 serial → 0
     //   [11] IRQ_TAKEN  — irq_fire pulse
     //   [12] EXC_TAKEN  — exception_fire pulse
     //   [13] CSR_READ   — csr_access_valid
@@ -760,10 +843,10 @@ module teaching_backend (
         events_bus[4]    = (normal_commit_now & ~trap_kill) && is_store;
         events_bus[5]    = (normal_commit_now & ~trap_kill) && is_mul;
         events_bus[6]    = (normal_commit_now & ~trap_kill) && is_div;
-        // bit 7: STALL_LOADUSE — serialized backend, always 0.
+        // bit 7: STALL_LOADUSE — P1 serial, always 0.
         events_bus[8]    = (ex_substate_r == EX_MUL_WAIT);
         events_bus[9]    = (ex_substate_r == EX_DIV_WAIT);
-        // bit 10: BRANCH_FLUSH — serialized backend, always 0.
+        // bit 10: BRANCH_FLUSH — P1 serial, always 0.
         events_bus[11]   = irq_fire;
         events_bus[12]   = exception_fire;
         events_bus[13]   = csr_access_valid && !csr_illegal && !trap_take;
@@ -846,6 +929,12 @@ module teaching_backend (
         assert ((rs1_addr != 0 || rs1_data == 0) &&
                 (rs2_addr != 0 || rs2_data == 0));
         assert (!trap_take || (!commit_valid && !wb_en && !dmem_if.req_valid));
+        assert (!bp_update_valid_o || (commit_valid && !trap_take && !mret_take && !dec_is_fence_i));
+        assert (!bp_invalidate_o || (!bp_update_valid_o && fence_i_redirect));
+        assert (!pipe_flush || !(insn_if.valid && insn_if.ready));
+        if (SUCCESSOR_CHECK_EN && ordinary_completion) begin
+            assert (branch_redirect == (prediction_pipe_r.next_pc != actual_next_pc));
+        end
     end
 
 endmodule

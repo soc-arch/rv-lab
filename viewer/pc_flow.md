@@ -1,115 +1,70 @@
-# Follow the PC through instruction fetch
+# Follow the PC through current P1/F0 fetch
 
-The PC path in [the datapath drawing](microarchitecture.svg) expands the actual
-logic in `rtl/teaching_fetch.sv`. It is a static explanation of the RTL. It does
-not claim that internal register values absent from the trace were measured.
+This is a static explanation of `rtl/frontend/rv_frontend.sv` and its helpers,
+**not a measured waveform**. The viewer shows actual public trace signals only.
+Absent internal metadata remains labeled unrecorded.
 
-## A register output and a next-state value are different
+## Select and track one address
 
-Despite its name, **`next_pc` is a register output (Q)**. It is assigned inside
-`always_ff @(posedge clk or negedge rst_n)`. There is no separately declared
-combinational `pc_nxt` signal in this implementation.
+`gen_pc_nxt` is combinational. Unlike the former teaching CPU's registered
+`next_pc`, current `pc_nxt` selects the request address with this priority:
+held request → pending redirect → boot/reset address → predicted successor →
+sequential owner PC + 4. `fetch_ctrl` stores offered-request/restart metadata.
+A valid stalled request keeps its address until acceptance even if redirected.
 
-The memory address is selected from registered state:
+At request valid AND ready, `fetch_tracker` captures owner PC and lookup
+metadata. `owner_pc` belongs to that response, independently of a successor
+request. Completion releases ownership, and allocation can replace it at the
+same edge with the ii1 memory adapter. Each port still has only one live owner.
 
-```systemverilog
-imem_if.req_addr = held ? held_pc : next_pc;
-```
+## Admit a live token through Q0
 
-Normally the request uses `next_pc`. When a request is offered but the memory
-is not ready, `held_pc` preserves its address until acceptance. This also keeps
-the offered address stable if a branch redirect changes `next_pc` meanwhile.
+F0 has **no instruction response buffer**. The memory adapter holds response
+bits, ID and error stable until ready. `insn_assemble` forms a token and Q0
+`rv_insn_link` forwards it directly. The backend IR captures it at valid AND
+ready. A local fetch-address fault has separate metadata, not a general queue.
 
-The following equations describe register updates; they are not additional RTL
-modules. Reset has priority over the normal clocked behavior.
+A response is consumed for token admission or obsolete/killed-work discard.
+Redirect suppresses younger tokens while preserving already-offered request
+obligations. Accepted stale responses complete and their bits/faults are
+discarded. Drain finishes backend and memory work, discards younger tokens, and
+resumes from the architectural resume PC; no buffered instruction is preserved.
 
-| Register | Update at the edge |
-|---|---|
-| `next_pc` | Reset: `RESET_PC`; otherwise redirect: `redirect_pc`; otherwise an accepted, non-obsolete request: `req_addr + 4`; otherwise hold |
-| `pending_pc` | Capture `req_addr` when `req_valid && req_ready` |
-| `held_pc` | Capture `req_addr` when a request is first offered with `req_ready == 0` |
-| `buf_pc` | Capture `pending_pc` with a fresh response that cannot be admitted |
-| `pc_pipe_r` | Capture `insn_if.pc` when the backend admits the instruction |
+## Read illustrative edge diagrams
 
-Thus the SRAM address and `pending_pc` input carry the same accepted address.
-**The SRAM address is not generally the D input of `next_pc`.** For a normal
-sequential fetch, the SRAM receives address P while the next-PC register receives
-P + 4 at that acceptance edge. A redirect overrides the sequential update.
-An obsolete held request still completes, but does not advance the redirected PC.
-
-The viewer's **request mux output** is the recorded `req_addr`. The accepted
-response owner, delivered frontend word and executing instruction can have
-different PCs. In particular, `req_addr` is not a reliable proxy for `next_pc`
-while `held` selects a previous request.
-
-## Memory response, frontend delivery, and admission
-
-`pending_pc` associates a response with the request that caused it. If the response
-is fresh and the backend is ready, its instruction and PC bypass the response
-buffer and enter the backend at that edge. Otherwise the frontend stores the
-instruction, PC and fault metadata in its one-entry response buffer.
-
-The buffer and accepted in-flight transaction share one capacity reservation:
-the RTL asserts that `pending && buf_valid` never occurs. A buffered word can
-be admitted at the same edge that the next request is accepted. The frontend
-does not accept a replacement request at the edge completing its pending response.
-Even a minimum-latency memory therefore does not turn this implementation into
-a one-request-per-cycle fetch stream.
-
-Redirects invalidate buffered obsolete instructions. Offered requests remain
-stable until acceptance; accepted requests finish, and obsolete responses and
-their faults are discarded. Drain stops new instruction admission and requests,
-finishes previously offered or accepted requests, and can preserve a buffered
-word for resumption.
-
-## What F and A mean in the timeline
-
-Every record is sampled immediately **before** a rising edge. These labels
-describe the actions at that upcoming edge.
-
-| Label | Meaning |
-|---|---|
-| I-memory `Q` | A request is accepted: `req_valid && req_ready` |
-| I-memory `R` | A response is accepted: `resp_valid && resp_ready` |
-| Instruction `F` | A valid frontend word is available but not admitted |
-| Instruction `A` | The word is admitted into the backend: `insn_if.valid && insn_if.ready` |
-| Instruction `D/X` | The word already occupies the backend and uses decode/execution logic |
-
-`F` does not mean an instruction is still being read from SRAM. It also does
-not prove that the word was already in `buf_insn`: the first unadmitted fresh
-response is captured only at the upcoming edge. A successful fresh response
-can produce **`R` and `A` in the same sample, with no preceding `F`**.
-
-For example, these sample columns correspond to distinct rising edges:
+These rows are **design examples, not measured traces**. Each column names a
+rising edge. Q = accepted request, R = accepted response, r = valid response
+waiting for ready, and A = backend IR admission.
 
 ```text
-Memory ready; backend ready:
-                         edge N   edge N+1   edge N+2
-I-memory request            Q         .          .
-I-memory response           .         R          .
-This instruction            .         A         D/X
+Ideal steady state: response latency 1, memory II=1, backend ready
+                                  edge N     edge N+1     edge N+2
+Backend retirement                   I         I+1          I+2
+Backend IR admission               I+1         I+2          I+3
+I-memory response R                I+1         I+2          I+3
+I-memory request Q                 I+2         I+3          I+4
 
-Backend busy when the response arrives:
-                         edge N   edge N+1   edge N+2   edge N+3   edge N+4
-I-memory request            Q         .          .          .          .
-I-memory response           .         R          .          .          .
-This instruction            .         F          F          A         D/X
+Backend busy when the next response becomes available
+                                  edge N     edge N+1     edge N+2     edge N+3
+I-memory request Q                  J           .            .          J+1
+I-memory response                   .           r            r           R
+Instruction J token                 .           F            F           A
 ```
 
-These are illustrative single-instruction rows; another request can appear
-elsewhere in the real trace. The viewer associates F/A cells with the next
-matching execution-slot occurrence. An instruction discarded before execution
-is shown in fetch details rather than as a retired instruction row. A trace
-that starts during execution may omit that instruction's earlier fetch history.
+The memory producer holds the second example's response until the final edge;
+F0 does not copy it into a buffer. R+A can coincide without an earlier F sample.
+Retirement, admission and fetch acceptance are distinct events that can overlap.
+Fetch also starts with an empty backend without requiring a commit.
 
-## Can an instruction FIFO replace the response buffer?
+## Prediction and future extensions
 
-Yes. A deeper FIFO can replace the one-entry delivery buffer behind the existing
-instruction-valid/ready boundary. Each entry must retain the instruction's PC,
-bits and fault metadata. Capacity reservation must account for responses still
-in flight, and redirect/flush logic must discard the correct entries.
+The sibling predictor uses static BP0 ANT by default; BP1 BTFNT is selectable.
+Both active presets disable early JAL. Prediction metadata travels with the
+token, and the backend checks the actual successor on completion and recovers
+on mismatch. The predictor and Q0 link are not extra pipeline stages.
 
-The FIFO does **not** replace the PC generator, held-request handling, request
-ownership or obsolete-response handling. Increasing FIFO depth alone also does
-not increase the number of outstanding memory requests. That change requires
-additional request tracking and, where applicable, transaction IDs or epochs.
+Positive-depth queues are future work. Entries must preserve PC, bits, faults
+and prediction metadata with capacity/flush rules. More outstanding fetches need
+additional owner/ID tracking. When adding frontend stages, remind the designer
+to reconsider early JAL with the new handshakes, timing and actual verification;
+that reminder does not itself authorize enabling early JAL.

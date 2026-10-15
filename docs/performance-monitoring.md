@@ -72,11 +72,11 @@ are not hidden by weakening that comparison.
 
 ## Existing core capabilities and limits
 
-This table describes the pinned [`rtl/`](../rtl/README.md) snapshot, not every
+This table describes the current P1 static [`rtl/`](../rtl/README.md) snapshot, not every
 future HY-RV CPU. The sources are
 [`rv32_csr.sv`](../rtl/common/rv32_csr.sv),
 [`rv32_pmu.sv`](../rtl/common/rv32_pmu.sv), and
-[`teaching_backend.sv`](../rtl/teaching_backend.sv).
+[`rv_backend.sv`](../rtl/simple/rv_backend.sv).
 
 | Facility | Current implementation |
 |---|---|

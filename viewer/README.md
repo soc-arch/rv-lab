@@ -1,167 +1,116 @@
-# Follow an instruction through the CPU
+# Follow an instruction through the current P1/Q0 CPU
 
-The cycle explorer is a local HTML report generated from the **actual RTL trace**.
-It embeds its data, diagram, styles, and JavaScript. Open it in a browser; no web
-server, package installation, or network connection is required.
-
-**Open the report in a browser tab.** A code editor or file-source panel displays
-the HTML source instead of executing the viewer. The lab's `python3 lab.py serve`
-command serves the generated gallery over a local HTTP address, which can be
-opened in a browser. This is a local viewing convenience, not a remote upload.
-
-From the lab directory, run:
+The cycle explorer is a local HTML report generated from **actual RTL traces**.
+Its data, SVG diagram, styles, and JavaScript are embedded. The report works
+without an internet connection. Open HTML in a browser rather than an editor.
+`make serve` offers a local HTTP URL for the generated gallery.
 
 ```sh
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
 make hw-sim APP=04_muldiv TRACE=1
 ```
 
-Or use the runner directly:
+Open the output path printed by the runner. In the default build root this is
+`build/04_muldiv-O2/trace.html`. `LAB_BUILD_DIR` selects an isolated output root.
+Capture normally starts at `main`; `--trace-startup` includes startup code.
 
-```sh
-python3 lab.py run --backend hw --app 04_muldiv --trace
-```
+## Read top down
 
-Open `build/04_muldiv-O2/trace.html`. The runner starts recording at `main` by
-default. `--trace-startup` also records the provided startup code.
+1. **Jump to main**: green identifies the executing instruction; blue identifies
+   the delivered instruction token, if valid.
+2. **Next**: advance a recorded pre-edge sample and follow operands, the one IR,
+   memory requests/responses, and enabled RF writes.
+3. At MUL, DIV, or blocking memory access the backend retains its IR. The
+   external SRAM adapter can hold the following instruction response.
+4. **Next retirement**: inspect architectural completion. A store or branch can
+   retire without writing an integer register.
+5. A hexadecimal PC and **Find next** select later loop occurrences. **Play**
+   stops at the end. Arrow keys step, Space plays, R selects retirement, and M
+   returns to main. Shortcuts do not intercept typed addresses.
 
-## Explore the result
+## Separate the events at an edge
 
-1. Start with **Jump to main**. The listing highlights the executing instruction
-   in green and the prefetched word in blue.
-2. Use **Next** to advance one recorded cycle. Check the operands, execution
-   state, memory request/response, and register write enable.
-3. At a multiply or divide instruction, watch the execution slot remain occupied.
-   The frontend can hold another word at the same time. The timeline shows this
-   overlap using separate dynamic instruction occurrences.
-4. Use **Next retirement** to skip waiting cycles and inspect the result written
-   to the register file. Stores and branches can retire without a register write.
-5. Enter a hexadecimal PC and use **Find next** to follow later loop iterations.
-   Use **Play** for an animation; it stops at the end rather than wrapping around.
+Samples observe signals **immediately before a rising edge**. Accepted transfers,
+IR admission, retirement, and RF writes take effect at that upcoming edge; their
+new state appears in the next sample. Transfers require valid AND ready.
 
-Keyboard shortcuts: left/right arrows step, Space plays or pauses, `R` selects
-the next retirement, and `M` returns to `main`. Shortcuts do not intercept typing
-inside the address field. The diagram and timeline scroll horizontally on small
-screens. The footer links to a standalone, scalable `microarchitecture.svg`.
+| Observation | Meaning |
+| --- | --- |
+| I-memory request Q | Memory accepts a fetch request |
+| I-memory response R | Frontend consumes the accepted owner's response |
+| Instruction F | A token is available but not admitted; this is not a new stage |
+| Instruction A / fetch.accepted | Frontend valid AND backend ready admits through Q0 |
+| commit.valid | Current IR instruction retires |
+| regs.wb_enable | Physical RF writes a nonzero destination |
 
-### Read the cycle boundary correctly
+There is no instruction response buffer. The SRAM adapter holds a valid response
+while the backend waits. `insn_assemble` forms the live token, and depth-zero
+`rv_insn_link` forwards it combinationally. A local fault token has separate fault
+metadata. Request PC, response-owner PC, delivered PC, and executing PC can differ.
 
-Each record observes signals **immediately before a rising clock edge**. A
-retirement, accepted memory transfer, or enabled register write takes effect at
-the upcoming edge. Memory acceptance means `valid && ready`. A request that is
-valid while ready is low is only offered, and remains stable until accepted.
-The instruction-memory response owner, current offered request, and frontend
-word can have different PCs. `fetch.accepted` is frontend-to-backend admission;
-it is not instruction-memory response acceptance.
+In ideal latency-one/II-one steady state, one edge can retire I, admit I+1, and
+accept fetch I+2. Fetch follows token capacity and handshakes, not a commit pulse.
+Stalls, redirects, faults and multicycle execution can prevent this overlap.
+See [the PC-path explanation](pc_flow.md).
 
-The diagram names the functions **fetch, decode, execution, memory access, and
-writeback**. They are not five independently occupied pipeline stages. This CPU
-overlaps fetch with one serialized backend slot. Decode and register reads are
-combinational; a long-running instruction keeps that slot until it finishes.
-The left RF-read box and far-right RF-write box are **two views of one physical
-2R1W register file**, not two banks. Likewise, the I-memory and D-memory boxes
-are two logical ports of one physical RAM. Vertical arrows between the LSU and
-D port show request/store data downward and load/completion responses upward.
-Solid highlighted memory arrows mean accepted transfers; amber dashed arrows
-mean offered transfers waiting for ready. Red response arrows flag errors.
-
-### Clock triangles and RTL hierarchy
-
-An outline triangle on a storage boundary marks state updated on a **rising
-clock edge**, subject to its enable. It does not mean that the block writes every
-cycle, nor that every circuit inside it is a flip-flop. The SRAM markers describe
-the clocked interface/model; they do not prescribe a flip-flop implementation of
-the memory array. Reset behavior is not drawn.
-
-The architecture picture is a **functional datapath view**, not a one-box-per-module
-elaboration diagram. In particular, the instruction slot and writeback mux are
-logic inside the backend; the LSU groups a state machine, response registers and
-combinational byte-lane helpers. The actual main instance hierarchy is:
+## Module hierarchy and the functional drawing
 
 ```text
 tb_cpu_lab
-├── u_cpu : teaching_cpu
-│   ├── u_fetch : teaching_fetch
-│   │   └── PC/request state, 1-entry response buffer, fresh-response bypass
-│   └── u_backend : teaching_backend
-│       ├── instruction-slot registers and execution-state logic [inline]
-│       ├── u_decoder : rv32_decoder
-│       ├── u_rf : rv32_rf                       [one physical 2R1W RF]
-│       ├── u_alu_op : rv32_alu_op_decode
-│       ├── u_alu : fu_alu
-│       ├── u_br : fu_br
-│       ├── u_mul : fu_mul
-│       ├── u_div : fu_div
-│       ├── u_ls_split : rv32_ls_split
-│       ├── u_ls_align2 : rv32_ls_align2
-│       ├── u_csr : rv32_csr
-│       └── load-response registers, writeback/retirement/trap logic [inline]
-└── u_mem : teaching_sram                        [one shared array, I/D ports]
+├── u_cpu : teaching_cpu [compatibility wrapper]
+│   └── u_core : rv_core_simple
+│       ├── u_frontend : rv_frontend (F0)
+│       │   ├── u_gen_pc_nxt : gen_pc_nxt
+│       │   ├── u_fetch_ctrl : fetch_ctrl
+│       │   ├── u_fetch_tracker : fetch_tracker
+│       │   ├── u_branch_predecode : rv_branch_predecode
+│       │   └── u_insn_assemble : insn_assemble
+│       ├── u_insn_link : rv_insn_link (Q0, no storage)
+│       ├── u_bp : rv_branch_predictor
+│       └── u_backend : rv_backend (one execution IR)
+│           ├── u_decoder : rv32_decoder
+│           ├── u_rf : rv32_rf [one physical 2R1W register file]
+│           ├── u_alu_op : rv32_alu_op_decode
+│           ├── u_alu : fu_alu
+│           ├── u_br : fu_br
+│           ├── u_mul : fu_mul
+│           ├── u_div : fu_div
+│           ├── u_ls_split : rv32_ls_split
+│           ├── u_ls_align2 : rv32_ls_align2
+│           └── u_csr : rv32_csr
+│               └── u_pmu : rv32_pmu
+└── u_mem : teaching_sram [one shared array, I/D ports]
 ```
 
-This tree lists the main module instances and explicitly marks inline logic.
-The CSR block contains the PMU; CSR/trap/PMU details and some control muxes are
-omitted from the introductory datapath drawing. `insn_supply_if` connects fetch
-to the backend and is distinct from the CPU's I/D memory transaction interfaces.
+The frontend, Q0 link, backend and predictor are sibling modules. Module
+boundaries do not imply pipeline registers. Static ANT is default, BTFNT is
+selectable; active ant_j0/btfnt_j0 presets disable early JAL. The backend checks
+the saved predicted successor on completion and recovers on mismatch.
 
-| Diagram region | RTL location | State or logic |
-|---|---|---|
-| Fetch control | `teaching_fetch`: `next_pc`, `pending_*`, `held_*`, stale flags | Clocked request/PC state plus combinational control |
-| Frontend delivery | `teaching_fetch`: `buf_*` and assignments to `insn_if` | One clocked entry plus a combinational bypass/selection path |
-| Instruction slot | `teaching_backend`: `pc_pipe_r`, `insn_pipe_r`, `valid_pipe_r`, fetch-fault flags | Clocked; held while the instruction waits |
-| Decode | `u_decoder` and inline legality checks | Combinational |
-| RF read / RF write | Both are ports of `u_rf` | Asynchronous reads; enabled rising-edge write |
-| ALU | `u_alu_op`, operand muxes and `u_alu` | Combinational; also computes load/store addresses as `rs1 + immediate` |
-| Branch / jump | `u_br` plus redirect selection | Combinational in this configuration |
-| Multiply / divide | `u_mul`, `u_div` and backend wait control | Contain clocked state; these are not extra independently occupied stages |
-| Load-store unit | Backend FSM, `load_data_r`, `u_ls_split`, `u_ls_align2`, D-port assignments | Mixed clocked and combinational logic; no standalone `u_lsu` instance |
-| Writeback mux | Backend `wb_data` selection and enable logic | Combinational; no additional writeback register stage |
-| SRAM I / D | Both are ports of testbench `u_mem` | Clocked request/response model and array access |
+The [SVG diagram](microarchitecture.svg) groups functions. Decode, execution,
+LSU and writeback are not four separately occupied pipeline stages. RF read and
+write show two views of one 32×32 2R1W RF; I/D SRAM boxes show two ports of one
+external array. Dashed identity links are not datapaths. Hover or focus a node
+for its actual implementation mapping.
 
-`u_ls_split` is a retained byte-lane helper; its name does not mean that this
-profile supports split misaligned transactions. Such accesses trap before issue.
+Clock wedges mark positive-edge state or enabled writes, rather than an update
+on every clock. Request control includes owner/held/restart state; gen_pc_nxt is
+combinational. Assembly/Q0 delivery has no instruction-storage wedge. SRAM
+wedges mark its clocked adapter, not an array made of flip-flops. MUL/DIV and LSU
+retain their multicycle result/control state.
 
-### What the frontend word represents
+Solid memory arrows show accepted transfers; amber dashed arrows show offered
+transfers waiting for ready; red response arrows show errors. Vertical LSU
+arrows carry requests/store data downward and load/completion responses upward.
+Highlights report logical activity, not power, physical delay, or a full RF dump.
+Unused source-register fields are hidden.
 
-The old **Frontend word** label referred to the instruction-delivery point at
-`insn_if`, not to a separate RTL module or an empty space for a future queue.
-The diagram now identifies the buffer and bypass explicitly:
-
-1. The frontend associates an accepted I-memory request with `pending_pc`.
-2. If a non-obsolete response arrives while the backend can admit the instruction,
-   its instruction bits pass directly through the combinational bypass to the
-   instruction slot at that edge. They need not spend an extra cycle in `buf_insn`.
-3. If the backend cannot admit it, the frontend captures the word, PC and fault
-   metadata in `buf_insn`, `buf_pc`, `buf_valid` and the fault flags. This one entry
-   holds the instruction until admission or redirect. Drain can also pause
-   admission and retain a buffered instruction for resumption.
-4. A redirect clears an obsolete buffered instruction. Already offered or accepted
-   requests still complete, and obsolete responses are consumed and discarded.
-
-The implementation has one pending memory transaction **or** one valid buffered
-word; it asserts that `pending && buf_valid` never occurs. A buffered word may be
-admitted at the same edge that the next memory request is accepted. Together with
-one instruction in the backend, this provides fetch/execution overlap; it does
-not constitute a deep instruction queue.
-
-A larger instruction queue could replace this buffer behind the same
-instruction-delivery handshake. It would need explicit capacity, response-space
-reservation, redirect/flush and fault-PC handling. More concurrent memory requests
-would additionally need request tracking and ID handling; increasing the queue
-depth alone does not provide those features.
-
-Highlights represent logical use reported by RTL. They do not measure transistor
-switching, propagation delay, energy, or the contents of every register. Register
-operands are hidden when that instruction does not use the corresponding field.
-In particular, a writeback result with `rd = x0` does not imply a register write.
-
-The instruction timeline groups samples by actual execution-slot occurrences,
-including distinct iterations with the same PC. It associates a matching held
-fetch word with the next observed admission. A word discarded by redirection is
-visible in the selected-cycle details but is not displayed as a retired row.
-An occurrence already in flight at the start of a trace can lack its earlier
-fetch history. `Mq` / `Mr` are backend FSM phases, not proof of a handshake.
-Four separate bus rows show accepted requests (`Q`), accepted responses (`R`),
-offered but blocked requests/responses (`q` / `r`), and accepted errors (`ERR`).
+The timeline reconstructs dynamic IR occurrences, with separate loop iterations
+at the same PC. F/A associate with the matching occurrence. Discarded tokens can
+appear in fetch details without retiring; an active instruction at trace start
+can lack fetch history. Mq/Mr are FSM phases. Only the four bus rows identify
+actual accepted Q/R or blocked q/r transfers.
 
 ### Trace limits
 
@@ -193,6 +142,13 @@ artifacts = generate(
     },
 )
 ```
+
+The lab runner supplies actual `core_configuration` build metadata. The HTML and
+downloaded SVG show that run's preset, static policy, and early-JAL setting.
+If direct generator use omits that identity, or declares an external CPU, the
+P1-specific diagram and hierarchy are hidden and the downloadable SVG is labeled
+reference-only. Pass identity from the actual hardware receipt; do not infer it
+from instruction traces or select a convenient preset label.
 
 `generate` also writes `microarchitecture.svg` beside the HTML and returns their
 paths, first/last cycle, recorded retirement count, and separate capture/display

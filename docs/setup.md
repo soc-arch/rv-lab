@@ -1,7 +1,7 @@
 # Setup: choose a machine and check the tools
 
 Use this guide before [Lab 01](course/01-setup.md). The labs run on Linux and use
-an independent teaching CPU. You need a terminal, basic C knowledge, and a modern
+the current HY-RV P1/F0/Q0 CPU through a stable lab wrapper. You need a terminal, basic C knowledge, and a modern
 browser. No FPGA or physical camera is needed.
 
 ## 1. Choose where the commands will run

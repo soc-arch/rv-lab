@@ -29,10 +29,12 @@
 <p>Run commands from <code>~/rv-lab</code>. The bundled runtime provides startup, linking, completion/signature handling, and a buffered console. An application can supply only C or assembly <code>main</code>; the console is SRAM data printed by the host after completion, rather than a live UART stream.</p>
 <p>The same ELF runs on Spike and Verilator. Spike checks software behavior; hardware timing comes from the RTL testbench&#x27;s clock counter. Neither host run time nor Spike timing is the CPU&#x27;s RTL cycle count.</p>
 <h2 id="evidence-and-output-directories">Evidence and output directories</h2>
-<p><a href="../../files/provenance/snapshot.json">provenance/snapshot.json</a> identifies the public source copy. A source hash identifies files; it does not establish a passing execution. Use each new run&#x27;s manifests and results to record what was actually tested, with the selected tools and configuration.</p>
+<p><a href="../../files/provenance/p1-static-core.json">provenance/p1-static-core.json</a> identifies the current P1 core. <a href="../../files/provenance/snapshot.json">provenance/snapshot.json</a> retains the historical public source copy. A source hash identifies files; it does not establish a passing execution. Use each new run&#x27;s manifests and results to record what was actually tested, with the selected tools and configuration.</p>
 <p>By default, generated files are in <code>build/</code>. <code>LAB_BUILD_DIR</code> selects another output directory so baseline and candidate reports remain separate:</p>
 <div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>export LAB_BUILD_DIR=&quot;$PWD/build/reference-check&quot;
 unset RTL_DIR LAB_RTL_DIR
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
 make doctor
 make compare APP=01_arithmetic
 make test-smoke</code></pre></div>

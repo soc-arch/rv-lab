@@ -2,12 +2,23 @@
 
 C/assembly 프로그램을 RISC-V CPU에서 실행하고, 정답과 실제 RTL 동작을 확인하는
 연구실 실습입니다. 각 Lab은 **따라 할 명령 → 예상 결과 → 확인 질문 → 제출물** 순서로
-진행합니다. 실습 코어는 독립된 teaching RTL이며 학생은 먼저 소프트웨어와 관찰에
-집중합니다.
+진행합니다. 현재 실습 코어는 **HY-RV P1.F0.BP0.LS0.X1 (`ant_j0`)**입니다.
+동일한 실습·Spike 비교·trace 환경에서 최신 frontend/Q0/backend/static predictor를 실행합니다.
 
 **[HTML 실습 안내](https://soc-arch.github.io/rv-lab/)** ·
 **[환경 준비](docs/setup.md)** · **[전체 실습 순서](docs/course/index.md)** ·
 **[Lab별 정답과 실제 화면](docs/expected-results.md)**
+
+## 현재 CPU와 자료의 기준
+
+[CPU 소개와 구조](docs/core-overview.md)에서 전체 연결부터 내부 기능까지 확인하세요.
+기본값은 static ANT / early JAL OFF / queue depth 0이며, `LAB_CORE_PRESET=btfnt_j0`로
+BTFNT를 비교할 수 있습니다. `teaching_cpu`는 기존 실습환경을 유지하는 호환 wrapper이고,
+실제 코어는 `rv_core_simple`입니다. frontend에는 별도 instruction response buffer가 없습니다.
+
+- [현재 소스 provenance](provenance/p1-static-core.json) · [RTL→gate 검증 provenance](provenance/p1-rtl-gate-equivalence.json)
+- [최신 코어 실습 검증](docs/current-validation.md) · [기존 teaching 측정 기록](docs/validation.md)
+- [영문 CPU 소개 이미지](docs/assets/hy-rv-cpu-overview-en-v1.png) · [이미지 출처·정확도 검토](docs/image-review.md)
 
 ## 시작하기
 
@@ -18,6 +29,8 @@ Voyager에서는 새 터미널마다 `source /tools/rv-lab/env.sh`를 실행하�
 ```sh
 git clone https://github.com/soc-arch/rv-lab.git ~/rv-lab
 cd ~/rv-lab
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
 make doctor
 make compare APP=01_arithmetic
 ```

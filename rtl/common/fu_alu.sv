@@ -1,20 +1,38 @@
+// =============================================================================
+// HY-RV | fu_alu
+// Description: Integer arithmetic and logical execution unit.
+//
+// Purpose: Computer architecture and RTL design education and lab exercises.
+// Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+// Website: https://dsa.hanyang.ac.kr
+// Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+//
+// AI tools such as Codex or Claude may have assisted in creating or modifying
+// this file. See the applicable manifests and verification records for
+// file-specific provenance, revision history, and validation evidence.
+// Preserve existing license, copyright, and original author notices.
+// =============================================================================
+
 // Local editable teaching snapshot; see SOURCE_SNAPSHOT.json for provenance.
 // =============================================================================
 // fu_alu — RV32I ALU (HY-RV FU pool member)
 //
 // 11 ops: ADD / SUB / AND / OR / XOR / SLL / SRL / SRA / SLT / SLTU / PASS_B.
 // AGU (address generation for LD/ST) is absorbed as the ADD mode — no
-// separate module.  The caller selects ADD for an effective-address sum.
+// separate module.  When LS is promoted to a first-class axis, a dedicated
+// fu_agu.sv can be split out that shares the same interface.
 //
 // Latency / throughput:
 //   L  = 0   (valid_in and valid_out on the same cycle)
 //   II = 1
 //
-// Request/response ports carry operation, operands, validity and tag.
-// ready_in is unconditionally 1; unused handshake fields can be tied to
-// constants by a caller that uses the combinational result directly.
+// Interface follows the common FU pool protocol (doc/wiki/architecture/
+// datapath_p0_p1.md §1.3).  ready_in is unconditionally 1; tag / valid
+// ports are plumbed so the same module drops into P1 / P2 / P3.  In P0 the
+// handshake fields get tied-0/1 constants and the synthesizer removes the
+// dead wires.
 //
-// ALU op encoding (`alu_op[3:0]`) is shared with the teaching backend:
+// ALU op encoding (`alu_op[3:0]`) matches the localparams in p0_core.sv:
 //   ADD=0 · SUB=1 · AND=2 · OR=3 · XOR=4 · SLL=5 · SRL=6 · SRA=7 ·
 //   SLT=8 · SLTU=9 · PASS_B=10 (used by LUI)
 // =============================================================================
@@ -80,7 +98,7 @@ module fu_alu #(
     // ready_out is ignored by this combinational unit — a consumer that
     // cannot accept must back-pressure upstream of valid_in.  Keeping the
     // port makes fu_alu drop-in swappable with fu_mul / fu_div / fu_div's
-    // higher-latency functional units using the same request/response boundary.
+    // higher-latency successors in P1+.
 
     // Suppress "unused" lint on clk/rst_n — they exist only for interface
     // uniformity with pipelined / multi-cycle pool members.

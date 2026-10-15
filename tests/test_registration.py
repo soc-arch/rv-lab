@@ -1,3 +1,15 @@
+# =============================================================================
+# HY-RV | test_registration
+# Description: Verify the public CPU laboratory contract and preserve source-bound evidence.
+# Purpose: Computer architecture and RTL design education and lab exercises.
+# Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+# Website: https://dsa.hanyang.ac.kr
+# Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+# AI tools such as Codex or Claude may have assisted in creating or modifying
+# this file. See applicable manifests and verification records for provenance.
+# Preserve existing license, copyright, and original author notices.
+# =============================================================================
+
 """Exercise publication and invalidation using real compiled student programs."""
 import json
 import os
@@ -12,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import applications
 import lab
+from artifact_receipt import capture
 from test_camera_lab import arguments
 from viewer import catalog
 
@@ -55,7 +68,7 @@ class RegistrationTests(unittest.TestCase):
             self.assertIsNotNone(receipt)
             summary = json.loads((folder / 'result.json').read_text())
             self.assertTrue(summary['signature_match'])
-            self.records.append(dict(optimization=opt, **summary))
+            self.records.append(dict(optimization=opt, evidence=capture(folder), **summary))
             return folder, receipt
 
         out, before = register()

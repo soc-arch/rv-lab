@@ -12,11 +12,16 @@
 ```sh
 cd ~/rv-lab
 export LAB_BUILD_DIR="$PWD/build/course"
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
 make register SOURCE=student/main.c NAME=sum-fast TITLE="Sum: fast memory" MEMORY=fast
 ```
 
 Keep the input, source, optimization setting, and ROI markers unchanged for this
-lesson. Record the ROI cycles, retirements, and CPI from the result report. Its
+lesson. Keep `LAB_MEMORY_ADAPTER=ii1` for all three runs; the adapter can accept
+a successor request on the same edge that its previous response is consumed.
+The `fast`, `latency3`, and `stress` profiles control memory service timing, not
+the identity of the CPU or an implicit clock frequency. Record the ROI cycles, retirements, and CPI from the result report. Its
 **Measurement JSON** link includes the exact memory configuration.
 
 ## 2. Add response latency

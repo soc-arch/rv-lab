@@ -1,3 +1,14 @@
+# =============================================================================
+# HY-RV | catalog
+# Description: Preserve actual CPU identity while refreshing portable cycle-report menus.
+# Purpose: Computer architecture and RTL design education and lab exercises.
+# Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+# Website: https://dsa.hanyang.ac.kr
+# Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+# AI tools such as Codex or Claude may have assisted in creating or modifying
+# this file. See applicable manifests and verification records for provenance.
+# Preserve existing license, copyright, and original author notices.
+# =============================================================================
 """Discover completed cycle reports and embed a portable, relative example menu."""
 from __future__ import annotations
 import base64
@@ -69,7 +80,8 @@ def refresh_saved(page, nav, image=None):
     else: meta.pop('image_result', None)
     encoded = json.dumps(meta, ensure_ascii=True, separators=(',', ':')).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
     payload = prefix + encoded + payload[end:]
-    diagram = (HERE / 'microarchitecture.svg').read_text()
+    from .render import _diagram
+    diagram = _diagram(meta)
     output = (HERE / 'template.html').read_text().replace('<!-- MICROARCHITECTURE -->', diagram).replace('<!-- TRACE_DATA -->', payload)
     if output != html: page.write_text(output)
     page.with_name('microarchitecture.svg').write_text(diagram)

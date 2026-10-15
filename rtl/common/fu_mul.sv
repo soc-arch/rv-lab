@@ -1,3 +1,18 @@
+// =============================================================================
+// HY-RV | fu_mul
+// Description: Multicycle RV32M multiplication unit.
+//
+// Purpose: Computer architecture and RTL design education and lab exercises.
+// Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+// Website: https://dsa.hanyang.ac.kr
+// Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+//
+// AI tools such as Codex or Claude may have assisted in creating or modifying
+// this file. See the applicable manifests and verification records for
+// file-specific provenance, revision history, and validation evidence.
+// Preserve existing license, copyright, and original author notices.
+// =============================================================================
+
 // Local editable teaching snapshot; see SOURCE_SNAPSHOT.json for provenance.
 // =============================================================================
 // fu_mul — RV32 Integer Multiplier (HY-RV FU pool member)
@@ -14,13 +29,24 @@
 //   L  = MUL_L    (valid_in at cycle N → valid_out at cycle N+MUL_L)
 //   II = 1        (fully pipelined — a new op may enter every cycle)
 //
-// MUL_L controls the number of output register stages.  The teaching backend
-// selects one stage; increasing this parameter delays result, operation and
-// tag together without changing the arithmetic.
+//   Round 16 (2026-04-23): MUL_L added.  Initial P2 instantiation used
+//   MUL_L=2 so DC retim can pull the tail shift-register flops into the
+//   Wallace tree interior → ~650-720 MHz Fmax on Samsung 28nm LPP.
 //
-// The request carries operation, operands and a tag.  The response returns
-// result, validity, tag and exception status.  ready_in is unconditionally 1;
-// the caller must be ready to consume the result when it becomes valid.
+//   Round 17 P2b (2026-04-24, current default): P2 reverted to MUL_L=1+retim
+//   — Option A centralized 3-source forwarding made MUL a MEM-stage commit
+//   FU, and mul-use-stall + EX/MEM-forward-exclusion removed the need for
+//   MUL_L=2 isolation.  Retim still pulls tail flops into the Wallace
+//   interior (`fu_mul*` scoped in syn/p2/scripts/dc.tcl).  P0/P1 also use
+//   MUL_L=1 (P0 multi-cycle FSM grants MUL its own cycle; P1 Fmax bounded
+//   by RF→ALU path).  P3 plans MUL_L=3 (EX dispatch + MEM1/MEM2 retim) —
+//   see doc/wiki/architecture/p3_pipeline.md §3.
+//   See doc/wiki/architecture/fu_pool.md for the Round 16/17 lineage.
+//
+// Interface follows the common FU protocol in doc/wiki/architecture/
+// datapath_p0_p1.md §1.3 (op/operand_a/b/valid_in/ready_in/result/valid_out/
+// tag/ready_out/xcpt_out).  ready_in is unconditionally 1 — the pipe never
+// stalls for MUL.
 //
 // Supported ops (2-bit):
 //   MUL_OP_MUL    = 2'd0   lower XLEN bits of unsigned*unsigned (== signed*signed low)
@@ -32,7 +58,7 @@
 module fu_mul #(
     parameter int XLEN  = 32,
     parameter int TAG_W = 3,
-    parameter int MUL_L = 1        // One output register stage by default.
+    parameter int MUL_L = 1        // Round 17 P2b: default L=1 (retim'd to EX/MEM-like timing).
 ) (
     input  logic                 clk,
     input  logic                 rst_n,
@@ -82,8 +108,11 @@ module fu_mul #(
     assign prod_d    = prod_full[2*XLEN-1:0];
 
     // ── Output shift-register chain (L=MUL_L, II=1) ─────────────────────
-    // The chain delays the product and its validity, operation and tag together.
-    // With MUL_L = 1 only prod_shift[0] is used; larger values add stages.
+    // The chain gives DC's retim engine somewhere to migrate flops into the
+    // Wallace tree interior when MUL_L > 1.  When MUL_L = 1 the chain
+    // degenerates to the original single-flop structure (prod_shift[0]).
+    // set_optimize_registers attribute on this design is what actually
+    // triggers retim (see /home/jhkim/hy_rm/syn/scripts/dc.tcl Round 16 hook).
     logic [2*XLEN-1:0] prod_shift  [MUL_L];
     logic              valid_shift [MUL_L];
     logic [1:0]        op_shift    [MUL_L];
@@ -103,7 +132,7 @@ module fu_mul #(
             valid_shift[0] <= valid_in;
             op_shift[0]    <= op;
             tag_shift[0]   <= tag_in;
-            // Remaining stages shift the product and associated metadata.
+            // Remaining stages are trivial shift — DC retim target.
             for (int i = 1; i < MUL_L; i++) begin
                 prod_shift[i]  <= prod_shift[i-1];
                 valid_shift[i] <= valid_shift[i-1];
@@ -130,13 +159,13 @@ module fu_mul #(
     assign xcpt_out  = 1'b0;          // RISC-V integer MUL has no exceptions
 
     // ready_out is ignored because with II=1 we can't actually back-pressure
-    // the pipe.  The caller is responsible for issuing only
+    // the pipe.  Higher-level P-config logic is responsible for issuing only
     // when it can consume the upcoming result.
     // synthesis translate_off
     always @(posedge clk) begin
         if (rst_n && valid_out && !ready_out) begin
-            // The teaching caller accepts the result after execution completes.
-            // This observation does not change the datapath or handshake.
+            // Not an error — just flag: P0 always accepts because WB follows
+            // EX directly, so this shouldn't fire.
             // $display("[fu_mul] valid_out high with ready_out=0 at t=%0t", $time);
         end
     end

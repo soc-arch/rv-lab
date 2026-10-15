@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+# =============================================================================
+# HY-RV | cycle_report_renderer
+# Description: Render actual traces with the selected CPU identity and SVG scope.
+# Purpose: Computer architecture and RTL design education and lab exercises.
+# Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+# Website: https://dsa.hanyang.ac.kr
+# Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+# AI tools such as Codex or Claude may have assisted in creating or modifying
+# this file. See applicable manifests and verification records for provenance.
+# Preserve existing license, copyright, and original author notices.
+# =============================================================================
+
 """Create a standalone HTML report from an actual RTL cycle trace.
 
 No browser, web server, network access, or third-party Python package is needed
@@ -9,6 +21,7 @@ this file with --trace, --disassembly, and --output.
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import re
 from pathlib import Path
@@ -51,6 +64,34 @@ def _disassembly(path):
                 "encoding": "".join(found.group(2).split()),
             }
     return {"lines": lines, "instructions": entries, "symbols": symbols}
+
+
+def _diagram(metadata):
+    """Describe the actual selected P1 parameters, or label an unbound reference.
+
+    SVG downloads use the same values as the embedded report. Trace activity
+    never establishes microarchitecture identity; it must come from the build.
+    """
+    config = metadata.get("core_configuration") or {}
+    params = config.get("effective_parameters") or {}
+    is_p1 = (config.get("model_id") in ("p1_f0_bp0_ls0_x1", "p1_f0_bp1_ls0_x1")
+             and config.get("configuration_status") == "elaboration_parameters")
+    diagram = (HERE / "microarchitecture.svg").read_text(encoding="utf-8")
+    if is_p1:
+        policy = "BP1 BTFNT" if int(params["COND_POLICY"]) else "BP0 ANT"
+        labels = {"value-architecture-title": "P1 functional datapath / " + str(config.get("preset", "unspecified")),
+                  "value-bp-policy": policy + " / " + str(config.get("preset", "unspecified")),
+                  "value-early-jal": "Early JAL " + ("ON" if int(params["EARLY_JAL_EN"]) else "OFF") + " / static policy"}
+    else:
+        labels = {"value-architecture-title": "Reference: HY-RV P1 (not the selected CPU)",
+                  "value-bp-policy": "Reference BP0 ANT / BP1 BTFNT",
+                  "value-early-jal": "Reference only / actual policy unknown"}
+    for identifier, value in labels.items():
+        pattern = r'(<text\b[^>]*\bid="' + re.escape(identifier) + r'"[^>]*>)[^<]*(</text>)'
+        diagram, count = re.subn(pattern, lambda match: match.group(1) + html.escape(value) + match.group(2), diagram)
+        if count != 1:
+            raise ValueError("Missing or duplicate architecture label: " + identifier)
+    return diagram
 
 
 def generate(trace_path, disassembly_path, output_path, metadata=None):
@@ -111,7 +152,7 @@ def generate(trace_path, disassembly_path, output_path, metadata=None):
     data = {"metadata": meta, "trace": trace, "assembly": assembly}
     # A source string containing </script> must never terminate the data block.
     payload = json.dumps(data, ensure_ascii=True, separators=(",", ":")).replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
-    diagram = (HERE / "microarchitecture.svg").read_text(encoding="utf-8")
+    diagram = _diagram(meta)
     html = (HERE / "template.html").read_text(encoding="utf-8")
     html = html.replace("<!-- MICROARCHITECTURE -->", diagram)
     html = html.replace("<!-- TRACE_DATA -->", payload)

@@ -1,5 +1,32 @@
+// =============================================================================
+// HY-RV | tb_cpu_lab
+// Description: Public-port CPU and memory harness with runtime completion and trace output.
+//
+// Purpose: Computer architecture and RTL design education and lab exercises.
+// Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+// Website: https://dsa.hanyang.ac.kr
+// Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+//
+// AI tools such as Codex or Claude may have assisted in creating or modifying
+// this file. See the applicable manifests and verification records for
+// file-specific provenance, revision history, and validation evidence.
+// Preserve existing license, copyright, and original author notices.
+// =============================================================================
+
 // Replace the CPU sources, keeping teaching_cpu's public memory/trace boundary.
 // Only CPU and dual-port SRAM are instantiated. No CPU hierarchical taps or DPI.
+`ifndef HY_RV_BP_PROFILE
+`define HY_RV_BP_PROFILE 0
+`endif
+`ifndef HY_RV_COND_POLICY
+`define HY_RV_COND_POLICY 0
+`endif
+`ifndef HY_RV_EARLY_JAL_EN
+`define HY_RV_EARLY_JAL_EN 0
+`endif
+`ifndef HY_RV_INSN_QUEUE_DEPTH
+`define HY_RV_INSN_QUEUE_DEPTH 0
+`endif
 module tb_cpu_lab(input logic clk,rst_n,output logic[7:0] exit_code_o);
     localparam logic[31:0] RAM_BASE=32'h8000_0000;
     localparam int RAM_BYTES=1048576;
@@ -8,7 +35,12 @@ module tb_cpu_lab(input logic clk,rst_n,output logic[7:0] exit_code_o);
     logic drain_req=0,drain_done;
     logic [31:0] i_owner_addr=0,d_owner_addr=0,d_owner_pc=0;
     teaching_trace_pkg::cpu_trace_t obs;
-    teaching_cpu #(.RESET_PC(RAM_BASE)) u_cpu(
+    teaching_cpu #(.RESET_PC(RAM_BASE)
+`ifndef HY_RV_PARAMETERLESS_CORE
+        , .BP_PROFILE(`HY_RV_BP_PROFILE), .COND_POLICY(`HY_RV_COND_POLICY),
+        .EARLY_JAL_EN(`HY_RV_EARLY_JAL_EN), .INSN_QUEUE_DEPTH(`HY_RV_INSN_QUEUE_DEPTH)
+`endif
+    ) u_cpu(
         .clk,.rst_n,.imem_if,.dmem_if,.drain_req_i(drain_req),.drain_done_o(drain_done),
         .irq_software_i(1'b0),.irq_timer_i(1'b0),.irq_external_i(1'b0),
         .commit_valid(),.commit_pc(),.commit_rd(),.commit_rd_data(),
@@ -52,6 +84,10 @@ module tb_cpu_lab(input logic clk,rst_n,output logic[7:0] exit_code_o);
     endfunction
 
     initial begin
+`ifndef HY_RV_PARAMETERLESS_CORE
+        $display("[HY-RV-CONFIG] BP_PROFILE=%0d COND_POLICY=%0d EARLY_JAL_EN=%0d INSN_QUEUE_DEPTH=%0d",
+            `HY_RV_BP_PROFILE, `HY_RV_COND_POLICY, `HY_RV_EARLY_JAL_EN, `HY_RV_INSN_QUEUE_DEPTH);
+`endif
         exit_code_o=1;
         if(!$value$plusargs("tohost=%h",tohost_addr)) $fatal(1,"Missing +tohost=<ELF symbol hex address>");
         void'($value$plusargs("timeout=%d",timeout_cycles));

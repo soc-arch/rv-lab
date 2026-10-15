@@ -1,4 +1,23 @@
+# =============================================================================
+# HY-RV | Makefile
+# Description: Student laboratory commands and actual CPU preset selection.
+#
+# Purpose: Computer architecture and RTL design education and lab exercises.
+# Maintained by: DSAL (Digital System Architecture Lab), Hanyang University
+# Website: https://dsa.hanyang.ac.kr
+# Supervisor: Prof. Ji-Hoon Kim (jhoonkim@hanyang.ac.kr)
+#
+# AI tools such as Codex or Claude may have assisted in creating or modifying
+# this file. See the applicable manifests and verification records for
+# file-specific provenance, revision history, and validation evidence.
+# Preserve existing license, copyright, and original author notices.
+# =============================================================================
+
 PYTHON ?= python3
+PRESET ?= $(if $(LAB_CORE_PRESET),$(LAB_CORE_PRESET),ant_j0)
+MEMORY_ADAPTER ?= $(if $(LAB_MEMORY_ADAPTER),$(LAB_MEMORY_ADAPTER),ii1)
+export LAB_CORE_PRESET := $(PRESET)
+export LAB_MEMORY_ADAPTER := $(MEMORY_ADAPTER)
 APP ?= 01_arithmetic
 OPT ?= O2
 ITERATIONS ?= 1
@@ -84,6 +103,7 @@ help:
 	@echo 'APP=01_arithmetic..05_functions, 06_camera, 07_denoise, 08_cartoon, 09_ball, 10_performance or coremark'
 	@echo 'CAMERA_MODE=copy|grayscale|sobel|pipeline INPUT=frame.ppm WIDTH=80 HEIGHT=60'
 	@echo 'TRACE=1 WAVE=1 RTL_DIR=/path/to/your/rtl ITERATIONS=1 VALIDATION=1'
+	@echo 'PRESET=ant_j0(default)|ant_j1|btfnt_j0|btfnt_j1; MEMORY_ADAPTER=ii1(default)|frozen'
 	@echo 'MEMORY=fast|latency2|latency3|stress; I_LATENCY/D_LATENCY, I_INTERVAL/D_INTERVAL, STALL_SEED/STALL_MAX'
 	@echo 'test-smoke: original 17 cases; test: full application + memory protocol regression'
 	@echo 'validate: reproducibility gates with source receipts; LAB_BUILD_DIR isolates candidate outputs'

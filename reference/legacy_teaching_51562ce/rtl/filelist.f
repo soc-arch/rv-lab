@@ -1,0 +1,17 @@
+teaching_trace_pkg.sv
+common/insn_supply_if.sv
+common/mem_if.sv
+common/rv32_decoder.sv
+common/rv32_alu_op_decode.sv
+common/rv32_ls_split.sv
+common/rv32_ls_align2.sv
+common/rv32_rf.sv
+common/rv32_pmu.sv
+common/rv32_csr.sv
+common/fu_alu.sv
+common/fu_br.sv
+common/fu_mul.sv
+common/fu_div.sv
+teaching_fetch.sv
+teaching_backend.sv
+teaching_cpu.sv

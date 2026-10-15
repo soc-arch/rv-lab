@@ -12,6 +12,8 @@
 ```sh
 cd ~/rv-lab
 export LAB_BUILD_DIR="$PWD/build/course"
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
 make camera WIDTH=7 HEIGHT=5
 ```
 

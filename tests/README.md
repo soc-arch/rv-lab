@@ -1,5 +1,14 @@
 # Regression after a CPU or memory edit
 
+The current default is **HY-RV P1.F0.BP0.LS0.X1, `ant_j0`, `ii1` memory adapter**.
+The `teaching_cpu` module name is the stable public wrapper; its implementation
+is the current modular P1 core. The earlier teaching CPU is retained separately
+under `reference/legacy_teaching_51562ce/`.
+
+`ant_j0`, `ant_j1`, `btfnt_j0`, and `btfnt_j1` select actual elaboration parameters.
+Early JAL is disabled in the default and the regular BTFNT comparison. The two
+`j1` presets remain explicit regression configurations.
+
 Run these commands from the CPU laboratory directory. The runner builds the
 software and Verilator model automatically. A nonzero process exit means the gate
 failed; do not use a previously generated HTML page as evidence for the new RTL.
@@ -48,8 +57,10 @@ make view APP=02_memory I_LATENCY=5 D_LATENCY=2 STALL_MAX=4 STALL_SEED=2026
 spacing 1. `latency3`: latency 3, spacing 3. `stress`: latency 5, I/D spacing
 2/3, bounded request stalls of up to 4 cycles, seed 17. The alternate seed is
 2026. These profiles define behavioral service timing, not silicon timing closure.
-The blocking CPU does not claim one new request every cycle; the separate
-protocol harness checks channel behavior directly.
+The P1 frontend can accept a new fetch every cycle in favorable conditions. The
+`ii1` memory adapter permits response consumption and the next request on the same
+edge; variable latency and stalls still reduce throughput. The separate protocol
+harness checks channel behavior directly.
 
 ## Protocol and failure gate
 
@@ -102,10 +113,23 @@ additional capability without running the performance gate.
 LAB_BUILD_DIR="$PWD/build/candidate-v1" make validate RTL_DIR=/absolute/path/to/replacement/rtl
 ```
 
-The replacement supplies the same `teaching_cpu`, memory interface, drain and
-observation ports, with its own `filelist.f`. Neither application nor protocol
-tests should access CPU implementation hierarchy. A richer CPU can add tests,
-but should retain the baseline application and failure gates.
+The replacement supplies the same `teaching_cpu` wrapper, memory interface, drain
+and observation ports, with its own `filelist.f`. A parameterless replacement is
+reported as an external CPU and cannot claim a verified P1 preset. Neither
+application nor protocol tests should access CPU implementation hierarchy.
+
+Run the four current presets and all eight student lessons with:
+
+```sh
+python3 validation/run_p1_validation.py --phase all --workers 2
+python3 validation/audit_p1_results.py
+```
+
+The second command audits actual executable parameter banners, cache/configuration
+identities, same-ELF comparisons, and expected failures before publishing the
+compact receipts. See [validation evidence](../validation/README.md). Functional
+simulation does not substitute for the separately recorded synthesis/Formality
+checks after RTL changes.
 
 This set is directed verification, not formal proof or complete ISA/privileged
 compliance. It does not cover cache coherence, multiple outstanding transactions,

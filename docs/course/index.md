@@ -6,14 +6,17 @@ or completed at your own pace. Each unit ends with a small record of what you
 observed; those records become your final experiment report.
 
 Start with [Lab 01: Setup and baseline](01-setup.md). No CPU RTL edits are needed
-for this course. The lab uses a fixed working CPU so that your software and
-experiments remain usable when a new CPU is integrated later.
+for this course. The lab now uses the HY-RV **P1.F0.BP0.LS0.X1** core (`ant_j0`):
+frontend preparation overlaps one backend execution IR, with a depth-zero link
+and a static branch predictor. The application/runtime and same-ELF comparison
+remain the same. [Read the current CPU overview](../core-overview.md).
 
 ## Before you start
 
 See the [expected results and real screenshots for all eight labs](../expected-results.md)
 for a reference before running each exercise. Run the programs yourself and
-record your own measurements; the reference cycle totals describe its tested environment.
+record your own measurements; cycle totals belong to the core, preset, memory adapter,
+and tools recorded with that run. Historical teaching-core measurements are labeled.
 
 You should be comfortable with C functions, arrays, loops, a terminal, and binary
 or hexadecimal numbers. The lab supplies startup code, a linker script, a small
