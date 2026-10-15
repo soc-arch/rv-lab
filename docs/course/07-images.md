@@ -4,6 +4,9 @@
 **Prerequisite:** Labs 04–06.
 **Keep:** Input/output images, one pixel calculation, and a kernel measurement.
 
+
+**Reference:** [Expected result and real screenshots](../expected-results.md#lab-07). Run the exercise yourself and record your own results.
+
 ## 1. Start with a small generated frame
 
 ```sh

@@ -4,6 +4,9 @@
 **Prerequisite:** Labs 01–07.
 **Keep:** A small source-and-evidence package with one justified comparison.
 
+
+**Reference:** [Expected result and real screenshots](../expected-results.md#lab-08). Run the exercise yourself and record your own results.
+
 ## 1. Choose a bounded question
 
 Choose one change: compiler optimization, a software loop transformation,

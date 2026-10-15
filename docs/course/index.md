@@ -11,6 +11,10 @@ experiments remain usable when a new CPU is integrated later.
 
 ## Before you start
 
+See the [expected results and real screenshots for all eight labs](../expected-results.md)
+for a reference before running each exercise. Run the programs yourself and
+record your own measurements; the reference cycle totals describe its tested environment.
+
 You should be comfortable with C functions, arrays, loops, a terminal, and binary
 or hexadecimal numbers. The lab supplies startup code, a linker script, a small
 output library, and program completion. You write `main()` and helper functions.

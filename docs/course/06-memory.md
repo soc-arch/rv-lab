@@ -4,6 +4,9 @@
 **Prerequisite:** Labs 04 and 05; the restored eight-value sum passes.
 **Keep:** A comparison table and an observed offered-versus-accepted transfer.
 
+
+**Reference:** [Expected result and real screenshots](../expected-results.md#lab-06). Run the exercise yourself and record your own results.
+
 ## 1. Establish the fast-memory run
 
 ```sh

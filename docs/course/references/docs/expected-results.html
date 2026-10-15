@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>8개 Lab의 정답과 실제 실행 화면 · RV Lab</title>
+<style>
+:root{color-scheme:light;--ink:#203046;--muted:#59687a;--line:#dbe3eb;--blue:#17659a;--paper:#fff;--background:#f5f7fa;--accent:#e8f2fa;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--background);color:var(--ink);line-height:1.7}a{color:var(--blue);text-underline-offset:.18em}a:hover{color:#0b466f}a:focus-visible,button:focus-visible{outline:3px solid #d78917;outline-offset:3px}button{font:inherit}.skip{position:absolute;left:1rem;top:-5rem}.skip:focus{top:.5rem;background:white;padding:.5rem;z-index:3}.topbar{padding:1rem clamp(1rem,4vw,3rem);background:#17354b;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}.brand{color:white;text-decoration:none;font-size:1.1rem;font-weight:750;letter-spacing:.03em}.brand:hover{color:#d9eefc}.tagline{color:#cadce8;font-size:.88rem}.tools{display:flex;gap:1.2rem;flex-wrap:wrap}.tools a{color:#dfedf7;font-size:.9rem}.layout{max-width:1500px;margin:auto;display:grid;grid-template-columns:275px minmax(0,1fr);gap:2.3rem;padding:2rem}.sidebar{align-self:start;position:sticky;top:1.3rem;max-height:calc(100vh - 2.6rem);overflow:auto}.sidebar h2{font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 .6rem .65rem}.lesson-nav{display:grid;gap:.3rem}.lesson-nav a{padding:.6rem .7rem;border-radius:.45rem;color:#40536b;font-size:.9rem;text-decoration:none;line-height:1.45}.lesson-nav a:hover{background:#e8edf3}.lesson-nav a[aria-current=page]{background:var(--accent);color:#105783;box-shadow:inset 3px 0 #2382ba;font-weight:650}.section-nav{display:grid;gap:.25rem;margin-top:1.8rem;border-top:1px solid var(--line);padding-top:1rem}.section-nav:empty{display:none}.section-nav a{font-size:.81rem;text-decoration:none;color:var(--muted);line-height:1.5;padding:.2rem .65rem}.section-nav a.level-3{padding-left:1.4rem}.content{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:.8rem;padding:clamp(1.2rem,3.5vw,3.4rem);box-shadow:0 4px 15px #17354b04}article{max-width:940px;margin:auto}h1,h2,h3,h4{line-height:1.25;scroll-margin-top:1.2rem}h1{font-size:clamp(1.7rem,3.3vw,2.65rem);letter-spacing:-.035em;margin:.1rem 0 1.25rem}h2{font-size:1.45rem;margin:2.5rem 0 .9rem;padding-top:.3rem}h3{font-size:1.12rem;margin:1.65rem 0 .65rem}p{margin:.8rem 0 1rem}ul,ol{padding-left:1.5rem}li{padding-left:.15rem;margin:.35rem 0}li p{margin:.3rem 0}li>.code-block{margin:.9rem 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;font-size:.87em;background:#eff3f7;border-radius:.25rem;padding:.13rem .3rem;overflow-wrap:anywhere}pre{margin:0;overflow-x:auto;padding:1rem 1.15rem;font-size:.88rem;line-height:1.6;tab-size:4;max-width:100%}pre code{background:transparent;padding:0;color:#e6eff7;font-size:inherit;overflow-wrap:normal}.code-block{margin:1.1rem 0 1.4rem;border-radius:.55rem;overflow:hidden;background:#142c40;max-width:100%}.code-toolbar{display:flex;justify-content:space-between;align-items:center;padding:.35rem .7rem .35rem 1rem;background:#203c52;color:#c9dce9;font-size:.75rem;min-height:2rem}.copy-code{border:1px solid #607a8e;border-radius:.25rem;background:none;color:#e6eff7;padding:.06rem .55rem;cursor:pointer;font-size:.73rem}.copy-code:hover{background:#31536d}article>pre{background:#142c40;color:#e6eff7;border-radius:.55rem}.table-scroll{overflow-x:auto;margin:1.2rem 0;max-width:100%;border:1px solid var(--line);border-radius:.45rem}table{border-collapse:collapse;min-width:100%;font-size:.9rem}th{text-align:left;background:#edf3f8;font-weight:650}th,td{padding:.65rem .8rem;vertical-align:top;border-bottom:1px solid var(--line);min-width:110px}tr:last-child td{border-bottom:0}blockquote{margin:1.25rem 0;padding:.5rem 1.2rem;border-left:4px solid #73a6c6;background:#f0f6fa;color:#36536b}blockquote p{margin:.5rem 0}img{max-width:100%;height:auto}hr{margin:2rem 0;border:0;border-top:1px solid var(--line)}.unavailable{color:var(--muted)}.unavailable small{font-size:.75em}.pager{display:flex;justify-content:space-between;gap:1rem;border-top:1px solid var(--line);margin-top:3rem;padding-top:1.5rem}.pager a{flex:1;border:1px solid var(--line);border-radius:.45rem;padding:.8rem 1rem;text-decoration:none;font-size:.9rem}.pager a:hover{background:var(--accent)}.pager small{display:block;color:var(--muted);font-size:.75rem}.source-note{margin-top:2rem;font-size:.72rem;color:var(--muted);overflow-wrap:anywhere}.source-note code{font-size:1em}
+@media(max-width:850px){.layout{grid-template-columns:1fr;padding:1rem;gap:1rem}.sidebar{position:static;max-height:none}.lesson-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem}.section-nav{display:none}.sidebar h2{margin-top:.3rem}.content{padding:1.25rem}.tagline{display:none}.pager{flex-wrap:wrap}.pager a{flex-basis:200px}}
+@media(max-width:440px){.layout{padding:.65rem}.lesson-nav a{font-size:.78rem;padding:.45rem .55rem}.content{padding:1rem}.topbar{padding:.85rem 1rem}.tools{gap:.9rem}.tools a{font-size:.8rem}h1{font-size:1.7rem}th,td{padding:.55rem}pre{font-size:.76rem}.table-scroll{font-size:.8rem}}
+@media print{body{background:white}.topbar,.sidebar,.pager,.copy-code{display:none}.layout{display:block;padding:0}.content{border:0;box-shadow:none;padding:0}pre,pre code{white-space:pre-wrap;color:#172e43}.code-block,.code-toolbar{background:#edf2f5;color:#172e43}a{color:inherit}h2,h3{break-after:avoid}.code-block,table{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to lesson</a>
+<header class="topbar"><a class="brand" href="../../index.html">RV LAB <span class="tagline">/ C → instructions → RTL</span></a><nav class="tools" aria-label="Experiment results"><a href="https://github.com/soc-arch/rv-lab">GitHub</a></nav></header>
+<div class="layout">
+<aside class="sidebar"><h2>Course guide</h2><nav class="lesson-nav" aria-label="Course lessons"><a href="../../index.html">RV Lab practical exercises</a>
+<a href="../../01-setup.html">Lab 01 — Setup and baseline</a>
+<a href="../../02-first-main.html">Lab 02 — Your first main</a>
+<a href="../../03-debugging.html">Lab 03 — Find a wrong result</a>
+<a href="../../04-cycle-viewer.html">Lab 04 — Register and inspect your application</a>
+<a href="../../05-performance.html">Lab 05 — Measure an improvement</a>
+<a href="../../06-memory.html">Lab 06 — Change memory timing</a>
+<a href="../../07-images.html">Lab 07 — Process an image</a>
+<a href="../../08-project.html">Lab 08 — A reproducible project</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#내가-작성한-application도-실행할-수-있나요">내가 작성한 application도 실행할 수 있나요?</a><a class="level-2" href="#lab-01">Lab 01</a><a class="level-2" href="#lab-02">Lab 02</a><a class="level-2" href="#lab-03">Lab 03</a><a class="level-2" href="#lab-04">Lab 04</a><a class="level-2" href="#lab-05">Lab 05</a><a class="level-2" href="#lab-06">Lab 06</a><a class="level-2" href="#lab-07">Lab 07</a><a class="level-2" href="#lab-08">Lab 08</a><a class="level-2" href="#측정-환경과-재현">측정 환경과 재현</a></nav></aside>
+<main class="content" id="main"><article><h1 id="8개-lab의-정답과-실제-실행-화면">8개 Lab의 정답과 실제 실행 화면</h1>
+<p>각 실습을 완료했을 때 확인할 결과를 모았습니다. 아래 이미지는 실습 코드를 Spike와 Verilator에서 실행한 뒤 결과 페이지를 브라우저로 연 <strong>실제 화면 캡처</strong>입니다. 실행한 소스와 판정·측정값은 <a href="../../files/docs/reference-results.json">실행 기록</a>에 함께 보관합니다. 사이클 수는 아래 기준 환경의 관측값입니다. 컴파일러나 실행 조건을 바꾼 경우에는 자신의 측정값을 기록하세요.</p>
+<h2 id="내가-작성한-application도-실행할-수-있나요">내가 작성한 application도 실행할 수 있나요?</h2>
+<p>네. Lab 02부터 <code>student/main.c</code>를 작성하거나 수정해서 실행합니다. 하나의 ELF를 두 실행기에 넣고 <strong>정답 검사·결과 슬롯·완료 상태·콘솔 출력</strong>을 비교합니다.</p>
+<div class="code-block"><div class="code-toolbar"><span>text</span><button type="button" class="copy-code">Copy</button></div><pre><code>나의 C / assembly 코드 → RISC-V GCC → 같은 program.elf
+                                      ├─ Spike: ISA 기능 기준 결과
+                                      └─ Verilator: 교육용 RTL CPU 실행
+                                                 + cycles / 명령어 / RTL trace</code></pre></div>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make sw-sim SOURCE=student/main.c
+make hw-sim SOURCE=student/main.c
+make compare SOURCE=student/main.c</code></pre></div>
+<p>이 실습의 대상은 저장소에 포함된 <strong>교육용 RV32IM CPU와 작은 C runtime을 사용하는 bare-metal 프로그램</strong>입니다. 정수 연산, 배열, 반복문, 함수, 제한된 <code>printf</code>와 정답 검사를 이용할 수 있습니다. 추가 라이브러리와 운영체제 서비스는 해당 실행 환경에 맞게 준비해야 합니다. Spike는 기능의 기준이고, 아래 성능·사이클·파형 관찰은 RTL 시뮬레이션에서 얻습니다. 공개 HTML은 안내와 참고 결과를 보여주며, 각자의 새 실행은 Linux 작업 환경에서 수행합니다.</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">Lab</th><th scope="col">정답 또는 완료 조건</th></tr></thead><tbody><tr><td><a href="#lab-01">01</a></td><td><code>sum=22, xor=0x00000014</code>; 4개 check 일치; smoke 17/17</td></tr><tr><td><a href="#lab-02">02</a></td><td>기본 <code>sum=36</code>; 마지막 입력 8→10으로 바꾸면 <code>sum=38</code></td></tr><tr><td><a href="#lab-03">03</a></td><td>처음에는 actual 24 / expected 99로 FAIL; 수정하면 PASS</td></tr><tr><td><a href="#lab-04">04</a></td><td><code>sum=36</code>을 유지하면서 자신의 load·add·branch 실행을 cycle viewer에서 확인</td></tr><tr><td><a href="#lab-05">05</a></td><td>O0·O2 모두 <code>sum(1..16)=136</code>; 각각 ROI·CSR 측정값 기록</td></tr><tr><td><a href="#lab-06">06</a></td><td>세 메모리 조건 모두 <code>sum=36</code>; 명령어 수를 유지하면서 지연·대기 관찰</td></tr><tr><td><a href="#lab-07">07</a></td><td>입력/출력 이미지와 전체 pixel 기준값 일치; grayscale·Sobel 결과 확인</td></tr><tr><td><a href="#lab-08">08</a></td><td>자신의 정답 검사와 두 backend 비교 PASS; 기준/변경 실험과 증거 패키지 보존</td></tr></tbody></table></div>
+<h2 id="lab-01">Lab 01</h2>
+<p><a href="../../01-setup.html">환경 확인과 첫 실행</a>. 기본 arithmetic 예제는 두 backend에서 <code>sum=22, xor=0x00000014</code>를 출력합니다. check 1~4의 값은 각각 <strong>22, 12, 20, 68</strong>입니다. 모든 Actual/Expected가 일치하고 <code>COMPARE PASS</code>가 나와야 합니다. <code>make test-smoke</code>의 완료 조건은 <strong>17/17 expected outcomes</strong>이며, 실패 감지용 세 건이 의도대로 거부되는 것도 포함합니다.</p>
+<p><img src="../../files/docs/screenshots/lab01.png" alt="Lab 01 실제 Spike와 RTL arithmetic 실행 결과" loading="lazy"></p>
+<h2 id="lab-02">Lab 02</h2>
+<p><a href="../../02-first-main.html">나의 첫 main()</a>. 입력 <code>{1,2,3,4,5,6,7,8}</code>의 합은 <strong>36</strong>입니다. 콘솔 <code>sum=36</code>, check 201 PASS, result slot 0 = 36을 확인합니다. 마지막 입력을 10으로 바꾸고 예상값도 38로 고치면 <code>sum=38</code>이 나옵니다.</p>
+<p><img src="../../files/docs/screenshots/lab02.png" alt="Lab 02 직접 작성한 합계 프로그램의 두 backend 결과" loading="lazy"></p>
+<p><a href="../../files/docs/screenshots/lab02-sum38.png">입력 변경 후 실제 sum=38 화면</a>.</p>
+<h2 id="lab-03">Lab 03</h2>
+<p><a href="../../03-debugging.html">틀린 결과를 찾아 고치기</a>. 최초 코드는 최댓값 <strong>24</strong>를 올바르게 구하지만 기대값을 99로 잘못 적었기 때문에 <strong>두 backend 모두 FAIL</strong>입니다. 아래의 빨간 판정이 이 단계에서 예상한 결과입니다. 비교 결과가 일치하더라도 틀린 정답 검사는 PASS가 되지 않습니다.</p>
+<p><img src="../../files/docs/screenshots/lab03.png" alt="Lab 03 의도된 실패 actual 24와 expected 99" loading="lazy"></p>
+<p>기대값을 24로 수정하면 PASS입니다. 다음 단계에서 마지막 입력을 30으로 바꾸면 정답은 30이며, 반복문에서 마지막 원소를 제외하는 오류를 넣으면 actual 24 / expected 30으로 실패해야 합니다. 원래 반복문으로 복구하면 30으로 통과합니다.</p>
+<p><img src="../../files/docs/screenshots/lab03-fixed.png" alt="Lab 03 기대값 수정 후 실제 PASS 결과" loading="lazy"></p>
+<h2 id="lab-04">Lab 04</h2>
+<p><a href="../../04-cycle-viewer.html">명령어와 CPU 실행 관찰</a>. Lab 02의 합계 <strong>36</strong>과 PASS를 그대로 유지하면서 프로그램을 등록합니다. 화면에서 자신의 <code>sum_values</code> 함수의 명령어·PC·load 요청·실행 상태·retirement를 관찰합니다. 선택한 사이클은 참고 장면이며, 모든 학생이 같은 PC나 같은 사이클을 선택할 필요는 없습니다.</p>
+<p><img src="../../files/docs/screenshots/lab04.png" alt="Lab 04 합계 프로그램을 실행하는 실제 RTL cycle viewer" loading="lazy"></p>
+<h2 id="lab-05">Lab 05</h2>
+<p><a href="../../05-performance.html">성능 개선을 측정하기</a>. 수업 starter는 <strong>1부터 16까지의 합 136</strong>을 계산합니다. O0·O2의 check 501과 전체 기능 결과가 모두 통과해야 합니다. <code>lab_perf_begin/end</code>의 CSR 구간과 <code>lab_roi_begin/end</code>의 RTL marker ROI는 경계가 다르므로 측정값을 별도 열에 기록합니다.</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">설정</th><th scope="col">정답</th><th scope="col">ROI cycles</th><th scope="col">ROI retired</th><th scope="col">ROI CPI</th><th scope="col">CSR cycles / retired</th></tr></thead><tbody><tr><td>O0</td><td>136 · PASS</td><td>634</td><td>262</td><td>2.420</td><td>1,027 / 436</td></tr><tr><td>O2</td><td>136 · PASS</td><td>186</td><td>83</td><td>2.241</td><td>254 / 112</td></tr></tbody></table></div>
+<p><img src="../../files/docs/screenshots/lab05-o0.png" alt="Lab 05 O0의 실제 ROI와 CSR 성능 보고서" loading="lazy"></p>
+<p><img src="../../files/docs/screenshots/lab05.png" alt="Lab 05 O2의 실제 ROI와 CSR 성능 보고서" loading="lazy"></p>
+<p>화면의 100 MHz는 시간 환산용 가정입니다. 이 실습에서 관측한 것은 RTL cycles와 retired instructions이며, 실제 칩 주파수나 물리 구현 성능을 검증한 값은 아닙니다.</p>
+<h2 id="lab-06">Lab 06</h2>
+<p><a href="../../06-memory.html">메모리가 느려지면?</a>. 원래 합계 프로그램과 O2 설정을 유지하고 <code>fast</code>, <code>latency3</code>, <code>stress</code>(seed 11)만 바꿉니다. 세 조건에서 정답 <strong>36</strong>, 전체 기능 signature와 ROI 명령어 수를 확인한 뒤 cycles를 비교합니다.</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">메모리</th><th scope="col">정답</th><th scope="col">ROI cycles</th><th scope="col">ROI retired</th><th scope="col">ROI CPI</th></tr></thead><tbody><tr><td>fast</td><td>36 · PASS</td><td>114</td><td>51</td><td>2.235</td></tr><tr><td>latency3</td><td>36 · PASS</td><td>218</td><td>51</td><td>4.275</td></tr><tr><td>stress · seed 11</td><td>36 · PASS</td><td>435</td><td>51</td><td>8.529</td></tr></tbody></table></div>
+<p><img src="../../files/docs/screenshots/lab06.png" alt="Lab 06 메모리 요청이 대기하는 실제 RTL cycle viewer" loading="lazy"></p>
+<p>선택한 cycle 27087은 합계 프로그램의 ROI 안에서 <strong>instruction fetch 요청이 ready를 기다리는 시점</strong>입니다. 메모리 지연은 데이터 load뿐 아니라 명령어 공급에도 영향을 줍니다.</p>
+<p>소문자 q/r는 ready를 기다리는 offered transfer, 대문자 Q/R는 수락된 transfer입니다. 요청을 내는 시점, 수락되는 시점과 응답 시점을 나누어 관찰하세요.</p>
+<h2 id="lab-07">Lab 07</h2>
+<p><a href="../../07-images.html">눈에 보이는 이미지 처리</a>. 필수 첫 입력은 <strong>7×5</strong>이고 다음 실험은 <strong>16×12</strong>입니다. <code>copy</code>, <code>grayscale</code>, <code>Sobel</code>, <code>pipeline</code>의 실제 출력 전체를 기준값과 비교합니다. 화면의 컬러 입력과 회색 출력은 해당 프로그램이 dump한 buffer입니다.</p>
+<p><img src="../../files/docs/screenshots/lab07.png" alt="Lab 07 실제 7x5 입력과 grayscale 출력 및 픽셀 검사" loading="lazy"></p>
+<p>한 픽셀의 정답은 <code>(77*R + 150*G + 29*B + 128) &gt;&gt; 8</code>로 계산합니다.</p>
+<p>위 화면의 좌표 <strong>(2, 2)</strong>에서는 입력 RGB가 <strong>(63, 104, 127)</strong>이며, 식으로 계산한 값은 <strong>94</strong>입니다. 실제 출력 RGB도 <strong>(94, 94, 94)</strong>입니다.</p>
+<p><a href="../../files/docs/screenshots/lab07-16x12.png">16×12 실제 영상 처리 화면</a>. 선택 실습의 denoise·cartoon·ball은 64×48로 별도 실행했습니다. ball의 FRAME=24는 장면 번호입니다.</p>
+<p><img src="../../files/docs/screenshots/lab07-ball.png" alt="Lab 07 선택 실습의 실제 64x48 ball 출력" loading="lazy"></p>
+<h2 id="lab-08">Lab 08</h2>
+<p><a href="../../08-project.html">재현 가능한 나의 프로젝트</a>. 이 Lab에는 모두에게 동일한 숫자나 필수 속도향상 비율이 없습니다. 자신이 정한 입력과 정답 검사를 통과하고, 한 가지 변경의 효과를 근거로 설명하면 됩니다. 아래 참고 실험은 같은 합계 소스·입력· 메모리 조건에서 <strong>컴파일 옵션만 O0→O2</strong>로 바꿨습니다. 두 결과의 정답은 모두 36입니다.</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">버전</th><th scope="col">바꾼 조건</th><th scope="col">정답</th><th scope="col">ROI cycles</th><th scope="col">ROI retired</th><th scope="col">ROI CPI</th></tr></thead><tbody><tr><td>기준</td><td>O0</td><td>36 · PASS</td><td>362</td><td>150</td><td>2.413</td></tr><tr><td>변경</td><td>O2</td><td>36 · PASS</td><td>114</td><td>51</td><td>2.235</td></tr></tbody></table></div>
+<p>이 참고 실험의 cycle speedup은 <strong>3.18×</strong>입니다. 알고리즘은 바꾸지 않았으며 이 수치는 학생 프로젝트의 필수 목표가 아닙니다.</p>
+<p><img src="../../files/docs/screenshots/lab08.png" alt="Lab 08 검증한 candidate 결과를 보존한 실제 offline gallery" loading="lazy"></p>
+<p>각 버전의 source, ELF hash, <code>build.json</code>, <code>result.json</code>, <code>performance.json</code>, 명령어 기록과 trace를 함께 보관합니다. <code>make export-views</code>로 만든 <code>cpu_lab_examples.zip</code>을 실제로 풀어 참고 화면의 offline gallery를 확인했습니다. 이 ZIP은 viewer 공유용이므로 제출할 소스와 입력은 별도로 포함해야 합니다.</p>
+<h2 id="측정-환경과-재현">측정 환경과 재현</h2>
+<p>실행 기록 시각(UTC): <code>2026-10-15T00:55:36.133432+00:00</code>. 공개 코드 기준 commit은 <code>7401d22</code>입니다.</p>
+<ul><li><p>g++ (GCC) 13.2.1 20231205 (Red Hat 13.2.1-6)</p></li><li><p>Python 3.11.13</p></li><li><p>riscv32-unknown-elf-gcc (GCC) 15.2.0</p></li><li><p>Spike RISC-V ISA Simulator 1.1.1-dev</p></li><li><p>Verilator 5.028 2024-08-21 rev v5.028</p></li></ul>
+<p>새로 컴파일한 RTL simulator를 이용했고, 격리된 소스 사본은 실행 전후에 동일했습니다. 의도한 실패 두 건도 예상한 실패로 확인했습니다. 공개된 PNG는 실제 결과 페이지의 화면 영역을 캡처했으며 raw 로그·개인 경로는 포함하지 않습니다.</p>
+<p>이 자료는 application 실행과 결과 관찰을 설명하는 참고 기록입니다. RTL 논리와 시뮬레이션 runtime은 변경하지 않았습니다. 다른 코어를 선택하는 실습에서는 그 코어의 별도 기능·합성·형식 검증 기록을 확인해야 합니다.</p>
+<p><a href="../../index.html">전체 실습 순서로 돌아가기</a>.</p><nav class="pager" aria-label="Lesson sequence"><a href="../../index.html">Return to course overview</a></nav><p class="source-note">Source: <code>docs/expected-results.md</code>. This manual also works offline. Measurements appear only after you run the experiments.</p></article></main>
+</div>
+<script>
+document.querySelectorAll('.copy-code').forEach(button=>button.addEventListener('click',async()=>{
+  const code=button.closest('.code-block').querySelector('code');
+  let copied=false;
+  if(navigator.clipboard&&window.isSecureContext){
+    try{await navigator.clipboard.writeText(code.textContent);copied=true;}catch(_){}
+  }
+  if(!copied){
+    const selection=window.getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);
+    try{copied=document.execCommand('copy');}catch(_){}
+    if(copied)selection.removeAllRanges();
+  }
+  button.textContent=copied?'Copied':'Press Ctrl+C';
+  setTimeout(()=>button.textContent='Copy',1800);
+}));
+</script>
+</body>
+</html>

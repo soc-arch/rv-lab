@@ -4,6 +4,9 @@
 **Prerequisite:** Labs 02 and 04.
 **Keep:** An O0/O2 measurement table and an explanation based on instructions.
 
+
+**Reference:** [Expected result and real screenshots](../expected-results.md#lab-05). Run the exercise yourself and record your own results.
+
 ## 1. Inspect the two measurement paths
 
 ```sh

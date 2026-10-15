@@ -5,6 +5,9 @@
 provided by staff, and this repository is cloned into your workspace.
 **Keep:** Tool versions, the three commands below, and their outcomes.
 
+
+**Reference:** [Expected result and real screenshots](../expected-results.md#lab-01). Run the exercise yourself and record your own results.
+
 ## 1. Select your workspace
 
 Open a terminal and run:

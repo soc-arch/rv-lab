@@ -4,6 +4,9 @@
 **Prerequisite:** The restored `student/main.c` from Lab 02 passes comparison.
 **Keep:** A registered example and three annotated instruction observations.
 
+
+**Reference:** [Expected result and real screenshots](../expected-results.md#lab-04). Run the exercise yourself and record your own results.
+
 ## 1. Register your program
 
 ```sh

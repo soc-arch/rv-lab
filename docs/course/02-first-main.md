@@ -4,6 +4,9 @@
 **Prerequisite:** Lab 01 passes.
 **Keep:** Your C source, output directory, and a passing result report.
 
+
+**Reference:** [Expected result and real screenshots](../expected-results.md#lab-02). Run the exercise yourself and record your own results.
+
 ## 1. Copy the starter
 
 ```sh

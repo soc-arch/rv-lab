@@ -6,7 +6,8 @@ C/assembly 프로그램을 RISC-V CPU에서 실행하고, 정답과 실제 RTL �
 집중합니다.
 
 **[HTML 실습 안내](https://soc-arch.github.io/rv-lab/)** ·
-**[환경 준비](docs/setup.md)** · **[전체 실습 순서](docs/course/index.md)**
+**[환경 준비](docs/setup.md)** · **[전체 실습 순서](docs/course/index.md)** ·
+**[Lab별 정답과 실제 화면](docs/expected-results.md)**
 
 ## 시작하기
 

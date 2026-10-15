@@ -4,6 +4,9 @@
 **Prerequisite:** Lab 02.
 **Keep:** The initial failure, your explanation, and a passing corrected run.
 
+
+**Reference:** [Expected result and real screenshots](../expected-results.md#lab-03). Run the exercise yourself and record your own results.
+
 ## 1. Run the debugging starter
 
 ```sh
