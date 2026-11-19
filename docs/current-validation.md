@@ -101,3 +101,16 @@ The [historical teaching validation](validation.md),
 [historical course results](historical/teaching-reference-results.json) are kept
 for provenance. Their old one-entry-response-buffer CPU and cycle totals are
 not the default implementation or current measurement baseline.
+
+## Labs 09–10 additions (2026-11-19)
+
+Labs 09–10 add opt-in harness features (`EXT=`, `XACC_LATENCY=`, `ext-*`
+commands, the testbench's `+allow_traps`/`+irq_period` and the XIF state names).
+The bundled `rtl/` is unchanged (source hash `35558e91…`), so the records above
+still describe the default CPU. The testbench file hash recorded above predates
+these additions; with the new harness, the same Lab 01–08 commands were rerun in
+the previous and the new tree and produced byte-identical signatures, traces,
+commit logs, metrics and program images, and `make test` gave the same 47/47 cases
+with identical cycles for `ant_j0` and `btfnt_j0`. The extension evidence (directed
+tests, performance comparison, synthesis/Formality of the Lab 09/10 reference
+CPUs) is in [labs-09-10-extensions.json](../provenance/labs-09-10-extensions.json).

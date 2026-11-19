@@ -49,6 +49,12 @@ make compare APP=01_arithmetic
 | [06 — Memory timing](docs/course/06-memory.md) | 지연·backpressure 실험 | 전송 대기와 실행시간 차이 |
 | [07 — Images](docs/course/07-images.md) | 이미지 처리·pixel 정답 검증 | 출력 이미지와 kernel 측정 |
 | [08 — Reproducible project](docs/course/08-project.md) | 기준/개선 버전 비교·증거 모으기 | 다른 학생이 재현할 수 있는 보고서 |
+| [09 — Add a custom instruction](docs/course/09-custom-instruction.md) | XDOT4를 EX의 building block으로 추가 (TODO 3개) | Spike/RTL PASS와 같은 프로그램의 약 4.9배 cycle 감소 |
+| [10 — Extend through a coprocessor](docs/course/10-coprocessor.md) | XIF-lite 인터페이스 뒤의 XACC coprocessor (TODO 4개) | 인터페이스 latency에 따른 성능 변화 측정 |
+
+Lab 09–10은 CPU를 확장합니다. `make lab09-init` / `make lab10-init`이 만든
+`student/` 안의 복사본만 수정하므로 기존 `rtl/`과 Lab 01–08은 그대로입니다.
+명령어와 인터페이스 정의는 [확장 계약](ext/README.md)에 있습니다.
 
 HTML 실습 안내는 읽는 문서입니다. 실제 시뮬레이션과 결과 생성은 자신의 작업
 공간에서 실행합니다. Lab 01 안내대로 실행하면 결과는

@@ -35,6 +35,7 @@ module tb_cpu_lab(input logic clk,rst_n,output logic[7:0] exit_code_o);
     logic drain_req=0,drain_done;
     logic [31:0] i_owner_addr=0,d_owner_addr=0,d_owner_pc=0;
     teaching_trace_pkg::cpu_trace_t obs;
+    logic irq_software=0;   // driven only when +irq_period is given
     teaching_cpu #(.RESET_PC(RAM_BASE)
 `ifndef HY_RV_PARAMETERLESS_CORE
         , .BP_PROFILE(`HY_RV_BP_PROFILE), .COND_POLICY(`HY_RV_COND_POLICY),
@@ -42,7 +43,7 @@ module tb_cpu_lab(input logic clk,rst_n,output logic[7:0] exit_code_o);
 `endif
     ) u_cpu(
         .clk,.rst_n,.imem_if,.dmem_if,.drain_req_i(drain_req),.drain_done_o(drain_done),
-        .irq_software_i(1'b0),.irq_timer_i(1'b0),.irq_external_i(1'b0),
+        .irq_software_i(irq_software),.irq_timer_i(1'b0),.irq_external_i(1'b0),
         .commit_valid(),.commit_pc(),.commit_rd(),.commit_rd_data(),
         .commit_rd_we(),.events_o(),.trace_o(obs));
     teaching_sram #(.BASE(RAM_BASE),.WORDS(RAM_BYTES/4)) u_mem(
@@ -64,21 +65,41 @@ module tb_cpu_lab(input logic clk,rst_n,output logic[7:0] exit_code_o);
     int expected_trap_cause=-1;
     logic [31:0] expected_trap_pc=0,expected_trap_value=0;
     bit check_trap_pc=0,check_trap_value=0;
+    // Opt-in (Labs 09-10 directed tests): a trap is handled by the program's own
+    // handler instead of ending the run. Off by default; Labs 01-08 never set it.
+    bit allow_traps=0;
+    // Opt-in (Labs 09-10 directed tests): +irq_period=N raises the machine
+    // software-interrupt line at pseudo-random points (1..N cycles apart) and
+    // lowers it when the core takes that interrupt. 0 (default) keeps it low.
+    int irq_period=0;
+    longint unsigned irq_next=0,irq_taken=0;
+    logic[31:0] irq_lfsr=32'h1;
     longint unsigned drain_at=0,drain_start=0,drain_count=0,drain_wait=0;
     int drain_when_i_stalled=0,drain_when_d_stalled=0,drain_hold=3,drain_held=0;
     bit drain_started=0,drain_seen_done=0;
 
 
-    function automatic string state_name(input logic[7:0] state);
+    // Codes are the core's one-hot execute_state. The base P1 core uses 8 bits;
+    // the Lab 10 coprocessor core widens the field and adds the two XIF states.
+    function automatic longint unsigned irq_gap(input logic[31:0] lfsr,input int period);
+        logic[31:0] span,gap;
+        span=32'(period);
+        gap=lfsr%span;
+        return 64'(gap)+64'd1;
+    endfunction
+
+    function automatic string state_name(input logic[15:0] state);
         case(state)
-            8'h01:return "IDLE";
-            8'h02:return "MEM_REQ";
-            8'h04:return "MEM_RESP";
-            8'h08:return "MEM_WB";
-            8'h10:return "MUL_WAIT";
-            8'h20:return "DIV_WAIT";
-            8'h40:return "MEM_REQ2";
-            8'h80:return "MEM_RESP2";
+            16'h001:return "IDLE";
+            16'h002:return "MEM_REQ";
+            16'h004:return "MEM_RESP";
+            16'h008:return "MEM_WB";
+            16'h010:return "MUL_WAIT";
+            16'h020:return "DIV_WAIT";
+            16'h040:return "MEM_REQ2";
+            16'h080:return "MEM_RESP2";
+            16'h100:return "XIF_REQ";
+            16'h200:return "XIF_WAIT";
             default:return "UNKNOWN";
         endcase
     endfunction
@@ -94,6 +115,11 @@ module tb_cpu_lab(input logic clk,rst_n,output logic[7:0] exit_code_o);
         void'($value$plusargs("expected_trap_cause=%d",expected_trap_cause));
         check_trap_pc=$value$plusargs("expected_trap_pc=%h",expected_trap_pc)!=0;
         check_trap_value=$value$plusargs("expected_trap_value=%h",expected_trap_value)!=0;
+        allow_traps=$test$plusargs("allow_traps");
+        void'($value$plusargs("irq_period=%d",irq_period));
+        if(irq_period<0) $fatal(1,"irq_period must be non-negative");
+        if(irq_period>0 && !allow_traps) $fatal(1,"+irq_period requires +allow_traps (the program handles interrupts)");
+        if(irq_period>0) irq_next=irq_gap(irq_lfsr,irq_period);
         void'($value$plusargs("drain_at=%d",drain_at));
         void'($value$plusargs("drain_when_i_stalled=%d",drain_when_i_stalled));
         void'($value$plusargs("drain_when_d_stalled=%d",drain_when_d_stalled));
@@ -130,7 +156,7 @@ module tb_cpu_lab(input logic clk,rst_n,output logic[7:0] exit_code_o);
         $fwrite(trace_fd,"\"fetch\":{\"pc\":%0d,\"insn\":%0d,\"valid\":%0d,\"accepted\":%0d,\"request_pc\":%0d},",
             obs.fetch_pc,obs.fetch_insn,obs.fetch_valid,obs.fetch_accepted,obs.fetch_request_pc);
         $fwrite(trace_fd,"\"execute\":{\"pc\":%0d,\"insn\":%0d,\"valid\":%0d,\"state\":\"%s\",\"state_code\":%0d},",
-            obs.execute_pc,obs.execute_insn,obs.execute_valid,state_name(obs.execute_state),obs.execute_state);
+            obs.execute_pc,obs.execute_insn,obs.execute_valid,state_name(16'(obs.execute_state)),obs.execute_state);
         $fwrite(trace_fd,"\"stages\":{\"fetch\":%0d,\"decode\":%0d,\"execute\":%0d,\"memory\":%0d,\"writeback\":%0d},",
             obs.stage_fetch,obs.stage_decode,obs.stage_execute,obs.stage_memory,obs.stage_writeback);
         $fwrite(trace_fd,"\"units\":{\"alu\":%0d,\"branch\":%0d,\"mul\":%0d,\"div\":%0d,\"lsu\":%0d},",
@@ -188,6 +214,7 @@ module tb_cpu_lab(input logic clk,rst_n,output logic[7:0] exit_code_o);
                 status,reason,cycles,retired,host_data,roi_cycles,roi_retired,roi_complete,roi_start_cycle,
                 (roi_complete ? roi_start_cycle+roi_cycles : 0),trace_count,
                 (trace_fd!=0 && trace_eligible_count>trace_count),obs.trap_cause,obs.trap_pc,obs.trap_value);
+            if(irq_period>0) $fwrite(fd,"\"irq_period\":%0d,\"irq_taken\":%0d,",irq_period,irq_taken);
             $fwrite(fd,"\"memory_config\":{\"i_latency\":%0d,\"d_latency\":%0d,\"i_interval\":%0d,\"d_interval\":%0d,\"stall_seed\":%0d,\"stall_max\":%0d},",
                 u_mem.i_latency,u_mem.d_latency,u_mem.i_interval,u_mem.d_interval,u_mem.stall_seed,u_mem.stall_max);
             $fwrite(fd,"\"memory_counts\":{\"i_accepted\":%0d,\"d_accepted\":%0d,\"i_completed\":%0d,\"d_completed\":%0d,\"i_errors\":%0d,\"d_errors\":%0d,\"store_writes\":%0d,",
@@ -240,7 +267,14 @@ module tb_cpu_lab(input logic clk,rst_n,output logic[7:0] exit_code_o);
             drain_held=drain_held+1;
             if(drain_held>=drain_hold) drain_req<=0;
         end
-        if(obs.trap_valid) begin
+        if(irq_period>0) begin
+            if(irq_software && obs.trap_valid && obs.trap_cause[31]) begin
+                irq_software<=0; irq_taken=irq_taken+1;
+                irq_lfsr={irq_lfsr[30:0],irq_lfsr[31]^irq_lfsr[21]^irq_lfsr[1]^irq_lfsr[0]};
+                irq_next=cycles+irq_gap(irq_lfsr,irq_period);
+            end else if(!irq_software && cycles>=irq_next) irq_software<=1;
+        end
+        if(obs.trap_valid && !allow_traps) begin
             if(expected_trap_cause>=0 && obs.trap_cause==32'(expected_trap_cause) &&
                (!check_trap_pc || obs.trap_pc==expected_trap_pc) &&
                (!check_trap_value || obs.trap_value==expected_trap_value)) finish_run("pass","expected_trap",0);

@@ -1,0 +1,491 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-11-19T06:09:13Z",
+  "scope": "Labs 09-10 extension package: public skeleton overlays, Spike model, tests and harness hooks. Reference solutions are kept by the instructors; only their hashes are listed.",
+  "bundled_rtl_unchanged": {
+    "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+    "note": "Same as provenance/p1-static-core.json and p1-rtl-gate-equivalence.json"
+  },
+  "public_files_sha256": {
+    "ext/README.md": "47d49119b924ca39612c08c0e8060fe16fcb2c231b49d066d6c05f34a1035d35",
+    "ext/include/xacc.h": "e8580b324570aeb2d7bdbe903ed4f3c59c9032faf483d788261c7714706ccf8d",
+    "ext/include/xdot4.h": "d2703179f0ec096ac98af40316179ad13c1f166acbe3ca51a72aa65d0f5059dc",
+    "ext/lab09/overlay/EXTENSION.json": "edad07f582ab3cbc2f55e8675fccf9c95e0ecea7c374435544aa393f34813f95",
+    "ext/lab09/overlay/common/fu_xdot4.sv": "043ea3769769d03b0fe618c1516cf32c3097cafaa06b5816f98cb8c08dd36b08",
+    "ext/lab09/overlay/filelist.f": "73da3109a4bd8f897f0d6fe791d7a0b0f473a7c324db4e705cef29485b2e6c04",
+    "ext/lab09/overlay/simple/rv_backend.sv": "8cdcc8ce27d21934ce9d8f58a8df9cd27d27c945947a0b04a18db297df1075a6",
+    "ext/lab10/overlay/EXTENSION.json": "7c68c8f7257be61aeccded139293ea9cef80a6025faa2dcfa7002203fff0ee97",
+    "ext/lab10/overlay/common/rv_trace_pkg.sv": "dc92a30b7d0c9c37b98aa2c312df5b03558926e9f6b29a6378ecfdf859b8701e",
+    "ext/lab10/overlay/common/xif_lite_if.sv": "c6b6f76136f2f8800f4f247cd2bae378c14b6679cf6c363a8a5b3b963ad55564",
+    "ext/lab10/overlay/compat/teaching_cpu.sv": "b7baea7576572d9f2ea2a454e8437e3e0c5f799a2447c6e6a0e2df69ab8af161",
+    "ext/lab10/overlay/coproc/xacc_coproc.sv": "105e6628d3d1b8f565f494b219c1fed038b77e55f927b86a12ebd991b75f4125",
+    "ext/lab10/overlay/filelist.f": "624aeb735dec68a564ef2ab6a33ae9b88d5a704d764096bcad9dfc1fb97365e2",
+    "ext/lab10/overlay/simple/rv_backend.sv": "1a645c29d5ed77a58cfa6810d64eab20ce044f35e43e4585d01d6acc99f90770",
+    "ext/lab10/overlay/simple/rv_core_simple.sv": "5e1ff2d253b43ab9b6875d5f3e8a0b4ba38d3d45a940bb4dd0a244ba0776d070",
+    "ext/spike/hyrv_ext.cc": "866d6ed61d3b34dcf120fa351e9db9cd95153ed8126b90d49f6939b4964c402d"
+  },
+  "reference_solution_files_sha256": {
+    "lab09": {
+      "EXTENSION.json": "edad07f582ab3cbc2f55e8675fccf9c95e0ecea7c374435544aa393f34813f95",
+      "common/fu_xdot4.sv": "e0e50db2790e2a4f65f8f4c0a0b6f0cb2a5c5b23bf0b0b73097d7b25d240e056",
+      "filelist.f": "73da3109a4bd8f897f0d6fe791d7a0b0f473a7c324db4e705cef29485b2e6c04",
+      "simple/rv_backend.sv": "54d9b9f539bb45b11c358942ce64a2d13bdde4e3cb441db5cc8d9e224328407a"
+    },
+    "lab10": {
+      "EXTENSION.json": "7c68c8f7257be61aeccded139293ea9cef80a6025faa2dcfa7002203fff0ee97",
+      "common/rv_trace_pkg.sv": "dc92a30b7d0c9c37b98aa2c312df5b03558926e9f6b29a6378ecfdf859b8701e",
+      "common/xif_lite_if.sv": "c6b6f76136f2f8800f4f247cd2bae378c14b6679cf6c363a8a5b3b963ad55564",
+      "compat/teaching_cpu.sv": "b7baea7576572d9f2ea2a454e8437e3e0c5f799a2447c6e6a0e2df69ab8af161",
+      "coproc/xacc_coproc.sv": "252d11cc6a359ab9d827f01f6198a9a140c3db329aeef6092f9e7fd99a03712d",
+      "filelist.f": "624aeb735dec68a564ef2ab6a33ae9b88d5a704d764096bcad9dfc1fb97365e2",
+      "simple/rv_backend.sv": "1a645c29d5ed77a58cfa6810d64eab20ce044f35e43e4585d01d6acc99f90770",
+      "simple/rv_core_simple.sv": "5e1ff2d253b43ab9b6875d5f3e8a0b4ba38d3d45a940bb4dd0a244ba0776d070"
+    }
+  },
+  "skeleton_files_with_todos": {
+    "lab09": [
+      "common/fu_xdot4.sv",
+      "simple/rv_backend.sv"
+    ],
+    "lab10": [
+      "coproc/xacc_coproc.sv"
+    ]
+  },
+  "labs_01_08_identity": {
+    "statement": "Labs 01-08 behave identically with the Labs 09-10 harness (no EXT, no extension RTL).",
+    "bundled_rtl_and_presets": {
+      "rtl_source_hash_unchanged": true,
+      "configuration_sha256_unchanged_all_4_presets": true
+    },
+    "old_vs_new_tree_same_commands": {
+      "commands": [
+        "01_arithmetic..05_functions (trace, commit log)",
+        "10_performance (CSR, trace, commits)",
+        "02_memory stress (trace)",
+        "03_control O0 (commits)",
+        "starter sum.c (trace, commits)",
+        "coremark validation",
+        "camera 7x5 (4 modes)"
+      ],
+      "artifacts_byte_identical": [
+        "sw.signature",
+        "hw.signature",
+        "hw.metrics.json",
+        "trace.jsonl",
+        "commits.jsonl",
+        "commits.csv",
+        "hw.csr.txt",
+        "program.hex",
+        "compile command"
+      ],
+      "program_elf": "identical after --strip-debug (14/14); debug info embeds the source tree path",
+      "verdict_lines": "identical"
+    },
+    "regression_ant_j0": {
+      "pre_change": "47/47 + memory protocol 20/20",
+      "final_harness": "47/47 + memory protocol 20/20",
+      "case_differences_in_status_cycles_retired_roi_reason_signature": 0,
+      "stripped_elf_differences": 0
+    },
+    "regression_btfnt_j0_old_vs_new_tree": {
+      "result": "47/47 + 20/20 both",
+      "case_differences": 0
+    },
+    "verify_baseline_only": "PASS (smoke 17/17)",
+    "ci_unit_tests": [
+      "test_course",
+      "test_environment",
+      "test_verify",
+      "test_core_profiles",
+      "test_viewer_core_identity",
+      "test_extensions"
+    ],
+    "shared_files_changed": {
+      "tb/tb_cpu_lab.sv": "state_name takes a 16-bit code (+XIF_REQ/XIF_WAIT); opt-in +allow_traps and +irq_period (default off; extra JSON fields only when +irq_period is given)",
+      "lab.py": "opt-in --ext/--xacc-latency/ext-* commands; per-build-identity CCACHE_DIR; one trap line printed when a run ends in unexpected_trap",
+      "performance.py": "trap table shown for reason unexpected_trap (the testbench never emitted 'trap')",
+      "core_config.py": "EXTENSION.json recognised only when present; bundled config unchanged",
+      "tests/memory_protocol.py": "per-build-identity CCACHE_DIR",
+      "Makefile, CI": "new targets and test_extensions.py"
+    },
+    "student_dry_run": {
+      "description": "Clean copy of the release tree; every Lab 09/10 command from the lesson pages run in order; TODO blocks replaced by the private reference solution",
+      "result": "all documented outcomes reproduced: intended traps (0x02d7070b, 0x0000002b), lab09-check 7/7 + 17/17, lab10-check 16/16 + 17/17, ext-compare PASS, latency-16 and stress runs"
+    }
+  },
+  "directed_tests_on_reference_solutions": {
+    "xdot4": {
+      "status": "pass",
+      "cases": 7,
+      "passed": 7,
+      "interrupt_cases": [
+        {
+          "irq_period": 300,
+          "irq_taken": 303
+        },
+        {
+          "irq_period": 997,
+          "irq_taken": 394
+        }
+      ],
+      "xif_stall_cases": []
+    },
+    "xacc": {
+      "status": "pass",
+      "cases": 16,
+      "passed": 16,
+      "interrupt_cases": [
+        {
+          "irq_period": 300,
+          "irq_taken": 3324
+        },
+        {
+          "irq_period": 997,
+          "irq_taken": 3449
+        },
+        {
+          "irq_period": 300,
+          "irq_taken": 4380
+        },
+        {
+          "irq_period": 997,
+          "irq_taken": 3449
+        },
+        {
+          "irq_period": 300,
+          "irq_taken": null
+        }
+      ],
+      "xif_stall_cases": [
+        {
+          "xacc_latency": 1,
+          "irq_period": null,
+          "issue_stall_cycles": 155139,
+          "result_stall_cycles": 86314
+        },
+        {
+          "xacc_latency": 3,
+          "irq_period": 300,
+          "issue_stall_cycles": 154602,
+          "result_stall_cycles": 53722
+        }
+      ]
+    }
+  },
+  "performance_dot_product": {
+    "status": "pass",
+    "source_sha256": "5dde63954bafad2e271829216983c5dfddc782046420cf720261aaed746f6947",
+    "boundary": "RTL marker ROI around dot_kernel(); cycles at the simulated clock, not wall time",
+    "memory_profile": "fast",
+    "rows": [
+      {
+        "title": "Software, base P1 core",
+        "status": "pass",
+        "roi_cycles": 16413,
+        "roi_retired": 12309,
+        "speedup_vs_software": 1.0,
+        "result": 4294861400
+      },
+      {
+        "title": "Software, Lab 09 core",
+        "status": "pass",
+        "roi_cycles": 16413,
+        "roi_retired": 12309,
+        "speedup_vs_software": 1.0,
+        "result": 4294861400
+      },
+      {
+        "title": "XDOT4 in EX (Lab 09)",
+        "status": "pass",
+        "roi_cycles": 3356,
+        "roi_retired": 1812,
+        "speedup_vs_software": 4.890643623361144,
+        "result": 4294861400
+      },
+      {
+        "title": "Software, Lab 10 core",
+        "status": "pass",
+        "roi_cycles": 16413,
+        "roi_retired": 12309,
+        "speedup_vs_software": 1.0,
+        "result": 4294861400
+      },
+      {
+        "title": "XACC coprocessor, latency 16 (Lab 10)",
+        "status": "pass",
+        "roi_cycles": 7228,
+        "roi_retired": 1556,
+        "speedup_vs_software": 2.2707526286662976,
+        "result": 4294861400
+      }
+    ]
+  },
+  "eda": {
+    "flow": "Samsung LN28LPP logical mapping (SS max / FF min), DC W-2024.09-SP3, Formality W-2024.09-SP2; same Tcl, constraints and wrapper as the P1 RTL-to-gate provenance; preset ant_j0; Lab 10 default XACC latency 1",
+    "designs": {
+      "lab09_xdot4": {
+        "model_id": "p1_f0_bp0_ls0_x1_lab09_xdot4",
+        "synthesis": {
+          "stage": "ext_synth_r002",
+          "status": "pass",
+          "source_hash": "fc04f107d095f921037c7661f1b0aa33ab0a2b748c59d1b115e2cfe2f9c87281",
+          "receipt_sha256": "341240c42f631e65646c12961f6a79c0bd3fb658ea4c855b63eaf7615c89f00c",
+          "clock_period_ns": 20.0,
+          "gates": {
+            "elaborated_latches": 0,
+            "elaborated_check_design": 1,
+            "mapped_check_design": 1,
+            "mapped_latches": 0,
+            "mapped_register_cells": 2137,
+            "unmapped_leaf_cells": 0,
+            "status": "pass",
+            "elaborated_reported_loop_paths": 0,
+            "elaborated_loop_breaking_arcs": 0,
+            "mapped_reported_loop_paths": 0,
+            "mapped_loop_breaking_arcs": 0
+          },
+          "warnings_by_id": {
+            "DDB-24": 2,
+            "VER-708": 29,
+            "VER-104": 1,
+            "VER-281": 12,
+            "ELAB-984": 1,
+            "ELAB-985": 2,
+            "ELAB-311": 2,
+            "VER-318": 6,
+            "TIM-134": 1,
+            "UCN-1": 130,
+            "UCN-4": 1,
+            "VO-4": 1
+          },
+          "inputs_unchanged": true,
+          "total_cell_area_um2": 15067.025806,
+          "total_cell_area_kGE_nand2_0p468": 32.19
+        },
+        "formality": {
+          "stage": "ext_formal_r002",
+          "status": "pass",
+          "source_hash": "fc04f107d095f921037c7661f1b0aa33ab0a2b748c59d1b115e2cfe2f9c87281",
+          "receipt_sha256": "e86f2e1e913980966ac5e15c22ee0d2c351d80d0456a5fcb9ab9e250b993da14",
+          "gates": {
+            "verify_result": "1",
+            "unmatched_points": "32",
+            "failing_points": "0",
+            "aborted_points": "0",
+            "unverified_points": "0",
+            "elapsed_seconds": "116",
+            "status": "pass",
+            "reference_black_boxes": "0",
+            "implementation_black_boxes": "0",
+            "directly_added_assumptions": "0",
+            "assertions_as_constraints": "0",
+            "undriven_treatment": "BINARY:X"
+          },
+          "verification_succeeded": true,
+          "inputs_unchanged": true,
+          "svf_sha256": "909529ad7b53c49b72288db93fbcee22c1638f8727eb7935c4b5de96adfb4134",
+          "gate_verilog_sha256": "e1bc6002825d9eaa89c226abb062db9960529745e92cf6f85640e3ca38b35b14"
+        },
+        "timing_exploration": {
+          "stage": "ext_timing_r001",
+          "clock_period_ns": 1.0,
+          "synthesis_status": "pass",
+          "gates": {
+            "elaborated_latches": 0,
+            "elaborated_check_design": 1,
+            "mapped_check_design": 1,
+            "mapped_latches": 0,
+            "mapped_register_cells": 2137,
+            "unmapped_leaf_cells": 0,
+            "status": "pass",
+            "elaborated_reported_loop_paths": 0,
+            "elaborated_loop_breaking_arcs": 0,
+            "mapped_reported_loop_paths": 0,
+            "mapped_loop_breaking_arcs": 0
+          },
+          "worst_reg_to_reg_arrival_ns": 1.59,
+          "startpoint": "u_cpu/u_core/u_backend/insn_pipe_r_reg_22_",
+          "endpoint": "u_cpu/u_core/u_backend/u_mul/prod_shift_reg_0__50_",
+          "total_cell_area_um2": 19814.768736,
+          "reg2reg_report_sha256": "b31f23532504bde3b7b15b5cc6158a4ee93817d69f80424d218d782230e429d5"
+        }
+      },
+      "lab10_xacc": {
+        "model_id": "p1_f0_bp0_ls0_x1_lab10_xacc",
+        "synthesis": {
+          "stage": "ext_synth_r003",
+          "status": "pass",
+          "source_hash": "80207bee3336c89cafe77ba508562dc86e25e5d988ae59d145e028314523f624",
+          "receipt_sha256": "de1e2147a1175d6a4e194c121935502fcd233f12056e20f593bb0457176a11de",
+          "clock_period_ns": 20.0,
+          "gates": {
+            "elaborated_latches": 0,
+            "elaborated_check_design": 1,
+            "mapped_check_design": 1,
+            "mapped_latches": 0,
+            "mapped_register_cells": 2242,
+            "unmapped_leaf_cells": 0,
+            "status": "pass",
+            "elaborated_reported_loop_paths": 0,
+            "elaborated_loop_breaking_arcs": 0,
+            "mapped_reported_loop_paths": 0,
+            "mapped_loop_breaking_arcs": 0
+          },
+          "warnings_by_id": {
+            "DDB-24": 2,
+            "VER-708": 29,
+            "VER-104": 1,
+            "VER-281": 12,
+            "ELAB-984": 1,
+            "ELAB-985": 2,
+            "ELAB-311": 2,
+            "VER-318": 6,
+            "TIM-134": 1,
+            "UCN-1": 131,
+            "UCN-4": 1,
+            "VO-4": 1
+          },
+          "inputs_unchanged": true,
+          "total_cell_area_um2": 15547.427793,
+          "total_cell_area_kGE_nand2_0p468": 33.22
+        },
+        "formality": {
+          "stage": "ext_formal_r003",
+          "status": "pass",
+          "source_hash": "80207bee3336c89cafe77ba508562dc86e25e5d988ae59d145e028314523f624",
+          "receipt_sha256": "66ac7a85e3fb321d6a1b9f41d4d8cf6354da6de25c26a39215520f1686fa3c5f",
+          "gates": {
+            "verify_result": "1",
+            "unmatched_points": "32",
+            "failing_points": "0",
+            "aborted_points": "0",
+            "unverified_points": "0",
+            "elapsed_seconds": "108",
+            "status": "pass",
+            "reference_black_boxes": "0",
+            "implementation_black_boxes": "0",
+            "directly_added_assumptions": "0",
+            "assertions_as_constraints": "0",
+            "undriven_treatment": "BINARY:X"
+          },
+          "verification_succeeded": true,
+          "inputs_unchanged": true,
+          "svf_sha256": "e22efefe56953336ab1b3d3521a8caeff382537bc17ebdc963bc2b3a38132416",
+          "gate_verilog_sha256": "930f3b9836f42d8703b6dd5c853777015db81332f093eade8156efd306394210"
+        },
+        "timing_exploration": {
+          "stage": "ext_timing_r001",
+          "clock_period_ns": 1.0,
+          "synthesis_status": "fail",
+          "gates": {
+            "elaborated_latches": 0,
+            "elaborated_check_design": 1,
+            "mapped_check_design": 1,
+            "mapped_latches": 0,
+            "mapped_register_cells": 2242,
+            "unmapped_leaf_cells": 0,
+            "status": "pass",
+            "elaborated_reported_loop_paths": 0,
+            "elaborated_loop_breaking_arcs": 0,
+            "mapped_reported_loop_paths": 0
+          },
+          "worst_reg_to_reg_arrival_ns": 1.61,
+          "startpoint": "u_cpu/u_core/u_backend/insn_pipe_r_reg_19_",
+          "endpoint": "u_cpu/u_core/u_frontend/u_fetch_tracker/owner_prediction_o_reg_next_pc__24_",
+          "total_cell_area_um2": 19801.196712,
+          "reg2reg_report_sha256": "134c9776fffcf515744d1771ba543c5164f281349b5db52f71c2aba5a6262580"
+        }
+      },
+      "base_reference": {
+        "model_id": "p1_f0_bp0_ls0_x1",
+        "synthesis": {
+          "stage": "ext_synth_r002",
+          "status": "pass",
+          "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+          "receipt_sha256": "3ac8acc08f827036c0464e8e65e209c8cc9a96aabb779c04afa1fdf235349394",
+          "clock_period_ns": 20.0,
+          "gates": {
+            "elaborated_latches": 0,
+            "elaborated_check_design": 1,
+            "mapped_check_design": 1,
+            "mapped_latches": 0,
+            "mapped_register_cells": 2137,
+            "unmapped_leaf_cells": 0,
+            "status": "pass",
+            "elaborated_reported_loop_paths": 0,
+            "elaborated_loop_breaking_arcs": 0,
+            "mapped_reported_loop_paths": 0,
+            "mapped_loop_breaking_arcs": 0
+          },
+          "warnings_by_id": {
+            "DDB-24": 2,
+            "VER-708": 29,
+            "VER-104": 1,
+            "VER-281": 12,
+            "ELAB-984": 1,
+            "ELAB-985": 2,
+            "ELAB-311": 2,
+            "VER-318": 6,
+            "TIM-134": 1,
+            "UCN-1": 131,
+            "UCN-4": 1,
+            "VO-4": 1
+          },
+          "inputs_unchanged": true,
+          "total_cell_area_um2": 14479.919806,
+          "total_cell_area_kGE_nand2_0p468": 30.94
+        },
+        "formality": {
+          "stage": "ext_formal_r002",
+          "status": "pass",
+          "source_hash": "35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8",
+          "receipt_sha256": "1ea231f99a28d74101e21491a9cad0be2695798e1cb4d037819f6007109fcf8e",
+          "gates": {
+            "verify_result": "1",
+            "unmatched_points": "32",
+            "failing_points": "0",
+            "aborted_points": "0",
+            "unverified_points": "0",
+            "elapsed_seconds": "124",
+            "status": "pass",
+            "reference_black_boxes": "0",
+            "implementation_black_boxes": "0",
+            "directly_added_assumptions": "0",
+            "assertions_as_constraints": "0",
+            "undriven_treatment": "BINARY:X"
+          },
+          "verification_succeeded": true,
+          "inputs_unchanged": true,
+          "svf_sha256": "3af0c7dacb5bed3c426d3ee0b370a6547ad8f75cecc859d7c0f63f9addc78ff9",
+          "gate_verilog_sha256": "da7820635ef796a8b80bc8649163ff32c055ac0e57d499af22a770f5ed10d0f1"
+        },
+        "timing_exploration": {
+          "stage": "ext_timing_r001",
+          "clock_period_ns": 1.0,
+          "synthesis_status": "pass",
+          "gates": {
+            "elaborated_latches": 0,
+            "elaborated_check_design": 1,
+            "mapped_check_design": 1,
+            "mapped_latches": 0,
+            "mapped_register_cells": 2137,
+            "unmapped_leaf_cells": 0,
+            "status": "pass",
+            "elaborated_reported_loop_paths": 0,
+            "elaborated_loop_breaking_arcs": 0,
+            "mapped_reported_loop_paths": 0,
+            "mapped_loop_breaking_arcs": 0
+          },
+          "worst_reg_to_reg_arrival_ns": 1.57,
+          "startpoint": "u_cpu/u_core/u_backend/insn_pipe_r_reg_22_",
+          "endpoint": "u_cpu/u_core/u_backend/u_mul/prod_shift_reg_0__47_",
+          "total_cell_area_um2": 18933.641734,
+          "reg2reg_report_sha256": "41dc3ee30ce48eeb8421096b068f550a2d04360aedd714bbeb4789651c2aebcc"
+        }
+      }
+    },
+    "not_signoff": "Logical synthesis and RTL-to-gate equivalence; not placed-and-routed timing or tapeout signoff. Timing exploration numbers are indicative pre-layout comparisons at a tight clock, not gates.",
+    "foundry_files_distributed": false,
+    "gate_netlist_and_svf_distributed": false
+  }
+}

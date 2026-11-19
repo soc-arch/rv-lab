@@ -53,7 +53,8 @@ def build_standalone(rtl, out, config):
         build_env = os.environ.copy()
         for name in ('MAKEFLAGS', 'MFLAGS', 'MAKEOVERRIDES', 'OPT'):
             build_env.pop(name, None)
-        build_env.setdefault('CCACHE_DIR', str(lab.BUILD / 'ccache'))
+        # See lab.build_hardware: never share ccache objects between build identities.
+        build_env['CCACHE_DIR'] = str(Path(os.environ.get('CCACHE_DIR') or dest.parent) / ('ram-' + key))
         lab.require([lab.tool('verilator'), '--binary', '--timing', '--assert', '--top-module', 'memory_protocol_tb',
                      '--Mdir', dest, '-j', '4', '-MAKEFLAGS', f'CXX={cxx}', *files], dest / 'build.log', timeout=600, env=build_env)
     return binary, identity

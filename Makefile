@@ -97,7 +97,17 @@ endif
 ifeq ($(VALIDATION),1)
 ARGS += --validation
 endif
-.PHONY: help doctor build sw-sim hw-sim compare view register course site site-check course-test test test-smoke memory-test coremark export export-views camera visual images gallery serve camera-test visual-test validate viewer-test perf-test registration-test
+# Labs 09-10 (extensions). Unset by default: Labs 01-08 commands are unchanged.
+ifneq ($(EXT),)
+ARGS += --ext $(EXT)
+endif
+ifneq ($(XACC_LATENCY),)
+ARGS += --xacc-latency $(XACC_LATENCY)
+endif
+LATENCIES ?= 1,2,4,8
+LAB09_RTL ?= $(CURDIR)/student/lab09/rtl
+LAB10_RTL ?= $(CURDIR)/student/lab10/rtl
+.PHONY: help doctor build sw-sim hw-sim compare view register course site site-check course-test test test-smoke memory-test coremark export export-views camera visual images gallery serve camera-test visual-test validate viewer-test perf-test registration-test lab09-init lab10-init lab09-check lab10-check ext-test ext-compare ext-unit-test
 help:
 	@echo 'make doctor | sw-sim | hw-sim | compare | view | test | coremark | camera | visual | images | gallery | serve | export'
 	@echo 'APP=01_arithmetic..05_functions, 06_camera, 07_denoise, 08_cartoon, 09_ball, 10_performance or coremark'
@@ -109,6 +119,7 @@ help:
 	@echo 'validate: reproducibility gates with source receipts; LAB_BUILD_DIR isolates candidate outputs'
 	@echo 'CSR=1: optional software cycle/instret counters; COMMITS=1: full retired-instruction log; CLOCK_MHZ=100: assumed frequency'
 	@echo 'course: step-by-step English exercises; register SOURCE=my_main.c NAME=my-sum TITLE="My sum": verify and add to My applications'
+	@echo 'Labs 09-10: lab09-init | lab10-init [FORCE=1]; EXT=sw|xdot4|xacc; XACC_LATENCY=1..255; lab09-check | lab10-check; ext-compare [LATENCIES=1,2,4,8]'
 doctor:
 	$(PYTHON) lab.py doctor
 build:
@@ -165,3 +176,19 @@ perf-test:
 	$(PYTHON) -m unittest discover -s tests -p 'test_student_workflow.py' -v
 registration-test:
 	$(PYTHON) -m unittest discover -s tests -p 'test_registration.py' -v
+lab09-init:
+	$(PYTHON) lab.py ext-init --lab 09 $(if $(filter 1,$(FORCE)),--force)
+lab10-init:
+	$(PYTHON) lab.py ext-init --lab 10 $(if $(filter 1,$(FORCE)),--force)
+ext-test:
+	$(PYTHON) lab.py ext-test $(ARGS)
+lab09-check:
+	$(PYTHON) lab.py ext-test --ext xdot4 --rtl-dir "$(LAB09_RTL)"
+	$(PYTHON) lab.py test --suite smoke --rtl-dir "$(LAB09_RTL)"
+lab10-check:
+	$(PYTHON) lab.py ext-test --ext xacc --rtl-dir "$(LAB10_RTL)" $(if $(XACC_LATENCY),--xacc-latency $(XACC_LATENCY))
+	$(PYTHON) lab.py test --suite smoke --rtl-dir "$(LAB10_RTL)"
+ext-compare:
+	$(PYTHON) lab.py ext-compare $(ARGS) --latencies $(LATENCIES) --lab09-rtl "$(LAB09_RTL)" --lab10-rtl "$(LAB10_RTL)"
+ext-unit-test:
+	$(PYTHON) -m unittest discover -s tests -p 'test_extensions.py' -v
