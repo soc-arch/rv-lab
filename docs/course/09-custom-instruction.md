@@ -9,6 +9,208 @@
 This is the first lab that changes the CPU. You work on your own copy in
 `student/lab09/rtl`; the bundled `rtl/` and Labs 01–08 stay unchanged.
 
+## Background: how a custom instruction gets into a RISC-V CPU
+
+Read this section before the procedure. It explains every decision behind XDOT4,
+from the opcode bits to the cycle in which the result is written. The procedure
+in sections 0–8 then asks you to implement exactly these decisions.
+
+### B1. A custom instruction is a contract between layers
+
+One instruction crosses five layers, and each layer asks one question:
+
+```text
+ C program        assembler          decoder             execution unit       state
+ xdot4(a, b)  ->  .insn emits the -> finds the opcode -> computes the result -> rd is
+ (API header)     32-bit word        and claims it       (fu_xdot4)            written
+   Q5 compiler                     Q2 operation        Q3 implementation    Q4 operands
+                  Q1 baseline core: ISA, pipeline, register-file ports, extension hook
+```
+
+| Question | Answer for XDOT4 on this CPU |
+|---|---|
+| Q1 Baseline | HY-RV P1.F0: RV32IM, machine mode, one instruction in the backend at a time, a register file with **2 read ports and 1 write port** |
+| Q2 Operation | Four signed 8-bit products and their sum: the inner step of an int8 dot product |
+| Q3 Implementation | A **building block**: a combinational unit beside the ALU, finished in the same cycle |
+| Q4 Operands | Two source registers (8 packed int8 values) and one destination: fits 2R1W exactly |
+| Q5 Compiler | Level 2: an inline-assembly wrapper in a header; no compiler changes |
+
+Q3 and Q4 decide each other: because the operation needs only two inputs and
+one output, it can live inside the pipeline without new ports or state.
+
+### B2. Where custom instructions are allowed: the opcode map
+
+A 32-bit RISC-V instruction has `inst[1:0] = 11`. Bits `inst[6:2]` select one of
+32 **major opcodes**:
+
+```text
+inst[4:2] ->   000      001       010       011       100      101    110            111
+inst[6:5]
+   00         LOAD     LOAD-FP   custom-0  MISC-MEM  OP-IMM   AUIPC  OP-IMM-32      (>32b)
+   01         STORE    STORE-FP  custom-1  AMO       OP       LUI    OP-32          (>32b)
+   10         MADD     MSUB      NMSUB     NMADD     OP-FP    OP-V   custom-2       (>32b)
+   11         BRANCH   JALR      reserved  JAL       SYSTEM   OP-VE  custom-3       (>32b)
+```
+
+The current specification (version 20260120) sets aside four major opcodes for
+non-standard extensions: **custom-0** (`0001011` = `0x0B`), **custom-1**
+(`0101011` = `0x2B`), custom-2 (`0x5B`) and custom-3 (`0x7B`). Standard extensions
+will not use them. (Older versions of the specification marked custom-2 and
+custom-3 as possible RV128 opcodes; you may still see that note in older tables.)
+The `reserved` entries and the `inst[4:2] = 111` column (longer instructions) must
+not be used. This lab puts XDOT4 in custom-0; Lab 10 gives the whole of custom-1 to
+a coprocessor.
+
+### B3. Inside one major opcode: the R-type format
+
+XDOT4 uses the standard R-type layout:
+
+```text
+ 31      25 24   20 19   15 14  12 11    7 6      0
++----------+-------+-------+------+-------+--------+
+|  funct7  |  rs2  |  rs1  |funct3|  rd   | opcode |
++----------+-------+-------+------+-------+--------+
+  0000001    rs2     rs1     000     rd    0001011     xdot4 rd, rs1, rs2
+```
+
+- `opcode` tells the decoder the instruction is yours.
+- `funct7` and `funct3` are 10 bits you define: one R-type opcode holds up to
+  1,024 operations. XDOT4 takes `funct7 = 1, funct3 = 0`.
+- `rs1`, `rs2`, `rd` are **register numbers**, not data. Keeping them in the
+  standard positions matters: this CPU's decoder always reads `rs1 = inst[19:15]`
+  and `rs2 = inst[24:20]`, and the register file is read from those fields for
+  every instruction. A custom instruction that keeps the fields in place gets its
+  operands with no extra hardware, before the decoder has even decided what the
+  instruction is.
+
+**MASK and MATCH.** A decoder identifies an instruction with two constants: the
+word is XDOT4 when `(word & MASK) == MATCH`. MASK has a 1 in every bit that must
+have a fixed value, MATCH holds those values:
+
+| Field | Bits | In MASK | Value in MATCH |
+|---|---|---|---|
+| funct7 | 31:25 | `0xFE000000` | `0000001` → `0x02000000` |
+| rs2, rs1 | 24:15 | — (any register) | — |
+| funct3 | 14:12 | `0x00007000` | `000` → `0x00000000` |
+| rd | 11:7 | — (any register) | — |
+| opcode | 6:0 | `0x0000007F` | `0001011` → `0x0000000B` |
+| **Total** | | **`0xFE00707F`** | **`0x0200000B`** |
+
+Worked example, `xdot4 a0, a0, a1` (a0 = x10, a1 = x11):
+`0000001 01011 01010 000 01010 0001011` = **`0x02B5050B`**.
+Every other custom-0 word (another funct7 or funct3) is still not an instruction
+of this CPU and must raise an illegal-instruction exception.
+
+### B4. What XDOT4 computes, and why it has no accumulator
+
+```text
+rs1 = 0x04030201  ->  bytes [1, 2, 3, 4]      (byte 0 = bits 7:0)
+rs2 = 0x08070605  ->  bytes [5, 6, 7, 8]
+rd  = 1*5 + 2*6 + 3*7 + 4*8 = 70 = 0x00000046
+```
+
+Each byte is a signed int8 (−128..127), so each product is in −16,256..16,384 and
+needs 16 bits; the sum of four is in −65,024..+65,536 and needs **18 bits**
+(65,536 does not fit in 17 signed bits). The unit sign-extends the 18-bit sum to 32.
+
+A dot product of N words needs `sum += xdot4(a[i], b[i])`. A "multiply-accumulate"
+form `rd = rd + dot4(rs1, rs2)` would save the ADD, but it reads **three**
+registers (rs1, rs2 and the old rd). With two read ports there are three choices:
+add a third port (CORE-V CV32E40P does this for `cv.sdotsp.b`: area and timing for
+every instruction), read in two cycles (an extra stall), or keep the running sum
+inside the unit (new private state). XDOT4 takes none of them and leaves the ADD
+in software. Lab 10 tries the third choice.
+
+### B5. How the instruction travels through this CPU
+
+The P1 backend holds **one instruction** at a time. A functional view (these are
+not separate pipeline stages):
+
+```text
+             +-------------------- backend: one instruction register (IR) ------------------+
+fetch  --->  | decode  ->  RF read (2 ports, same cycle)  ->  ALU | branch | MUL | DIV | LSU | ---> result mux ---> RF write
+(frontend)   |  claim                                    \-> fu_xdot4 (new) ------------+  |      (+1 input)       (1 port)
+             +------------------------------------------------------------------------------+
+```
+
+The backend's state machine tells how long each instruction occupies the IR:
+
+| State | Used by | Cycles |
+|---|---|---|
+| `IDLE` | ALU, branch, CSR, **XDOT4**: decode, read, compute and retire in one cycle | 1 |
+| `MEM_REQ` → `MEM_RESP` → `MEM_WB` | loads and stores (fast memory) | 3 |
+| `MUL_WAIT` | multiply | 2 |
+| `DIV_WAIT` | divide | 34 |
+
+XDOT4 joins the one-cycle group, so the change is small: one claim, one unit, one
+result-mux input. No new state, no stall logic, and no forwarding: the next
+instruction enters the IR only after this one has written its result. You will
+see this in the cycle viewer: XDOT4 occupies the execute slot for exactly one
+cycle, the loads for three.
+
+### B6. The illegal-instruction path, and the one place that claims an encoding
+
+The shared decoder (`rv32_decoder.sv`) recognizes only standard opcodes and marks
+every custom word as illegal. A second check in the backend (`encoding_legal()`)
+rejects reserved funct3/funct7 values of standard opcodes. When the instruction
+in the IR is illegal, the backend takes a **precise** exception: it does not
+retire, writes no register, and traps with `mcause = 2` and `mtval = the
+instruction word`.
+
+Adding an instruction therefore means overriding that verdict in **exactly one
+place**: `xdot4_match()`. If the claim is too narrow, the CPU traps on XDOT4
+(your first failure in step 3). If it is too wide (for example a MASK that ignores
+funct7), the CPU executes words that are not XDOT4 and the directed test's nine
+"illegal neighbour" checks fail. The same function also tells the backend that
+XDOT4 writes rd.
+
+### B7. How software emits the instruction
+
+| Level | What exists | Effort |
+|---|---|---|
+| 1 Raw encoding | `.insn` in assembly; the assembler builds the word | no tool changes |
+| 2 API header | a function such as `xdot4(a, b)` with inline assembly | **this lab** |
+| 3 Builtin | the compiler knows the name and `-march` flag | compiler patch |
+| 4 Auto-selection | the compiler finds `acc += a[i]*b[i]` patterns itself | cost model, back end |
+
+`ext/include/xdot4.h` is level 2:
+
+```c
+__asm__ (".insn r CUSTOM_0, 0, 1, %0, %1, %2" : "=r"(r) : "r"(a), "r"(b));
+```
+
+`.insn r opcode, funct3, funct7, rd, rs1, rs2` builds the R-type word; note that
+the **argument order is not the bit order**. The constraints let the compiler
+choose free registers. Use `.insn`, not `.word`: a disassembler shows `.insn` as an
+instruction (`.insn 4, 0x02d7070b`). Without `HAVE_XDOT4` the same function is
+portable C (`xdot4_ref()`), which is how `EXT=sw` runs the same program on any
+RV32IM core.
+
+### B8. How we know the hardware is right
+
+Every lab run executes the **same ELF** on Spike and on the RTL and compares the
+complete result signature. Spike does not know XDOT4, so the lab loads a small
+Spike extension (`ext/spike/hyrv_ext.cc`) written from the contract, independently
+of the RTL. It registers exactly `MATCH 0x0200000B / MASK 0xFE00707F`; every other
+word still traps in Spike, just as it must in your CPU. The directed test adds
+hand-computed vectors, 512 random word pairs, register forms (`rd = rs1 = rs2`,
+`rd = x0`), dependences, illegal neighbours and interrupts at random points.
+
+### B9. What speedup to expect, before measuring
+
+Amdahl's law: an instruction removes only the time it replaces. Per 32-bit word of
+the dot product, from the actual compiled loops:
+
+| | Instructions per word | Cycles per word (fast memory) |
+|---|---|---|
+| Software `xdot4_ref()` | about 48 (shifts, sign-extensions, 4 × `mul`, adds, loop) | about 64 |
+| XDOT4 | 7: `addi`, `addi`, `lw`, `lw`, `xdot4`, `add`, `bne` | about 13 (2 loads × 3 + 4 × 1 + redirect) |
+
+The two loads and the loop control remain, so the kernel becomes about 4.9× faster,
+not 21×. Measure it in step 7 and explain the gap from these counts.
+
+## Procedure
+
 ## 0. Check the extra tool requirement
 
 Labs 09–10 build a small Spike model of the new instructions, so Spike's headers
