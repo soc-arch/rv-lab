@@ -24,7 +24,9 @@
 <a href="../../05-performance.html">Lab 05 — Measure an improvement</a>
 <a href="../../06-memory.html">Lab 06 — Change memory timing</a>
 <a href="../../07-images.html">Lab 07 — Process an image</a>
-<a href="../../08-project.html">Lab 08 — A reproducible project</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#compatibility-boundary">Compatibility boundary</a><a class="level-2" href="#trace-and-measurement-meaning">Trace and measurement meaning</a><a class="level-2" href="#validate-a-replacement">Validate a replacement</a><a class="level-2" href="#synthesis-and-equivalence-gates">Synthesis and equivalence gates</a></nav></aside>
+<a href="../../08-project.html">Lab 08 — A reproducible project</a>
+<a href="../../09-custom-instruction.html">Lab 09 — Add a custom instruction</a>
+<a href="../../10-coprocessor.html">Lab 10 — Extend the CPU through a coprocessor interface</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#compatibility-boundary">Compatibility boundary</a><a class="level-2" href="#trace-and-measurement-meaning">Trace and measurement meaning</a><a class="level-2" href="#validate-a-replacement">Validate a replacement</a><a class="level-2" href="#synthesis-and-equivalence-gates">Synthesis and equivalence gates</a></nav></aside>
 <main class="content" id="main"><article><h1 id="replace-the-cpu-while-preserving-the-lab">Replace the CPU while preserving the lab</h1>
 <p>The bundled <code>rtl/</code> is now the current HY-RV P1/F0/Q0 static core, default <code>ant_j0</code>. Its source/configuration identity is in <a href="../../files/provenance/p1-static-core.json">p1-static-core.json</a>. The former teaching CPU is preserved under <code>reference/legacy_teaching_51562ce/</code>; the original <a href="../../files/provenance/snapshot.json">snapshot.json</a> remains historical provenance.</p>
 <p>The eight software labs and same-ELF Spike comparison use the stable compatibility wrapper. A replacement is validated only by its own actual results and identity; previous PASS labels do not carry over.</p>

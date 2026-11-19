@@ -24,7 +24,9 @@
 <a href="../../../../05-performance.html">Lab 05 — Measure an improvement</a>
 <a href="../../../../06-memory.html">Lab 06 — Change memory timing</a>
 <a href="../../../../07-images.html">Lab 07 — Process an image</a>
-<a href="../../../../08-project.html">Lab 08 — A reproducible project</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#read-the-design-in-this-order">Read the design in this order</a><a class="level-2" href="#public-replacement-contract">Public replacement contract</a><a class="level-2" href="#fetch-redirect-and-drain">Fetch, redirect and drain</a><a class="level-2" href="#memory-instructions-faults-and-retirement">Memory instructions, faults and retirement</a><a class="level-2" href="#observations-and-extension-points">Observations and extension points</a></nav></aside>
+<a href="../../../../08-project.html">Lab 08 — A reproducible project</a>
+<a href="../../../../09-custom-instruction.html">Lab 09 — Add a custom instruction</a>
+<a href="../../../../10-coprocessor.html">Lab 10 — Extend the CPU through a coprocessor interface</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#read-the-design-in-this-order">Read the design in this order</a><a class="level-2" href="#public-replacement-contract">Public replacement contract</a><a class="level-2" href="#fetch-redirect-and-drain">Fetch, redirect and drain</a><a class="level-2" href="#memory-instructions-faults-and-retirement">Memory instructions, faults and retirement</a><a class="level-2" href="#observations-and-extension-points">Observations and extension points</a></nav></aside>
 <main class="content" id="main"><article><h1 id="editable-teaching-cpu-rtl">Editable teaching CPU RTL</h1>
 <p>The teaching CPU implements the <strong>blocking HY-RV memory v1 profile</strong>: one live instruction transaction and one live data transaction, each using ID 0. Request acceptance and response completion are real handshakes. No fixed SRAM latency is assumed in the CPU. Required application target: <code>-march=rv32im -mabi=ilp32</code>.</p>
 <h2 id="read-the-design-in-this-order">Read the design in this order</h2>

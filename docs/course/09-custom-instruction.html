@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lab 09 — Add a custom instruction · RV Lab</title>
+<style>
+:root{color-scheme:light;--ink:#203046;--muted:#59687a;--line:#dbe3eb;--blue:#17659a;--paper:#fff;--background:#f5f7fa;--accent:#e8f2fa;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--background);color:var(--ink);line-height:1.7}a{color:var(--blue);text-underline-offset:.18em}a:hover{color:#0b466f}a:focus-visible,button:focus-visible{outline:3px solid #d78917;outline-offset:3px}button{font:inherit}.skip{position:absolute;left:1rem;top:-5rem}.skip:focus{top:.5rem;background:white;padding:.5rem;z-index:3}.topbar{padding:1rem clamp(1rem,4vw,3rem);background:#17354b;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}.brand{color:white;text-decoration:none;font-size:1.1rem;font-weight:750;letter-spacing:.03em}.brand:hover{color:#d9eefc}.tagline{color:#cadce8;font-size:.88rem}.tools{display:flex;gap:1.2rem;flex-wrap:wrap}.tools a{color:#dfedf7;font-size:.9rem}.layout{max-width:1500px;margin:auto;display:grid;grid-template-columns:275px minmax(0,1fr);gap:2.3rem;padding:2rem}.sidebar{align-self:start;position:sticky;top:1.3rem;max-height:calc(100vh - 2.6rem);overflow:auto}.sidebar h2{font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 .6rem .65rem}.lesson-nav{display:grid;gap:.3rem}.lesson-nav a{padding:.6rem .7rem;border-radius:.45rem;color:#40536b;font-size:.9rem;text-decoration:none;line-height:1.45}.lesson-nav a:hover{background:#e8edf3}.lesson-nav a[aria-current=page]{background:var(--accent);color:#105783;box-shadow:inset 3px 0 #2382ba;font-weight:650}.section-nav{display:grid;gap:.25rem;margin-top:1.8rem;border-top:1px solid var(--line);padding-top:1rem}.section-nav:empty{display:none}.section-nav a{font-size:.81rem;text-decoration:none;color:var(--muted);line-height:1.5;padding:.2rem .65rem}.section-nav a.level-3{padding-left:1.4rem}.content{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:.8rem;padding:clamp(1.2rem,3.5vw,3.4rem);box-shadow:0 4px 15px #17354b04}article{max-width:940px;margin:auto}h1,h2,h3,h4{line-height:1.25;scroll-margin-top:1.2rem}h1{font-size:clamp(1.7rem,3.3vw,2.65rem);letter-spacing:-.035em;margin:.1rem 0 1.25rem}h2{font-size:1.45rem;margin:2.5rem 0 .9rem;padding-top:.3rem}h3{font-size:1.12rem;margin:1.65rem 0 .65rem}p{margin:.8rem 0 1rem}ul,ol{padding-left:1.5rem}li{padding-left:.15rem;margin:.35rem 0}li p{margin:.3rem 0}li>.code-block{margin:.9rem 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;font-size:.87em;background:#eff3f7;border-radius:.25rem;padding:.13rem .3rem;overflow-wrap:anywhere}pre{margin:0;overflow-x:auto;padding:1rem 1.15rem;font-size:.88rem;line-height:1.6;tab-size:4;max-width:100%}pre code{background:transparent;padding:0;color:#e6eff7;font-size:inherit;overflow-wrap:normal}.code-block{margin:1.1rem 0 1.4rem;border-radius:.55rem;overflow:hidden;background:#142c40;max-width:100%}.code-toolbar{display:flex;justify-content:space-between;align-items:center;padding:.35rem .7rem .35rem 1rem;background:#203c52;color:#c9dce9;font-size:.75rem;min-height:2rem}.copy-code{border:1px solid #607a8e;border-radius:.25rem;background:none;color:#e6eff7;padding:.06rem .55rem;cursor:pointer;font-size:.73rem}.copy-code:hover{background:#31536d}article>pre{background:#142c40;color:#e6eff7;border-radius:.55rem}.table-scroll{overflow-x:auto;margin:1.2rem 0;max-width:100%;border:1px solid var(--line);border-radius:.45rem}table{border-collapse:collapse;min-width:100%;font-size:.9rem}th{text-align:left;background:#edf3f8;font-weight:650}th,td{padding:.65rem .8rem;vertical-align:top;border-bottom:1px solid var(--line);min-width:110px}tr:last-child td{border-bottom:0}blockquote{margin:1.25rem 0;padding:.5rem 1.2rem;border-left:4px solid #73a6c6;background:#f0f6fa;color:#36536b}blockquote p{margin:.5rem 0}img{max-width:100%;height:auto}hr{margin:2rem 0;border:0;border-top:1px solid var(--line)}.unavailable{color:var(--muted)}.unavailable small{font-size:.75em}.pager{display:flex;justify-content:space-between;gap:1rem;border-top:1px solid var(--line);margin-top:3rem;padding-top:1.5rem}.pager a{flex:1;border:1px solid var(--line);border-radius:.45rem;padding:.8rem 1rem;text-decoration:none;font-size:.9rem}.pager a:hover{background:var(--accent)}.pager small{display:block;color:var(--muted);font-size:.75rem}.source-note{margin-top:2rem;font-size:.72rem;color:var(--muted);overflow-wrap:anywhere}.source-note code{font-size:1em}
+@media(max-width:850px){.layout{grid-template-columns:1fr;padding:1rem;gap:1rem}.sidebar{position:static;max-height:none}.lesson-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem}.section-nav{display:none}.sidebar h2{margin-top:.3rem}.content{padding:1.25rem}.tagline{display:none}.pager{flex-wrap:wrap}.pager a{flex-basis:200px}}
+@media(max-width:440px){.layout{padding:.65rem}.lesson-nav a{font-size:.78rem;padding:.45rem .55rem}.content{padding:1rem}.topbar{padding:.85rem 1rem}.tools{gap:.9rem}.tools a{font-size:.8rem}h1{font-size:1.7rem}th,td{padding:.55rem}pre{font-size:.76rem}.table-scroll{font-size:.8rem}}
+@media print{body{background:white}.topbar,.sidebar,.pager,.copy-code{display:none}.layout{display:block;padding:0}.content{border:0;box-shadow:none;padding:0}pre,pre code{white-space:pre-wrap;color:#172e43}.code-block,.code-toolbar{background:#edf2f5;color:#172e43}a{color:inherit}h2,h3{break-after:avoid}.code-block,table{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to lesson</a>
+<header class="topbar"><a class="brand" href="index.html">RV LAB <span class="tagline">/ C → instructions → RTL</span></a><nav class="tools" aria-label="Experiment results"><a href="https://github.com/soc-arch/rv-lab">GitHub</a></nav></header>
+<div class="layout">
+<aside class="sidebar"><h2>Course guide</h2><nav class="lesson-nav" aria-label="Course lessons"><a href="index.html">RV Lab practical exercises</a>
+<a href="01-setup.html">Lab 01 — Setup and baseline</a>
+<a href="02-first-main.html">Lab 02 — Your first main</a>
+<a href="03-debugging.html">Lab 03 — Find a wrong result</a>
+<a href="04-cycle-viewer.html">Lab 04 — Register and inspect your application</a>
+<a href="05-performance.html">Lab 05 — Measure an improvement</a>
+<a href="06-memory.html">Lab 06 — Change memory timing</a>
+<a href="07-images.html">Lab 07 — Process an image</a>
+<a href="08-project.html">Lab 08 — A reproducible project</a>
+<a href="09-custom-instruction.html" aria-current="page">Lab 09 — Add a custom instruction</a>
+<a href="10-coprocessor.html">Lab 10 — Extend the CPU through a coprocessor interface</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#0-check-the-extra-tool-requirement">0. Check the extra tool requirement</a><a class="level-2" href="#1-read-the-contract">1. Read the contract</a><a class="level-2" href="#2-measure-the-software-baseline">2. Measure the software baseline</a><a class="level-2" href="#3-try-the-instruction-before-the-cpu-has-it">3. Try the instruction before the CPU has it</a><a class="level-2" href="#4-create-your-cpu-copy">4. Create your CPU copy</a><a class="level-2" href="#5-fill-the-three-todos">5. Fill the three TODOs</a><a class="level-2" href="#6-check-it-properly">6. Check it properly</a><a class="level-2" href="#7-measure-the-improvement">7. Measure the improvement</a><a class="level-2" href="#8-what-it-costs">8. What it costs</a><a class="level-2" href="#checkpoint">Checkpoint</a></nav></aside>
+<main class="content" id="main"><article><h1 id="lab-09-add-a-custom-instruction">Lab 09 — Add a custom instruction</h1>
+<p><strong>Goal:</strong> Add one new instruction to the CPU as a building block in the execute stage, prove it on Spike and RTL, and measure what it buys on the same program. <strong>Prerequisite:</strong> Labs 01, 04 and 05. Background: the lecture <em>Extending RISC-V with custom instructions</em> (the five design questions). <strong>Keep:</strong> Your three TODO edits, a passing <code>make lab09-check</code>, and a before/after measurement table.</p>
+<p><strong>Reference:</strong> <a href="references/docs/expected-results.html#lab-09">Expected result</a> · <a href="references/ext/README.html">Extension contract</a>. Run the exercise yourself and record your own results.</p>
+<p>This is the first lab that changes the CPU. You work on your own copy in <code>student/lab09/rtl</code>; the bundled <code>rtl/</code> and Labs 01–08 stay unchanged.</p>
+<h2 id="0-check-the-extra-tool-requirement">0. Check the extra tool requirement</h2>
+<p>Labs 09–10 build a small Spike model of the new instructions, so Spike&#x27;s headers must be installed next to Spike. Run <code>make doctor</code> and find the line <code>Spike extension headers (Labs 09-10): …/include/riscv/extension.h</code>. If it says <code>MISSING</code>, ask your TA (or set <code>SPIKE_INCLUDE</code> to Spike&#x27;s <code>include</code> directory).</p>
+<h2 id="1-read-the-contract">1. Read the contract</h2>
+<p>The kernel is an inner product of signed 8-bit numbers, four packed per word. The proposed instruction does one word pair at a time:</p>
+<div class="code-block"><div class="code-toolbar"><span>text</span><button type="button" class="copy-code">Copy</button></div><pre><code>xdot4 rd, rs1, rs2      rd = rs1.byte0*rs2.byte0 + rs1.byte1*rs2.byte1
+                           + rs1.byte2*rs2.byte2 + rs1.byte3*rs2.byte3
+
+ 31      25 24  20 19  15 14 12 11   7 6      0
+ 0000001    rs2    rs1    000    rd    0001011     (custom-0)</code></pre></div>
+<p>Answer the five design questions for it before you touch the RTL:</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">Question</th><th scope="col">XDOT4 answer</th></tr></thead><tbody><tr><td>Q1 Baseline</td><td>This CPU: RV32IM, register file with 2 read ports and 1 write port</td></tr><tr><td>Q2 Operation</td><td>Four int8 products and their sum: about 21 RV32IM instructions in software</td></tr><tr><td>Q3 Implementation</td><td>Building block: a new unit beside the ALU, finished in one cycle</td></tr><tr><td>Q4 Operands</td><td>2 register reads, 1 write — fits the existing ports, no new state</td></tr><tr><td>Q5 Compiler</td><td>Level 2: a header with inline <code>.insn</code> (<code>ext/include/xdot4.h</code>)</td></tr></tbody></table></div>
+<p>Open <a href="references/ext/README.html#lab-09-xdot4-a-building-block-in-ex">the contract</a> and check the two test vectors by hand: <code>0x04030201 · 0x08070605 = 70</code> and <code>0xFC03FE01 · 0x02FF0403 = -16</code>. Note the range of the sum (−65,024..65,536) and why 18 bits are enough.</p>
+<h2 id="2-measure-the-software-baseline">2. Measure the software baseline</h2>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>cd ~/rv-lab
+export LAB_BUILD_DIR=&quot;$PWD/build/course&quot;
+export LAB_CORE_PRESET=ant_j0
+export LAB_MEMORY_ADAPTER=ii1
+cp docs/course/starter/dot.c student/dot.c
+make compare SOURCE=student/dot.c EXT=sw COMMITS=1</code></pre></div>
+<p><code>dot.c</code> computes a 1024-element dot product. Only <code>dot_kernel()</code> is inside the ROI; the golden value comes from a separate plain C loop outside it. With <code>EXT=sw</code>, <code>xdot4()</code> is the portable C function <code>xdot4_ref()</code>, so this is the same algorithm in software.</p>
+<p><strong>Expected:</strong> <code>COMPARE PASS</code>, <code>kernel: software xdot4_ref()</code>, and an ROI of about 16,400 cycles and 12,300 retired instructions. Open the report and look at the most frequent PCs within the ROI: shifts, sign-extensions, four <code>mul</code> and the adds per word. That is the time the instruction can remove (Amdahl: the loads and the loop control stay).</p>
+<h2 id="3-try-the-instruction-before-the-cpu-has-it">3. Try the instruction before the CPU has it</h2>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make compare SOURCE=student/dot.c EXT=xdot4</code></pre></div>
+<p><code>EXT=xdot4</code> defines <code>HAVE_XDOT4</code>, so <code>xdot4()</code> emits one custom-0 word. The lab also loads the Spike model of XDOT4, so Spike knows the instruction.</p>
+<p><strong>Expected (an intended failure):</strong> <code>SW PASS</code>, <code>HW FAIL</code>, and a line such as <code>trap: cause=2 pc=0x800008b8 value=0x02d7070b</code>. Cause 2 is an illegal instruction; the value is the instruction word (the registers inside it depend on the compiler). The report page shows the same trap table. Find the word in <code>program.dis</code>: the disassembler prints it as <code>.insn 4, 0x…</code> because it does not know the name. The unmodified CPU is behaving correctly: an encoding it does not implement must trap.</p>
+<h2 id="4-create-your-cpu-copy">4. Create your CPU copy</h2>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make lab09-init</code></pre></div>
+<p>This copies <code>rtl/</code> to <code>student/lab09/rtl</code> and adds three files from <code>ext/lab09/overlay</code>: <code>common/fu_xdot4.sv</code> (new unit), a prepared <code>simple/rv_backend.sv</code>, and <code>filelist.f</code>. The command lists your three TODOs. The plumbing is already there: the backend instantiates <code>fu_xdot4</code>, treats XDOT4 as a one-cycle ALU-like instruction, and marks it as writing rd.</p>
+<h2 id="5-fill-the-three-todos">5. Fill the three TODOs</h2>
+<p>Edit only the lines marked <code>TODO(lab09-N)</code>.</p>
+<ol><li><p><strong>Claim the encoding</strong> (<code>simple/rv_backend.sv</code>, <code>TODO(lab09-1)</code>). The shared decoder reports every custom-0 word as illegal. <code>xdot4_match()</code> is the one place that overrides it. Set <code>XDOT4_MASK</code> to the bits that identify XDOT4 (opcode, funct3, funct7), <code>XDOT4_MATCH</code> to their values, and return <code>(w &amp; XDOT4_MASK) == XDOT4_MATCH</code>. Do not include rd/rs1/rs2 in the mask.</p></li><li><p><strong>Compute</strong> (<code>common/fu_xdot4.sv</code>, <code>TODO(lab09-2)</code>). Four signed 8×8 products, an adder tree, sign-extension to 32 bits. <code>a[8*i +: 8]</code> selects byte <em>i</em>; <code>$signed()</code> makes it signed.</p></li><li><p><strong>Write back</strong> (<code>simple/rv_backend.sv</code>, <code>TODO(lab09-3)</code>). Add one input to the result multiplexer: <code>else if (is_xdot4) wb_data = xdot4_result;</code>.</p></li></ol>
+<p>After each step, run the same program on your CPU:</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make compare SOURCE=student/dot.c EXT=xdot4 RTL_DIR=$PWD/student/lab09/rtl</code></pre></div>
+<div class="table-scroll"><table><thead><tr><th scope="col">What you see</th><th scope="col">Most likely cause</th></tr></thead><tbody><tr><td><code>unexpected_trap</code>, cause 2</td><td>TODO 1: the word is not claimed (check MASK/MATCH)</td></tr><tr><td>HW check 1 fails, value 0 or wrong</td><td>TODO 2 (arithmetic) or TODO 3 (mux)</td></tr><tr><td>Verilator build error</td><td>A syntax or width problem in your edit; read <code>build.log</code></td></tr></tbody></table></div>
+<h2 id="6-check-it-properly">6. Check it properly</h2>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make lab09-check</code></pre></div>
+<p>This runs <code>tests/ext_xdot4.c</code> on Spike and your RTL at O0/O2 with fast and stressed memory, twice more with interrupts arriving at random points, plus <code>dot.c</code>, then the original 17-case smoke regression on your CPU. The directed test checks hand-computed vectors, 512 random word pairs against the C reference, register forms (<code>rd = rs1 = rs2</code>, the exact word <code>0x02B5050B</code>, <code>rd = x0</code>), back-to-back dependences, and nine illegal neighbours that must still trap: other funct7/funct3 values and the other custom opcodes.</p>
+<p><strong>Expected:</strong> <code>EXT-TEST PASS: 7/7 cases</code> and <code>REGRESSION PASS: 17/17 cases</code>. Do not measure performance before this passes.</p>
+<h2 id="7-measure-the-improvement">7. Measure the improvement</h2>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make compare SOURCE=student/dot.c EXT=xdot4 RTL_DIR=$PWD/student/lab09/rtl COMMITS=1
+make compare SOURCE=student/dot.c EXT=sw    RTL_DIR=$PWD/student/lab09/rtl</code></pre></div>
+<p>Fill in this table from the two reports and step 2:</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">Build</th><th scope="col">CPU</th><th scope="col">ROI cycles</th><th scope="col">ROI retired</th><th scope="col">CPI</th></tr></thead><tbody><tr><td><code>EXT=sw</code></td><td>bundled <code>rtl/</code></td><td></td><td></td><td></td></tr><tr><td><code>EXT=sw</code></td><td>your Lab 09 CPU</td><td></td><td></td><td></td></tr><tr><td><code>EXT=xdot4</code></td><td>your Lab 09 CPU</td><td></td><td></td><td></td></tr></tbody></table></div>
+<p><strong>Expected:</strong> about 16,400 → 3,350 ROI cycles (≈4.9×) and 12,300 → 1,800 instructions, with the same dot product. Software on your Lab 09 CPU takes exactly the same cycles as on the bundled CPU: the new unit did not slow other instructions.</p>
+<p>Why not 21×? Per word, software needs two loads, about 21 arithmetic instructions and loop control; XDOT4 needs two loads, one XDOT4, one add and the same loop control. Count them in the hot-PC table and explain the measured ratio from the remaining work. Then view one iteration:</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>make view SOURCE=student/dot.c EXT=xdot4 RTL_DIR=$PWD/student/lab09/rtl TRACE_SYMBOL=dot_kernel</code></pre></div>
+<p>XDOT4 occupies the execute slot for one cycle, like <code>add</code>; the loads take three.</p>
+<h2 id="8-what-it-costs">8. What it costs</h2>
+<p>Cycles are only half of performance: time = cycles × clock period. XDOT4 puts four multipliers and an adder tree in the same cycle as the register read and the write-back. The <a href="references/docs/expected-results.html#lab-09">expected results</a> include the instructor&#x27;s logical synthesis of the bundled CPU and the Lab 09 CPU (area, and the longest path under a tight clock). Read them and answer: if the clock period grew by the reported fraction, would XDOT4 still pay off for this kernel? For a program that never uses XDOT4?</p>
+<h2 id="checkpoint">Checkpoint</h2>
+<ul><li><p>Explain why the unmodified CPU&#x27;s trap in step 3 is correct behavior.</p></li><li><p>Give your MASK and MATCH and explain each set bit.</p></li><li><p>Report the table from step 7 and explain the ratio from instruction counts.</p></li><li><p>State one reason to keep XDOT4 out of the core even though it is fast.</p></li></ul><nav class="pager" aria-label="Lesson sequence"><a href="08-project.html"><small>Previous</small>Lab 08 — A reproducible project</a><a href="10-coprocessor.html"><small>Next</small>Lab 10 — Extend the CPU through a coprocessor interface</a></nav><p class="source-note">Source: <code>docs/course/09-custom-instruction.md</code>. This manual also works offline. Measurements appear only after you run the experiments.</p></article></main>
+</div>
+<script>
+document.querySelectorAll('.copy-code').forEach(button=>button.addEventListener('click',async()=>{
+  const code=button.closest('.code-block').querySelector('code');
+  let copied=false;
+  if(navigator.clipboard&&window.isSecureContext){
+    try{await navigator.clipboard.writeText(code.textContent);copied=true;}catch(_){}
+  }
+  if(!copied){
+    const selection=window.getSelection(),range=document.createRange();range.selectNodeContents(code);selection.removeAllRanges();selection.addRange(range);
+    try{copied=document.execCommand('copy');}catch(_){}
+    if(copied)selection.removeAllRanges();
+  }
+  button.textContent=copied?'Copied':'Press Ctrl+C';
+  setTimeout(()=>button.textContent='Copy',1800);
+}));
+</script>
+</body>
+</html>

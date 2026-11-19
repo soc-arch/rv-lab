@@ -25,6 +25,7 @@ jobs:
           python3 -m unittest discover -s tests -p test_verify.py -v
           python3 -m unittest discover -s tests -p test_core_profiles.py -v
           python3 -m unittest discover -s tests -p test_viewer_core_identity.py -v
+          python3 -m unittest discover -s tests -p test_extensions.py -v
       - name: Check committed HTML and navigation
         run: |
           python3 tools/build_site.py --check

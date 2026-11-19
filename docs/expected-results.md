@@ -47,6 +47,8 @@ Linux 작업 환경에서 수행합니다.
 | [06](#lab-06) | 세 메모리 조건 모두 `sum=36`; 명령어 수를 유지하면서 지연·대기 관찰 |
 | [07](#lab-07) | 입력/출력 이미지와 전체 pixel 기준값 일치; grayscale·Sobel 결과 확인 |
 | [08](#lab-08) | 자신의 정답 검사와 두 backend 비교 PASS; 기준/변경 실험과 증거 패키지 보존 |
+| [09](#lab-09) | TODO 3개 완료 후 `dot=-105896` PASS; `lab09-check` 7/7 + 17/17; ROI 16,413 → 3,356 cycles (4.89×) |
+| [10](#lab-10) | TODO 4개 완료 후 PASS; `lab10-check` 16/16 + 17/17; `ext-compare` PASS, latency별 3,358 → 7,228 cycles |
 
 ## Lab 01
 
@@ -174,6 +176,86 @@ instruction response가 backend를 기다리는 backpressure도 관찰할 수 �
 명령어 기록과 trace를 함께 보관합니다. `make export-views`로 만든
 `cpu_lab_examples.zip`을 실제로 풀어 참고 화면의 offline gallery를 확인했습니다.
 이 ZIP은 viewer 공유용이므로 제출할 소스와 입력은 별도로 포함해야 합니다.
+
+## Lab 09
+
+[Custom instruction 추가하기](course/09-custom-instruction.md). 같은
+`docs/course/starter/dot.c`(int8 1024개의 dot product, ROI = `dot_kernel()` 한 번)를
+빌드 방식만 바꿔 실행합니다. 모든 PASS 실행의 정답은 `dot = -105896`로 같습니다.
+
+| 단계 | 명령 | 예상 결과 |
+| --- | --- | --- |
+| 2. 소프트웨어 기준 | `make compare SOURCE=student/dot.c EXT=sw COMMITS=1` | `COMPARE PASS`, ROI 16,413 cycles · 12,309 retired |
+| 3. 확장 전 CPU | `make compare SOURCE=student/dot.c EXT=xdot4` | `SW PASS`, `HW FAIL`, `trap: cause=2 … value=0x02d7070b` (의도된 실패) |
+| 4–5. TODO 전 | `make lab09-init` 후 같은 명령 + `RTL_DIR=$PWD/student/lab09/rtl` | 같은 illegal-instruction trap |
+| 5. TODO 3개 완료 | 위 명령 | `COMPARE PASS`, ROI 3,356 cycles · 1,812 retired |
+| 6. 검사 | `make lab09-check` | `EXT-TEST PASS: 7/7 cases`, `REGRESSION PASS: 17/17 cases` |
+| 7. 확장 CPU의 소프트웨어 | `EXT=sw RTL_DIR=…/lab09/rtl` | 16,413 cycles (기본 CPU와 동일) |
+
+ROI 기준 **4.89배** 빨라지고 실행 명령어는 12,309 → 1,812개입니다. cycle viewer에서
+`lw`는 3 cycle(MEM_REQ·MEM_RESP·MEM_WB), XDOT4는 `add`처럼 1 cycle입니다. word당
+loop는 `addi`, `addi`, `lw`, `lw`, XDOT4, `add`, `bne` 7개 명령으로 약 13.1 cycle이며,
+소프트웨어는 word당 약 64 cycle입니다. load와 loop 제어가 남기 때문에 21배가 아닙니다.
+
+**구현 비용 (교수자 합성 참고값).** Samsung 28nm LPP 논리 합성(SS 0.9 V 125 °C,
+Design Compiler, preset `ant_j0`)이며 배치·배선 전 값입니다. 20 ns는 품질 gate용
+완화 조건, 1.0 ns는 속도 비교용으로 일부러 달성 불가능하게 둔 목표입니다.
+
+| CPU | 면적 @20 ns | 면적 @1.0 ns | 가장 긴 register 간 경로 @1.0 ns |
+| --- | ---: | ---: | --- |
+| 기본 P1 | 14,480 μm² (30.9 kGE) | 18,934 μm² | 1.57 ns: IR → register read → 32-bit `mul` |
+| Lab 09 (XDOT4) | 15,067 μm² (+4.1%) | 19,815 μm² (+4.7%) | 1.59 ns: 같은 `mul` 경로; XDOT4를 지나는 가장 긴 경로 1.41 ns |
+
+이 CPU에서는 기존 32×32 곱셈기가 이미 가장 긴 경로이므로 8×8 곱셈 4개와 덧셈 트리인
+XDOT4가 clock을 거의 늘리지 않습니다(약 +1%). XDOT4를 쓰는 kernel은 4.9배 빨라지고,
+쓰지 않는 프로그램은 면적 4% 정도와 그만큼의 미세한 clock 영향만 부담합니다. 두 설계
+모두 latch 0개, combinational loop 0개이며 Formality RTL↔gate 등가 검증을 통과했습니다.
+수치의 출처는 [확장 검증 기록](../provenance/labs-09-10-extensions.json)에 있습니다.
+
+## Lab 10
+
+[Coprocessor 인터페이스로 확장하기](course/10-coprocessor.md). Lab 09와 같은
+`dot.c`를 사용합니다.
+
+| 단계 | 명령 | 예상 결과 |
+| --- | --- | --- |
+| 3. TODO 전 | `make lab10-init`, `make compare SOURCE=student/dot.c EXT=xacc RTL_DIR=$PWD/student/lab10/rtl` | `HW FAIL`, `trap: cause=2 … value=0x0000002b` (`xacc.clr` reject) |
+| 4. TODO 4개 완료 | 위 명령 | `COMPARE PASS`, ROI 3,358 cycles · 1,556 retired |
+| 5. 검사 | `make lab10-check` | `EXT-TEST PASS: 16/16 cases`, `REGRESSION PASS: 17/17 cases` |
+| 6. 관찰 | `make view … TRACE_SYMBOL=dot_kernel` | `xacc.dot4`: `XIF REQ` 1 cycle + `XIF WAIT` (latency 1: 1 cycle, 4: 4 cycle) |
+| 7. 비교 | `make ext-compare` | `EXT-COMPARE PASS`, 모든 실행의 정답 동일 |
+
+`make ext-compare`의 참고 결과 (fast memory):
+
+| 구현 | ROI cycles | ROI retired | 소프트웨어 대비 |
+| --- | ---: | ---: | ---: |
+| 소프트웨어 (기본·Lab 09·Lab 10 CPU 모두) | 16,413 | 12,309 | 1.00× |
+| XDOT4 in EX (Lab 09) | 3,356 | 1,812 | 4.89× |
+| XACC latency 1 | 3,358 | 1,556 | 4.89× |
+| XACC latency 2 | 3,616 | 1,556 | 4.54× |
+| XACC latency 4 | 4,132 | 1,556 | 3.97× |
+| XACC latency 8 | 5,164 | 1,556 | 3.18× |
+| XACC latency 16 | 7,228 | 1,556 | 2.27× |
+
+XACC는 word마다 `add` 하나를 없애지만 handshake 때문에 `xacc.dot4`가 2 cycle이 되어
+latency 1에서 XDOT4와 비깁니다. latency가 1 늘 때마다 정확히 258 cycle이 늘어납니다
+(`xacc.dot4` 256번 + `xacc.clr` + `xacc.rd`). `MEMORY=stress`에서는 instruction fetch가
+병목이 되어 latency가 숨습니다: XACC latency 1과 4가 모두 10,409 cycle, XDOT4는
+11,689, 소프트웨어는 68,014 cycle로, 명령어가 하나 적은 XACC가 더 빠릅니다.
+
+**구현 비용 (교수자 합성 참고값, 조건은 Lab 09와 같음).**
+
+| 항목 | 값 |
+| --- | --- |
+| 전체 면적 @20 ns | 15,547 μm² (33.2 kGE, 기본 대비 +7.4%) |
+| 그중 core / coprocessor | 14,538 μm² (+0.4%, XIF 제어) / 1,007 μm² |
+| 레지스터 | 2,242개 (+105: `acc`, 피연산자, latency counter, 상태) |
+| 면적 @1.0 ns | 19,801 μm² (core 18,624 + coprocessor 1,133) |
+| 가장 긴 register 간 경로 @1.0 ns | 1.61 ns (IR → frontend next-PC; 세 설계 1.57–1.61 ns는 합성 편차 수준) |
+
+Core에는 곱셈기가 추가되지 않고 XIF 제어만 늘어납니다. 대신 private state와 handshake
+cycle, 그리고 그 state를 누가 저장·복구할지라는 시스템 문제가 생깁니다. latch 0개,
+combinational loop 0개, Formality 등가 검증 통과는 Lab 09와 같습니다.
 
 ## 측정 환경과 재현
 

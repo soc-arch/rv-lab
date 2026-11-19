@@ -24,7 +24,9 @@
 <a href="05-performance.html">Lab 05 — Measure an improvement</a>
 <a href="06-memory.html">Lab 06 — Change memory timing</a>
 <a href="07-images.html">Lab 07 — Process an image</a>
-<a href="08-project.html" aria-current="page">Lab 08 — A reproducible project</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#1-choose-a-bounded-question">1. Choose a bounded question</a><a class="level-2" href="#2-preserve-a-baseline">2. Preserve a baseline</a><a class="level-2" href="#3-make-one-change-and-measure-again">3. Make one change and measure again</a><a class="level-2" href="#4-assemble-the-evidence">4. Assemble the evidence</a><a class="level-2" href="#5-explain-a-future-cpu-replacement">5. Explain a future CPU replacement</a><a class="level-2" href="#final-checkpoint">Final checkpoint</a></nav></aside>
+<a href="08-project.html" aria-current="page">Lab 08 — A reproducible project</a>
+<a href="09-custom-instruction.html">Lab 09 — Add a custom instruction</a>
+<a href="10-coprocessor.html">Lab 10 — Extend the CPU through a coprocessor interface</a></nav><nav class="section-nav" aria-label="On this page"><a class="level-2" href="#1-choose-a-bounded-question">1. Choose a bounded question</a><a class="level-2" href="#2-preserve-a-baseline">2. Preserve a baseline</a><a class="level-2" href="#3-make-one-change-and-measure-again">3. Make one change and measure again</a><a class="level-2" href="#4-assemble-the-evidence">4. Assemble the evidence</a><a class="level-2" href="#5-explain-a-future-cpu-replacement">5. Explain a future CPU replacement</a><a class="level-2" href="#final-checkpoint">Final checkpoint</a></nav></aside>
 <main class="content" id="main"><article><h1 id="lab-08-a-reproducible-project">Lab 08 — A reproducible project</h1>
 <p><strong>Goal:</strong> Make one improvement claim that another student can reproduce. <strong>Prerequisite:</strong> Labs 01–07. <strong>Keep:</strong> A small source-and-evidence package with one justified comparison.</p>
 <p><strong>Reference:</strong> <a href="references/docs/expected-results.html#lab-08">Expected result and real screenshots</a>. Run the exercise yourself and record your own results.</p>
@@ -59,7 +61,7 @@ LAB_BUILD_DIR=&quot;$PWD/build/project-baseline&quot; make register SOURCE=stude
 <h2 id="final-checkpoint">Final checkpoint</h2>
 <p>Submit a one-page argument with the question, controlled settings, correctness evidence, measurement table, and instruction-level explanation. Report cycle speedup and distinguish measured cycles from estimated physical time. Include one limitation and the exact commands needed to reproduce your result.</p>
 <p>For a future research monitoring layer, useful next capabilities include named regions, versioned event meanings, and explicit counter/timebase capabilities. The current course uses one ROI and optional cycle/retirement CSR reads; do not present proposed monitoring features as implemented measurements.</p>
-<p>Return to <a href="index.html">the course index</a>.</p><nav class="pager" aria-label="Lesson sequence"><a href="07-images.html"><small>Previous</small>Lab 07 — Process an image</a></nav><p class="source-note">Source: <code>docs/course/08-project.md</code>. This manual also works offline. Measurements appear only after you run the experiments.</p></article></main>
+<p>Return to <a href="index.html">the course index</a>.</p><nav class="pager" aria-label="Lesson sequence"><a href="07-images.html"><small>Previous</small>Lab 07 — Process an image</a><a href="09-custom-instruction.html"><small>Next</small>Lab 09 — Add a custom instruction</a></nav><p class="source-note">Source: <code>docs/course/08-project.md</code>. This manual also works offline. Measurements appear only after you run the experiments.</p></article></main>
 </div>
 <script>
 document.querySelectorAll('.copy-code').forEach(button=>button.addEventListener('click',async()=>{

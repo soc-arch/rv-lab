@@ -24,7 +24,9 @@
 <a href="../../05-performance.html">Lab 05 — Measure an improvement</a>
 <a href="../../06-memory.html">Lab 06 — Change memory timing</a>
 <a href="../../07-images.html">Lab 07 — Process an image</a>
-<a href="../../08-project.html">Lab 08 — A reproducible project</a></nav><nav class="section-nav" aria-label="On this page"></nav></aside>
+<a href="../../08-project.html">Lab 08 — A reproducible project</a>
+<a href="../../09-custom-instruction.html">Lab 09 — Add a custom instruction</a>
+<a href="../../10-coprocessor.html">Lab 10 — Extend the CPU through a coprocessor interface</a></nav><nav class="section-nav" aria-label="On this page"></nav></aside>
 <main class="content" id="main"><article><h1 id="cpu-이미지와-공개-자료-검토">CPU 이미지와 공개 자료 검토</h1>
 <p>현재 소개 이미지는 <code>HY-RV CPU CORE</code> 제목의 <a href="../../files/docs/assets/hy-rv-cpu-overview-en-v1.png">영문 이미지</a>입니다. 현재 canonical 소스 hash <code>35558e91c602324ddf5b2ab8de893bc0baead18cc9a82c3c336e16c6b3213dd8</code>와 기본 <code>ant_j0</code>를 바탕으로 생성했습니다. 원본 PNG·생성 프롬프트·provenance를 함께 보관합니다.</p>
 <div class="table-scroll"><table><thead><tr><th scope="col">자료</th><th scope="col">내용과 적용 기준</th></tr></thead><tbody><tr><td>사용자 첨부 <code>Inside the RV32IM Teaching Core</code> 이미지</td><td><code>teaching_fetch</code>, <code>teaching_backend</code>, 1-entry response buffer를 명시하므로 구 teaching 코어 설명입니다. 현재 P1/Q0 설명으로 사용할 수 없습니다.</td></tr><tr><td>이 저장소의 새 <code>HY-RV CPU CORE</code> 이미지</td><td><code>rv_frontend</code>, <code>rv_insn_link</code> Q0, <code>rv_backend</code>, <code>rv_branch_predictor</code> 및 early JAL OFF를 표시한 최신 소개입니다.</td></tr><tr><td>새 <code>viewer/microarchitecture.svg</code></td><td>현재 RTL에 대응하는 직접 편집 가능한 벡터 구조도입니다. 실제 cycle trace로 활성 신호를 강조합니다.</td></tr><tr><td><code>docs/screenshots/</code></td><td>실제 실습 실행을 브라우저로 연 화면입니다. <code>reference-results.json</code>의 실행 identity와 함께 읽습니다.</td></tr><tr><td><code>docs/historical/</code></td><td>교체 전 teaching CPU의 실제 결과·화면을 보존한 자료입니다. 최신 코어의 성능 기준으로 사용하지 않습니다.</td></tr></tbody></table></div>

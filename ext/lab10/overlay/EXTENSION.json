@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "lab": "10",
+  "extension": "xacc",
+  "title": "XACC coprocessor behind XIF-lite",
+  "display_suffix": "+ XACC coprocessor (Lab 10)",
+  "spike_extension": "hyrv_xacc",
+  "claims": {"custom-1": "offered to the coprocessor; it accepts XACC.CLR/DOT4/RD only; custom-0/2/3 are illegal"},
+  "elaboration_define": "HY_RV_XACC_LATENCY (default 1)"
+}

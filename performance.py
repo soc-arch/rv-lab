@@ -173,7 +173,7 @@ def generate(out, manifest, records, summary, clock_mhz=None):
         if backend == 'hw' and record.get('status') != 'pass':
             stopped = record.get('metrics', {})
             body += '<p class="fail">Termination: ' + esc(stopped.get('reason', 'No hardware completion record')) + '</p>'
-            if stopped.get('reason') == 'trap':
+            if stopped.get('reason') in ('trap', 'unexpected_trap'):  # the testbench reports unexpected_trap
                 body += table(['Trap cause', 'Faulting PC', 'Fault value'],
                               [(stopped.get('trap_cause'), f"0x{stopped.get('trap_pc', 0):08x}", f"0x{stopped.get('trap_value', 0):08x}")])
         body += table(['Check', 'Actual', 'Expected', 'Result'],

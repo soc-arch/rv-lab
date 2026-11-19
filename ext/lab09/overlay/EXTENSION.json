@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "lab": "09",
+  "extension": "xdot4",
+  "title": "XDOT4 building block in EX",
+  "display_suffix": "+ XDOT4 (Lab 09)",
+  "spike_extension": "hyrv_xdot4",
+  "claims": {"custom-0": "XDOT4 only; every other custom-0..3 word is illegal"}
+}
