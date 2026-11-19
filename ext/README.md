@@ -118,7 +118,7 @@ interface without changing the arithmetic.
 XIF-lite uses CV-X-IF vocabulary to make the comparison easy. It is **not**
 CV-X-IF compliant.
 
-| Concern | XIF-lite (this lab) | CV-X-IF 1.0 (CV32E40X, CVA6) | RoCC (Rocket) | PCPI (PicoRV32) |
+| Concern | XIF-lite (this lab) | CV-X-IF 1.0 (standard) | RoCC (Rocket) | PCPI (PicoRV32) |
 |---|---|---|---|---|
 | Instruction and operands | one issue channel | issue + register channels | `cmd` (inst, rs1, rs2) | `pcpi_insn`, `pcpi_rs1/rs2` |
 | Accept/reject | `issue_accept` | issue response `accept` | decoded by funct/flags | unit waits or ignores; core traps after 16 cycles |
