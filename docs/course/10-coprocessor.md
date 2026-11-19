@@ -215,7 +215,7 @@ issue        valid=1 ready=1      -
                                   redirect to mtvec, IR emptied    mtvec (variable)
 ```
 
-### C8. Inside `xacc_coproc`: the parts you will complete
+### C8. Inside the coprocessor: the parts you will complete
 
 ```text
           issue_insn --> [ decode: is_clr / is_dot4 / is_rd ] --> issue_accept, issue_writeback   (TODO 1, 2)
