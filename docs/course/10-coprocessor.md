@@ -215,7 +215,7 @@ issue        valid=1 ready=1      -
                                   redirect to mtvec, IR emptied    mtvec (variable)
 ```
 
-### C8. Inside `xacc_coproc`: the parts you will complete
+### C8. Inside the coprocessor: the parts you will complete
 
 ```text
           issue_insn --> [ decode: is_clr / is_dot4 / is_rd ] --> issue_accept, issue_writeback   (TODO 1, 2)
@@ -339,9 +339,9 @@ core (`compat/teaching_cpu.sv`), and the coprocessor `coproc/xacc_coproc.sv`.
 **Expected (an intended failure):** `HW FAIL`, `trap: cause=2 … value=0x0000002b`.
 The first `xacc.clr` was offered and rejected: the skeleton accepts nothing.
 
-## 4. Fill the four TODOs in `coproc/xacc_coproc.sv`
+## 4. Fill the four TODOs in the coprocessor
 
-The skeleton already has the decoded `is_clr`/`is_dot4`/`is_rd`, the busy flag,
+Edit only `coproc/xacc_coproc.sv` in your copy. The skeleton already has the decoded `is_clr`/`is_dot4`/`is_rd`, the busy flag,
 the latency counter, the captured operands, and a `dot4()` function.
 
 1. `TODO(lab10-1)` **Accept** exactly the three XACC encodings. Everything else
