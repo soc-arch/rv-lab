@@ -24,7 +24,10 @@ BTFNT를 비교할 수 있습니다. `teaching_cpu`는 기존 실습환경을 �
 
 Linux 터미널에서 실행합니다. 필요한 도구가 없는 경우 [환경 준비](docs/setup.md)를
 먼저 읽으세요. 연구실 서버에서는 조교가 제공한 도구 환경을 선택합니다.
-Voyager에서는 새 터미널마다 `source /tools/rv-lab/env.sh`를 실행하세요.
+Voyager에서는 새 터미널마다 `source /tools/rv-lab/env.sh`를 실행하세요. Voyager에
+예전 실습 사본 `~/rv-lab`이 이미 있으면 GitHub와 연결되지 않은 사본이므로
+`mv ~/rv-lab ~/rv-lab-old`로 옮긴 뒤 아래처럼 새로 clone하세요. 이후 새 실습이 추가되면
+`cd ~/rv-lab && git pull`로 받습니다.
 
 ```sh
 git clone https://github.com/soc-arch/rv-lab.git ~/rv-lab

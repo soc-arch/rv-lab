@@ -36,12 +36,17 @@
 <p>On the laboratory&#x27;s Voyager server, the shared tools are selected with:</p>
 <div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>source /tools/rv-lab/env.sh</code></pre></div>
 <p>Run this in each new Bash terminal. It selects the shared RISC-V compiler, Spike, Verilator, host compiler, and Python. On another machine, use the environment provided by its instructor or your own installed tools instead.</p>
+<p>Voyager accounts that were used before November 2026 may already contain a <code>~/rv-lab</code> folder copied from an older version of the course. It is not connected to GitHub, so <code>git pull</code> cannot update it. Move it aside once, keep any of your own files from its <code>student/</code> folder, and clone a fresh copy in step 2:</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>mv ~/rv-lab ~/rv-lab-old</code></pre></div>
 <h2 id="2-clone-your-own-workspace">2. Clone your own workspace</h2>
 <p>In the Linux terminal:</p>
 <div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>git clone https://github.com/soc-arch/rv-lab.git ~/rv-lab
 cd ~/rv-lab
 mkdir -p student</code></pre></div>
 <p>Keep your applications in <code>student/</code>. Generated files go to <code>build/</code>; each lesson selects <code>LAB_BUILD_DIR=&quot;$PWD/build/course&quot;</code> so its results stay together. Keep <code>rtl/</code> unchanged during the eight introductory software exercises. If <code>~/rv-lab</code> already exists, choose another new clone directory and use that path consistently.</p>
+<p>When new lessons or fixes are published, update your clone. Your own files in <code>student/</code> and the generated <code>build/</code> are not tracked by Git, so they stay:</p>
+<div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>cd ~/rv-lab
+git pull</code></pre></div>
 <h2 id="3-check-prerequisites-and-versions">3. Check prerequisites and versions</h2>
 <div class="code-block"><div class="code-toolbar"><span>sh</span><button type="button" class="copy-code">Copy</button></div><pre><code>cd ~/rv-lab
 make doctor</code></pre></div>
