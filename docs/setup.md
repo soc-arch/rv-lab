@@ -33,6 +33,15 @@ Run this in each new Bash terminal. It selects the shared RISC-V compiler, Spike
 Verilator, host compiler, and Python. On another machine, use the environment
 provided by its instructor or your own installed tools instead.
 
+Voyager accounts that were used before November 2026 may already contain a
+`~/rv-lab` folder copied from an older version of the course. It is not connected
+to GitHub, so `git pull` cannot update it. Move it aside once, keep any of your own
+files from its `student/` folder, and clone a fresh copy in step 2:
+
+```sh
+mv ~/rv-lab ~/rv-lab-old
+```
+
 ## 2. Clone your own workspace
 
 In the Linux terminal:
@@ -47,6 +56,14 @@ Keep your applications in `student/`. Generated files go to `build/`; each lesso
 selects `LAB_BUILD_DIR="$PWD/build/course"` so its results stay together. Keep
 `rtl/` unchanged during the eight introductory software exercises. If `~/rv-lab`
 already exists, choose another new clone directory and use that path consistently.
+
+When new lessons or fixes are published, update your clone. Your own files in
+`student/` and the generated `build/` are not tracked by Git, so they stay:
+
+```sh
+cd ~/rv-lab
+git pull
+```
 
 ## 3. Check prerequisites and versions
 
